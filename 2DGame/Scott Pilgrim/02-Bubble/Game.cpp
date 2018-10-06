@@ -5,16 +5,24 @@
 
 void Game::init()
 {
-	level = 0;
-	music = true;
 	bPlay = true;
-	gameStarted = credits = false;
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-	Menu.init(music);
+	music = true;
+	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
+	gameStarted = false;
+	level = 0;
+	scene.init();
+	menu.init(music);
 }
 
 bool Game::update(int deltaTime)
 {
+	if (gameStarted) {
+		//if (level == 0 & !scene.update(deltaTime)) {
+		//}
+	}
+	else if (!gameStarted) {
+		if (!menu.update(deltaTime)) bPlay;
+	}
 	scene.update(deltaTime);
 	
 	return bPlay;

@@ -3,7 +3,7 @@
 
 
 #include "Scene.h"
-#include "Menu.h"
+#include "MainMenu.h"
 
 
 #define SCREEN_WIDTH 640
@@ -48,12 +48,10 @@ private:
 	Scene scene;                      // Scene to render
 	bool keys[256], specialKeys[256]; // Store key states so that 
 	                                  // we can have access at any time
-	int level;  //Para seleccionar el nivel a jugar
-	Menu mainMenu;  //Para poder cargar el menu principal
-	bool music; //Para establecer la muscia del juego
-	bool gameStarted; //Establecer si esta el juego en marcha o no.
-	bool credits; //Establecer cuando el juego mostrará los creditos
-
+	bool music; //determinará si hay musica establecida
+	int level;
+	bool gameStarted;
+	MainMenu menu;
 };
 
 
