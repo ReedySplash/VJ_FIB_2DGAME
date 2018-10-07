@@ -1,3 +1,6 @@
+#ifndef _MAINMENU_INCLUDE
+#define _MAINMENU_INCLUDE
+
 #include <iostream>
 #include <glm/glm.hpp>
 #include "ShaderProgram.h"
@@ -7,12 +10,13 @@
 #include <cmath>
 #include <glm/gtc/matrix_transform.hpp>
 #include "Scene.h"
-#include "Game.h"
+
+#define SCREEN_WIDTH 640
+#define SCREEN_HEIGHT 480
 
 
 
-#pragma once
-class MainMenu
+class MainMenu 
 {
 public:
 	MainMenu();
@@ -25,9 +29,9 @@ public:
 private:
 	bool musica;
 	float currentTime;
-	ShaderProgram simpleTexProgram;
-	ShaderProgram simpleTexProgram;
+	//ShaderProgram simpleTexProgram;
 	glm::mat4 projection;
 	
 };
 
+#endif
