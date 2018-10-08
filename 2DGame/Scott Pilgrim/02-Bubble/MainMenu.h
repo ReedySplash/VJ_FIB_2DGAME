@@ -32,7 +32,7 @@ private:
 	bool musica;
 	float currentTime;
 	TexturedQuad *texQuad[3];
-	Texture texs[1];
+	Texture texs[2];
 	ShaderProgram simpleTexProgram;
 	ShaderProgram texProgram;
 	Quad *quad;

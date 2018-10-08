@@ -102,7 +102,7 @@ void Player::update(int deltaTime)
 	{
 		movimiento = 2;
 		posPlayer.x -= 2;
-		if(map->collisionMoveLeft(posPlayer, glm::ivec2(36.83333333, 63)))
+		if(map->collisionMoveLeft(posPlayer, glm::ivec2(36.83333333, 61)))
 		{
 			posPlayer.x += 2;
 			movimiento = 0;
@@ -112,7 +112,7 @@ void Player::update(int deltaTime)
 	{	
 		movimiento = 3;
 		posPlayer.x += 2;
-		if(map->collisionMoveRight(posPlayer, glm::ivec2(36.83333333, 63)))
+		if(map->collisionMoveRight(posPlayer, glm::ivec2(36.83333333, 61)))
 		{
 			movimiento = 1;
 			posPlayer.x -= 2;
@@ -138,7 +138,7 @@ void Player::update(int deltaTime)
 		{
 			posPlayer.y = int(startY - 96 * sin(3.14159f * jumpAngle / 180.f));
 			if(jumpAngle > 90)
-				bJumping = !map->collisionMoveDown(posPlayer, glm::ivec2(36.83333333, 63), &posPlayer.y);
+				bJumping = !map->collisionMoveDown(posPlayer, glm::ivec2(36.83333333, 61), &posPlayer.y);
 		}
 	}
 	else
