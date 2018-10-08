@@ -23,10 +23,17 @@ public:
 	
 private:
 	bool bJumping;
+	int movimiento = 0;
 	glm::ivec2 tileMapDispl, posPlayer;
 	int jumpAngle, startY;
 	Texture spritesheet;
+	Texture spritesheet_caminando;
+	Texture spritesheet_caminando_izq;
+	Texture spritesheet_standLeft;
 	Sprite *sprite;
+	Sprite *sprite_caminando;
+	Sprite *sprite_caminando_izq;
+	Sprite *sprite_standLeft;
 	TileMap *map;
 
 };
