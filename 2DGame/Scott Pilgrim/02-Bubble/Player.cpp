@@ -51,30 +51,30 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 
 
 	spritesheet_caminando.loadFromFile("images/0.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite_caminando = Sprite::createSprite(glm::ivec2(36.83333, 63), glm::vec2(0.166667, 1), &spritesheet_caminando, &shaderProgram);
+	sprite_caminando = Sprite::createSprite(glm::ivec2(36.833333333, 63), glm::vec2(0.1666666667, 1), &spritesheet_caminando, &shaderProgram);
 	sprite_caminando->setNumberAnimations(4);
 
 
 		sprite_caminando->setAnimationSpeed(MOVE_RIGHT, 8);
 		sprite_caminando->addKeyframe(MOVE_RIGHT, glm::vec2(0.f, 0.f));
-		sprite_caminando->addKeyframe(MOVE_RIGHT, glm::vec2(0.166667, 0.f));
-		sprite_caminando->addKeyframe(MOVE_RIGHT, glm::vec2(0.333333, 0.f));
+		sprite_caminando->addKeyframe(MOVE_RIGHT, glm::vec2(0.1666666667, 0.f));
+		sprite_caminando->addKeyframe(MOVE_RIGHT, glm::vec2(0.3333333333, 0.f));
 		sprite_caminando->addKeyframe(MOVE_RIGHT, glm::vec2(0.5, 0.f));
-		sprite_caminando->addKeyframe(MOVE_RIGHT, glm::vec2(0.67777, 0.f));
-		sprite_caminando->addKeyframe(MOVE_RIGHT, glm::vec2(0.833333, 0.f));
+		sprite_caminando->addKeyframe(MOVE_RIGHT, glm::vec2(0.6777777777, 0.f));
+		sprite_caminando->addKeyframe(MOVE_RIGHT, glm::vec2(0.83333333333, 0.f));
 
 	spritesheet_caminando_izq.loadFromFile("images/0_izq.png", TEXTURE_PIXEL_FORMAT_RGBA);
-		sprite_caminando_izq = Sprite::createSprite(glm::ivec2(36.83333, 63), glm::vec2(0.166667, 1), &spritesheet_caminando_izq, &shaderProgram);
+		sprite_caminando_izq = Sprite::createSprite(glm::ivec2(36.83333333, 63), glm::vec2(0.1666666667, 1), &spritesheet_caminando_izq, &shaderProgram);
 		sprite_caminando_izq->setNumberAnimations(4);
 
 
 		sprite_caminando_izq->setAnimationSpeed(MOVE_LEFT, 8);
-		sprite_caminando_izq->addKeyframe(MOVE_LEFT, glm::vec2(0.f, 0.f));
-		sprite_caminando_izq->addKeyframe(MOVE_LEFT, glm::vec2(0.166667, 0.f));
-		sprite_caminando_izq->addKeyframe(MOVE_LEFT, glm::vec2(0.333333, 0.f));
+		sprite_caminando_izq->addKeyframe(MOVE_LEFT, glm::vec2(0.833333333, 0.f));
+		sprite_caminando_izq->addKeyframe(MOVE_LEFT, glm::vec2(0.6777777777, 0.f));
 		sprite_caminando_izq->addKeyframe(MOVE_LEFT, glm::vec2(0.5, 0.f));
-		sprite_caminando_izq->addKeyframe(MOVE_LEFT, glm::vec2(0.67777, 0.f));
-		sprite_caminando_izq->addKeyframe(MOVE_LEFT, glm::vec2(0.833333, 0.f));
+		sprite_caminando_izq->addKeyframe(MOVE_LEFT, glm::vec2(0.3333333333, 0.f));
+		sprite_caminando_izq->addKeyframe(MOVE_LEFT, glm::vec2(0.1666666667, 0.f));
+		sprite_caminando_izq->addKeyframe(MOVE_LEFT, glm::vec2(0.f, 0.f));
 
 
 
@@ -102,7 +102,7 @@ void Player::update(int deltaTime)
 	{
 		movimiento = 2;
 		posPlayer.x -= 2;
-		if(map->collisionMoveLeft(posPlayer, glm::ivec2(32, 32)))
+		if(map->collisionMoveLeft(posPlayer, glm::ivec2(36.83333333, 63)))
 		{
 			posPlayer.x += 2;
 			movimiento = 0;
@@ -112,7 +112,7 @@ void Player::update(int deltaTime)
 	{	
 		movimiento = 3;
 		posPlayer.x += 2;
-		if(map->collisionMoveRight(posPlayer, glm::ivec2(32, 32)))
+		if(map->collisionMoveRight(posPlayer, glm::ivec2(36.83333333, 63)))
 		{
 			movimiento = 1;
 			posPlayer.x -= 2;
@@ -138,13 +138,13 @@ void Player::update(int deltaTime)
 		{
 			posPlayer.y = int(startY - 96 * sin(3.14159f * jumpAngle / 180.f));
 			if(jumpAngle > 90)
-				bJumping = !map->collisionMoveDown(posPlayer, glm::ivec2(32, 32), &posPlayer.y);
+				bJumping = !map->collisionMoveDown(posPlayer, glm::ivec2(36.83333333, 63), &posPlayer.y);
 		}
 	}
 	else
 	{
 		posPlayer.y += FALL_STEP;
-		if(map->collisionMoveDown(posPlayer, glm::ivec2(32, 32), &posPlayer.y))
+		if(map->collisionMoveDown(posPlayer, glm::ivec2(36.83333333, 63), &posPlayer.y))
 		{
 			if(Game::instance().getSpecialKey(GLUT_KEY_UP))
 			{
@@ -154,10 +154,10 @@ void Player::update(int deltaTime)
 			}
 		}
 	}
-	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y-26.5f)));
-	sprite_caminando->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y - 28.f)));
-	sprite_standLeft->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y - 28.f)));
-	sprite_caminando_izq->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y - 28.f)));
+	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
+	sprite_caminando->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
+	sprite_standLeft->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
+	sprite_caminando_izq->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
 
 
 }
