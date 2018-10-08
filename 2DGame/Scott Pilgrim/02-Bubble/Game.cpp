@@ -17,13 +17,12 @@ void Game::init()
 bool Game::update(int deltaTime)
 {
 	if (gameStarted) {
-		//if (level == 0 & !scene.update(deltaTime)) {
-		//}
+		scene.update(deltaTime);
+		bPlay;
 	}
 	else if (!gameStarted) {
-		//if (!menu.update(deltaTime)) bPlay;
+		if (!menu.update(deltaTime)) bPlay;
 	}
-	scene.update(deltaTime);
 	
 	return bPlay;
 }
@@ -33,15 +32,16 @@ void Game::render()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	if (!gameStarted) {
-		//menu.render();
+		menu.render();
 	}
-	scene.render();
+	else scene.render();
 }
 
 void Game::keyPressed(int key)
 {
 	if(key == 27) // Escape code
 		bPlay = false;
+	if (key == 's') gameStarted = true;
 	keys[key] = true;
 }
 
