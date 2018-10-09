@@ -1,23 +1,34 @@
-
-#include "MainMenu.h"
+#include <iostream>
+#include <cmath>
 #include <glm/gtc/matrix_transform.hpp>
+#include "Level1.h"
+#include "Game.h"
 
 
+#define SCREEN_X 32
+#define SCREEN_Y 16
 
-MainMenu::MainMenu()
+#define INIT_PLAYER_X_TILES 6
+#define INIT_PLAYER_Y_TILES 20
+
+
+Level1::Level1()
 {
+	//player = NULL;
+}
 
+Level1::~Level1()
+{
+	/*if (map != NULL)
+		delete map;
+	if (player != NULL)
+		delete player;*/
 }
 
 
-MainMenu::~MainMenu()
+void Level1::init(bool music)
 {
-	texProgram.free();
-}
-
-void MainMenu::init(bool music) {
-
-	if (music) {
+	if(music) {
 		//	mciSendString(TEXT("play sounds/SOUND/FileSelect-SuperMario64MusicExtended.mp3 repeat"), NULL, 0, NULL);
 		mciSendString(TEXT("play sounds/SOUND/MenuTheme.mp3 repeat"), NULL, 0, NULL);
 	}
@@ -29,12 +40,13 @@ void MainMenu::init(bool music) {
 	currentTime = 0.0f;
 	glm::vec2 geom[2] = { glm::vec2(0.f, 0.f), glm::vec2(float(SCREEN_WIDTH), float(SCREEN_HEIGHT)) };
 	glm::vec2 texCoords[2] = { glm::vec2(0.0f, 0.0f), glm::vec2(620, 348.f) };
-
+	pos_fin = 0.055;
+	pos_ini = 0;
 	initShaders();
-	texCoords[0] = glm::vec2(0.f, 0.f); texCoords[1] = glm::vec2(1.f, 1.f);
+	texCoords[0] = glm::vec2(0, 0); texCoords[1] = glm::vec2(0.055, 1);
 	texQuad[0] = TexturedQuad::createTexturedQuad(geom, texCoords, texProgram);
 	//texQuad[1] = TexturedQuad::createTexturedQuad(geom, texCoords, texProgram);
-	texs[0].loadFromFile("images/MainMenu_new.jpg", TEXTURE_PIXEL_FORMAT_RGBA);
+	texs[0].loadFromFile("images/level1new.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	texs[0].setMagFilter(GL_NEAREST);
 	/*texs[1].loadFromFile("images/Scott-pilgrim-logo.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	texs[1].setMagFilter(GL_NEAREST);*/
@@ -43,12 +55,20 @@ void MainMenu::init(bool music) {
 
 }
 
-bool MainMenu::update(int deltaTime) {
+void Level1::update(int deltaTime)
+{
 	currentTime += deltaTime;
-	return true;
+	//player->update(deltaTime);
+	pos_ini += 0.00005;
+	pos_fin += 0.00005;
+	glm::vec2 texCoords[2];
+	glm::vec2 geom[2] = { glm::vec2(0.f, 0.f), glm::vec2(float(SCREEN_WIDTH), float(SCREEN_HEIGHT)) };
+	texCoords[0] = glm::vec2(pos_ini- 0.00005, 0); texCoords[1] = glm::vec2(pos_fin, 1);
+	texQuad[0] = TexturedQuad::createTexturedQuad(geom, texCoords, texProgram);
 }
 
-void MainMenu::render() {
+void Level1::render()
+{
 	glm::mat4 modelview;
 
 	texProgram.use();
@@ -58,10 +78,11 @@ void MainMenu::render() {
 	modelview = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	texQuad[0]->render(texs[0]);
+	//map->render();
+	//player->render();
 }
 
-
-void MainMenu::initShaders()
+void Level1::initShaders()
 {
 	Shader vShader, fShader;
 

@@ -9,21 +9,22 @@ void Game::init()
 	music = true;
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 	gameStarted = false;
+	level_1 = false;
 	level = 0;
-	scene.init();
 	menu.init(music);
 }
 
 bool Game::update(int deltaTime)
 {
 	if (gameStarted) {
+		if (!level_1)
 		scene.update(deltaTime);
-		bPlay;
+		else level1.update(deltaTime);
 	}
 	else if (!gameStarted) {
-		if (!menu.update(deltaTime)) bPlay;
+		if (!menu.update(deltaTime))
+			bPlay = false;
 	}
-	
 	return bPlay;
 }
 
@@ -34,14 +35,26 @@ void Game::render()
 	if (!gameStarted) {
 		menu.render();
 	}
-	else scene.render();
+	else {
+		if (!level_1)
+		scene.render();
+		else level1.render();
+	}
 }
 
 void Game::keyPressed(int key)
 {
 	if(key == 27) // Escape code
 		bPlay = false;
-	if (key == 's') gameStarted = true;
+	if (key == 's') {
+		scene.init();
+		gameStarted = true;
+	}
+	if (key == '1') {
+		level1.init(music);
+		level_1 = true;
+		gameStarted = true;
+	}
 	keys[key] = true;
 }
 

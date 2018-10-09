@@ -97,39 +97,39 @@ void Player::update(int deltaTime)
 	sprite_caminando->update(deltaTime);
 	sprite_standLeft->update(deltaTime);
 	sprite_caminando_izq->update(deltaTime);
-	
-	if(Game::instance().getSpecialKey(GLUT_KEY_LEFT))
+
+	if (Game::instance().getSpecialKey(GLUT_KEY_LEFT))
 	{
 		movimiento = 2;
 		posPlayer.x -= 2;
-		if(map->collisionMoveLeft(posPlayer, glm::ivec2(36.83333333, 61)))
+		if (map->collisionMoveLeft(posPlayer, glm::ivec2(38.625, 61)))
 		{
-			posPlayer.x += 2;
 			movimiento = 0;
+			posPlayer.x += 2;
 		}
 	}
-	else if(Game::instance().getSpecialKey(GLUT_KEY_RIGHT))
-	{	
+	else if (Game::instance().getSpecialKey(GLUT_KEY_RIGHT))
+	{
 		movimiento = 3;
 		posPlayer.x += 2;
-		if(map->collisionMoveRight(posPlayer, glm::ivec2(36.83333333, 61)))
-		{
+		if (map->collisionMoveRight(posPlayer, glm::ivec2(38.625, 61)))
+		{	
 			movimiento = 1;
 			posPlayer.x -= 2;
 		}
 	}
 	else
-	{	
+	{
 		if (movimiento == 2)
 			movimiento = 0;
-		else if(movimiento == 3)
+		else if (movimiento == 3)
 			movimiento = 1;
 	}
-	
-	if(bJumping)
+
+	if (bJumping)
 	{
 		jumpAngle += JUMP_ANGLE_STEP;
-		if(jumpAngle == 180)
+		if (jumpAngle == 180)
 		{
 			bJumping = false;
 			posPlayer.y = startY;
@@ -137,16 +137,16 @@ void Player::update(int deltaTime)
 		else
 		{
 			posPlayer.y = int(startY - 96 * sin(3.14159f * jumpAngle / 180.f));
-			if(jumpAngle > 90)
-				bJumping = !map->collisionMoveDown(posPlayer, glm::ivec2(36.83333333, 61), &posPlayer.y);
+			if (jumpAngle > 90)
+				bJumping = !map->collisionMoveDown(posPlayer, glm::ivec2(38.625, 61), &posPlayer.y);
 		}
 	}
 	else
 	{
 		posPlayer.y += FALL_STEP;
-		if(map->collisionMoveDown(posPlayer, glm::ivec2(36.83333333, 63), &posPlayer.y))
+		if (map->collisionMoveDown(posPlayer, glm::ivec2(38.625, 61), &posPlayer.y))
 		{
-			if(Game::instance().getSpecialKey(GLUT_KEY_UP))
+			if (Game::instance().getSpecialKey(GLUT_KEY_UP))
 			{
 				bJumping = true;
 				jumpAngle = 0;
@@ -154,12 +154,11 @@ void Player::update(int deltaTime)
 			}
 		}
 	}
+
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
 	sprite_caminando->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
 	sprite_standLeft->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
 	sprite_caminando_izq->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
-
-
 }
 
 void Player::render()
