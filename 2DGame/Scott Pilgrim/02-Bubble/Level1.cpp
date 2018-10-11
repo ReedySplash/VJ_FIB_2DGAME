@@ -29,12 +29,12 @@ Level1::~Level1()
 void Level1::init(bool music)
 {
 	if(music) {
-		//	mciSendString(TEXT("play sounds/SOUND/FileSelect-SuperMario64MusicExtended.mp3 repeat"), NULL, 0, NULL);
-		mciSendString(TEXT("play sounds/SOUND/MenuTheme.mp3 repeat"), NULL, 0, NULL);
+		mciSendString(TEXT("stop sounds/SOUND/MenuTheme.mp3"), NULL, 0, NULL);
+		mciSendString(TEXT("play sounds/SOUND/20.mp3 repeat"), NULL, 0, NULL);
 	}
 	else {
 		//	mciSendString(TEXT("stop sounds/SOUND/FileSelect-SuperMario64MusicExtended.mp3"), NULL, 0, NULL);
-		mciSendString(TEXT("stop sounds/SOUND/MenuTheme.mp3"), NULL, 0, NULL);
+		mciSendString(TEXT("stop sounds/SOUND/20.mp3"), NULL, 0, NULL);
 	}
 	musica = music;
 	currentTime = 0.0f;
@@ -134,4 +134,6 @@ void Level1::initShaders()
 	}
 	texProgram.bindFragmentOutput("outColor");
 }
+
+
 
