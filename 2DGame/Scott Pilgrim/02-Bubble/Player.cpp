@@ -106,7 +106,7 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 			sprite_pegando_izquierda->setAnimationSpeed(0, 12);
 			sprite_pegando_izquierda->addKeyframe(0, glm::vec2(0.0588235294f*16.f, 0.f));
 			sprite_pegando_izquierda->addKeyframe(0, glm::vec2(0.0588235294f*15.f, 0.f));
-			sprite_pegando_izquierda->addKeyframe(0, glm::vec2(0.117647059*14.f, 0.f));
+			sprite_pegando_izquierda->addKeyframe(0, glm::vec2(0.0588235294f*14.f, 0.f));
 			sprite_pegando_izquierda->addKeyframe(0, glm::vec2(0.0588235294f*13.f, 0.f));
 			sprite_pegando_izquierda->addKeyframe(0, glm::vec2(0.0588235294f*12.f, 0.f));
 			sprite_pegando_izquierda->addKeyframe(0, glm::vec2(0.0588235294f*11.f, 0.f));
@@ -165,8 +165,37 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 			sprite_saltar_izquierda->addKeyframe(0, glm::vec2(0.0769230769 * 0, 0.f));
 
 			sprite_saltar_izquierda->setAnimationSpeed(1, 8);
-			sprite_saltar_izquierda->addKeyframe(1, glm::vec2(0.0769230769 * 11, 0.f));
-			sprite_saltar_izquierda->addKeyframe(1, glm::vec2(0.0769230769 * 10, 0.f));
+			sprite_saltar_izquierda->addKeyframe(1, glm::vec2(0.0769230769 * 2, 0.f));
+			sprite_saltar_izquierda->addKeyframe(1, glm::vec2(0.0769230769 * 1, 0.f));
+
+	spritesheet_patada_derecha.loadFromFile("images/patada_derecha.png", TEXTURE_PIXEL_FORMAT_RGBA);
+			sprite_patada_derecha = Sprite::createSprite(glm::ivec2(60, 59), glm::vec2(0.125, 1), &spritesheet_patada_derecha, &shaderProgram);
+			sprite_patada_derecha->setNumberAnimations(1);
+
+			sprite_patada_derecha->setAnimationSpeed(0, 8);
+			sprite_patada_derecha->addKeyframe(0, glm::vec2(0.f, 0.f));
+			sprite_patada_derecha->addKeyframe(0, glm::vec2(0.125, 0.f));
+			sprite_patada_derecha->addKeyframe(0, glm::vec2(0.25, 0.f));
+			sprite_patada_derecha->addKeyframe(0, glm::vec2(0.375, 0.f));
+			sprite_patada_derecha->addKeyframe(0, glm::vec2(0.5, 0.f));
+			sprite_patada_derecha->addKeyframe(0, glm::vec2(0.625f, 0.f));
+			sprite_patada_derecha->addKeyframe(0, glm::vec2(0.75f, 0.f));
+			sprite_patada_derecha->addKeyframe(0, glm::vec2(0.875f, 0.f));
+
+	spritesheet_patada_izquierda.loadFromFile("images/patada_izquierda.png", TEXTURE_PIXEL_FORMAT_RGBA);
+			sprite_patada_izquierda = Sprite::createSprite(glm::ivec2(60, 59), glm::vec2(0.125, 1), &spritesheet_patada_izquierda, &shaderProgram);
+			sprite_patada_izquierda->setNumberAnimations(1);
+
+			sprite_patada_izquierda->setAnimationSpeed(0, 8);
+			sprite_patada_izquierda->addKeyframe(0, glm::vec2(0.875, 0.f));
+			sprite_patada_izquierda->addKeyframe(0, glm::vec2(0.75, 0.f));
+			sprite_patada_izquierda->addKeyframe(0, glm::vec2(0.625, 0.f));
+			sprite_patada_izquierda->addKeyframe(0, glm::vec2(0.5, 0.f));
+			sprite_patada_izquierda->addKeyframe(0, glm::vec2(0.375, 0.f));
+			sprite_patada_izquierda->addKeyframe(0, glm::vec2(0.25, 0.f));
+			sprite_patada_izquierda->addKeyframe(0, glm::vec2(0.125, 0.f));
+			sprite_patada_izquierda->addKeyframe(0, glm::vec2(0, 0.f));
+
 
 
 
@@ -179,6 +208,7 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	sprite_pegando_izquierda->changeAnimation(0);
 	sprite_saltar_derecha->changeAnimation(0);
 	sprite_saltar_izquierda->changeAnimation(0);
+	sprite_patada_derecha->changeAnimation(0);
 	tileMapDispl = tileMapPos;
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
 	sprite_caminando->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
@@ -199,15 +229,25 @@ void Player::update(int deltaTime)
 	sprite_pegando_izquierda->update(deltaTime);
 	sprite_saltar_derecha->update(deltaTime);
 	sprite_saltar_izquierda->update(deltaTime);
+	sprite_patada_derecha->update(deltaTime);
+	sprite_patada_izquierda->update(deltaTime);
 
-	if (Game::instance().getKey('x')) {
-		if (movimiento == 1 || movimiento == 3 || movimiento == 4) 
+	if (Game::instance().getKey('x') && (movimiento == 1 || movimiento == 3 || movimiento == 4)) {
 			movimiento = 4;
 	}
 
-	if (Game::instance().getKey('x')) {
-		if (movimiento == 0 || movimiento == 2 || movimiento == 5)
+	else if (Game::instance().getKey('x') && (movimiento == 0 || movimiento == 2 || movimiento == 5)) {
 			movimiento = 5;
+	}
+
+	else if (Game::instance().getKey('c') && (movimiento == 1 || movimiento == 3 || movimiento == 4 || movimiento == 9)) {
+		if (movimiento != 9)sprite_patada_derecha->changeAnimation(0);
+		movimiento = 9;
+	}
+
+	else if (Game::instance().getKey('c') &&(movimiento == 0 || movimiento == 2 || movimiento == 5 || movimiento == 8)) {
+		if (movimiento != 8)sprite_patada_izquierda->changeAnimation(0);
+		movimiento = 8;
 	}
 
 
@@ -236,9 +276,9 @@ void Player::update(int deltaTime)
 
 	else
 	{
-		if (movimiento == 2 || movimiento == 5)
+		if (movimiento == 2 || movimiento == 5 || movimiento == 8)
 			movimiento = 0;
-		else if (movimiento == 3 || movimiento == 4)
+		else if (movimiento == 3 || movimiento == 4 || movimiento == 9)
 			movimiento = 1;
 	}
 
@@ -299,9 +339,11 @@ void Player::update(int deltaTime)
 	sprite_standLeft->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
 	sprite_caminando_izq->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
 	sprite_pegando_derecha->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
-	sprite_pegando_izquierda->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x-10.f), float(tileMapDispl.y + posPlayer.y)));
-	sprite_saltar_derecha->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x - 10.f), float(tileMapDispl.y + posPlayer.y)));
-	sprite_saltar_izquierda->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x - 10.f), float(tileMapDispl.y + posPlayer.y)));
+	sprite_pegando_izquierda->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x-20.f), float(tileMapDispl.y + posPlayer.y)));
+	sprite_saltar_derecha->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
+	sprite_saltar_izquierda->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x ), float(tileMapDispl.y + posPlayer.y)));
+	sprite_patada_derecha->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
+	sprite_patada_izquierda->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x-20.f), float(tileMapDispl.y + posPlayer.y)));
 }
 
 void Player::render()
@@ -314,7 +356,8 @@ void Player::render()
 	else if (movimiento == 5) sprite_pegando_izquierda->render();
 	else if (movimiento == 6) sprite_saltar_izquierda->render();
 	else if (movimiento == 7) sprite_saltar_derecha->render();
-
+	else if (movimiento == 8) sprite_patada_izquierda->render();
+	else if (movimiento == 9) sprite_patada_derecha->render();
 }
 
 void Player::setTileMap(TileMap *tileMap)

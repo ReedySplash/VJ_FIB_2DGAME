@@ -34,6 +34,8 @@ private:
 	Texture spritesheet_pegando_izquierda;
 	Texture spritesheet_saltar_izquierda;
 	Texture spritesheet_saltar_derecha;
+	Texture spritesheet_patada_izquierda;
+	Texture spritesheet_patada_derecha;
 	Sprite *sprite;
 	Sprite *sprite_caminando;
 	Sprite *sprite_caminando_izq;
@@ -42,6 +44,8 @@ private:
 	Sprite *sprite_pegando_izquierda;
 	Sprite *sprite_saltar_izquierda;
 	Sprite *sprite_saltar_derecha;
+	Sprite *sprite_patada_izquierda;
+	Sprite *sprite_patada_derecha;
 	TileMap *map;
 
 };
