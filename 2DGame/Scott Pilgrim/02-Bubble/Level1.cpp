@@ -40,10 +40,10 @@ void Level1::init(bool music)
 	currentTime = 0.0f;
 	glm::vec2 geom[2] = { glm::vec2(0.f, 0.f), glm::vec2(float(SCREEN_WIDTH), float(SCREEN_HEIGHT)) };
 	glm::vec2 texCoords[2] = { glm::vec2(0.0f, 0.0f), glm::vec2(620, 340.f) };
-	pos_fin = 0.055;
+	pos_fin = 0.06;
 	pos_ini = 0;
 	initShaders();
-	texCoords[0] = glm::vec2(0, 0); texCoords[1] = glm::vec2(0.23333, 1);
+	texCoords[0] = glm::vec2(0, 0); texCoords[1] = glm::vec2(0.20, 1);
 	texQuad[0] = TexturedQuad::createTexturedQuad(geom, texCoords, simpleTexProgram);
 	texs[0].loadFromFile("images/level1new.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	texs[0].setMagFilter(GL_NEAREST);
