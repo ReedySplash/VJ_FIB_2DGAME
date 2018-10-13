@@ -35,6 +35,10 @@ void Scene::init()
 	player->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
 	player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * map->getTileSize(), INIT_PLAYER_Y_TILES * map->getTileSize()));
 	player->setTileMap(map);
+	kim = new Kim();
+	kim->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
+	kim->setPosition(glm::vec2(INIT_PLAYER_X_TILES * map->getTileSize(), INIT_PLAYER_Y_TILES * map->getTileSize()));
+	kim->setTileMap(map);
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 	currentTime = 0.0f;
 }
@@ -42,7 +46,8 @@ void Scene::init()
 void Scene::update(int deltaTime)
 {
 	currentTime += deltaTime;
-	player->update(deltaTime);
+	//player->update(deltaTime);
+	kim->update(deltaTime);
 }
 
 void Scene::render()
@@ -56,7 +61,8 @@ void Scene::render()
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
 	map->render();
-	player->render();
+	//player->render();
+	kim->render();
 }
 
 void Scene::initShaders()

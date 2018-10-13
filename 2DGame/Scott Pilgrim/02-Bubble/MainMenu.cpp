@@ -19,11 +19,11 @@ void MainMenu::init(bool music) {
 
 	if (music) {
 		//	mciSendString(TEXT("play sounds/SOUND/FileSelect-SuperMario64MusicExtended.mp3 repeat"), NULL, 0, NULL);
-		mciSendString(TEXT("play sounds/SOUND/MenuTheme.mp3 repeat"), NULL, 0, NULL);
+		//mciSendString(TEXT("play sounds/SOUND/MenuTheme.mp3 repeat"), NULL, 0, NULL);
 	}
 	else {
 		//	mciSendString(TEXT("stop sounds/SOUND/FileSelect-SuperMario64MusicExtended.mp3"), NULL, 0, NULL);
-		mciSendString(TEXT("stop sounds/SOUND/MenuTheme.mp3"), NULL, 0, NULL);
+		//mciSendString(TEXT("stop sounds/SOUND/MenuTheme.mp3"), NULL, 0, NULL);
 	}
 	musica = music;
 	currentTime = 0.0f;
