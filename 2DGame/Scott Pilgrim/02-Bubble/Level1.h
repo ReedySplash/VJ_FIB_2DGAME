@@ -11,6 +11,7 @@
 #include <cmath>
 #include <glm/gtc/matrix_transform.hpp>
 #include "TexturedQuad.h"
+#include "Player.h"
 
 
 class Level1
@@ -29,9 +30,9 @@ private:
 	float pos_ini, pos_fin;
 	TexturedQuad *texQuad[3];
 	Texture texs[2];
-	ShaderProgram simpleTexProgram;
-	ShaderProgram texProgram;
+	ShaderProgram simpleTexProgram, texProgram;
 	glm::mat4 projection;
+	Player *player;
 
 	void initShaders();
 };
