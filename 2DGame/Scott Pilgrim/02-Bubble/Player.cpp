@@ -273,14 +273,14 @@ void Player::update(int deltaTime)
 		}*/
 	}
 
-	if (Game::instance().getSpecialKey(GLUT_KEY_UP) && !Game::instance().getKey('c') && !Game::instance().getKey('x'))
+	if (Game::instance().getSpecialKey(GLUT_KEY_UP) && !Game::instance().getKey('c') && !Game::instance().getKey('x') && posPlayer.y > 165)
 	{
 		if (!bJumping && movimiento == 3 || movimiento == 1) movimiento = 3;
 		if (!bJumping && movimiento == 2 || movimiento == 0) movimiento = 2;
 		posPlayer.y -= 2;
 	}
 
-	else if (Game::instance().getSpecialKey(GLUT_KEY_DOWN) && !Game::instance().getKey('c') && !Game::instance().getKey('x'))
+	else if (Game::instance().getSpecialKey(GLUT_KEY_DOWN) && !Game::instance().getKey('c') && !Game::instance().getKey('x') && posPlayer.y < 380)
 	{
 		if (!bJumping && movimiento == 3 || movimiento == 1) movimiento = 3;
 		if (!bJumping && movimiento == 2 || movimiento == 0) movimiento = 2;
@@ -288,7 +288,7 @@ void Player::update(int deltaTime)
 	}
 
 
-	else if (!Game::instance().getSpecialKey(GLUT_KEY_LEFT) && !Game::instance().getSpecialKey(GLUT_KEY_RIGHT) && !Game::instance().getSpecialKey(GLUT_KEY_UP) && !Game::instance().getSpecialKey(GLUT_KEY_DOWN))
+	else if (!Game::instance().getSpecialKey(GLUT_KEY_LEFT) && !Game::instance().getSpecialKey(GLUT_KEY_RIGHT) && !Game::instance().getSpecialKey(GLUT_KEY_UP) && !Game::instance().getSpecialKey(GLUT_KEY_DOWN) && !Game::instance().getKey('x') && !Game::instance().getKey('c'))
 	{
 		if (movimiento == 2 || movimiento == 5 || movimiento == 8)
 			movimiento = 0;
