@@ -33,7 +33,7 @@ private:
 	ShaderProgram simpleTexProgram, texProgram;
 	glm::mat4 projection;
 	Player *player;
-
+	float x;
 	void initShaders();
 };
 

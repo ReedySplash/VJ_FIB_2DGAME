@@ -20,6 +20,8 @@ public:
 	
 	void setTileMap(TileMap *tileMap);
 	void setPosition(const glm::vec2 &pos);
+	glm::vec2 getPosition();
+	bool isWalking();
 	
 private:
 	bool bJumping;
@@ -47,6 +49,8 @@ private:
 	Sprite *sprite_patada_izquierda;
 	Sprite *sprite_patada_derecha;
 	TileMap *map;
+	ShaderProgram mapShader;
+	float x;
 
 };
 

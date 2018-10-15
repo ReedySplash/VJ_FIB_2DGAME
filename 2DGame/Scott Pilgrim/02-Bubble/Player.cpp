@@ -19,6 +19,7 @@ enum PlayerAnims
 
 void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 {	
+	mapShader = shaderProgram;
 	movimiento = 0;
 	bJumping = false;
 	spritesheet.loadFromFile("images/Scott quieto.png", TEXTURE_PIXEL_FORMAT_RGBA);
@@ -254,7 +255,7 @@ void Player::update(int deltaTime)
 	else if (Game::instance().getSpecialKey(GLUT_KEY_LEFT))
 	{
 		if (!bJumping) movimiento = 2;
-		posPlayer.x -= 2;
+		if (posPlayer.x > 60) posPlayer.x -= 2.f;
 		/*if (map->collisionMoveLeft(posPlayer, glm::ivec2(38.625, 61)))
 		{
 			if (!bJumping) movimiento = 0;
@@ -264,7 +265,8 @@ void Player::update(int deltaTime)
 	else if (Game::instance().getSpecialKey(GLUT_KEY_RIGHT))
 	{
 		if (!bJumping) movimiento = 3;
-		posPlayer.x += 2;
+		if (posPlayer.x < 540) posPlayer.x += 2;
+		x += 5.f;
 		/*if (map->collisionMoveRight(posPlayer, glm::ivec2(38.625, 61)))
 		{	
 			if (!bJumping) movimiento = 1;
@@ -394,6 +396,16 @@ void Player::setPosition(const glm::vec2 &pos)
 {
 	posPlayer = pos;
 	sprite->setPosition(glm::vec2(float(posPlayer.x), float(posPlayer.y)));
+}
+
+glm::vec2 Player::getPosition()
+{
+	return glm::vec2(float(posPlayer.x), float(posPlayer.y));
+}
+
+bool Player::isWalking() {
+	if (movimiento == 2 || movimiento == 3 || movimiento == 6 || movimiento == 7) return true;
+	else return false;
 }
 
 

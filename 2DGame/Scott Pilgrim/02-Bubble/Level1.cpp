@@ -43,17 +43,17 @@ void Level1::init(bool music)
 	pos_fin = 0.06;
 	pos_ini = 0;
 	initShaders();
-	texCoords[0] = glm::vec2(0, 0); texCoords[1] = glm::vec2(0.20, 1);
+	texCoords[0] = glm::vec2(0, 0); texCoords[1] = glm::vec2(1, 1);
 	texQuad[0] = TexturedQuad::createTexturedQuad(geom, texCoords, simpleTexProgram);
 	texs[0].loadFromFile("images/level1new.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	texs[0].setMagFilter(GL_NEAREST);
 
 	player = new Player();
-	player->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
+	player->init(glm::ivec2(SCREEN_X, SCREEN_Y), simpleTexProgram);
 	player->setPosition(glm::vec2(50, 260));
 	//player->setTileMap(map);
-
-	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
+	x = 0.f;
+	projection = glm::ortho(0.f, 50.f, float(SCREEN_HEIGHT - 1), 0.f);
 
 }
 
@@ -62,11 +62,21 @@ void Level1::update(int deltaTime)
 	currentTime += deltaTime;
 	//pos_ini += 0.00005;
 	//pos_fin += 0.00005;
-	glm::vec2 texCoords[2];
-	glm::vec2 geom[2] = { glm::vec2(0.f, 0.f), glm::vec2(float(SCREEN_WIDTH), float(SCREEN_HEIGHT)) };
-	texCoords[0] = glm::vec2(pos_ini, 0); texCoords[1] = glm::vec2(pos_fin, 1);
-	texQuad[0] = TexturedQuad::createTexturedQuad(geom, texCoords, simpleTexProgram);
+	//glm::vec2 texCoords[2];
+	//glm::vec2 geom[2] = { glm::vec2(0.f, 0.f), glm::vec2(float(SCREEN_WIDTH), float(SCREEN_HEIGHT)) };
+	//texCoords[0] = glm::vec2(pos_ini, 0); texCoords[1] = glm::vec2(pos_fin, 1);
+	//texQuad[0] = TexturedQuad::createTexturedQuad(geom, texCoords, simpleTexProgram);
 	player->update(deltaTime);
+	glm::vec2 pos = player->getPosition();
+	if (pos.x > 539 && player->isWalking()) {
+		x += 0.2f;
+		projection = glm::ortho(max(0, 0 + x), max(50, 50 + x), float(SCREEN_HEIGHT - 1), 0.f);
+	}
+	else if (pos.x < 61 && player->isWalking()) {
+		x -= 0.2f;
+		projection = glm::ortho(max(0, 0 + x), max(50, 50 + x), float(SCREEN_HEIGHT - 1), 0.f);
+	}
+	if (x < 0) x = 0.f;
 }
 
 void Level1::render()
@@ -83,9 +93,9 @@ void Level1::render()
 	//map->render();
 
 	texProgram.use();
-	texProgram.setUniformMatrix4f("projection", projection);
+	texProgram.setUniformMatrix4f("projection", glm::ortho(0.f, float(SCREEN_WIDTH), float(SCREEN_HEIGHT - 1), 0.f));
 	texProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
-	modelview = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
+	//modelview = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	player->render();
 
