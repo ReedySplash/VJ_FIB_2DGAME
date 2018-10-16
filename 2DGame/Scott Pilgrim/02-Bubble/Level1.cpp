@@ -76,6 +76,14 @@ void Level1::update(int deltaTime)
 		x -= 0.2f;
 		projection = glm::ortho(max(0, 0 + x), max(50, 50 + x), float(SCREEN_HEIGHT - 1), 0.f);
 	}
+	else if (pos.x > 539 && player->isRunning()) {
+		x += 0.35f;
+		projection = glm::ortho(max(0, 0 + x), max(50, 50 + x), float(SCREEN_HEIGHT - 1), 0.f);
+	}
+	else if (pos.x < 61 && player->isRunning()) {
+		x -= 0.35f;
+		projection = glm::ortho(max(0, 0 + x), max(50, 50 + x), float(SCREEN_HEIGHT - 1), 0.f);
+	}
 	if (x < 0) x = 0.f;
 }
 

@@ -52,7 +52,7 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 
 
 	spritesheet_caminando.loadFromFile("images/0.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite_caminando = Sprite::createSprite(glm::ivec2(45, 100), glm::vec2(0.1666666667, 1), &spritesheet_caminando, &shaderProgram);
+	sprite_caminando = Sprite::createSprite(glm::ivec2(60, 100), glm::vec2(0.1666666667, 1), &spritesheet_caminando, &shaderProgram);
 	sprite_caminando->setNumberAnimations(4);
 
 
@@ -65,7 +65,7 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 		sprite_caminando->addKeyframe(MOVE_RIGHT, glm::vec2(0.83333333333, 0.f));
 
 	spritesheet_caminando_izq.loadFromFile("images/0_izq.png", TEXTURE_PIXEL_FORMAT_RGBA);
-		sprite_caminando_izq = Sprite::createSprite(glm::ivec2(45, 100), glm::vec2(0.1666666667, 1), &spritesheet_caminando_izq, &shaderProgram);
+		sprite_caminando_izq = Sprite::createSprite(glm::ivec2(60, 100), glm::vec2(0.1666666667, 1), &spritesheet_caminando_izq, &shaderProgram);
 		sprite_caminando_izq->setNumberAnimations(4);
 
 
@@ -197,6 +197,30 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 			sprite_patada_izquierda->addKeyframe(0, glm::vec2(0.125, 0.f));
 			sprite_patada_izquierda->addKeyframe(0, glm::vec2(0, 0.f));
 
+	spritesheet_correr.loadFromFile("images/scott_correr.png", TEXTURE_PIXEL_FORMAT_RGBA);
+			sprite_correr = Sprite::createSprite(glm::ivec2(60, 100), glm::vec2(0.0625, 1), &spritesheet_correr, &shaderProgram);
+			sprite_correr->setNumberAnimations(2);
+
+			sprite_correr->setAnimationSpeed(0, 10);
+			sprite_correr->addKeyframe(0, glm::vec2(0, 0.f));
+			sprite_correr->addKeyframe(0, glm::vec2(0.0625, 0.f));
+			sprite_correr->addKeyframe(0, glm::vec2(0.0625*2, 0.f));
+			sprite_correr->addKeyframe(0, glm::vec2(0.0625*3, 0.f));
+			sprite_correr->addKeyframe(0, glm::vec2(0.0625*4, 0.f));
+			sprite_correr->addKeyframe(0, glm::vec2(0.0625*5, 0.f));
+			sprite_correr->addKeyframe(0, glm::vec2(0.0625*6, 0.f));
+			sprite_correr->addKeyframe(0, glm::vec2(0.0625*7, 0.f));
+
+			sprite_correr->setAnimationSpeed(1, 10);
+			sprite_correr->addKeyframe(1, glm::vec2(0.0625 * 8, 0.f));
+			sprite_correr->addKeyframe(1, glm::vec2(0.0625 * 9, 0.f));
+			sprite_correr->addKeyframe(1, glm::vec2(0.0625 * 10, 0.f));
+			sprite_correr->addKeyframe(1, glm::vec2(0.0625 * 11, 0.f));
+			sprite_correr->addKeyframe(1, glm::vec2(0.0625 * 12, 0.f));
+			sprite_correr->addKeyframe(1, glm::vec2(0.0625 * 13, 0.f));
+			sprite_correr->addKeyframe(1, glm::vec2(0.0625 * 14, 0.f));
+			sprite_correr->addKeyframe(1, glm::vec2(0.0625 * 15, 0.f));
+
 
 
 
@@ -210,6 +234,7 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	sprite_saltar_derecha->changeAnimation(0);
 	sprite_saltar_izquierda->changeAnimation(0);
 	sprite_patada_derecha->changeAnimation(0);
+	sprite_correr->changeAnimation(0);
 	/*tileMapDispl = tileMapPos;
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
 	sprite_caminando->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
@@ -232,6 +257,7 @@ void Player::update(int deltaTime)
 	sprite_saltar_izquierda->update(deltaTime);
 	sprite_patada_derecha->update(deltaTime);
 	sprite_patada_izquierda->update(deltaTime);
+	sprite_correr->update(deltaTime);
 
 	if (Game::instance().getKey('x') && (movimiento == 1 || movimiento == 3 || movimiento == 4)) {
 			movimiento = 4;
@@ -252,6 +278,20 @@ void Player::update(int deltaTime)
 	}
 
 
+	else if (Game::instance().getKey('<') && (Game::instance().getSpecialKey(GLUT_KEY_LEFT) || (Game::instance().getSpecialKey(GLUT_KEY_RIGHT)))) {
+		if (Game::instance().getSpecialKey(GLUT_KEY_LEFT)) {
+			if (!bJumping) movimiento = 10;
+			if (sprite_correr->animation() == 0) sprite_correr->changeAnimation(1);
+			if (posPlayer.x > 60) posPlayer.x -= 4;
+		}
+		else if (Game::instance().getSpecialKey(GLUT_KEY_RIGHT)) {
+			if (!bJumping) movimiento = 10;
+			if (sprite_correr->animation() == 1) sprite_correr->changeAnimation(0);
+			if (posPlayer.x < 540) posPlayer.x += 4;
+		}
+	}
+
+
 	else if (Game::instance().getSpecialKey(GLUT_KEY_LEFT))
 	{
 		if (!bJumping) movimiento = 2;
@@ -266,7 +306,6 @@ void Player::update(int deltaTime)
 	{
 		if (!bJumping) movimiento = 3;
 		if (posPlayer.x < 540) posPlayer.x += 2;
-		x += 5.f;
 		/*if (map->collisionMoveRight(posPlayer, glm::ivec2(38.625, 61)))
 		{	
 			if (!bJumping) movimiento = 1;
@@ -292,15 +331,15 @@ void Player::update(int deltaTime)
 
 	else if (!Game::instance().getSpecialKey(GLUT_KEY_LEFT) && !Game::instance().getSpecialKey(GLUT_KEY_RIGHT) && !Game::instance().getSpecialKey(GLUT_KEY_UP) && !Game::instance().getSpecialKey(GLUT_KEY_DOWN) && !Game::instance().getKey('x') && !Game::instance().getKey('c'))
 	{
-		if (movimiento == 2 || movimiento == 5 || movimiento == 8)
+		if (movimiento == 2 || movimiento == 5 || movimiento == 8 || movimiento == 10 && sprite_correr->animation() == 1)
 			movimiento = 0;
-		else if (movimiento == 3 || movimiento == 4 || movimiento == 9)
+		else if (movimiento == 3 || movimiento == 4 || movimiento == 9 || movimiento == 10 && sprite_correr->animation() == 0)
 			movimiento = 1;
 	}
 
 	if (bJumping)
 	{
-		if (movimiento == 1 || movimiento == 3 || movimiento == 4 || movimiento == 7)
+		if (movimiento == 1 || movimiento == 3 || movimiento == 4 || movimiento == 7 || movimiento == 10 && sprite_correr->animation() == 0)
 			movimiento = 7;
 		else movimiento = 6;
 
@@ -371,11 +410,50 @@ void Player::update(int deltaTime)
 	sprite_saltar_izquierda->setPosition(glm::vec2(float( posPlayer.x ), float( posPlayer.y)));
 	sprite_patada_derecha->setPosition(glm::vec2(float(  posPlayer.x), float(  posPlayer.y)));
 	sprite_patada_izquierda->setPosition(glm::vec2(float(  posPlayer.x-20), float(  posPlayer.y)));
+	sprite_correr->setPosition(glm::vec2(float(posPlayer.x - 20), float(posPlayer.y)));
 }
 
 void Player::render()
 {
-	if (movimiento == 0) sprite_standLeft->render();
+	switch (movimiento)
+	{
+		case 0:
+			sprite_standLeft->render();
+			break;
+		case 1:
+			sprite->render();
+			break;
+		case 2:
+			sprite_caminando_izq->render();
+			break;
+		case 3:
+			sprite_caminando->render();
+			break;
+		case 4:
+			sprite_pegando_derecha->render();
+			break;
+		case 5:
+			sprite_pegando_izquierda->render();
+			break;
+		case 6:
+			sprite_saltar_izquierda->render();
+			break;
+		case 7:
+			sprite_saltar_derecha->render();
+			break;
+		case 8:
+			sprite_patada_izquierda->render();
+			break;
+		case 9:
+			sprite_patada_derecha->render();
+			break;
+		case 10:
+			sprite_correr->render();
+			break;
+		
+
+	}
+	/*if (movimiento == 0) sprite_standLeft->render();
 	else if (movimiento == 1) sprite->render();
 	else if (movimiento == 2) sprite_caminando_izq->render();
 	else if (movimiento == 3) sprite_caminando->render();
@@ -385,6 +463,7 @@ void Player::render()
 	else if (movimiento == 7) sprite_saltar_derecha->render();
 	else if (movimiento == 8) sprite_patada_izquierda->render();
 	else if (movimiento == 9) sprite_patada_derecha->render();
+	else if*/
 }
 
 void Player::setTileMap(TileMap *tileMap)
@@ -405,6 +484,12 @@ glm::vec2 Player::getPosition()
 
 bool Player::isWalking() {
 	if (movimiento == 2 || movimiento == 3 || movimiento == 6 || movimiento == 7) return true;
+	else return false;
+}
+
+
+bool Player::isRunning() {
+	if (movimiento == 10 || movimiento == 6 || movimiento == 7) return true;
 	else return false;
 }
 

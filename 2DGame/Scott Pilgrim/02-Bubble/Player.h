@@ -22,6 +22,7 @@ public:
 	void setPosition(const glm::vec2 &pos);
 	glm::vec2 getPosition();
 	bool isWalking();
+	bool isRunning();
 	
 private:
 	bool bJumping;
@@ -38,6 +39,7 @@ private:
 	Texture spritesheet_saltar_derecha;
 	Texture spritesheet_patada_izquierda;
 	Texture spritesheet_patada_derecha;
+	Texture spritesheet_correr;
 	Sprite *sprite;
 	Sprite *sprite_caminando;
 	Sprite *sprite_caminando_izq;
@@ -48,6 +50,7 @@ private:
 	Sprite *sprite_saltar_derecha;
 	Sprite *sprite_patada_izquierda;
 	Sprite *sprite_patada_derecha;
+	Sprite *sprite_correr;
 	TileMap *map;
 	ShaderProgram mapShader;
 	float x;
