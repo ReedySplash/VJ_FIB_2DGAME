@@ -53,7 +53,6 @@ private:
 	Sprite *sprite_correr;
 	TileMap *map;
 	ShaderProgram mapShader;
-	float x;
 
 };
 

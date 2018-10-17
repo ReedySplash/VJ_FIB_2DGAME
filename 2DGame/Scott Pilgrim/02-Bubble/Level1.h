@@ -12,6 +12,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "TexturedQuad.h"
 #include "Player.h"
+#include "Enemigo1.h"
 
 
 class Level1
@@ -33,6 +34,7 @@ private:
 	ShaderProgram simpleTexProgram, texProgram;
 	glm::mat4 projection;
 	Player *player;
+	Enemigo1 *enemigo1;
 	float x;
 	void initShaders();
 };

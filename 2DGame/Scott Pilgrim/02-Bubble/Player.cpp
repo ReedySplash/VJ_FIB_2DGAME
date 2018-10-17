@@ -235,13 +235,7 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	sprite_saltar_izquierda->changeAnimation(0);
 	sprite_patada_derecha->changeAnimation(0);
 	sprite_correr->changeAnimation(0);
-	/*tileMapDispl = tileMapPos;
-	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
-	sprite_caminando->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
-	sprite_standLeft->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
-	sprite_caminando_izq->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
-	sprite_pegando_derecha->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
-	sprite_pegando_izquierda->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));*/
+	//tileMapDispl = tileMapPos;
 	sprite->setPosition(glm::vec2(float(posPlayer.x), float(posPlayer.y)));
 }
 
@@ -453,17 +447,6 @@ void Player::render()
 		
 
 	}
-	/*if (movimiento == 0) sprite_standLeft->render();
-	else if (movimiento == 1) sprite->render();
-	else if (movimiento == 2) sprite_caminando_izq->render();
-	else if (movimiento == 3) sprite_caminando->render();
-	else if (movimiento == 4) sprite_pegando_derecha->render();
-	else if (movimiento == 5) sprite_pegando_izquierda->render();
-	else if (movimiento == 6) sprite_saltar_izquierda->render();
-	else if (movimiento == 7) sprite_saltar_derecha->render();
-	else if (movimiento == 8) sprite_patada_izquierda->render();
-	else if (movimiento == 9) sprite_patada_derecha->render();
-	else if*/
 }
 
 void Player::setTileMap(TileMap *tileMap)
