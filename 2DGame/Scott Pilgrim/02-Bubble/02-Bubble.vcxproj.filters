@@ -57,6 +57,12 @@
     <ClInclude Include="Level1.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\VJ_FIB_2DGAME\2DGame\Scott Pilgrim\02-Bubble\Kim.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\VJ_FIB_2DGAME\2DGame\Scott Pilgrim\02-Bubble\Enemigo1.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -99,6 +105,12 @@
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
     <ClCompile Include="Level1.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\VJ_FIB_2DGAME\2DGame\Scott Pilgrim\02-Bubble\Kim.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\VJ_FIB_2DGAME\2DGame\Scott Pilgrim\02-Bubble\Enemigo1.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
   </ItemGroup>

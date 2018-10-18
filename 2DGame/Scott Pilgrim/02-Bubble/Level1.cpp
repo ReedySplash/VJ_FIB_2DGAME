@@ -48,9 +48,9 @@ void Level1::init(bool music)
 	texs[0].loadFromFile("images/Levels/level1new.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	texs[0].setMagFilter(GL_NEAREST);
 
-	/*player = new Player();
+	player = new Player();
 	player->init(glm::ivec2(SCREEN_X, SCREEN_Y), simpleTexProgram);
-	player->setPosition(glm::vec2(50, 260));*/
+	player->setPosition(glm::vec2(50, 260));
 	//player->setTileMap(map);
 
 	enemigo1 = new Enemigo1();
@@ -65,9 +65,9 @@ void Level1::init(bool music)
 void Level1::update(int deltaTime)
 {
 	currentTime += deltaTime;
-	//player->update(deltaTime);
+	player->update(deltaTime);
 	enemigo1->update(deltaTime);
-	/*glm::vec2 pos = player->getPosition();
+	glm::vec2 pos = player->getPosition();
 	if (pos.x > 539 && player->isWalking()) {
 		x += 0.2f;
 		projection = glm::ortho(max(0, 0 + x), max(50, 50 + x), float(SCREEN_HEIGHT - 1), 0.f);
@@ -84,7 +84,7 @@ void Level1::update(int deltaTime)
 		x -= 0.35f;
 		projection = glm::ortho(max(0, 0 + x), max(50, 50 + x), float(SCREEN_HEIGHT - 1), 0.f);
 	}
-	if (x < 0) x = 0.f;*/
+	if (x < 0) x = 0.f;
 }
 
 void Level1::render()
@@ -100,13 +100,17 @@ void Level1::render()
 	texQuad[0]->render(texs[0]);
 	//map->render();
 
+
 	texProgram.use();
-	texProgram.setUniformMatrix4f("projection", glm::ortho(0.f, float(SCREEN_WIDTH), float(SCREEN_HEIGHT - 1), 0.f));
 	texProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
 	//modelview = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
 	texProgram.setUniformMatrix4f("modelview", modelview);
-	//player->render();
+	texProgram.setUniformMatrix4f("projection", glm::ortho(0.f + x * 12.8f, float(SCREEN_WIDTH) + x * 12.8f, float(SCREEN_HEIGHT - 1), 0.f));
 	enemigo1->render();
+	texProgram.setUniformMatrix4f("projection", glm::ortho(0.f, float(SCREEN_WIDTH), float(SCREEN_HEIGHT - 1), 0.f));
+	player->render();
+	
+	
 
 }
 

@@ -11,6 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\VJ_FIB_2DGAME\2DGame\Scott Pilgrim\02-Bubble\Enemigo1.h" />
+    <ClInclude Include="..\..\..\..\VJ_FIB_2DGAME\2DGame\Scott Pilgrim\02-Bubble\Kim.h" />
     <ClInclude Include="AnimKeyframes.h" />
     <ClInclude Include="E:\Descargas\ExOpenGL3\2DGame\02-Bubble\02-Bubble\Scene.h" />
     <ClInclude Include="Game.h" />
@@ -27,6 +29,8 @@
     <ClInclude Include="TileMap.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\VJ_FIB_2DGAME\2DGame\Scott Pilgrim\02-Bubble\Enemigo1.cpp" />
+    <ClCompile Include="..\..\..\..\VJ_FIB_2DGAME\2DGame\Scott Pilgrim\02-Bubble\Kim.cpp" />
     <ClCompile Include="E:\Descargas\ExOpenGL3\2DGame\02-Bubble\02-Bubble\Sprite.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Level1.cpp" />
