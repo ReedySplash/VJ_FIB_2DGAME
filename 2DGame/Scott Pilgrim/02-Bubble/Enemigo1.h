@@ -14,17 +14,22 @@ public:
 	void setTileMap(TileMap *tileMap);
 	void setPosition(const glm::vec2 &pos);
 	glm::vec2 getPosition();
+	void recibirPuñetazoIzquierda();
+	void recibirPatadaIzquierda();
+	void recibirPuñetazoDerecha();
+	void recibirPatadaDerecha();
 
 
 private:
 	bool bJumping;
 	int movimiento = 0;
-	glm::ivec2 tileMapDispl, posPlayer;
+	glm::fvec2 posPlayer;
 	int jumpAngle, startY;
+	int deltaTimeDeath, hitTime;
 	TileMap *map;
 	ShaderProgram mapShader;
-	Texture spritesheet_enemigo, spritesheet_enemigo_right;
-	Sprite *sprite_enemigo, *sprite_enemigo_right;
+	Texture spritesheet_enemigo, spritesheet_enemigo_left;
+	Sprite *sprite_enemigo, *sprite_enemigo_left;
 };
 
 #endif

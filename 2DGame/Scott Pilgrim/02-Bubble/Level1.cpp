@@ -48,14 +48,18 @@ void Level1::init(bool music)
 	texs[0].loadFromFile("images/Levels/level1new.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	texs[0].setMagFilter(GL_NEAREST);
 
+	//Init player
 	player = new Player();
 	player->init(glm::ivec2(SCREEN_X, SCREEN_Y), simpleTexProgram);
 	player->setPosition(glm::vec2(50, 260));
 	//player->setTileMap(map);
 
-	enemigo1 = new Enemigo1();
-	enemigo1->init(glm::ivec2(SCREEN_X, SCREEN_Y), simpleTexProgram);
-	enemigo1->setPosition(glm::vec2(250, 260));
+	//Init Enemigos
+	for (int i = 0; i < 1; ++i) {
+		enemigo1[i] = new Enemigo1();
+		enemigo1[i]->init(glm::ivec2(SCREEN_X, SCREEN_Y), simpleTexProgram);
+		enemigo1[i]->setPosition(glm::vec2(100, 260));
+	}
 
 	x = 0.f;
 	projection = glm::ortho(0.f, 50.f, float(SCREEN_HEIGHT - 1), 0.f);
@@ -66,7 +70,10 @@ void Level1::update(int deltaTime)
 {
 	currentTime += deltaTime;
 	player->update(deltaTime);
-	enemigo1->update(deltaTime);
+	for (int i = 0; i < 1; ++i) {
+		comprobarLucha(i);
+		enemigo1[i]->update(deltaTime);
+	}
 	glm::vec2 pos = player->getPosition();
 	if (pos.x > 539 && player->isWalking()) {
 		x += 0.2f;
@@ -106,7 +113,9 @@ void Level1::render()
 	//modelview = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	texProgram.setUniformMatrix4f("projection", glm::ortho(0.f + x * 12.8f, float(SCREEN_WIDTH) + x * 12.8f, float(SCREEN_HEIGHT - 1), 0.f));
-	enemigo1->render();
+	for (int i = 0; i < 1; ++i) {
+		enemigo1[i]->render();
+	}
 	texProgram.setUniformMatrix4f("projection", glm::ortho(0.f, float(SCREEN_WIDTH), float(SCREEN_HEIGHT - 1), 0.f));
 	player->render();
 	
@@ -163,6 +172,31 @@ void Level1::initShaders()
 		cout << "" << simpleTexProgram.log() << endl << endl;
 	}
 	simpleTexProgram.bindFragmentOutput("outColor");
+}
+
+
+void Level1::comprobarLucha(int i) {
+	posPlayer = player->getPosition();
+	posEnemy = enemigo1[i]->getPosition();
+	if ((posPlayer.x <= (posEnemy.x + 90) && (posPlayer.x - 40 > posEnemy.x)) && (posPlayer.y <= posEnemy.y + 15 && posPlayer.y >= posEnemy.y - 15)) {
+		if (player->isPunching_left()) {
+			enemigo1[i]->recibirPuñetazoDerecha();
+		}
+
+		else if (player->isKicking_left()) {
+			enemigo1[i]->recibirPatadaDerecha();
+		}
+	}
+
+	else if ((posPlayer.x >= posEnemy.x - 20 && posPlayer.x < posEnemy.x+20) && (posPlayer.y <= posEnemy.y + 15 && posPlayer.y >= posEnemy.y - 15)) {
+		if (player->isPunching_right()) {
+			enemigo1[i]->recibirPuñetazoIzquierda();
+		}
+
+		else if (player->isKicking_right()) {
+			enemigo1[i]->recibirPatadaIzquierda();
+		}
+	}
 }
 
 

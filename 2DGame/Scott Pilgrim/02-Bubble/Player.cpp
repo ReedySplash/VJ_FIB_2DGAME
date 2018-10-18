@@ -476,6 +476,23 @@ bool Player::isRunning() {
 	else return false;
 }
 
+bool Player::isKicking_left() {
+	if (movimiento == 8) return true;
+	else return false;
+}
+bool Player::isKicking_right() {
+	if (movimiento == 9) return true;
+	else return false;
+}
+bool Player::isPunching_left() {
+	if (movimiento == 5) return true;
+	else return false;
+}
+bool Player::isPunching_right() {
+	if (movimiento == 4) return true;
+	else return false;
+}
+
 
 
 

@@ -23,6 +23,10 @@ public:
 	glm::vec2 getPosition();
 	bool isWalking();
 	bool isRunning();
+	bool isKicking_left();
+	bool isKicking_right();
+	bool isPunching_left();
+	bool isPunching_right();
 	
 private:
 	bool bJumping;

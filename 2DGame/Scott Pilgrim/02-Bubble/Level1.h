@@ -25,6 +25,7 @@ public:
 	void init(bool music);
 	void update(int deltaTime);
 	void render();
+	void comprobarLucha(int i);
 private:
 	bool musica;
 	float currentTime;
@@ -33,9 +34,11 @@ private:
 	Texture texs[2];
 	ShaderProgram simpleTexProgram, texProgram;
 	glm::mat4 projection;
+	glm::ivec2 posPlayer, posEnemy;
 	Player *player;
-	Enemigo1 *enemigo1;
+	Enemigo1 *enemigo1[1];
 	float x;
+
 	void initShaders();
 };
 
