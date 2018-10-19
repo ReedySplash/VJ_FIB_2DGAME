@@ -70,28 +70,48 @@ void Level1::update(int deltaTime)
 {
 	currentTime += deltaTime;
 	player->update(deltaTime);
-	for (int i = 0; i < 1; ++i) {
-		comprobarLucha(i);
-		enemigo1[i]->update(deltaTime);
-	}
 	glm::vec2 pos = player->getPosition();
 	if (pos.x > 539 && player->isWalking()) {
 		x += 0.2f;
 		projection = glm::ortho(max(0, 0 + x), max(50, 50 + x), float(SCREEN_HEIGHT - 1), 0.f);
+		for (int i = 0; i < 1; ++i) {
+			glm::vec2 pose = enemigo1[i]->getPosition();
+			pose.x -= 2.6;
+			enemigo1[i]->setPosition(pose);
+		}
 	}
 	else if (pos.x < 61 && player->isWalking()) {
 		x -= 0.2f;
 		projection = glm::ortho(max(0, 0 + x), max(50, 50 + x), float(SCREEN_HEIGHT - 1), 0.f);
+		for (int i = 0; i < 1; ++i) {
+			glm::vec2 pose = enemigo1[i]->getPosition();
+			pose.x += 2.6;
+			enemigo1[i]->setPosition(pose);
+		}
 	}
 	else if (pos.x > 539 && player->isRunning()) {
 		x += 0.35f;
 		projection = glm::ortho(max(0, 0 + x), max(50, 50 + x), float(SCREEN_HEIGHT - 1), 0.f);
+		for (int i = 0; i < 1; ++i) {
+			glm::vec2 pose = enemigo1[i]->getPosition();
+			pose.x -= 2.6*1.7;
+			enemigo1[i]->setPosition(pose);
+		}
 	}
 	else if (pos.x < 61 && player->isRunning()) {
 		x -= 0.35f;
 		projection = glm::ortho(max(0, 0 + x), max(50, 50 + x), float(SCREEN_HEIGHT - 1), 0.f);
+		for (int i = 0; i < 1; ++i) {
+			glm::vec2 pose = enemigo1[i]->getPosition();
+			pose.x += 2.6*1.7;
+			enemigo1[i]->setPosition(pose);
+		}
 	}
-	if (x < 0) x = 0.f;
+	if (x <= 0) x = 0.f;
+	for (int i = 0; i < 1; ++i) {
+		comprobarLucha(i);
+		enemigo1[i]->update(deltaTime);
+	}
 }
 
 void Level1::render()
@@ -110,13 +130,13 @@ void Level1::render()
 
 	texProgram.use();
 	texProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
-	//modelview = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
+	texProgram.setUniformMatrix4f("projection", glm::ortho(0.f, float(SCREEN_WIDTH), float(SCREEN_HEIGHT - 1), 0.f));
 	texProgram.setUniformMatrix4f("modelview", modelview);
-	texProgram.setUniformMatrix4f("projection", glm::ortho(0.f + x * 12.8f, float(SCREEN_WIDTH) + x * 12.8f, float(SCREEN_HEIGHT - 1), 0.f));
+	//texProgram.setUniformMatrix4f("projection", glm::ortho(0.f + x * 12.8f, float(SCREEN_WIDTH) + x * 12.8f, float(SCREEN_HEIGHT - 1), 0.f));
 	for (int i = 0; i < 1; ++i) {
 		enemigo1[i]->render();
 	}
-	texProgram.setUniformMatrix4f("projection", glm::ortho(0.f, float(SCREEN_WIDTH), float(SCREEN_HEIGHT - 1), 0.f));
+	//texProgram.setUniformMatrix4f("projection", glm::ortho(0.f, float(SCREEN_WIDTH), float(SCREEN_HEIGHT - 1), 0.f));
 	player->render();
 	
 	
