@@ -75,36 +75,44 @@ void Level1::update(int deltaTime)
 		x += 0.2f;
 		projection = glm::ortho(max(0, 0 + x), max(50, 50 + x), float(SCREEN_HEIGHT - 1), 0.f);
 		for (int i = 0; i < 1; ++i) {
-			glm::vec2 pose = enemigo1[i]->getPosition();
-			pose.x -= 2.6;
-			enemigo1[i]->setPosition(pose);
+			if (!enemigo1[i]->isDeath()) {
+				glm::vec2 pose = enemigo1[i]->getPosition();
+				pose.x -= 2.57;
+				enemigo1[i]->setPosition(pose);
+			}
 		}
 	}
 	else if (pos.x < 61 && player->isWalking()) {
 		x -= 0.2f;
 		projection = glm::ortho(max(0, 0 + x), max(50, 50 + x), float(SCREEN_HEIGHT - 1), 0.f);
 		for (int i = 0; i < 1; ++i) {
-			glm::vec2 pose = enemigo1[i]->getPosition();
-			pose.x += 2.6;
-			enemigo1[i]->setPosition(pose);
+			if (!enemigo1[i]->isDeath()) {
+				glm::vec2 pose = enemigo1[i]->getPosition();
+				pose.x += 2.57;
+				enemigo1[i]->setPosition(pose);
+			}
 		}
 	}
 	else if (pos.x > 539 && player->isRunning()) {
 		x += 0.35f;
 		projection = glm::ortho(max(0, 0 + x), max(50, 50 + x), float(SCREEN_HEIGHT - 1), 0.f);
 		for (int i = 0; i < 1; ++i) {
-			glm::vec2 pose = enemigo1[i]->getPosition();
-			pose.x -= 2.6*1.7;
-			enemigo1[i]->setPosition(pose);
+			if (!enemigo1[i]->isDeath()) {
+				glm::vec2 pose = enemigo1[i]->getPosition();
+				pose.x -= 2.6*1.725;
+				enemigo1[i]->setPosition(pose);
+			}
 		}
 	}
 	else if (pos.x < 61 && player->isRunning()) {
 		x -= 0.35f;
 		projection = glm::ortho(max(0, 0 + x), max(50, 50 + x), float(SCREEN_HEIGHT - 1), 0.f);
 		for (int i = 0; i < 1; ++i) {
-			glm::vec2 pose = enemigo1[i]->getPosition();
-			pose.x += 2.6*1.7;
-			enemigo1[i]->setPosition(pose);
+			if (!enemigo1[i]->isDeath()) {
+				glm::vec2 pose = enemigo1[i]->getPosition();
+				pose.x += 2.6*1.725;
+				enemigo1[i]->setPosition(pose);
+			}
 		}
 	}
 	if (x <= 0) x = 0.f;
@@ -134,7 +142,8 @@ void Level1::render()
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	//texProgram.setUniformMatrix4f("projection", glm::ortho(0.f + x * 12.8f, float(SCREEN_WIDTH) + x * 12.8f, float(SCREEN_HEIGHT - 1), 0.f));
 	for (int i = 0; i < 1; ++i) {
-		enemigo1[i]->render();
+		if (!enemigo1[i]->isDeath()) enemigo1[i]->render();
+		else enemigo1[i]->free();
 	}
 	//texProgram.setUniformMatrix4f("projection", glm::ortho(0.f, float(SCREEN_WIDTH), float(SCREEN_HEIGHT - 1), 0.f));
 	player->render();

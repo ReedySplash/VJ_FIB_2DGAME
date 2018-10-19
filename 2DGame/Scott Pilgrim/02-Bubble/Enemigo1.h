@@ -18,14 +18,17 @@ public:
 	void recibirPatadaIzquierda();
 	void recibirPuñetazoDerecha();
 	void recibirPatadaDerecha();
+	bool isDeath();
+	void free();
 
 
 private:
 	bool bJumping;
+	int vida;
 	int movimiento = 0;
 	glm::fvec2 posPlayer;
 	int jumpAngle, startY;
-	int deltaTimeDeath, hitTime;
+	int deltaTimeDeath, hitTime, timeAfterDeath;
 	TileMap *map;
 	ShaderProgram mapShader;
 	Texture spritesheet_enemigo, spritesheet_enemigo_left;

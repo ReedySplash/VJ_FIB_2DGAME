@@ -18,6 +18,7 @@ enum EnumEnemy
 void Enemigo1::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 {
 	mapShader = shaderProgram;
+	vida = 100;
 	movimiento = 1;
 	spritesheet_enemigo.loadFromFile("images/Enemigo1/sprite_enemigo1.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite_enemigo = Sprite::createSprite(glm::ivec2(100, 110), glm::vec2(0.0196078431, 1), &spritesheet_enemigo, &shaderProgram);
@@ -186,20 +187,26 @@ void Enemigo1::update(int deltaTime)
 	sprite_enemigo_left->update(deltaTime);
 
 
-	if (sprite_enemigo_left->animation() == 7 || sprite_enemigo->animation() == 7) deltaTimeDeath += deltaTime;
+	if (sprite_enemigo_left->animation() == 7 || sprite_enemigo->animation() == 7 || sprite_enemigo->animation() == 8) deltaTimeDeath += deltaTime;
 
 	else if (sprite_enemigo_left->animation() == 5 || sprite_enemigo_left->animation() == 6 || sprite_enemigo->animation() == 6 || sprite_enemigo->animation() == 5) hitTime += deltaTime;
 
-	if (hitTime > 500) {
-		sprite_enemigo->changeAnimation(0);
-		sprite_enemigo_left->changeAnimation(0);
+	if (hitTime > 500 && sprite_enemigo->animation() != 8 && sprite_enemigo_left->animation() != 8 && sprite_enemigo->animation() != 7 && sprite_enemigo_left->animation() != 7) {
+		if (sprite_enemigo->animation() != 0 || sprite_enemigo_left->animation() != 0) {
+			sprite_enemigo->changeAnimation(0);
+			sprite_enemigo_left->changeAnimation(0);
+		}
 	}
 
-	if (movimiento == 0 && sprite_enemigo->animation() == 7 && deltaTimeDeath >= 2000)
+	if (movimiento == 0 && sprite_enemigo->animation() == 7 && deltaTimeDeath >= 2000) {
 		sprite_enemigo->changeAnimation(8);
+	}
 
-	else if (movimiento == 1 && sprite_enemigo_left->animation() == 7 && deltaTimeDeath >= 2000)
+	else if (movimiento == 1 && sprite_enemigo_left->animation() == 7 && deltaTimeDeath >= 2000) {
 		sprite_enemigo_left->changeAnimation(8);
+	}
+
+	if (sprite_enemigo->animation() == 8 || sprite_enemigo_left->animation() == 8) timeAfterDeath += deltaTime;
 
 	/*else if (Game::instance().getKey('1')) {
 		movimiento = 0;
@@ -272,12 +279,12 @@ void Enemigo1::update(int deltaTime)
 
 	if (sprite_enemigo->animation() == 7 && movimiento == 0) {
 		posPlayer.x -= 1;
-		//posPlayer.y += 0.5f;
+		posPlayer.y += 0.1f;
 	}
 
 	if (sprite_enemigo_left->animation() == 7 && movimiento == 1) {
 		posPlayer.x += 1;
-		//posPlayer.y += 0.5f;
+		posPlayer.y += 0.1f;
 	}
 
 	sprite_enemigo->setPosition(glm::vec2(float(posPlayer.x), float(posPlayer.y)));
@@ -303,24 +310,59 @@ void Enemigo1::setTileMap(TileMap *tileMap)
 }
 
 void Enemigo1::recibirPuñetazoIzquierda() {
-	movimiento = 1;
-	sprite_enemigo_left->changeAnimation(5);
-	hitTime = 0;
+	if (vida > 0 && sprite_enemigo_left->animation() != 7 && (sprite_enemigo_left->animation() != 8)) {
+		movimiento = 1;
+		sprite_enemigo_left->changeAnimation(5);
+		hitTime = 0;
+		vida -= 5;
+	}
+	if (vida <= 0 && (sprite_enemigo_left->animation() != 8) && (sprite_enemigo->animation() != 8)) {
+		sprite_enemigo_left->changeAnimation(7);
+		deltaTimeDeath = 0;
+	}
 }
 void Enemigo1::recibirPatadaIzquierda() {
-	movimiento = 1;
-	sprite_enemigo_left->changeAnimation(6);
-	hitTime = 0;
+	if (vida > 0 && sprite_enemigo_left->animation() != 7 && (sprite_enemigo_left->animation() != 8)) {
+		movimiento = 1;
+		sprite_enemigo_left->changeAnimation(6);
+		hitTime = 0;
+		vida -= 10;
+	}
+	if (vida <= 0 && (sprite_enemigo_left->animation() != 8) && (sprite_enemigo->animation() != 8)) {
+		sprite_enemigo_left->changeAnimation(7);
+		deltaTimeDeath = 0;
+	}
 }
 void Enemigo1::recibirPuñetazoDerecha() {
-	movimiento = 0;
-	sprite_enemigo->changeAnimation(5);
-	hitTime = 0;
+	if (vida > 0 && sprite_enemigo->animation() != 7 && (sprite_enemigo->animation() != 8)) {
+		movimiento = 0;
+		sprite_enemigo->changeAnimation(5);
+		hitTime = 0;
+		vida -= 5;
+	}
+	if (vida <= 0 && (sprite_enemigo->animation() != 8) && (sprite_enemigo_left->animation() != 8)) {
+		sprite_enemigo->changeAnimation(7);
+		deltaTimeDeath = 0;
+	}
 }
 void Enemigo1::recibirPatadaDerecha() {
-	movimiento = 0;
-	sprite_enemigo->changeAnimation(6);
-	hitTime = 0;
+	if (vida > 0 && sprite_enemigo->animation() != 7 && (sprite_enemigo->animation() != 8)) {
+		movimiento = 0;
+		sprite_enemigo->changeAnimation(6);
+		hitTime = 0;
+		vida -= 10;
+	}
+	if (vida <= 0 && (sprite_enemigo->animation() != 8) && (sprite_enemigo_left->animation() != 8)) {
+		sprite_enemigo->changeAnimation(7);
+		deltaTimeDeath = 0;
+	}
+}
+
+bool Enemigo1::isDeath() {
+	if ((sprite_enemigo->animation() == 8 || sprite_enemigo_left->animation() == 8) && timeAfterDeath > 1000) {
+		return true;
+	}
+	return false;
 }
 
 void Enemigo1::setPosition(const glm::vec2 &pos)
@@ -332,5 +374,10 @@ void Enemigo1::setPosition(const glm::vec2 &pos)
 glm::vec2 Enemigo1::getPosition()
 {
 	return glm::vec2(float(posPlayer.x), float(posPlayer.y));
+}
+
+void Enemigo1::free() {
+	sprite_enemigo->free();
+	sprite_enemigo_left->free();
 }
 
