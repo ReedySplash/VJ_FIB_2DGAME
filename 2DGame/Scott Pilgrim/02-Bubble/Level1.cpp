@@ -88,7 +88,7 @@ void Level1::update(int deltaTime)
 		for (int i = 0; i < 1; ++i) {
 			if (!enemigo1[i]->isDeath()) {
 				glm::vec2 pose = enemigo1[i]->getPosition();
-				pose.x += 2.57;
+				if (x > 0) pose.x += 2.57;
 				enemigo1[i]->setPosition(pose);
 			}
 		}
@@ -110,7 +110,7 @@ void Level1::update(int deltaTime)
 		for (int i = 0; i < 1; ++i) {
 			if (!enemigo1[i]->isDeath()) {
 				glm::vec2 pose = enemigo1[i]->getPosition();
-				pose.x += 2.6*1.725;
+				if (x > 0) pose.x += 2.6*1.725;
 				enemigo1[i]->setPosition(pose);
 			}
 		}
