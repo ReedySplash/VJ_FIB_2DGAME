@@ -10,6 +10,7 @@ void Game::init()
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 	gameStarted = false;
 	level_1 = false;
+	level_2 = false;
 	level = 0;
 	menu.init(music);
 }
@@ -17,9 +18,10 @@ void Game::init()
 bool Game::update(int deltaTime)
 {
 	if (gameStarted) {
-		if (!level_1)
+		if (!level_1 && !level_2)
 		scene.update(deltaTime);
-		else level1.update(deltaTime);
+		else if (level_1) level1.update(deltaTime);
+		else level2.update(deltaTime);
 	}
 	else if (!gameStarted) {
 		if (!menu.update(deltaTime))
@@ -36,9 +38,10 @@ void Game::render()
 		menu.render();
 	}
 	else {
-		if (!level_1)
+		if (!level_1 && !level_2)
 		scene.render();
-		else level1.render();
+		else if (level_1) level1.render();
+		else level2.render();
 	}
 }
 
@@ -53,6 +56,11 @@ void Game::keyPressed(int key)
 	if (key == '1') {
 		level1.init(music);
 		level_1 = true;
+		gameStarted = true;
+	}
+	if (key == '2') {
+		level2.init(music);
+		level_2 = true;
 		gameStarted = true;
 	}
 	keys[key] = true;

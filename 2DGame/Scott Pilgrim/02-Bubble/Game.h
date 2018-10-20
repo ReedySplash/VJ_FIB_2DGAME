@@ -5,6 +5,7 @@
 #include "Scene.h"
 #include "MainMenu.h"
 #include "Level1.h"
+#include "Level2.h"
 
 
 #define SCREEN_WIDTH 640
@@ -52,9 +53,11 @@ private:
 	bool music; //determinará si hay musica establecida
 	int level;
 	bool level_1;
+	bool level_2;
 	bool gameStarted;
 	MainMenu menu;
 	Level1 level1;
+	Level2 level2;
 };
 
 
