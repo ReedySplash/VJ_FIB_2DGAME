@@ -34,7 +34,7 @@ void Kim::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	mapShader = shaderProgram;
 	movimiento = 0;
 	bJumping = false;
-	spritesheet.loadFromFile("images/Kim_stand_right.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spritesheet.loadFromFile("images/Kim/Kim_stand_right.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite = Sprite::createSprite(glm::ivec2(35, 90), glm::vec2(0.25, 1), &spritesheet, &shaderProgram);
 	sprite->setNumberAnimations(4);
 
@@ -44,7 +44,7 @@ void Kim::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	sprite->addKeyframe(STAND_RIGHT, glm::vec2(0.5, 0.f));
 	sprite->addKeyframe(STAND_RIGHT, glm::vec2(0.75, 0.f));
 
-	spritesheet_standLeft.loadFromFile("images/Kim_stand_left.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spritesheet_standLeft.loadFromFile("images/Kim/Kim_stand_left.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite_standLeft = Sprite::createSprite(glm::ivec2(35, 90), glm::vec2(0.25, 1), &spritesheet_standLeft, &shaderProgram);
 	sprite_standLeft->setNumberAnimations(4);
 
@@ -56,7 +56,7 @@ void Kim::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	
 
 
-	spritesheet_caminando.loadFromFile("images/Kim_walk_right.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spritesheet_caminando.loadFromFile("images/Kim/Kim_walk_right.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite_caminando = Sprite::createSprite(glm::ivec2(38, 90), glm::vec2(0.1666666667, 1), &spritesheet_caminando, &shaderProgram);
 	sprite_caminando->setNumberAnimations(4);
 
@@ -69,7 +69,7 @@ void Kim::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	sprite_caminando->addKeyframe(MOVE_RIGHT, glm::vec2(0.6777777777, 0.f));
 	sprite_caminando->addKeyframe(MOVE_RIGHT, glm::vec2(0.83333333333, 0.f));
 
-	spritesheet_caminando_izq.loadFromFile("images/Kim_walk_left.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spritesheet_caminando_izq.loadFromFile("images/Kim/Kim_walk_left.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite_caminando_izq = Sprite::createSprite(glm::ivec2(38, 90), glm::vec2(0.1666666667, 1), &spritesheet_caminando_izq, &shaderProgram);
 	sprite_caminando_izq->setNumberAnimations(4);
 
@@ -82,7 +82,7 @@ void Kim::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	sprite_caminando_izq->addKeyframe(MOVE_LEFT, glm::vec2(0.1666666667, 0.f));
 	sprite_caminando_izq->addKeyframe(MOVE_LEFT, glm::vec2(0.f, 0.f));
 
-	spritesheet_pegando_derecha.loadFromFile("images/Kim_puñetazos_derecha.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spritesheet_pegando_derecha.loadFromFile("images/Kim/Kim_puñetazos_derecha.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite_pegando_derecha = Sprite::createSprite(glm::ivec2(57, 100), glm::vec2(0.0833333333, 1), &spritesheet_pegando_derecha, &shaderProgram);
 	sprite_pegando_derecha->setNumberAnimations(1);
 
@@ -101,7 +101,7 @@ void Kim::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	sprite_pegando_derecha->addKeyframe(0, glm::vec2(0.083333333*11.f, 0.f));
 	
 
-	spritesheet_pegando_izquierda.loadFromFile("images/Kim_puñetazos_izquierda.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spritesheet_pegando_izquierda.loadFromFile("images/Kim/Kim_puñetazos_izquierda.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite_pegando_izquierda = Sprite::createSprite(glm::ivec2(57, 100), glm::vec2(0.083333333, 1), &spritesheet_pegando_izquierda, &shaderProgram);
 	sprite_pegando_izquierda->setNumberAnimations(1);
 
@@ -119,7 +119,7 @@ void Kim::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	sprite_pegando_izquierda->addKeyframe(0, glm::vec2(0.083333333*1.f, 0.f));
 	sprite_pegando_izquierda->addKeyframe(0, glm::vec2(0.083333333*0.f, 0.f));
 
-	spritesheet_saltar_derecha.loadFromFile("images/Kim_jump_right.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spritesheet_saltar_derecha.loadFromFile("images/Kim/Kim_jump_right.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite_saltar_derecha = Sprite::createSprite(glm::ivec2(50, 100), glm::vec2(0.0769230769, 1), &spritesheet_saltar_derecha, &shaderProgram);
 	sprite_saltar_derecha->setNumberAnimations(2);
 
@@ -142,7 +142,7 @@ void Kim::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	sprite_saltar_derecha->addKeyframe(1, glm::vec2(0.0769230769 * 10, 0.f));
 	sprite_saltar_derecha->addKeyframe(1, glm::vec2(0.0769230769 * 11, 0.f));
 
-	spritesheet_saltar_izquierda.loadFromFile("images/Kim_jump_left.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spritesheet_saltar_izquierda.loadFromFile("images/Kim/Kim_jump_left.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite_saltar_izquierda = Sprite::createSprite(glm::ivec2(50, 100), glm::vec2(0.0769230769, 1), &spritesheet_saltar_izquierda, &shaderProgram);
 	sprite_saltar_izquierda->setNumberAnimations(2);
 
@@ -165,7 +165,7 @@ void Kim::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	sprite_saltar_izquierda->addKeyframe(1, glm::vec2(0.0769230769 * 2, 0.f));
 	sprite_saltar_izquierda->addKeyframe(1, glm::vec2(0.0769230769 * 1, 0.f));
 
-	spritesheet_patada_derecha.loadFromFile("images/Kim_patada_derecha.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spritesheet_patada_derecha.loadFromFile("images/Kim/Kim_patada_derecha.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite_patada_derecha = Sprite::createSprite(glm::ivec2(65, 100), glm::vec2(0.142857143, 1), &spritesheet_patada_derecha, &shaderProgram);
 	sprite_patada_derecha->setNumberAnimations(1);
 
@@ -178,7 +178,7 @@ void Kim::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	sprite_patada_derecha->addKeyframe(0, glm::vec2(0.142857143*5, 0.f));
 	sprite_patada_derecha->addKeyframe(0, glm::vec2(0.142857143*6, 0.f));
 
-	spritesheet_patada_izquierda.loadFromFile("images/Kim_patada_izquierda.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spritesheet_patada_izquierda.loadFromFile("images/Kim/Kim_patada_izquierda.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite_patada_izquierda = Sprite::createSprite(glm::ivec2(65, 100), glm::vec2(0.142857143, 1), &spritesheet_patada_izquierda, &shaderProgram);
 	sprite_patada_izquierda->setNumberAnimations(1);
 
