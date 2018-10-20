@@ -24,7 +24,7 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, in
 	mapShader = shaderProgram;
 	movimiento = 0;
 	bJumping = false;
-	spritesheet.loadFromFile("images/Scott quieto.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spritesheet.loadFromFile("images/Scott/Scott quieto.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite = Sprite::createSprite(glm::ivec2(45, 100), glm::vec2(0.125, 1), &spritesheet, &shaderProgram);
 	sprite->setNumberAnimations(4);
 		
@@ -38,7 +38,7 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, in
 		sprite->addKeyframe(STAND_RIGHT, glm::vec2(0.75f, 0.f));
 		sprite->addKeyframe(STAND_RIGHT, glm::vec2(0.875f, 0.f));
 
-	spritesheet_standLeft.loadFromFile("images/Scott quieto left.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spritesheet_standLeft.loadFromFile("images/Scott/Scott quieto left.png", TEXTURE_PIXEL_FORMAT_RGBA);
 		sprite_standLeft = Sprite::createSprite(glm::ivec2(45, 100), glm::vec2(0.125, 1), &spritesheet_standLeft, &shaderProgram);
 		sprite_standLeft->setNumberAnimations(4);
 
@@ -53,7 +53,7 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, in
 		sprite_standLeft->addKeyframe(STAND_LEFT, glm::vec2(0.875f, 0.f));
 
 
-	spritesheet_caminando.loadFromFile("images/0.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spritesheet_caminando.loadFromFile("images/Scott/0.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite_caminando = Sprite::createSprite(glm::ivec2(60, 100), glm::vec2(0.1666666667, 1), &spritesheet_caminando, &shaderProgram);
 	sprite_caminando->setNumberAnimations(4);
 
@@ -66,7 +66,7 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, in
 		sprite_caminando->addKeyframe(MOVE_RIGHT, glm::vec2(0.6777777777, 0.f));
 		sprite_caminando->addKeyframe(MOVE_RIGHT, glm::vec2(0.83333333333, 0.f));
 
-	spritesheet_caminando_izq.loadFromFile("images/0_izq.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spritesheet_caminando_izq.loadFromFile("images/Scott/0_izq.png", TEXTURE_PIXEL_FORMAT_RGBA);
 		sprite_caminando_izq = Sprite::createSprite(glm::ivec2(60, 100), glm::vec2(0.1666666667, 1), &spritesheet_caminando_izq, &shaderProgram);
 		sprite_caminando_izq->setNumberAnimations(4);
 
@@ -79,7 +79,7 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, in
 		sprite_caminando_izq->addKeyframe(MOVE_LEFT, glm::vec2(0.1666666667, 0.f));
 		sprite_caminando_izq->addKeyframe(MOVE_LEFT, glm::vec2(0.f, 0.f));
 
-	spritesheet_pegando_derecha.loadFromFile("images/atacar_puño_derecha.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spritesheet_pegando_derecha.loadFromFile("images/Scott/atacar_puño_derecha.png", TEXTURE_PIXEL_FORMAT_RGBA);
 			sprite_pegando_derecha = Sprite::createSprite(glm::ivec2(57, 100), glm::vec2(0.0588235294, 1), &spritesheet_pegando_derecha, &shaderProgram);
 			sprite_pegando_derecha->setNumberAnimations(1);
 
@@ -102,7 +102,7 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, in
 			sprite_pegando_derecha->addKeyframe(0, glm::vec2(0.0588235294f*15.f, 0.f));
 			sprite_pegando_derecha->addKeyframe(0, glm::vec2(0.0588235294f*16.f, 0.f));
 
-	spritesheet_pegando_izquierda.loadFromFile("images/atacar_puño_izquierda.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spritesheet_pegando_izquierda.loadFromFile("images/Scott/atacar_puño_izquierda.png", TEXTURE_PIXEL_FORMAT_RGBA);
 			sprite_pegando_izquierda = Sprite::createSprite(glm::ivec2(57, 100), glm::vec2(0.0588235294, 1), &spritesheet_pegando_izquierda, &shaderProgram);
 			sprite_pegando_izquierda->setNumberAnimations(1);
 
@@ -125,7 +125,7 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, in
 			sprite_pegando_izquierda->addKeyframe(0, glm::vec2(0.0588235294f*1.f, 0.f));
 			sprite_pegando_izquierda->addKeyframe(0, glm::vec2(0.0588235294f*0.f, 0.f));
 
-	spritesheet_saltar_derecha.loadFromFile("images/saltar_derecha.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spritesheet_saltar_derecha.loadFromFile("images/Scott/saltar_derecha.png", TEXTURE_PIXEL_FORMAT_RGBA);
 			sprite_saltar_derecha = Sprite::createSprite(glm::ivec2(47, 100), glm::vec2(0.0769230769, 1), &spritesheet_saltar_derecha, &shaderProgram);
 			sprite_saltar_derecha->setNumberAnimations(2);
 
@@ -148,7 +148,7 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, in
 			sprite_saltar_derecha->addKeyframe(1, glm::vec2(0.0769230769 * 10, 0.f));
 			sprite_saltar_derecha->addKeyframe(1, glm::vec2(0.0769230769 * 11, 0.f));
 
-	spritesheet_saltar_izquierda.loadFromFile("images/saltar_izquierda.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spritesheet_saltar_izquierda.loadFromFile("images/Scott/saltar_izquierda.png", TEXTURE_PIXEL_FORMAT_RGBA);
 			sprite_saltar_izquierda = Sprite::createSprite(glm::ivec2(47, 100), glm::vec2(0.0769230769, 1), &spritesheet_saltar_izquierda, &shaderProgram);
 			sprite_saltar_izquierda->setNumberAnimations(2);
 
@@ -171,7 +171,7 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, in
 			sprite_saltar_izquierda->addKeyframe(1, glm::vec2(0.0769230769 * 2, 0.f));
 			sprite_saltar_izquierda->addKeyframe(1, glm::vec2(0.0769230769 * 1, 0.f));
 
-	spritesheet_patada_derecha.loadFromFile("images/patada_derecha.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spritesheet_patada_derecha.loadFromFile("images/Scott/patada_derecha.png", TEXTURE_PIXEL_FORMAT_RGBA);
 			sprite_patada_derecha = Sprite::createSprite(glm::ivec2(60, 100), glm::vec2(0.125, 1), &spritesheet_patada_derecha, &shaderProgram);
 			sprite_patada_derecha->setNumberAnimations(1);
 
@@ -185,7 +185,7 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, in
 			sprite_patada_derecha->addKeyframe(0, glm::vec2(0.75f, 0.f));
 			sprite_patada_derecha->addKeyframe(0, glm::vec2(0.875f, 0.f));
 
-	spritesheet_patada_izquierda.loadFromFile("images/patada_izquierda.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spritesheet_patada_izquierda.loadFromFile("images/Scott/patada_izquierda.png", TEXTURE_PIXEL_FORMAT_RGBA);
 			sprite_patada_izquierda = Sprite::createSprite(glm::ivec2(60, 100), glm::vec2(0.125, 1), &spritesheet_patada_izquierda, &shaderProgram);
 			sprite_patada_izquierda->setNumberAnimations(1);
 
@@ -199,7 +199,7 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, in
 			sprite_patada_izquierda->addKeyframe(0, glm::vec2(0.125, 0.f));
 			sprite_patada_izquierda->addKeyframe(0, glm::vec2(0, 0.f));
 
-	spritesheet_correr.loadFromFile("images/scott_correr.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spritesheet_correr.loadFromFile("images/Scott/scott_correr.png", TEXTURE_PIXEL_FORMAT_RGBA);
 			sprite_correr = Sprite::createSprite(glm::ivec2(60, 100), glm::vec2(0.0625, 1), &spritesheet_correr, &shaderProgram);
 			sprite_correr->setNumberAnimations(2);
 
@@ -223,7 +223,7 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, in
 			sprite_correr->addKeyframe(1, glm::vec2(0.0625 * 14, 0.f));
 			sprite_correr->addKeyframe(1, glm::vec2(0.0625 * 15, 0.f));
 
-	spritesheet_puñetazo_arriba.loadFromFile("images/scott_puñetazo_arriba_derecha.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spritesheet_puñetazo_arriba.loadFromFile("images/Scott/scott_puñetazo_arriba_derecha.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	puñetazo_arriba = Sprite::createSprite(glm::ivec2(60, 100), glm::vec2(0.125, 1), &spritesheet_puñetazo_arriba, &shaderProgram);
 	puñetazo_arriba->setNumberAnimations(1);
 
@@ -237,7 +237,7 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, in
 		puñetazo_arriba->addKeyframe(0, glm::vec2(0.125 * 6, 0.f));
 		puñetazo_arriba->addKeyframe(0, glm::vec2(0.125 * 7, 0.f));
 
-	spritesheet_puñetazo_arriba_izq.loadFromFile("images/scott_puñetazo_arriba_derecha.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spritesheet_puñetazo_arriba_izq.loadFromFile("images/Scott/scott_puñetazo_arriba_izquierda.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	puñetazo_arriba_izq = Sprite::createSprite(glm::ivec2(60, 100), glm::vec2(0.125, 1), &spritesheet_puñetazo_arriba_izq, &shaderProgram);
 	puñetazo_arriba_izq->setNumberAnimations(1);
 
@@ -386,9 +386,9 @@ void Player::update(int deltaTime)
 
 	else if (!Game::instance().getSpecialKey(GLUT_KEY_LEFT) && !Game::instance().getSpecialKey(GLUT_KEY_RIGHT) && !Game::instance().getSpecialKey(GLUT_KEY_UP) && !Game::instance().getSpecialKey(GLUT_KEY_DOWN) && !Game::instance().getKey('x') && !Game::instance().getKey('c') && !Game::instance().getKey('v'))
 	{
-		if (movimiento == 2 || movimiento == 5 || movimiento == 8 || movimiento == 10 || movimiento == 12 && sprite_correr->animation() == 1)
+		if (movimiento == 2 || movimiento == 5 || movimiento == 8 || movimiento == 10 && sprite_correr->animation() == 1 || movimiento == 12)
 			movimiento = 0;
-		else if (movimiento == 3 || movimiento == 4 || movimiento == 9 || movimiento == 10 || movimiento == 11 && sprite_correr->animation() == 0)
+		else if (movimiento == 3 || movimiento == 4 || movimiento == 9 || movimiento == 10 && sprite_correr->animation() == 0 || movimiento == 11)
 			movimiento = 1;
 	}
 
@@ -549,11 +549,12 @@ bool Player::isRunning() {
 
 bool Player::isKicking_left() {
 	if (movimiento == 8) return true;
+	else if (movimiento == 12) return true;
 	else return false;
 }
 bool Player::isKicking_right() {
 	if (movimiento == 9) return true;
-	if (movimiento == 11) return true;
+	else if (movimiento == 11) return true;
 	else return false;
 }
 bool Player::isPunching_left() {
