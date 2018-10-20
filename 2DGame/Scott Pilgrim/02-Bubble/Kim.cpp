@@ -31,10 +31,11 @@ Kim::~Kim()
 
 void Kim::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 {
+	mapShader = shaderProgram;
 	movimiento = 0;
 	bJumping = false;
 	spritesheet.loadFromFile("images/Kim_stand_right.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite = Sprite::createSprite(glm::ivec2(30, 62), glm::vec2(0.25, 1), &spritesheet, &shaderProgram);
+	sprite = Sprite::createSprite(glm::ivec2(35, 90), glm::vec2(0.25, 1), &spritesheet, &shaderProgram);
 	sprite->setNumberAnimations(4);
 
 	sprite->setAnimationSpeed(STAND_RIGHT, 8);
@@ -44,7 +45,7 @@ void Kim::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	sprite->addKeyframe(STAND_RIGHT, glm::vec2(0.75, 0.f));
 
 	spritesheet_standLeft.loadFromFile("images/Kim_stand_left.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite_standLeft = Sprite::createSprite(glm::ivec2(30, 62), glm::vec2(0.25, 1), &spritesheet_standLeft, &shaderProgram);
+	sprite_standLeft = Sprite::createSprite(glm::ivec2(35, 90), glm::vec2(0.25, 1), &spritesheet_standLeft, &shaderProgram);
 	sprite_standLeft->setNumberAnimations(4);
 
 	sprite_standLeft->setAnimationSpeed(STAND_LEFT, 8);
@@ -56,7 +57,7 @@ void Kim::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 
 
 	spritesheet_caminando.loadFromFile("images/Kim_walk_right.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite_caminando = Sprite::createSprite(glm::ivec2(31, 63), glm::vec2(0.1666666667, 1), &spritesheet_caminando, &shaderProgram);
+	sprite_caminando = Sprite::createSprite(glm::ivec2(38, 90), glm::vec2(0.1666666667, 1), &spritesheet_caminando, &shaderProgram);
 	sprite_caminando->setNumberAnimations(4);
 
 
@@ -69,7 +70,7 @@ void Kim::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	sprite_caminando->addKeyframe(MOVE_RIGHT, glm::vec2(0.83333333333, 0.f));
 
 	spritesheet_caminando_izq.loadFromFile("images/Kim_walk_left.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite_caminando_izq = Sprite::createSprite(glm::ivec2(36.83333333, 63), glm::vec2(0.1666666667, 1), &spritesheet_caminando_izq, &shaderProgram);
+	sprite_caminando_izq = Sprite::createSprite(glm::ivec2(38, 90), glm::vec2(0.1666666667, 1), &spritesheet_caminando_izq, &shaderProgram);
 	sprite_caminando_izq->setNumberAnimations(4);
 
 
@@ -82,7 +83,7 @@ void Kim::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	sprite_caminando_izq->addKeyframe(MOVE_LEFT, glm::vec2(0.f, 0.f));
 
 	spritesheet_pegando_derecha.loadFromFile("images/Kim_puñetazos_derecha.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite_pegando_derecha = Sprite::createSprite(glm::ivec2(57, 59), glm::vec2(0.0833333333, 1), &spritesheet_pegando_derecha, &shaderProgram);
+	sprite_pegando_derecha = Sprite::createSprite(glm::ivec2(57, 100), glm::vec2(0.0833333333, 1), &spritesheet_pegando_derecha, &shaderProgram);
 	sprite_pegando_derecha->setNumberAnimations(1);
 
 	sprite_pegando_derecha->setAnimationSpeed(0, 10);
@@ -101,7 +102,7 @@ void Kim::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	
 
 	spritesheet_pegando_izquierda.loadFromFile("images/Kim_puñetazos_izquierda.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite_pegando_izquierda = Sprite::createSprite(glm::ivec2(57, 59), glm::vec2(0.083333333, 1), &spritesheet_pegando_izquierda, &shaderProgram);
+	sprite_pegando_izquierda = Sprite::createSprite(glm::ivec2(57, 100), glm::vec2(0.083333333, 1), &spritesheet_pegando_izquierda, &shaderProgram);
 	sprite_pegando_izquierda->setNumberAnimations(1);
 
 	sprite_pegando_izquierda->setAnimationSpeed(0, 10);
@@ -119,7 +120,7 @@ void Kim::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	sprite_pegando_izquierda->addKeyframe(0, glm::vec2(0.083333333*0.f, 0.f));
 
 	spritesheet_saltar_derecha.loadFromFile("images/Kim_jump_right.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite_saltar_derecha = Sprite::createSprite(glm::ivec2(47, 67), glm::vec2(0.0769230769, 1), &spritesheet_saltar_derecha, &shaderProgram);
+	sprite_saltar_derecha = Sprite::createSprite(glm::ivec2(50, 100), glm::vec2(0.0769230769, 1), &spritesheet_saltar_derecha, &shaderProgram);
 	sprite_saltar_derecha->setNumberAnimations(2);
 
 	sprite_saltar_derecha->setAnimationSpeed(0, 8);
@@ -142,7 +143,7 @@ void Kim::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	sprite_saltar_derecha->addKeyframe(1, glm::vec2(0.0769230769 * 11, 0.f));
 
 	spritesheet_saltar_izquierda.loadFromFile("images/Kim_jump_left.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite_saltar_izquierda = Sprite::createSprite(glm::ivec2(47, 67), glm::vec2(0.0769230769, 1), &spritesheet_saltar_izquierda, &shaderProgram);
+	sprite_saltar_izquierda = Sprite::createSprite(glm::ivec2(50, 100), glm::vec2(0.0769230769, 1), &spritesheet_saltar_izquierda, &shaderProgram);
 	sprite_saltar_izquierda->setNumberAnimations(2);
 
 	sprite_saltar_izquierda->setAnimationSpeed(0, 8);
@@ -165,7 +166,7 @@ void Kim::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	sprite_saltar_izquierda->addKeyframe(1, glm::vec2(0.0769230769 * 1, 0.f));
 
 	spritesheet_patada_derecha.loadFromFile("images/Kim_patada_derecha.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite_patada_derecha = Sprite::createSprite(glm::ivec2(69, 60), glm::vec2(0.142857143, 1), &spritesheet_patada_derecha, &shaderProgram);
+	sprite_patada_derecha = Sprite::createSprite(glm::ivec2(65, 100), glm::vec2(0.142857143, 1), &spritesheet_patada_derecha, &shaderProgram);
 	sprite_patada_derecha->setNumberAnimations(1);
 
 	sprite_patada_derecha->setAnimationSpeed(0, 12);
@@ -178,7 +179,7 @@ void Kim::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	sprite_patada_derecha->addKeyframe(0, glm::vec2(0.142857143*6, 0.f));
 
 	spritesheet_patada_izquierda.loadFromFile("images/Kim_patada_izquierda.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite_patada_izquierda = Sprite::createSprite(glm::ivec2(69, 60), glm::vec2(0.142857143, 1), &spritesheet_patada_izquierda, &shaderProgram);
+	sprite_patada_izquierda = Sprite::createSprite(glm::ivec2(65, 100), glm::vec2(0.142857143, 1), &spritesheet_patada_izquierda, &shaderProgram);
 	sprite_patada_izquierda->setNumberAnimations(1);
 
 	sprite_patada_izquierda->setAnimationSpeed(0, 12);
@@ -215,7 +216,7 @@ void Kim::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 
 void Kim::update(int deltaTime)
 {
-	sprite->update(deltaTime);
+	/*sprite->update(deltaTime);
 	sprite_caminando->update(deltaTime);
 	sprite_standLeft->update(deltaTime);
 	sprite_caminando_izq->update(deltaTime);
@@ -337,8 +338,173 @@ void Kim::update(int deltaTime)
 	sprite_saltar_derecha->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
 	sprite_saltar_izquierda->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
 	sprite_patada_derecha->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
-	sprite_patada_izquierda->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x - 20.f), float(tileMapDispl.y + posPlayer.y)));
-}
+	sprite_patada_izquierda->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x - 20.f), float(tileMapDispl.y + posPlayer.y)));*/
+
+	sprite->update(deltaTime);
+	sprite_caminando->update(deltaTime);
+	sprite_standLeft->update(deltaTime);
+	sprite_caminando_izq->update(deltaTime);
+	sprite_pegando_derecha->update(deltaTime);
+	sprite_pegando_izquierda->update(deltaTime);
+	sprite_saltar_derecha->update(deltaTime);
+	sprite_saltar_izquierda->update(deltaTime);
+	sprite_patada_derecha->update(deltaTime);
+	sprite_patada_izquierda->update(deltaTime);
+	//sprite_correr->update(deltaTime);
+
+	if (Game::instance().getKey('x') && (movimiento == 1 || movimiento == 3 || movimiento == 4)) {
+		movimiento = 4;
+	}
+
+	else if (Game::instance().getKey('x') && (movimiento == 0 || movimiento == 2 || movimiento == 5)) {
+		movimiento = 5;
+	}
+
+	else if (Game::instance().getKey('c') && (movimiento == 1 || movimiento == 3 || movimiento == 4 || movimiento == 9)) {
+		if (movimiento != 9)sprite_patada_derecha->changeAnimation(0);
+		movimiento = 9;
+	}
+
+	else if (Game::instance().getKey('c') && (movimiento == 0 || movimiento == 2 || movimiento == 5 || movimiento == 8)) {
+		if (movimiento != 8)sprite_patada_izquierda->changeAnimation(0);
+		movimiento = 8;
+	}
+
+
+	else if (Game::instance().getKey('<') && (Game::instance().getSpecialKey(GLUT_KEY_LEFT) || (Game::instance().getSpecialKey(GLUT_KEY_RIGHT)))) {
+		if (Game::instance().getSpecialKey(GLUT_KEY_LEFT)) {
+			if (!bJumping) movimiento = 10;
+			//if (sprite_correr->animation() == 0) sprite_correr->changeAnimation(1);
+			if (posPlayer.x > 60) posPlayer.x -= 4;
+		}
+		else if (Game::instance().getSpecialKey(GLUT_KEY_RIGHT)) {
+			if (!bJumping) movimiento = 10;
+			//if (sprite_correr->animation() == 1) sprite_correr->changeAnimation(0);
+			if (posPlayer.x < 540) posPlayer.x += 4;
+		}
+	}
+
+
+	else if (Game::instance().getSpecialKey(GLUT_KEY_LEFT))
+	{
+		if (!bJumping) movimiento = 2;
+		if (posPlayer.x > 60) posPlayer.x -= 2.f;
+		/*if (map->collisionMoveLeft(posPlayer, glm::ivec2(38.625, 61)))
+		{
+		if (!bJumping) movimiento = 0;
+		posPlayer.x += 2;
+		}*/
+	}
+	else if (Game::instance().getSpecialKey(GLUT_KEY_RIGHT))
+	{
+		if (!bJumping) movimiento = 3;
+		if (posPlayer.x < 540) posPlayer.x += 2;
+		/*if (map->collisionMoveRight(posPlayer, glm::ivec2(38.625, 61)))
+		{
+		if (!bJumping) movimiento = 1;
+
+		posPlayer.x -= 2;
+		}*/
+	}
+
+	if (Game::instance().getSpecialKey(GLUT_KEY_UP) && !Game::instance().getKey('c') && !Game::instance().getKey('x') && posPlayer.y > 165)
+	{
+		if (!bJumping && movimiento == 3 || movimiento == 1) movimiento = 3;
+		if (!bJumping && movimiento == 2 || movimiento == 0) movimiento = 2;
+		posPlayer.y -= 2;
+	}
+
+	else if (Game::instance().getSpecialKey(GLUT_KEY_DOWN) && !Game::instance().getKey('c') && !Game::instance().getKey('x') && posPlayer.y < 380)
+	{
+		if (!bJumping && movimiento == 3 || movimiento == 1) movimiento = 3;
+		if (!bJumping && movimiento == 2 || movimiento == 0) movimiento = 2;
+		posPlayer.y += 2;
+	}
+
+
+	else if (!Game::instance().getSpecialKey(GLUT_KEY_LEFT) && !Game::instance().getSpecialKey(GLUT_KEY_RIGHT) && !Game::instance().getSpecialKey(GLUT_KEY_UP) && !Game::instance().getSpecialKey(GLUT_KEY_DOWN) && !Game::instance().getKey('x') && !Game::instance().getKey('c'))
+	{
+		if (movimiento == 2 || movimiento == 5 || movimiento == 8 || movimiento == 10)
+			movimiento = 0;
+		else if (movimiento == 3 || movimiento == 4 || movimiento == 9 || movimiento == 10)
+			movimiento = 1;
+	}
+
+	if (bJumping)
+	{
+		if (movimiento == 1 || movimiento == 3 || movimiento == 4 || movimiento == 7 || movimiento == 10)
+			movimiento = 7;
+		else movimiento = 6;
+
+		jumpAngle += JUMP_ANGLE_STEP;
+		if (jumpAngle == 180)
+		{
+			bJumping = false;
+			posPlayer.y = startY;
+			if (movimiento == 6) movimiento = 0;
+			else movimiento = 1;
+
+		}
+		else
+		{
+			posPlayer.y = int(startY - 96 * sin(3.14159f * jumpAngle / 180.f));
+			if (jumpAngle > 90) {
+				//bJumping = !map->collisionMoveDown(posPlayer, glm::ivec2(38.625, 61), &posPlayer.y);
+				if (!bJumping) {
+					if (movimiento == 6) movimiento = 0;
+					else movimiento = 1;
+				}
+			}
+		}
+	}
+	else
+	{
+		if (Game::instance().getKey('z'))
+		{
+			bJumping = true;
+			sprite_saltar_derecha->changeAnimation(0);
+			sprite_saltar_izquierda->changeAnimation(0);
+			jumpAngle = 0;
+			startY = posPlayer.y;
+		}
+		/*posPlayer.y += FALL_STEP;
+		if (map->collisionMoveDown(posPlayer, glm::ivec2(38.625, 61), &posPlayer.y))
+		{
+		if (movimiento == 7) movimiento = 1;
+		else if (movimiento == 6) movimiento = 0;
+		sprite_saltar_derecha->changeAnimation(0);
+		sprite_saltar_izquierda->changeAnimation(0);
+		if (Game::instance().getSpecialKey(GLUT_KEY_UP))
+		{
+		bJumping = true;
+		jumpAngle = 0;
+		startY = posPlayer.y;
+		}
+		}
+		else {
+		if (movimiento == 7 || movimiento == 3) {
+		movimiento = 7;
+		sprite_saltar_derecha->changeAnimation(1);
+		}
+		else if (movimiento == 6 || movimiento == 2) {
+		movimiento = 6;
+		sprite_saltar_izquierda->changeAnimation(1);
+		}
+
+		}*/
+	}
+	sprite->setPosition(glm::vec2(float(posPlayer.x), float(posPlayer.y)));
+	sprite_caminando->setPosition(glm::vec2(float(posPlayer.x), float(posPlayer.y)));
+	sprite_standLeft->setPosition(glm::vec2(float(posPlayer.x), float(posPlayer.y)));
+	sprite_caminando_izq->setPosition(glm::vec2(float(posPlayer.x), float(posPlayer.y)));
+	sprite_pegando_derecha->setPosition(glm::vec2(float(posPlayer.x), float(posPlayer.y)));
+	sprite_pegando_izquierda->setPosition(glm::vec2(float(posPlayer.x - 20), float(posPlayer.y)));
+	sprite_saltar_derecha->setPosition(glm::vec2(float(posPlayer.x), float(posPlayer.y)));
+	sprite_saltar_izquierda->setPosition(glm::vec2(float(posPlayer.x), float(posPlayer.y)));
+	sprite_patada_derecha->setPosition(glm::vec2(float(posPlayer.x), float(posPlayer.y)));
+	sprite_patada_izquierda->setPosition(glm::vec2(float(posPlayer.x - 20), float(posPlayer.y)));
+	//sprite_correr->setPosition(glm::vec2(float(posPlayer.x - 20), float(posPlayer.y)));
+	}
 
 void Kim::render()
 {
@@ -362,6 +528,38 @@ void Kim::setTileMap(TileMap *tileMap)
 void Kim::setPosition(const glm::vec2 &pos)
 {
 	posPlayer = pos;
-	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
+	sprite->setPosition(glm::vec2(float(posPlayer.x), float(posPlayer.y)));
+}
 
+glm::vec2 Kim::getPosition()
+{
+	return glm::vec2(float(posPlayer.x), float(posPlayer.y));
+}
+
+bool Kim::isWalking() {
+	if (movimiento == 2 || movimiento == 3 || movimiento == 6 || movimiento == 7) return true;
+	else return false;
+}
+
+
+bool Kim::isRunning() {
+	if (movimiento == 10 || movimiento == 6 || movimiento == 7) return true;
+	else return false;
+}
+
+bool Kim::isKicking_left() {
+	if (movimiento == 8) return true;
+	else return false;
+}
+bool Kim::isKicking_right() {
+	if (movimiento == 9) return true;
+	else return false;
+}
+bool Kim::isPunching_left() {
+	if (movimiento == 5) return true;
+	else return false;
+}
+bool Kim::isPunching_right() {
+	if (movimiento == 4) return true;
+	else return false;
 }

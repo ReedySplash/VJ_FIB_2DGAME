@@ -13,6 +13,7 @@
 #include "TexturedQuad.h"
 #include "Player.h"
 #include "Enemigo1.h"
+#include "Kim.h"
 
 
 class Level1
@@ -25,19 +26,23 @@ public:
 	void init(bool music);
 	void update(int deltaTime);
 	void render();
-	void comprobarLucha(int i);
+	void comprobarLucha(int i, glm::vec2 posPlayer);
 private:
 	bool musica;
 	float currentTime;
-	float pos_ini, pos_fin;
 	TexturedQuad *texQuad[3];
 	Texture texs[2];
 	ShaderProgram simpleTexProgram, texProgram;
 	glm::mat4 projection;
 	glm::ivec2 posPlayer, posEnemy;
-	Player *player;
-	Enemigo1 *enemigo1[1];
 	float x;
+
+	//Personajes dentro del juego
+	int personaje; //0-2  depende del persoanje (Hay 3)
+	Player *player;
+	Kim *kim;
+	Enemigo1 *enemigo1[1];
+
 
 	void initShaders();
 };

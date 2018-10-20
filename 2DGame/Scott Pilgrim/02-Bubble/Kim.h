@@ -17,8 +17,16 @@ public:
 	void render();
 	void setTileMap(TileMap *tileMap);
 	void setPosition(const glm::vec2 &pos);
+	glm::vec2 getPosition();
+	bool isWalking();
+	bool isRunning();
+	bool isKicking_left();
+	bool isKicking_right();
+	bool isPunching_left();
+	bool isPunching_right();
 
 private:
+	ShaderProgram mapShader;
 	bool bJumping;
 	int movimiento = 0;
 	glm::ivec2 tileMapDispl, posPlayer;
