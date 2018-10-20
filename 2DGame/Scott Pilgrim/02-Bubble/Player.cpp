@@ -221,6 +221,33 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 			sprite_correr->addKeyframe(1, glm::vec2(0.0625 * 14, 0.f));
 			sprite_correr->addKeyframe(1, glm::vec2(0.0625 * 15, 0.f));
 
+	spritesheet_puñetazo_arriba.loadFromFile("images/scott_puñetazo_arriba_derecha.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	puñetazo_arriba = Sprite::createSprite(glm::ivec2(60, 100), glm::vec2(0.125, 1), &spritesheet_puñetazo_arriba, &shaderProgram);
+	puñetazo_arriba->setNumberAnimations(1);
+
+		puñetazo_arriba->setAnimationSpeed(0, 10);
+		puñetazo_arriba->addKeyframe(0, glm::vec2(0, 0.f));
+		puñetazo_arriba->addKeyframe(0, glm::vec2(0.125, 0.f));
+		puñetazo_arriba->addKeyframe(0, glm::vec2(0.125 * 2, 0.f));
+		puñetazo_arriba->addKeyframe(0, glm::vec2(0.125 * 3, 0.f));
+		puñetazo_arriba->addKeyframe(0, glm::vec2(0.125 * 4, 0.f));
+		puñetazo_arriba->addKeyframe(0, glm::vec2(0.125 * 5, 0.f));
+		puñetazo_arriba->addKeyframe(0, glm::vec2(0.125 * 6, 0.f));
+		puñetazo_arriba->addKeyframe(0, glm::vec2(0.125 * 7, 0.f));
+
+	spritesheet_puñetazo_arriba_izq.loadFromFile("images/scott_puñetazo_arriba_derecha.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	puñetazo_arriba_izq = Sprite::createSprite(glm::ivec2(60, 100), glm::vec2(0.125, 1), &spritesheet_puñetazo_arriba_izq, &shaderProgram);
+	puñetazo_arriba_izq->setNumberAnimations(1);
+
+		puñetazo_arriba_izq->setAnimationSpeed(0, 10);
+		puñetazo_arriba_izq->addKeyframe(0, glm::vec2(0.125 * 7, 0.f));
+		puñetazo_arriba_izq->addKeyframe(0, glm::vec2(0.125 * 6, 0.f));
+		puñetazo_arriba_izq->addKeyframe(0, glm::vec2(0.125 * 5, 0.f));
+		puñetazo_arriba_izq->addKeyframe(0, glm::vec2(0.125 * 4, 0.f));
+		puñetazo_arriba_izq->addKeyframe(0, glm::vec2(0.125 * 3, 0.f));
+		puñetazo_arriba_izq->addKeyframe(0, glm::vec2(0.125 * 2, 0.f));
+		puñetazo_arriba_izq->addKeyframe(0, glm::vec2(0.125, 0.f));
+		puñetazo_arriba_izq->addKeyframe(0, glm::vec2(0, 0.f));
 
 
 
@@ -252,13 +279,17 @@ void Player::update(int deltaTime)
 	sprite_patada_derecha->update(deltaTime);
 	sprite_patada_izquierda->update(deltaTime);
 	sprite_correr->update(deltaTime);
+	puñetazo_arriba->update(deltaTime);
+	puñetazo_arriba_izq->update(deltaTime);
 
 	if (Game::instance().getKey('x') && (movimiento == 1 || movimiento == 3 || movimiento == 4)) {
-			movimiento = 4;
+		if (movimiento != 4)sprite_pegando_derecha->changeAnimation(0);
+		movimiento = 4;
 	}
 
 	else if (Game::instance().getKey('x') && (movimiento == 0 || movimiento == 2 || movimiento == 5)) {
-			movimiento = 5;
+		if (movimiento != 5)sprite_pegando_izquierda->changeAnimation(0);
+		movimiento = 5;
 	}
 
 	else if (Game::instance().getKey('c') && (movimiento == 1 || movimiento == 3 || movimiento == 4 || movimiento == 9)) {
@@ -269,6 +300,16 @@ void Player::update(int deltaTime)
 	else if (Game::instance().getKey('c') &&(movimiento == 0 || movimiento == 2 || movimiento == 5 || movimiento == 8)) {
 		if (movimiento != 8)sprite_patada_izquierda->changeAnimation(0);
 		movimiento = 8;
+	}
+
+	else if (Game::instance().getKey('v') && (movimiento == 1 || movimiento == 3 || movimiento == 4 || movimiento == 11)) {
+		if (movimiento != 11) puñetazo_arriba->changeAnimation(0);
+		movimiento = 11;
+	}
+
+	else if (Game::instance().getKey('v') && (movimiento == 0 || movimiento == 2 || movimiento == 5 || movimiento == 12)) {
+		if (movimiento != 12)puñetazo_arriba_izq->changeAnimation(0);
+		movimiento = 12;
 	}
 
 
@@ -323,11 +364,11 @@ void Player::update(int deltaTime)
 	}
 
 
-	else if (!Game::instance().getSpecialKey(GLUT_KEY_LEFT) && !Game::instance().getSpecialKey(GLUT_KEY_RIGHT) && !Game::instance().getSpecialKey(GLUT_KEY_UP) && !Game::instance().getSpecialKey(GLUT_KEY_DOWN) && !Game::instance().getKey('x') && !Game::instance().getKey('c'))
+	else if (!Game::instance().getSpecialKey(GLUT_KEY_LEFT) && !Game::instance().getSpecialKey(GLUT_KEY_RIGHT) && !Game::instance().getSpecialKey(GLUT_KEY_UP) && !Game::instance().getSpecialKey(GLUT_KEY_DOWN) && !Game::instance().getKey('x') && !Game::instance().getKey('c') && !Game::instance().getKey('v'))
 	{
-		if (movimiento == 2 || movimiento == 5 || movimiento == 8 || movimiento == 10 && sprite_correr->animation() == 1)
+		if (movimiento == 2 || movimiento == 5 || movimiento == 8 || movimiento == 10 || movimiento == 12 && sprite_correr->animation() == 1)
 			movimiento = 0;
-		else if (movimiento == 3 || movimiento == 4 || movimiento == 9 || movimiento == 10 && sprite_correr->animation() == 0)
+		else if (movimiento == 3 || movimiento == 4 || movimiento == 9 || movimiento == 10 || movimiento == 11 && sprite_correr->animation() == 0)
 			movimiento = 1;
 	}
 
@@ -405,6 +446,8 @@ void Player::update(int deltaTime)
 	sprite_patada_derecha->setPosition(glm::vec2(float(  posPlayer.x), float(  posPlayer.y)));
 	sprite_patada_izquierda->setPosition(glm::vec2(float(  posPlayer.x-20), float(  posPlayer.y)));
 	sprite_correr->setPosition(glm::vec2(float(posPlayer.x - 20), float(posPlayer.y)));
+	puñetazo_arriba->setPosition(glm::vec2(float(posPlayer.x - 20), float(posPlayer.y)));
+	puñetazo_arriba_izq->setPosition(glm::vec2(float(posPlayer.x - 20), float(posPlayer.y)));
 }
 
 void Player::render()
@@ -444,8 +487,12 @@ void Player::render()
 		case 10:
 			sprite_correr->render();
 			break;
-		
-
+		case 11:
+			puñetazo_arriba->render();
+			break;
+		case 12:
+			puñetazo_arriba_izq->render();
+			break;
 	}
 }
 
@@ -482,6 +529,7 @@ bool Player::isKicking_left() {
 }
 bool Player::isKicking_right() {
 	if (movimiento == 9) return true;
+	if (movimiento == 11) return true;
 	else return false;
 }
 bool Player::isPunching_left() {

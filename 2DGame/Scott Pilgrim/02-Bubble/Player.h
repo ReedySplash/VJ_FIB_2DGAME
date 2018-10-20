@@ -43,6 +43,9 @@ private:
 	Texture spritesheet_patada_izquierda;
 	Texture spritesheet_patada_derecha;
 	Texture spritesheet_correr;
+	Texture spritesheet_recibir_golpe;
+	Texture spritesheet_puñetazo_arriba;
+	Texture spritesheet_puñetazo_arriba_izq;
 	Sprite *sprite;
 	Sprite *sprite_caminando;
 	Sprite *sprite_caminando_izq;
@@ -54,6 +57,9 @@ private:
 	Sprite *sprite_patada_izquierda;
 	Sprite *sprite_patada_derecha;
 	Sprite *sprite_correr;
+	Sprite *recibir_golpe;
+	Sprite *puñetazo_arriba;
+	Sprite *puñetazo_arriba_izq;
 	TileMap *map;
 	ShaderProgram mapShader;
 

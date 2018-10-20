@@ -45,7 +45,7 @@ void Level1::init(bool music)
 	texQuad[0] = TexturedQuad::createTexturedQuad(geom, texCoords, simpleTexProgram);
 	texs[0].loadFromFile("images/Levels/level1new.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	texs[0].setMagFilter(GL_NEAREST);
-	personaje = 1;
+	personaje = 0;
 
 	//Init jugador, depende del elegido
 	if (personaje == 0) {
