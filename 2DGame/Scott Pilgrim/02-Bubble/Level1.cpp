@@ -51,7 +51,7 @@ void Level1::init(bool music)
 	if (personaje == 0) {
 		//Init player
 		player = new Player();
-		player->init(glm::ivec2(SCREEN_X, SCREEN_Y), simpleTexProgram);
+		player->init(glm::ivec2(SCREEN_X, SCREEN_Y), simpleTexProgram, 1);
 		player->setPosition(glm::vec2(65, 260));
 		//player->setTileMap(map);
 	}

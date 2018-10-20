@@ -17,8 +17,10 @@ enum PlayerAnims
 };
 
 
-void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
+void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, int lev)
 {	
+	level = lev;
+	posLevel = 50;
 	mapShader = shaderProgram;
 	movimiento = 0;
 	bJumping = false;
@@ -317,12 +319,20 @@ void Player::update(int deltaTime)
 		if (Game::instance().getSpecialKey(GLUT_KEY_LEFT)) {
 			if (!bJumping) movimiento = 10;
 			if (sprite_correr->animation() == 0) sprite_correr->changeAnimation(1);
-			if (posPlayer.x > 60) posPlayer.x -= 4;
+			if (posPlayer.x > 60) {
+				posPlayer.x -= 4.f;
+				posLevel -= 4.f;
+			}
 		}
 		else if (Game::instance().getSpecialKey(GLUT_KEY_RIGHT)) {
 			if (!bJumping) movimiento = 10;
 			if (sprite_correr->animation() == 1) sprite_correr->changeAnimation(0);
-			if (posPlayer.x < 540) posPlayer.x += 4;
+			if (posLevel < 5000){
+				if (posPlayer.x < 540) {
+					posPlayer.x += 4.f;
+				}
+				posLevel += 4.f;
+			}
 		}
 	}
 
@@ -330,7 +340,10 @@ void Player::update(int deltaTime)
 	else if (Game::instance().getSpecialKey(GLUT_KEY_LEFT))
 	{
 		if (!bJumping) movimiento = 2;
-		if (posPlayer.x > 60) posPlayer.x -= 2.f;
+		if (posPlayer.x > 60) {
+			posPlayer.x -= 2.f;
+			posLevel -= 2.f;
+		}
 		/*if (map->collisionMoveLeft(posPlayer, glm::ivec2(38.625, 61)))
 		{
 			if (!bJumping) movimiento = 0;
@@ -340,7 +353,12 @@ void Player::update(int deltaTime)
 	else if (Game::instance().getSpecialKey(GLUT_KEY_RIGHT))
 	{
 		if (!bJumping) movimiento = 3;
-		if (posPlayer.x < 540) posPlayer.x += 2;
+		if (posLevel < 5000) {
+			if (posPlayer.x < 540) {
+				posPlayer.x += 2.f;
+			}
+			posLevel += 2.f;
+		}
 		/*if (map->collisionMoveRight(posPlayer, glm::ivec2(38.625, 61)))
 		{	
 			if (!bJumping) movimiento = 1;
@@ -351,9 +369,11 @@ void Player::update(int deltaTime)
 
 	if (Game::instance().getSpecialKey(GLUT_KEY_UP) && !Game::instance().getKey('c') && !Game::instance().getKey('x') && posPlayer.y > 165)
 	{
-		if (!bJumping && movimiento == 3 || movimiento == 1) movimiento = 3;
-		if (!bJumping && movimiento == 2 || movimiento == 0) movimiento = 2;
-		posPlayer.y -= 2;
+		if ((level == 1 && posPlayer.y > 165) || (level == 2 && posPlayer.y > 210)) {
+			if (!bJumping && movimiento == 3 || movimiento == 1) movimiento = 3;
+			if (!bJumping && movimiento == 2 || movimiento == 0) movimiento = 2;
+			posPlayer.y -= 2;
+		}
 	}
 
 	else if (Game::instance().getSpecialKey(GLUT_KEY_DOWN) && !Game::instance().getKey('c') && !Game::instance().getKey('x') && posPlayer.y < 380)
@@ -510,6 +530,10 @@ void Player::setPosition(const glm::vec2 &pos)
 glm::vec2 Player::getPosition()
 {
 	return glm::vec2(float(posPlayer.x), float(posPlayer.y));
+}
+
+float Player::getPosLevel() {
+	return posLevel;
 }
 
 bool Player::isWalking() {
