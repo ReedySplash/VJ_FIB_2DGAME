@@ -20,6 +20,11 @@ public:
 	void recibirPatadaDerecha();
 	bool isDeath();
 	void free();
+	void atacarPuñetazosDerecha();
+	void atacarPuñetadosIzquierda();
+	bool isPunchingRight();
+	bool isPunchingLeft();
+	void turnToWalk();
 
 
 private:

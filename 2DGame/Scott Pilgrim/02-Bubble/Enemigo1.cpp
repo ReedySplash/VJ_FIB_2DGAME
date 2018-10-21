@@ -18,7 +18,7 @@ enum EnumEnemy
 void Enemigo1::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 {
 	mapShader = shaderProgram;
-	vida = 100;
+	vida = 500;
 	movimiento = 1;
 	spritesheet_enemigo.loadFromFile("images/Enemigo1/sprite_enemigo1.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite_enemigo = Sprite::createSprite(glm::ivec2(100, 110), glm::vec2(0.0196078431, 1), &spritesheet_enemigo, &shaderProgram);
@@ -359,7 +359,7 @@ void Enemigo1::recibirPatadaDerecha() {
 }
 
 bool Enemigo1::isDeath() {
-	if ((sprite_enemigo->animation() == 8 || sprite_enemigo_left->animation() == 8) && timeAfterDeath > 1000) {
+	if ((sprite_enemigo->animation() == 8 || sprite_enemigo_left->animation() == 8) && timeAfterDeath > 1000 & vida <= 0) {
 		return true;
 	}
 	return false;
@@ -381,3 +381,31 @@ void Enemigo1::free() {
 	sprite_enemigo_left->free();
 }
 
+
+void Enemigo1::atacarPuñetazosDerecha() {
+	if (sprite_enemigo->animation() != 3 && sprite_enemigo->animation() != 6 && sprite_enemigo->animation() != 5 && vida > 0) {
+		sprite_enemigo->changeAnimation(3);
+		movimiento = 0;
+	}
+}
+void Enemigo1::atacarPuñetadosIzquierda() {
+	if (sprite_enemigo_left->animation() != 3 && sprite_enemigo_left->animation() != 5 && sprite_enemigo_left->animation() != 6 && vida > 0) {
+		sprite_enemigo_left->changeAnimation(3);
+		movimiento = 1;
+		}
+}
+
+bool Enemigo1::isPunchingRight() {
+	if (sprite_enemigo->animation() == 3 && movimiento == 0) return true;
+	return false;
+}
+
+bool Enemigo1::isPunchingLeft() {
+	if (sprite_enemigo_left->animation() == 3 && movimiento == 1) return true;
+	return false;
+}
+
+void Enemigo1::turnToWalk() {
+	if (sprite_enemigo->animation() == 3 && movimiento == 0) sprite_enemigo->changeAnimation(0);
+	if (sprite_enemigo_left->animation() == 3 && movimiento == 1) sprite_enemigo_left->changeAnimation(0);
+}

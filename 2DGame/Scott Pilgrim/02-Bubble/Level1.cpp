@@ -45,7 +45,7 @@ void Level1::init(bool music)
 	texQuad[0] = TexturedQuad::createTexturedQuad(geom, texCoords, simpleTexProgram);
 	texs[0].loadFromFile("images/Levels/level1new.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	texs[0].setMagFilter(GL_NEAREST);
-	personaje = 2;
+	personaje = 0;
 
 	//Init jugador, depende del elegido
 	if (personaje == 0) {
@@ -152,6 +152,7 @@ void Level1::update(int deltaTime)
 	if (x <= 0) x = 0.f;
 	for (int i = 0; i < 1; ++i) {
 		comprobarLucha(i, pos);
+		comprobarAtaqueEnemigo(i, pos);
 		enemigo1[i]->update(deltaTime);
 	}
 }
@@ -273,6 +274,46 @@ void Level1::comprobarLucha(int i, glm::vec2 posPlayer) {
 		else if (isKicking_right) {
 			enemigo1[i]->recibirPatadaIzquierda();
 		}
+	}
+}
+
+void Level1::comprobarAtaqueEnemigo(int i, glm::vec2 posPlayer) {
+	bool isPunching_left, isKicking_left, isPunching_right, isKicking_right;
+	if (!enemigo1[i]->isDeath()) {
+		if (personaje == 0) {
+			isPunching_left = player->isPunching_left();
+			isPunching_right = player->isPunching_right();
+			isKicking_left = player->isKicking_left();
+			isKicking_right = player->isKicking_right();
+		}
+		else if (personaje == 1) {
+			isPunching_left = kim->isPunching_left();
+			isPunching_right = kim->isPunching_right();
+			isKicking_left = kim->isKicking_left();
+			isKicking_right = kim->isKicking_right();
+		}
+		posEnemy = enemigo1[i]->getPosition();
+		if ((posPlayer.x > posEnemy.x - 35) && (posPlayer.x < posEnemy.x + 20) && (posEnemy.y <= posPlayer.y + 15 && posEnemy.y >= posPlayer.y - 15)) {
+			if (!isPunching_right && !enemigo1[i]->isDeath()) {
+				enemigo1[i]->atacarPuñetadosIzquierda();
+			}
+
+			else if (!isKicking_left && !enemigo1[i]->isDeath()) {
+				enemigo1[i]->atacarPuñetadosIzquierda();
+			}
+		}
+
+		else if ((posEnemy.x + 80 >= posPlayer.x - 5 && posEnemy.x + 10 < posPlayer.x) && (posEnemy.y <= posPlayer.y + 15 && posEnemy.y >= posPlayer.y - 15)) {
+			if (!isPunching_left && !enemigo1[i]->isDeath()) {
+				enemigo1[i]->atacarPuñetazosDerecha();
+			}
+
+			else if (!isKicking_right && !enemigo1[i]->isDeath()) {
+				enemigo1[i]->atacarPuñetazosDerecha();
+			}
+		}
+
+		else if (enemigo1[i]->isPunchingLeft() || enemigo1[i]->isPunchingRight() && !enemigo1[i]->isDeath()) enemigo1[i]->turnToWalk();
 	}
 }
 

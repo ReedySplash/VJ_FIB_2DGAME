@@ -28,6 +28,7 @@ public:
 	void update(int deltaTime);
 	void render();
 	void comprobarLucha(int i, glm::vec2 posPlayer);
+	void comprobarAtaqueEnemigo(int i, glm::vec2 posPlayer);
 private:
 	bool musica;
 	float currentTime;
