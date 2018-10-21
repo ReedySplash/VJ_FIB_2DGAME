@@ -45,7 +45,7 @@ void Level1::init(bool music)
 	texQuad[0] = TexturedQuad::createTexturedQuad(geom, texCoords, simpleTexProgram);
 	texs[0].loadFromFile("images/Levels/level1new.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	texs[0].setMagFilter(GL_NEAREST);
-	personaje = 0;
+	personaje = 2;
 
 	//Init jugador, depende del elegido
 	if (personaje == 0) {
@@ -60,6 +60,12 @@ void Level1::init(bool music)
 		kim = new Kim();
 		kim->init(glm::ivec2(SCREEN_X, SCREEN_Y), simpleTexProgram);
 		kim->setPosition(glm::vec2(65, 260));
+	}
+
+	else if (personaje == 2) {
+		ramona = new Ramona();
+		ramona->init(glm::ivec2(SCREEN_X, SCREEN_Y), simpleTexProgram, 1);
+		ramona->setPosition(glm::vec2(65, 260));
 	}
 
 	//Init Enemigos
@@ -90,6 +96,13 @@ void Level1::update(int deltaTime)
 		pos = kim->getPosition();
 		isWalking = kim->isWalking();
 		isRunning = kim->isRunning();
+	}
+
+	else if (personaje == 2) {
+		ramona->update(deltaTime);
+		pos = ramona->getPosition();
+		isWalking = ramona->isWalking();
+		isRunning = ramona->isRunning();
 	}
 
 	if (pos.x > 539 && isWalking) {
@@ -169,6 +182,7 @@ void Level1::render()
 	//texProgram.setUniformMatrix4f("projection", glm::ortho(0.f, float(SCREEN_WIDTH), float(SCREEN_HEIGHT - 1), 0.f));
 	if (personaje == 0) player->render();
 	else if (personaje == 1) kim->render();
+	else if (personaje == 2) ramona->render();
 	
 	
 

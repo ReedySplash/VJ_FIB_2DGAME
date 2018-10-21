@@ -14,6 +14,7 @@
 #include "Player.h"
 #include "Enemigo1.h"
 #include "Kim.h"
+#include "Ramona.h"
 
 
 class Level1
@@ -41,6 +42,7 @@ private:
 	int personaje; //0-2  depende del persoanje (Hay 3)
 	Player *player;
 	Kim *kim;
+	Ramona *ramona;
 	Enemigo1 *enemigo1[1];
 
 
