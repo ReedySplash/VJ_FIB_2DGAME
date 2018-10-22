@@ -39,14 +39,17 @@ void Level1::init(bool music)
 	}
 	musica = music;
 	currentTime = 0.0f;
-	glm::vec2 geom[2] = { glm::vec2(0.f, 0.f), glm::vec2(float(SCREEN_WIDTH), float(SCREEN_HEIGHT)) };
-	glm::vec2 texCoords[2] = { glm::vec2(0.0f, 0.0f), glm::vec2(620, 340.f) };
 	initShaders();
+
+	glm::vec2 geom[2] = { glm::vec2(0.f, 0.f), glm::vec2(float(SCREEN_WIDTH), float(SCREEN_HEIGHT)) };
+	glm::vec2 texCoords[2];
 	texCoords[0] = glm::vec2(0, 0); texCoords[1] = glm::vec2(1, 1);
 	texQuad[0] = TexturedQuad::createTexturedQuad(geom, texCoords, simpleTexProgram);
 	texs[0].loadFromFile("images/Levels/level1new.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	texs[0].setMagFilter(GL_NEAREST);
-	personaje = 0;
+
+
+	personaje = 1;
 
 	//Init jugador, depende del elegido
 	if (personaje == 0) {
@@ -156,6 +159,7 @@ void Level1::update(int deltaTime)
 		comprobarAtaqueEnemigo(i, pos);
 		enemigo1[i]->update(deltaTime);
 	}
+	yplayer = pos.y;
 }
 
 void Level1::render()
@@ -177,8 +181,9 @@ void Level1::render()
 	texProgram.setUniformMatrix4f("projection", glm::ortho(0.f, float(SCREEN_WIDTH), float(SCREEN_HEIGHT - 1), 0.f));
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	//texProgram.setUniformMatrix4f("projection", glm::ortho(0.f + x * 12.8f, float(SCREEN_WIDTH) + x * 12.8f, float(SCREEN_HEIGHT - 1), 0.f));
-	for (int i = 0; i < 1; ++i) {
-		if (!enemigo1[i]->isDeath()) enemigo1[i]->render();
+	int i = 0;
+	for (i = 0; i < 1; ++i) {
+		if (!enemigo1[i]->isDeath() && enemigo1[i]->getPosition().y <= yplayer) enemigo1[i]->render();
 		else enemigo1[i]->free();
 	}
 	//texProgram.setUniformMatrix4f("projection", glm::ortho(0.f, float(SCREEN_WIDTH), float(SCREEN_HEIGHT - 1), 0.f));
@@ -186,6 +191,10 @@ void Level1::render()
 	else if (personaje == 1) kim->render();
 	else if (personaje == 2) ramona->render();
 	
+	for (i; i < 1; ++i) {
+		if (!enemigo1[i]->isDeath() && enemigo1[i]->getPosition().y > yplayer) enemigo1[i]->render();
+		else enemigo1[i]->free();
+	}
 	
 
 }
@@ -332,10 +341,10 @@ void Level1::comprobarAtaqueEnemigo(int i, glm::vec2 posPlayer) {
 		}
 
 		else atacando = false;
-		if (rand() % 130 == 2) atacando = false;
+		//if (rand() % 130 == 2) atacando = false;
 	
 
-		else if ((enemigo1[i]->isPunchingLeft() || enemigo1[i]->isPunchingRight()) && !enemigo1[i]->isDeath() && !atacando) enemigo1[i]->turnToWalk();
+		if ((enemigo1[i]->isPunchingLeft() || enemigo1[i]->isPunchingRight()) && !enemigo1[i]->isDeath() && !atacando) enemigo1[i]->turnToWalk();
 	}
 }
 

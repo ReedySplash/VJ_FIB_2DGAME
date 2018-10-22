@@ -37,7 +37,7 @@ private:
 	ShaderProgram simpleTexProgram, texProgram;
 	glm::mat4 projection;
 	glm::ivec2 posPlayer, posEnemy;
-	float x;
+	float x, yplayer;
 	bool atacando = false;
 
 	//Personajes dentro del juego

@@ -62,7 +62,7 @@ void Level2::init(bool music)
 	}
 
 	x = 0.f;
-	projection = glm::ortho(0.f, 50.f, float(SCREEN_HEIGHT - 1), 0.f);
+	projection = glm::ortho(0.f, 100.0f, float(SCREEN_HEIGHT - 1), 0.f);
 
 }
 
@@ -75,7 +75,7 @@ void Level2::update(int deltaTime)
 	if (posLevPlayer < 5000){
 		if (pos.x > 539 && player->isWalking()) {
 			x += 0.2f;
-			projection = glm::ortho(max(0, 0 + x), max(50, 50 + x), float(SCREEN_HEIGHT - 1), 0.f);
+			projection = glm::ortho(max(0, 0 + x), max(100, 100 + x), float(SCREEN_HEIGHT - 1), 0.f);
 			for (int i = 0; i < 1; ++i) {
 				if (!enemigo1[i]->isDeath()) {
 					glm::vec2 pose = enemigo1[i]->getPosition();
@@ -86,7 +86,7 @@ void Level2::update(int deltaTime)
 		}
 		else if (pos.x < 61 && player->isWalking()) {
 			x -= 0.2f;
-			projection = glm::ortho(max(0, 0 + x), max(50, 50 + x), float(SCREEN_HEIGHT - 1), 0.f);
+			projection = glm::ortho(max(0, 0 + x), max(100, 100 + x), float(SCREEN_HEIGHT - 1), 0.f);
 			for (int i = 0; i < 1; ++i) {
 				if (!enemigo1[i]->isDeath()) {
 					glm::vec2 pose = enemigo1[i]->getPosition();
@@ -97,7 +97,7 @@ void Level2::update(int deltaTime)
 		}
 		else if (pos.x > 539 && player->isRunning()) {
 			x += 0.35f;
-			projection = glm::ortho(max(0, 0 + x), max(50, 50 + x), float(SCREEN_HEIGHT - 1), 0.f);
+			projection = glm::ortho(max(0, 0 + x), max(100, 100 + x), float(SCREEN_HEIGHT - 1), 0.f);
 			for (int i = 0; i < 1; ++i) {
 				if (!enemigo1[i]->isDeath()) {
 					glm::vec2 pose = enemigo1[i]->getPosition();
@@ -108,7 +108,7 @@ void Level2::update(int deltaTime)
 		}
 		else if (pos.x < 61 && player->isRunning()) {
 			x -= 0.35f;
-			projection = glm::ortho(max(0, 0 + x), max(50, 50 + x), float(SCREEN_HEIGHT - 1), 0.f);
+			projection = glm::ortho(max(0, 0 + x), max(100, 50 + x), float(SCREEN_HEIGHT - 1), 0.f);
 			for (int i = 0; i < 1; ++i) {
 				if (!enemigo1[i]->isDeath()) {
 					glm::vec2 pose = enemigo1[i]->getPosition();
