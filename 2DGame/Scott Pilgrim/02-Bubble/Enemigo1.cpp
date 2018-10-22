@@ -195,6 +195,7 @@ void Enemigo1::update(int deltaTime)
 		if (sprite_enemigo->animation() != 0 || sprite_enemigo_left->animation() != 0) {
 			sprite_enemigo->changeAnimation(0);
 			sprite_enemigo_left->changeAnimation(0);
+			hitTime = 0;
 		}
 	}
 

@@ -27,6 +27,9 @@ public:
 	bool isKicking_right();
 	bool isPunching_left();
 	bool isPunching_right();
+	void recibirPuñetazoDerecha();
+	void recibirPuñetazoIzquierda();
+
 	
 private:
 	bool bJumping;

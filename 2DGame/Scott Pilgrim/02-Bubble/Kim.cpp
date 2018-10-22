@@ -563,3 +563,11 @@ bool Kim::isPunching_right() {
 	if (movimiento == 4) return true;
 	else return false;
 }
+
+void Kim::recibirPuñetazoIzquierda() {
+
+}
+
+void Kim::recibirPuñetazoDerecha() {
+
+}

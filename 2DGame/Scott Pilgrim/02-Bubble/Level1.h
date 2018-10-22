@@ -38,6 +38,7 @@ private:
 	glm::mat4 projection;
 	glm::ivec2 posPlayer, posEnemy;
 	float x;
+	bool atacando = false;
 
 	//Personajes dentro del juego
 	int personaje; //0-2  depende del persoanje (Hay 3)

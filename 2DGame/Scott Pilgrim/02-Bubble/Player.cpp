@@ -566,6 +566,12 @@ bool Player::isPunching_right() {
 	else return false;
 }
 
+void Player::recibirPuñetazoIzquierda() {
 
+}
+
+void Player::recibirPuñetazoDerecha() {
+
+}
 
 
