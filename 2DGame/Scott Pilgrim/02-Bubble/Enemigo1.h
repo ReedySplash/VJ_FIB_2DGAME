@@ -30,7 +30,8 @@ public:
 private:
 	bool bJumping;
 	int vida;
-	int movimiento = 0;
+	int muriendo = 0;
+	int movimiento = 0, parpadeo = 0;
 	glm::fvec2 posPlayer;
 	int jumpAngle, startY;
 	int deltaTimeDeath, hitTime, timeAfterDeath;

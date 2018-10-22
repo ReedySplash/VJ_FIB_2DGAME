@@ -242,14 +242,32 @@ void Enemigo1::update(int deltaTime)
 
 void Enemigo1::render()
 {
-	switch (movimiento)
-	{
-	case 0:
-		sprite_enemigo->render();
-		break;
-	case 1:
-		sprite_enemigo_left->render();
-		break;
+	if (!isDeath()) {
+		switch (movimiento)
+		{
+		case 0:
+			sprite_enemigo->render();
+			break;
+		case 1:
+			sprite_enemigo_left->render();
+			break;
+		}
+	}
+	else {
+		if (parpadeo < 10 && muriendo < 200) {
+			switch (movimiento)
+			{
+			case 0:
+				sprite_enemigo->render();
+				break;
+			case 1:
+				sprite_enemigo_left->render();
+				break;
+			}
+		}
+		++parpadeo;
+		if (parpadeo == 20) parpadeo = 0;
+		++muriendo;
 	}
 }
 

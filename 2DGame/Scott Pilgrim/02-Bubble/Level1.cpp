@@ -183,7 +183,7 @@ void Level1::render()
 	//texProgram.setUniformMatrix4f("projection", glm::ortho(0.f + x * 12.8f, float(SCREEN_WIDTH) + x * 12.8f, float(SCREEN_HEIGHT - 1), 0.f));
 	int i;
 	for (i = 0; i < 1; ++i) {
-		if (!enemigo1[i]->isDeath() && enemigo1[i]->getPosition().y <= yplayer) enemigo1[i]->render();
+		if (enemigo1[i]->getPosition().y <= yplayer) enemigo1[i]->render();
 		else enemigo1[i]->free();
 	}
 	//texProgram.setUniformMatrix4f("projection", glm::ortho(0.f, float(SCREEN_WIDTH), float(SCREEN_HEIGHT - 1), 0.f));
@@ -192,7 +192,7 @@ void Level1::render()
 	else if (personaje == 2) ramona->render();
 	
 	for (i = 0; i < 1; ++i) {
-		if (!enemigo1[i]->isDeath() && enemigo1[i]->getPosition().y > yplayer) enemigo1[i]->render();
+		if (enemigo1[i]->getPosition().y > yplayer) enemigo1[i]->render();
 		else enemigo1[i]->free();
 	}
 	
