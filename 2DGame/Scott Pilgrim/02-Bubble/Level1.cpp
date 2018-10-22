@@ -49,7 +49,7 @@ void Level1::init(bool music)
 	texs[0].setMagFilter(GL_NEAREST);
 
 
-	personaje = 1;
+	personaje = 0;
 
 	//Init jugador, depende del elegido
 	if (personaje == 0) {
@@ -181,7 +181,7 @@ void Level1::render()
 	texProgram.setUniformMatrix4f("projection", glm::ortho(0.f, float(SCREEN_WIDTH), float(SCREEN_HEIGHT - 1), 0.f));
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	//texProgram.setUniformMatrix4f("projection", glm::ortho(0.f + x * 12.8f, float(SCREEN_WIDTH) + x * 12.8f, float(SCREEN_HEIGHT - 1), 0.f));
-	int i = 0;
+	int i;
 	for (i = 0; i < 1; ++i) {
 		if (!enemigo1[i]->isDeath() && enemigo1[i]->getPosition().y <= yplayer) enemigo1[i]->render();
 		else enemigo1[i]->free();
@@ -191,7 +191,7 @@ void Level1::render()
 	else if (personaje == 1) kim->render();
 	else if (personaje == 2) ramona->render();
 	
-	for (i; i < 1; ++i) {
+	for (i = 0; i < 1; ++i) {
 		if (!enemigo1[i]->isDeath() && enemigo1[i]->getPosition().y > yplayer) enemigo1[i]->render();
 		else enemigo1[i]->free();
 	}
@@ -304,7 +304,7 @@ void Level1::comprobarAtaqueEnemigo(int i, glm::vec2 posPlayer) {
 		}
 		posEnemy = enemigo1[i]->getPosition();
 		
-		if ((posPlayer.x > posEnemy.x - 35) && (posPlayer.x < posEnemy.x + 20) && (posEnemy.y <= posPlayer.y + 15 && posEnemy.y >= posPlayer.y - 15)) {
+		if ((posPlayer.x > posEnemy.x - 35) && (posPlayer.x < posEnemy.x + 20) && (posEnemy.y <= posPlayer.y + 10 && posEnemy.y >= posPlayer.y - 10)) {
 			if (rand() % 120 == 3) {
 				if (!isPunching_right && !enemigo1[i]->isDeath()) {
 					enemigo1[i]->atacarPuñetadosIzquierda();
@@ -323,7 +323,7 @@ void Level1::comprobarAtaqueEnemigo(int i, glm::vec2 posPlayer) {
 			}
 		}
 
-		else if ((posEnemy.x + 80 >= posPlayer.x - 5 && posEnemy.x + 10 < posPlayer.x) && (posEnemy.y <= posPlayer.y + 15 && posEnemy.y >= posPlayer.y - 15)) {
+		else if ((posEnemy.x + 80 >= posPlayer.x - 5 && posEnemy.x + 10 < posPlayer.x) && (posEnemy.y <= posPlayer.y + 10 && posEnemy.y >= posPlayer.y - 10)) {
 			if (rand() % 100 == 3) {
 				if (!isPunching_left && !enemigo1[i]->isDeath()) {
 					enemigo1[i]->atacarPuñetazosDerecha();
