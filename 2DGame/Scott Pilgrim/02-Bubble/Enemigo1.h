@@ -4,6 +4,10 @@
 
 #include "Sprite.h"
 #include "TileMap.h"
+#include <Windows.h>
+#include <cmath>
+#include <iostream>
+
 
 class Enemigo1
 {

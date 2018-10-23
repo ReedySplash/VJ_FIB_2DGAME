@@ -38,15 +38,14 @@ private:
 	glm::mat4 projection;
 	glm::ivec2 posPlayer, posEnemy;
 	float x, yplayer;
-	bool atacando = false;
-
+	
 	//Personajes dentro del juego
 	int personaje; //0-2  depende del persoanje (Hay 3)
 	Player *player;
 	Kim *kim;
 	Ramona *ramona;
-	Enemigo1 *enemigo1[1];
-
+	Enemigo1 *enemigo1[3];
+	bool atacando[3];
 
 	void initShaders();
 };

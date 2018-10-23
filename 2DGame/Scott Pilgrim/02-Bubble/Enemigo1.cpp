@@ -1,7 +1,6 @@
 #include <cmath>
 #include <iostream>
 #include <GL/glew.h>
-#include <GL/glut.h>
 #include "Enemigo1.h"
 #include "Game.h"
 
@@ -213,6 +212,8 @@ void Enemigo1::update(int deltaTime)
 			sprite_enemigo->changeAnimation(0);
 			sprite_enemigo_left->changeAnimation(0);
 			hitTime = 0;
+			mciSendString(TEXT("stop sounds/SOUND/puñetazos.mp3"), NULL, 0, NULL);
+			mciSendString(TEXT("stop sounds/SOUND/patada.mp3"), NULL, 0, NULL);
 		}
 	}
 
@@ -228,12 +229,12 @@ void Enemigo1::update(int deltaTime)
 
 	if (sprite_enemigo->animation() == 7 && movimiento == 0) {
 		posPlayer.x -= 1;
-		posPlayer.y += 0.1f;
+		//posPlayer.y += 0.1f;
 	}
 
 	if (sprite_enemigo_left->animation() == 7 && movimiento == 1) {
 		posPlayer.x += 1;
-		posPlayer.y += 0.1f;
+		//posPlayer.y += 0.1f;
 	}
 
 	sprite_enemigo->setPosition(glm::vec2(float(posPlayer.x), float(posPlayer.y)));
@@ -282,8 +283,12 @@ void Enemigo1::recibirPuñetazoIzquierda() {
 		if (sprite_enemigo_left->animation() != 5) sprite_enemigo_left->changeAnimation(5);
 		hitTime = 0;
 		vida -= 5;
+		mciSendString(TEXT("stop sounds/SOUND/patada.mp3"), NULL, 0, NULL);
+		mciSendString(TEXT("play sounds/SOUND/puñetazos.mp3 "), NULL, 0, NULL);
 	}
 	if (vida <= 0 && (sprite_enemigo_left->animation() != 8) && (sprite_enemigo->animation() != 8)) {
+		mciSendString(TEXT("stop sounds/SOUND/puñetazos.mp3"), NULL, 0, NULL);
+		mciSendString(TEXT("play sounds/SOUND/muerte_enemigo1.aiff"), NULL, 0, NULL);
 		sprite_enemigo_left->changeAnimation(7);
 		deltaTimeDeath = 0;
 	}
@@ -291,12 +296,16 @@ void Enemigo1::recibirPuñetazoIzquierda() {
 }
 void Enemigo1::recibirPatadaIzquierda() {
 	if (vida > 0 && sprite_enemigo_left->animation() != 7 && (sprite_enemigo_left->animation() != 8)) {
+		mciSendString(TEXT("play sounds/SOUND/patada.mp3 "), NULL, 0, NULL);
+		mciSendString(TEXT("stop sounds/SOUND/puñetazos.mp3"), NULL, 0, NULL);
 		movimiento = 1;
 		if (sprite_enemigo_left->animation() != 6) sprite_enemigo_left->changeAnimation(6);
 		hitTime = 0;
-		vida -= 10;
+		vida -= 10;	
 	}
 	if (vida <= 0 && (sprite_enemigo_left->animation() != 8) && (sprite_enemigo->animation() != 8)) {
+		mciSendString(TEXT("stop sounds/SOUND/patada.mp3"), NULL, 0, NULL);
+		mciSendString(TEXT("play sounds/SOUND/muerte_enemigo1.aiff"), NULL, 0, NULL);
 		sprite_enemigo_left->changeAnimation(7);
 		deltaTimeDeath = 0;
 	}
@@ -306,10 +315,14 @@ void Enemigo1::recibirPuñetazoDerecha() {
 	if (vida > 0 && sprite_enemigo->animation() != 7 && (sprite_enemigo->animation() != 8)) {
 		movimiento = 0;
 		if (sprite_enemigo->animation() != 5) sprite_enemigo->changeAnimation(5);
+		mciSendString(TEXT("stop sounds/SOUND/patada.mp3"), NULL, 0, NULL);
+		mciSendString(TEXT("play sounds/SOUND/puñetazos.mp3"), NULL, 0, NULL);
 		hitTime = 0;
 		vida -= 5;
 	}
 	if (vida <= 0 && (sprite_enemigo->animation() != 8) && (sprite_enemigo_left->animation() != 8)) {
+		mciSendString(TEXT("stop sounds/SOUND/puñetazos.mp3"), NULL, 0, NULL);
+		mciSendString(TEXT("play sounds/SOUND/muerte_enemigo1.aiff"), NULL, 0, NULL);
 		sprite_enemigo->changeAnimation(7);
 		deltaTimeDeath = 0;
 	}
@@ -317,12 +330,17 @@ void Enemigo1::recibirPuñetazoDerecha() {
 }
 void Enemigo1::recibirPatadaDerecha() {
 	if (vida > 0 && sprite_enemigo->animation() != 7 && (sprite_enemigo->animation() != 8)) {
+		mciSendString(TEXT("play sounds/SOUND/patada.mp3 "), NULL, 0, NULL);
+		mciSendString(TEXT("stop sounds/SOUND/puñetazos.mp3"), NULL, 0, NULL);
+
 		movimiento = 0;
 		if (sprite_enemigo->animation() != 6) sprite_enemigo->changeAnimation(6);
 		hitTime = 0;
 		vida -= 10;
 	}
 	if (vida <= 0 && (sprite_enemigo->animation() != 8) && (sprite_enemigo_left->animation() != 8)) {
+		mciSendString(TEXT("stop sounds/SOUND/patada.mp3"), NULL, 0, NULL);
+		mciSendString(TEXT("play sounds/SOUND/muerte_enemigo1.aiff"), NULL, 0, NULL);
 		sprite_enemigo->changeAnimation(7);
 		deltaTimeDeath = 0;
 	}

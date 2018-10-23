@@ -3,7 +3,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "Level1.h"
 #include "Game.h"
-#include <cstdlib>
+#include <string>
 
 
 #define SCREEN_X 32
@@ -32,9 +32,9 @@ void Level1::init(bool music)
 	if(music) {
 		mciSendString(TEXT("stop sounds/SOUND/MenuTheme.mp3"), NULL, 0, NULL);
 		mciSendString(TEXT("play sounds/SOUND/20.mp3 repeat"), NULL, 0, NULL);
+		mciSendString(TEXT("setaudio sounds/SOUND/20.mp3 volume to 98"), NULL, 0, NULL);
 	}
 	else {
-		//	mciSendString(TEXT("stop sounds/SOUND/FileSelect-SuperMario64MusicExtended.mp3"), NULL, 0, NULL);
 		mciSendString(TEXT("stop sounds/SOUND/20.mp3"), NULL, 0, NULL);
 	}
 	musica = music;
@@ -73,10 +73,10 @@ void Level1::init(bool music)
 	}
 
 	//Init Enemigos
-	for (int i = 0; i < 1; ++i) {
+	for (int i = 0; i < 3; ++i) {
 		enemigo1[i] = new Enemigo1();
 		enemigo1[i]->init(glm::ivec2(SCREEN_X, SCREEN_Y), simpleTexProgram);
-		enemigo1[i]->setPosition(glm::vec2(150, 260));
+		enemigo1[i]->setPosition(glm::vec2((i+1)*150, 260));
 	}
 
 	x = 0.f;
@@ -154,7 +154,7 @@ void Level1::update(int deltaTime)
 		}
 	}
 	if (x <= 0) x = 0.f;
-	for (int i = 0; i < 1; ++i) {
+	for (int i = 0; i < 3; ++i) {
 		comprobarLucha(i, pos);
 		comprobarAtaqueEnemigo(i, pos);
 		enemigo1[i]->update(deltaTime);
@@ -182,7 +182,7 @@ void Level1::render()
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	//texProgram.setUniformMatrix4f("projection", glm::ortho(0.f + x * 12.8f, float(SCREEN_WIDTH) + x * 12.8f, float(SCREEN_HEIGHT - 1), 0.f));
 	int i;
-	for (i = 0; i < 1; ++i) {
+	for (i = 0; i < 3; ++i) {
 		if (enemigo1[i]->getPosition().y <= yplayer) enemigo1[i]->render();
 		else enemigo1[i]->free();
 	}
@@ -191,7 +191,7 @@ void Level1::render()
 	else if (personaje == 1) kim->render();
 	else if (personaje == 2) ramona->render();
 	
-	for (i = 0; i < 1; ++i) {
+	for (i = 0; i < 3; ++i) {
 		if (enemigo1[i]->getPosition().y > yplayer) enemigo1[i]->render();
 		else enemigo1[i]->free();
 	}
@@ -319,7 +319,7 @@ void Level1::comprobarAtaqueEnemigo(int i, glm::vec2 posPlayer) {
 					if (personaje == 0) player->recibirPuñetazoDerecha();
 					else if (personaje == 1) kim->recibirPuñetazoDerecha();
 				}
-				atacando = true;
+				atacando[i] = true;
 			}
 		}
 
@@ -336,15 +336,15 @@ void Level1::comprobarAtaqueEnemigo(int i, glm::vec2 posPlayer) {
 					if (personaje == 0) player->recibirPuñetazoIzquierda();
 					else if (personaje == 1) kim->recibirPuñetazoIzquierda();
 				}
-				atacando = true;
+				atacando[i] = true;
 			}
 		}
 
-		else atacando = false;
+		else atacando[i] = false;
 		//if (rand() % 130 == 2) atacando = false;
 	
 
-		if ((enemigo1[i]->isPunchingLeft() || enemigo1[i]->isPunchingRight()) && !enemigo1[i]->isDeath() && !atacando) enemigo1[i]->turnToWalk();
+		if ((enemigo1[i]->isPunchingLeft() || enemigo1[i]->isPunchingRight()) && !enemigo1[i]->isDeath() && !atacando[i]) enemigo1[i]->turnToWalk();
 	}
 }
 
