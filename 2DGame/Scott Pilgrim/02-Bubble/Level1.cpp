@@ -44,9 +44,13 @@ void Level1::init(bool music)
 	glm::vec2 geom[2] = { glm::vec2(0.f, 0.f), glm::vec2(float(SCREEN_WIDTH), float(SCREEN_HEIGHT)) };
 	glm::vec2 texCoords[2];
 	texCoords[0] = glm::vec2(0, 0); texCoords[1] = glm::vec2(1, 1);
+
 	texQuad[0] = TexturedQuad::createTexturedQuad(geom, texCoords, simpleTexProgram);
+	texQuad[1] = TexturedQuad::createTexturedQuad(geom, texCoords, texProgram);
 	texs[0].loadFromFile("images/Levels/level1new.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	texs[0].setMagFilter(GL_NEAREST);
+	texs[1].loadFromFile("images/sombra.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	texs[1].setMagFilter(GL_NEAREST);
 
 
 	personaje = 0;
@@ -73,10 +77,11 @@ void Level1::init(bool music)
 	}
 
 	//Init Enemigos
-	for (int i = 0; i < 3; ++i) {
+	for (int i = 0; i < 6; ++i) {
 		enemigo1[i] = new Enemigo1();
 		enemigo1[i]->init(glm::ivec2(SCREEN_X, SCREEN_Y), simpleTexProgram);
-		enemigo1[i]->setPosition(glm::vec2((i+1)*150, 260));
+		if (i < 3) enemigo1[i]->setPosition(glm::vec2((i+1)*150, 260));
+		else enemigo1[i]->setPosition(glm::vec2((i + 1) * 150 + 400, 260));
 	}
 
 	x = 0.f;
@@ -112,8 +117,8 @@ void Level1::update(int deltaTime)
 	if (pos.x > 539 && isWalking) {
 		x += 0.2f;
 		projection = glm::ortho(max(0, 0 + x), max(50, 50 + x), float(SCREEN_HEIGHT - 1), 0.f);
-		for (int i = 0; i < 1; ++i) {
-			if (!enemigo1[i]->isDeath()) {
+		for (int i = 0; i < 6; ++i) {
+			if (!enemigo1[i]->isCompletlyDeath()) {
 				glm::vec2 pose = enemigo1[i]->getPosition();
 				pose.x -= 2.57f;
 				enemigo1[i]->setPosition(pose);
@@ -123,8 +128,8 @@ void Level1::update(int deltaTime)
 	else if (pos.x < 61 && isWalking) {
 		x -= 0.2f;
 		projection = glm::ortho(max(0, 0 + x), max(50, 50 + x), float(SCREEN_HEIGHT - 1), 0.f);
-		for (int i = 0; i < 1; ++i) {
-			if (!enemigo1[i]->isDeath()) {
+		for (int i = 0; i < 6; ++i) {
+			if (!enemigo1[i]->isCompletlyDeath()) {
 				glm::vec2 pose = enemigo1[i]->getPosition();
 				if (x > 0) pose.x += 2.57f;
 				enemigo1[i]->setPosition(pose);
@@ -134,8 +139,8 @@ void Level1::update(int deltaTime)
 	else if (pos.x > 539 && isRunning) {
 		x += 0.35f;
 		projection = glm::ortho(max(0, 0 + x), max(50, 50 + x), float(SCREEN_HEIGHT - 1), 0.f);
-		for (int i = 0; i < 1; ++i) {
-			if (!enemigo1[i]->isDeath()) {
+		for (int i = 0; i < 6; ++i) {
+			if (!enemigo1[i]->isCompletlyDeath()) {
 				glm::vec2 pose = enemigo1[i]->getPosition();
 				pose.x -= 2.6f*1.725f;
 				enemigo1[i]->setPosition(pose);
@@ -145,8 +150,8 @@ void Level1::update(int deltaTime)
 	else if (pos.x < 61 && isRunning) {
 		x -= 0.35f;
 		projection = glm::ortho(max(0, 0 + x), max(50, 50 + x), float(SCREEN_HEIGHT - 1), 0.f);
-		for (int i = 0; i < 1; ++i) {
-			if (!enemigo1[i]->isDeath()) {
+		for (int i = 0; i < 6; ++i) {
+			if (!enemigo1[i]->isCompletlyDeath()) {
 				glm::vec2 pose = enemigo1[i]->getPosition();
 				if (x > 0) pose.x += 2.6f*1.725f;
 				enemigo1[i]->setPosition(pose);
@@ -154,7 +159,7 @@ void Level1::update(int deltaTime)
 		}
 	}
 	if (x <= 0) x = 0.f;
-	for (int i = 0; i < 3; ++i) {
+	for (int i = 0; i < 6; ++i) {
 		comprobarLucha(i, pos);
 		comprobarAtaqueEnemigo(i, pos);
 		enemigo1[i]->update(deltaTime);
@@ -175,24 +180,34 @@ void Level1::render()
 	texQuad[0]->render(texs[0]);
 	//map->render();
 
-
 	texProgram.use();
 	texProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
 	texProgram.setUniformMatrix4f("projection", glm::ortho(0.f, float(SCREEN_WIDTH), float(SCREEN_HEIGHT - 1), 0.f));
+
+
+	glm::mat4 modelview2;
+	modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
+	modelview2 = glm::translate(modelview2, glm::vec3(player->getPosition().x, player->getPosition().y + 70, 0.f));
+	modelview2 = glm::scale(modelview2, glm::vec3(0.08f, 0.08f, 0.f));
+	texProgram.setUniformMatrix4f("modelview", modelview2);
+	texQuad[1]->render(texs[1]);
+
+	modelview = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
 	texProgram.setUniformMatrix4f("modelview", modelview);
-	//texProgram.setUniformMatrix4f("projection", glm::ortho(0.f + x * 12.8f, float(SCREEN_WIDTH) + x * 12.8f, float(SCREEN_HEIGHT - 1), 0.f));
+
+
 	int i;
-	for (i = 0; i < 3; ++i) {
-		if (enemigo1[i]->getPosition().y <= yplayer) enemigo1[i]->render();
+	for (i = 0; i < 6; ++i) {
+		if (enemigo1[i]->getPosition().y <= yplayer && !enemigo1[i]->isCompletlyDeath()) enemigo1[i]->render();
 		else enemigo1[i]->free();
 	}
-	//texProgram.setUniformMatrix4f("projection", glm::ortho(0.f, float(SCREEN_WIDTH), float(SCREEN_HEIGHT - 1), 0.f));
+	
 	if (personaje == 0) player->render();
 	else if (personaje == 1) kim->render();
 	else if (personaje == 2) ramona->render();
 	
-	for (i = 0; i < 3; ++i) {
-		if (enemigo1[i]->getPosition().y > yplayer) enemigo1[i]->render();
+	for (i = 0; i < 6; ++i) {
+		if (enemigo1[i]->getPosition().y > yplayer && !enemigo1[i]->isCompletlyDeath()) enemigo1[i]->render();
 		else enemigo1[i]->free();
 	}
 	
@@ -227,7 +242,6 @@ void Level1::initShaders()
 		cout << "Fragment Shader Error" << endl;
 		cout << "" << fShader.log() << endl << endl;
 	}
-
 	texProgram.init();
 	texProgram.addShader(vShader);
 	texProgram.addShader(fShader);
@@ -238,6 +252,7 @@ void Level1::initShaders()
 		cout << "" << texProgram.log() << endl << endl;
 	}
 	texProgram.bindFragmentOutput("outColor");
+
 	simpleTexProgram.init();
 	simpleTexProgram.addShader(vShader);
 	simpleTexProgram.addShader(fShader);
@@ -252,37 +267,45 @@ void Level1::initShaders()
 
 
 void Level1::comprobarLucha(int i, glm::vec2 posPlayer) {
-	bool isPunching_left, isKicking_left, isPunching_right, isKicking_right;
+	bool isPunching_left, isKicking_left, isPunching_right, isKicking_right, isPunching_up_left, isPunching_up_right;
 	if (personaje == 0) {
 		isPunching_left = player->isPunching_left();
 		isPunching_right = player->isPunching_right();
 		isKicking_left = player->isKicking_left();
 		isKicking_right = player->isKicking_right();
+		isPunching_up_left = player->isPunching_up_left();
+		isPunching_up_right = player->isPunching_up_right();
 	}
 	else if (personaje == 1) {
 		isPunching_left = kim->isPunching_left();
 		isPunching_right = kim->isPunching_right();
 		isKicking_left = kim->isKicking_left();
 		isKicking_right = kim->isKicking_right();
+		//isPunching_up_left = player->isPunching_up_left();
+		//isPunching_up_right = player->isPunching_up_right();
 	}
 	posEnemy = enemigo1[i]->getPosition();
-	if ((posPlayer.x <= (posEnemy.x + 90) && (posPlayer.x - 40 > posEnemy.x)) && (posPlayer.y <= posEnemy.y + 15 && posPlayer.y >= posEnemy.y - 15)) {
+	if ((posPlayer.x <= (posEnemy.x + 90) && (posPlayer.x - 40 > posEnemy.x)) && (posPlayer.y >= posEnemy.y+40  && posPlayer.y <= posEnemy.y +60)) {
 		if (isPunching_left) {
 			enemigo1[i]->recibirPuñetazoDerecha();
 		}
-
 		else if (isKicking_left) {
 			enemigo1[i]->recibirPatadaDerecha();
 		}
+		else if (isPunching_up_left) {
+			enemigo1[i]->recibirPuñetazoArribaDerecha();
+		}
 	}
 
-	else if ((posPlayer.x >= posEnemy.x - 20 && posPlayer.x < posEnemy.x+20) && (posPlayer.y <= posEnemy.y + 15 && posPlayer.y >= posEnemy.y - 15)) {
+	else if ((posPlayer.x >= posEnemy.x - 20 && posPlayer.x < posEnemy.x+20) && (posPlayer.y >= posEnemy.y + 40 && posPlayer.y <= posEnemy.y + 60)) {
 		if (isPunching_right) {
 			enemigo1[i]->recibirPuñetazoIzquierda();
 		}
-
 		else if (isKicking_right) {
 			enemigo1[i]->recibirPatadaIzquierda();
+		}
+		else if (isPunching_up_right) {
+			enemigo1[i]->recibirPuñetazoArribaIzquierda();
 		}
 	}
 }
@@ -304,17 +327,14 @@ void Level1::comprobarAtaqueEnemigo(int i, glm::vec2 posPlayer) {
 		}
 		posEnemy = enemigo1[i]->getPosition();
 		
-		if ((posPlayer.x > posEnemy.x - 35) && (posPlayer.x < posEnemy.x + 20) && (posEnemy.y <= posPlayer.y + 10 && posEnemy.y >= posPlayer.y - 10)) {
+		if ((posPlayer.x > posEnemy.x - 35) && (posPlayer.x < posEnemy.x + 20) && (posPlayer.y >= posEnemy.y + 40 && posPlayer.y <= posEnemy.y + 60)) {
 			if (rand() % 120 == 3) {
 				if (!isPunching_right && !enemigo1[i]->isDeath()) {
 					enemigo1[i]->atacarPuñetadosIzquierda();
 					if (personaje == 0) player->recibirPuñetazoDerecha();
 					else if (personaje == 1) kim->recibirPuñetazoDerecha();
 				}
-
-
 				else if (!isKicking_left && !enemigo1[i]->isDeath()) {
-
 					enemigo1[i]->atacarPuñetadosIzquierda();
 					if (personaje == 0) player->recibirPuñetazoDerecha();
 					else if (personaje == 1) kim->recibirPuñetazoDerecha();
@@ -323,15 +343,14 @@ void Level1::comprobarAtaqueEnemigo(int i, glm::vec2 posPlayer) {
 			}
 		}
 
-		else if ((posEnemy.x + 80 >= posPlayer.x - 5 && posEnemy.x + 10 < posPlayer.x) && (posEnemy.y <= posPlayer.y + 10 && posEnemy.y >= posPlayer.y - 10)) {
+		else if ((posEnemy.x + 80 >= posPlayer.x - 5 && posEnemy.x + 10 < posPlayer.x) && (posPlayer.y >= posEnemy.y + 40 && posPlayer.y <= posEnemy.y + 60)) {
 			if (rand() % 100 == 3) {
 				if (!isPunching_left && !enemigo1[i]->isDeath()) {
 					enemigo1[i]->atacarPuñetazosDerecha();
 					if (personaje == 0) player->recibirPuñetazoIzquierda();
 					else if (personaje == 1) kim->recibirPuñetazoIzquierda();
 				}
-				else if (
-					!isKicking_right && !enemigo1[i]->isDeath()) {
+				else if (!isKicking_right && !enemigo1[i]->isDeath()) {
 					enemigo1[i]->atacarPuñetazosDerecha();
 					if (personaje == 0) player->recibirPuñetazoIzquierda();
 					else if (personaje == 1) kim->recibirPuñetazoIzquierda();

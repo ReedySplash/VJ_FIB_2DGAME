@@ -44,8 +44,10 @@ private:
 	Player *player;
 	Kim *kim;
 	Ramona *ramona;
-	Enemigo1 *enemigo1[3];
-	bool atacando[3];
+
+	//Def enemies
+	Enemigo1 *enemigo1[6];
+	bool atacando[6];
 
 	void initShaders();
 };

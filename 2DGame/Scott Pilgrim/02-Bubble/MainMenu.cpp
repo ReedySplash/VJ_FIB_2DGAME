@@ -64,32 +64,6 @@ void MainMenu::render() {
 void MainMenu::initShaders()
 {
 	Shader vShader, fShader;
-
-	vShader.initFromFile(VERTEX_SHADER, "shaders/simple.vert");
-	if (!vShader.isCompiled())
-	{
-		cout << "Vertex Shader Error" << endl;
-		cout << "" << vShader.log() << endl << endl;
-	}
-	fShader.initFromFile(FRAGMENT_SHADER, "shaders/simple.frag");
-	if (!fShader.isCompiled())
-	{
-		cout << "Fragment Shader Error" << endl;
-		cout << "" << fShader.log() << endl << endl;
-	}
-	simpleTexProgram.init();
-	simpleTexProgram.addShader(vShader);
-	simpleTexProgram.addShader(fShader);
-	simpleTexProgram.link();
-	if (!simpleTexProgram.isLinked())
-	{
-		cout << "Shader Linking Error" << endl;
-		cout << "" << simpleTexProgram.log() << endl << endl;
-	}
-	simpleTexProgram.bindFragmentOutput("outColor");
-
-	vShader.free();
-	fShader.free();
 	vShader.initFromFile(VERTEX_SHADER, "shaders/texture.vert");
 	if (!vShader.isCompiled())
 	{
@@ -112,5 +86,7 @@ void MainMenu::initShaders()
 		cout << "" << texProgram.log() << endl << endl;
 	}
 	texProgram.bindFragmentOutput("outColor");
+	vShader.free();
+	fShader.free();
 }
 

@@ -22,7 +22,10 @@ public:
 	void recibirPatadaIzquierda();
 	void recibirPuñetazoDerecha();
 	void recibirPatadaDerecha();
+	void recibirPuñetazoArribaDerecha();
+	void recibirPuñetazoArribaIzquierda();
 	bool isDeath();
+	bool isCompletlyDeath();
 	void free();
 	void atacarPuñetazosDerecha();
 	void atacarPuñetadosIzquierda();
@@ -38,7 +41,8 @@ private:
 	int movimiento = 0, parpadeo = 0;
 	glm::fvec2 posPlayer;
 	int jumpAngle, startY;
-	int deltaTimeDeath, hitTime, timeAfterDeath;
+	int deltaTimeDeath, hitTime, timeAfterDeath, restablecer;
+	int puñetazos = 0;
 	TileMap *map;
 	ShaderProgram mapShader;
 	Texture spritesheet_enemigo, spritesheet_enemigo_left;

@@ -557,12 +557,10 @@ bool Player::isRunning() {
 
 bool Player::isKicking_left() {
 	if (movimiento == 8) return true;
-	else if (movimiento == 12) return true;
 	else return false;
 }
 bool Player::isKicking_right() {
 	if (movimiento == 9) return true;
-	else if (movimiento == 11) return true;
 	else return false;
 }
 bool Player::isPunching_left() {
@@ -571,6 +569,14 @@ bool Player::isPunching_left() {
 }
 bool Player::isPunching_right() {
 	if (movimiento == 4) return true;
+	else return false;
+}
+bool Player::isPunching_up_left() {
+	if (movimiento == 12) return true;
+	else return false;
+}
+bool Player::isPunching_up_right() {
+	if (movimiento == 11) return true;
 	else return false;
 }
 
