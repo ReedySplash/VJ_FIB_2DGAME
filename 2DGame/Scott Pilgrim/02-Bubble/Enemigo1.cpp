@@ -266,8 +266,8 @@ void Enemigo1::update(int deltaTime)
 	else if (sprite_enemigo_left->animation() == 5 || sprite_enemigo_left->animation() == 6 || sprite_enemigo->animation() == 6 || sprite_enemigo->animation() == 5) hitTime += deltaTime;
 	
 	else if ((sprite_enemigo_left->animation() == 11 || sprite_enemigo->animation() == 11) && (!sprite_enemigo_left->isFinalized() || !sprite_enemigo->isFinalized())) {
-		if (movimiento == 1 && restablecer < 1700) posPlayer.x += 1;
-		else if (restablecer < 1700) posPlayer.x -= 1;
+		if (movimiento == 1 && restablecer < 1700  && posPlayer.x < 580) posPlayer.x += 1;
+		else if (restablecer < 1700 && posPlayer.x > 0) posPlayer.x -= 1;
 		restablecer += deltaTime;
 	}
 
@@ -326,7 +326,7 @@ void Enemigo1::render()
 		}
 	}
 	else {
-		if (parpadeo < 10 && muriendo < 200) {
+		if (parpadeo < 3 && muriendo < 150) {
 			switch (movimiento)
 			{
 			case 0:
@@ -338,7 +338,7 @@ void Enemigo1::render()
 			}
 		}
 		++parpadeo;
-		if (parpadeo == 20) parpadeo = 0;
+		if (parpadeo == 10) parpadeo = 0;
 		++muriendo;
 	}
 }
@@ -349,11 +349,12 @@ void Enemigo1::setTileMap(TileMap *tileMap)
 }
 
 void Enemigo1::recibirPuñetazoIzquierda() {
-	if (vida > 0 && sprite_enemigo_left->animation() != 7 && (sprite_enemigo_left->animation() != 8)) {
+	if (vida > 0 && sprite_enemigo_left->animation() != 7 && sprite_enemigo_left->animation() != 8) {
 		movimiento = 1;
 		if (sprite_enemigo_left->animation() != 5) sprite_enemigo_left->changeAnimation(5);
 		hitTime = 0;
-		if (golpe == 2) {
+		if (golpe == 1) {
+			//mciSendString(TEXT("stop sounds/SOUND/Punch.mp3"), NULL, 0, NULL);
 			mciSendString(TEXT("play sounds/SOUND/Punch.mp3 "), NULL, 0, NULL);
 			mciSendString(TEXT("setaudio sounds/SOUND/Punch.mp3 volume to 94"), NULL, 0, NULL);
 			golpe = 0;
@@ -361,20 +362,21 @@ void Enemigo1::recibirPuñetazoIzquierda() {
 		}
 		else ++golpe;
 	}
-	if (vida <= 0 && (sprite_enemigo_left->animation() != 8) && (sprite_enemigo->animation() != 8) && (sprite_enemigo->animation() != 7) && (sprite_enemigo_left->animation() != 7)) {
+if (vida <= 0 && (sprite_enemigo_left->animation() != 8) && (sprite_enemigo->animation() != 8) && (sprite_enemigo->animation() != 7) && (sprite_enemigo_left->animation() != 7)) {
 		mciSendString(TEXT("stop sounds/SOUND/Punch.mp3"), NULL, 0, NULL);
 		mciSendString(TEXT("play sounds/SOUND/muerte_enemigo1.mp3"), NULL, 0, NULL);
 		sprite_enemigo_left->changeAnimation(7);
 		deltaTimeDeath = 0;
 	}
-	else if (sprite_enemigo_left->isFinalized()) sprite_enemigo_left->changeAnimation(9);
+	else if (sprite_enemigo_left->isFinalized() && sprite_enemigo_left->animation() != 7 && sprite_enemigo_left->animation() != 8) sprite_enemigo_left->changeAnimation(9);
 }
 void Enemigo1::recibirPatadaIzquierda() {
 	if (vida > 0 && sprite_enemigo_left->animation() != 7 && (sprite_enemigo_left->animation() != 8)) {
 		movimiento = 1;
-		if (sprite_enemigo_left->animation() != 6) sprite_enemigo_left->changeAnimation(6);
+		if (golpe == 0) sprite_enemigo_left->changeAnimation(6);
 		hitTime = 0;	
 		if (golpe == 0) {
+			//mciSendString(TEXT("stop sounds/SOUND/Punch.mp3"), NULL, 0, NULL);
 			mciSendString(TEXT("play sounds/SOUND/Punch.mp3 "), NULL, 0, NULL);
 			mciSendString(TEXT("setaudio sounds/SOUND/Punch.mp3 volume to 94"), NULL, 0, NULL);
 			vida -= 20;
@@ -394,7 +396,7 @@ void Enemigo1::recibirPuñetazoDerecha() {
 		movimiento = 0;
 		if (sprite_enemigo->animation() != 5) sprite_enemigo->changeAnimation(5);
 		hitTime = 0;
-		if (golpe == 2) {
+		if (golpe == 1) {
 			mciSendString(TEXT("play sounds/SOUND/Punch.mp3 "), NULL, 0, NULL);
 			mciSendString(TEXT("setaudio sounds/SOUND/Punch.mp3 volume to 94"), NULL, 0, NULL);
 			golpe = 0;
@@ -411,7 +413,7 @@ void Enemigo1::recibirPuñetazoDerecha() {
 	else if (sprite_enemigo->isFinalized()) sprite_enemigo->changeAnimation(9);
 }
 void Enemigo1::recibirPatadaDerecha() {
-	if (vida > 0 && sprite_enemigo->animation() != 7 && (sprite_enemigo->animation() != 8)) {
+	if (vida > 0 && sprite_enemigo->animation() != 7 && sprite_enemigo->animation() != 8) {
 		movimiento = 0;
 		if (sprite_enemigo->animation() != 6) sprite_enemigo->changeAnimation(6);
 		hitTime = 0;
@@ -428,7 +430,7 @@ void Enemigo1::recibirPatadaDerecha() {
 		sprite_enemigo->changeAnimation(7);
 		deltaTimeDeath = 0;
 	}
-	else if (sprite_enemigo->isFinalized()) sprite_enemigo->changeAnimation(10);
+	else if (sprite_enemigo->isFinalized() && sprite_enemigo->animation() != 7 && sprite_enemigo->animation() != 8) sprite_enemigo->changeAnimation(10);
 }
 
 void Enemigo1::recibirPuñetazoArribaDerecha() {

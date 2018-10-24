@@ -320,10 +320,15 @@ void Player::update(int deltaTime)
 			if (Game::instance().getSpecialKey(GLUT_KEY_LEFT)) {
 				if (!bJumping) movimiento = 10;
 				if (sprite_correr->animation() == 0) sprite_correr->changeAnimation(1);
-				if (posPlayer.x > 60) {
+				if (posPlayer.x > 60 && posLevel >= 50) {
 					posPlayer.x -= 4.f;
 					posLevel -= 4.f;
 				}
+				else if (posPlayer.x > 0 && posLevel < 50) {
+					posPlayer.x -= 4.f;
+					posLevel -= 4.f;
+				}
+				else posLevel -= 4.f;
 			}
 			else if (Game::instance().getSpecialKey(GLUT_KEY_RIGHT)) {
 				if (!bJumping) movimiento = 10;
@@ -341,10 +346,15 @@ void Player::update(int deltaTime)
 		else if (Game::instance().getSpecialKey(GLUT_KEY_LEFT))
 		{
 			if (!bJumping) movimiento = 2;
-			if (posPlayer.x > 60) {
+			if (posPlayer.x > 60 && posLevel >= 50) {
 				posPlayer.x -= 2.f;
 				posLevel -= 2.f;
 			}
+			else if (posPlayer.x > 0 && posLevel < 50) {
+				posPlayer.x -= 2.f;
+				posLevel -= 2.f;
+			}
+			else posLevel -= 2.f;
 			/*if (map->collisionMoveLeft(posPlayer, glm::ivec2(38.625, 61)))
 			{
 				if (!bJumping) movimiento = 0;
@@ -468,7 +478,7 @@ void Player::update(int deltaTime)
 	sprite_saltar_izquierda->setPosition(glm::vec2(float( posPlayer.x ), float( posPlayer.y)));
 	sprite_patada_derecha->setPosition(glm::vec2(float(  posPlayer.x), float(  posPlayer.y)));
 	sprite_patada_izquierda->setPosition(glm::vec2(float(  posPlayer.x-20), float(  posPlayer.y)));
-	sprite_correr->setPosition(glm::vec2(float(posPlayer.x - 20), float(posPlayer.y)));
+	sprite_correr->setPosition(glm::vec2(float(posPlayer.x), float(posPlayer.y)));
 	puñetazo_arriba->setPosition(glm::vec2(float(posPlayer.x - 20), float(posPlayer.y)));
 	puñetazo_arriba_izq->setPosition(glm::vec2(float(posPlayer.x - 20), float(posPlayer.y)));
 }

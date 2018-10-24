@@ -31,11 +31,11 @@ void Level1::init(bool music)
 {
 	if(music) {
 		mciSendString(TEXT("stop sounds/SOUND/MenuTheme.mp3"), NULL, 0, NULL);
-		mciSendString(TEXT("play sounds/SOUND/20.mp3 repeat"), NULL, 0, NULL);
-		mciSendString(TEXT("setaudio sounds/SOUND/20.mp3 volume to 98"), NULL, 0, NULL);
+		mciSendString(TEXT("play sounds/SOUND/Level1.mp3 repeat"), NULL, 0, NULL);
+		mciSendString(TEXT("setaudio sounds/SOUND/Level1.mp3 volume to 98"), NULL, 0, NULL);
 	}
 	else {
-		mciSendString(TEXT("stop sounds/SOUND/20.mp3"), NULL, 0, NULL);
+		mciSendString(TEXT("stop sounds/SOUND/level1.mp3"), NULL, 0, NULL);
 	}
 	musica = music;
 	currentTime = 0.0f;
@@ -53,7 +53,7 @@ void Level1::init(bool music)
 	texs[1].setMagFilter(GL_NEAREST);
 
 
-	personaje = 1;
+	personaje = 0;
 
 	//Init jugador, depende del elegido
 	if (personaje == 0) {
@@ -182,7 +182,7 @@ void Level1::render()
 	texProgram.use();
 	texProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
 	texProgram.setUniformMatrix4f("projection", glm::ortho(0.f, float(SCREEN_WIDTH), float(SCREEN_HEIGHT - 1), 0.f));
-
+	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
 
 	glm::mat4 modelview2;
 	modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
@@ -197,7 +197,7 @@ void Level1::render()
 
 	int i;
 	for (i = 0; i < 6; ++i) {
-		if (enemigo1[i]->getPosition().y <= yplayer && !enemigo1[i]->isCompletlyDeath()) enemigo1[i]->render();
+		if (enemigo1[i]->getPosition().y + 40 <= yplayer && !enemigo1[i]->isCompletlyDeath()) enemigo1[i]->render();
 		else enemigo1[i]->free();
 	}
 	
@@ -206,7 +206,7 @@ void Level1::render()
 	else if (personaje == 2) ramona->render();
 	
 	for (i = 0; i < 6; ++i) {
-		if (enemigo1[i]->getPosition().y > yplayer && !enemigo1[i]->isCompletlyDeath()) enemigo1[i]->render();
+		if (enemigo1[i]->getPosition().y + 40 > yplayer && !enemigo1[i]->isCompletlyDeath()) enemigo1[i]->render();
 		else enemigo1[i]->free();
 	}
 	
@@ -284,7 +284,7 @@ void Level1::comprobarLucha(int i, glm::vec2 posPlayer) {
 		isPunching_up_right = kim->isPunching_up_right();
 	}
 	posEnemy = enemigo1[i]->getPosition();
-	if ((posPlayer.x <= (posEnemy.x + 90) && (posPlayer.x - 40 > posEnemy.x)) && (posPlayer.y >= posEnemy.y+40  && posPlayer.y <= posEnemy.y +60)) {
+	if ((posPlayer.x <= (posEnemy.x + 90) && (posPlayer.x - 40 > posEnemy.x)) && (posPlayer.y >= posEnemy.y + 40  && posPlayer.y <= posEnemy.y + 60)) {
 		if (isPunching_left) {
 			enemigo1[i]->recibirPuñetazoDerecha();
 		}
@@ -328,7 +328,7 @@ void Level1::comprobarAtaqueEnemigo(int i, glm::vec2 posPlayer) {
 		}
 		posEnemy = enemigo1[i]->getPosition();
 		
-		if ((posPlayer.x > posEnemy.x - 35) && (posPlayer.x < posEnemy.x + 20) && (posPlayer.y >= posEnemy.y + 40 && posPlayer.y <= posEnemy.y + 60)) {
+		if ((posPlayer.x > posEnemy.x - 35) && (posPlayer.x < posEnemy.x + 20) && (posPlayer.y >= posEnemy.y + 40 && posPlayer.y <= posEnemy.y + 50)) {
 			if (rand() % 120 == 3) {
 				if (!isPunching_right && !enemigo1[i]->isDeath()) {
 					enemigo1[i]->atacarPuñetadosIzquierda();
@@ -344,7 +344,7 @@ void Level1::comprobarAtaqueEnemigo(int i, glm::vec2 posPlayer) {
 			}
 		}
 
-		else if ((posEnemy.x + 80 >= posPlayer.x - 5 && posEnemy.x + 10 < posPlayer.x) && (posPlayer.y >= posEnemy.y + 40 && posPlayer.y <= posEnemy.y + 60)) {
+		else if ((posEnemy.x + 80 >= posPlayer.x - 5 && posEnemy.x + 10 < posPlayer.x) && (posPlayer.y >= posEnemy.y + 40 && posPlayer.y <= posEnemy.y + 50)) {
 			if (rand() % 100 == 3) {
 				if (!isPunching_left && !enemigo1[i]->isDeath()) {
 					enemigo1[i]->atacarPuñetazosDerecha();
