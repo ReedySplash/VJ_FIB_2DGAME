@@ -22,3 +22,5 @@
 *.obj
 *.pdb
 *.obj
+*.dll
+*.pdb

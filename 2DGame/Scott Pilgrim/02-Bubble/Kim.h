@@ -10,27 +10,30 @@
 class Kim
 {
 public:
-	Kim();
-	~Kim();
-	void init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram);
+	void init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, int level);
 	void update(int deltaTime);
 	void render();
 	void setTileMap(TileMap *tileMap);
 	void setPosition(const glm::vec2 &pos);
 	glm::vec2 getPosition();
+	float getPosLevel();
 	bool isWalking();
 	bool isRunning();
 	bool isKicking_left();
 	bool isKicking_right();
 	bool isPunching_left();
 	bool isPunching_right();
+	bool isPunching_up_left();
+	bool isPunching_up_right();
 	void recibirPuñetazoDerecha();
 	void recibirPuñetazoIzquierda();
 
+
 private:
-	ShaderProgram mapShader;
 	bool bJumping;
-	int movimiento = 0;
+	int level;
+	int movimiento, tiempoPatada;
+	float posLevel;
 	glm::ivec2 tileMapDispl, posPlayer;
 	int jumpAngle, startY;
 	Texture spritesheet;
@@ -43,6 +46,10 @@ private:
 	Texture spritesheet_saltar_derecha;
 	Texture spritesheet_patada_izquierda;
 	Texture spritesheet_patada_derecha;
+	Texture spritesheet_correr;
+	Texture spritesheet_recibir_golpe;
+	Texture spritesheet_puñetazo_arriba;
+	Texture spritesheet_puñetazo_arriba_izq;
 	Sprite *sprite;
 	Sprite *sprite_caminando;
 	Sprite *sprite_caminando_izq;
@@ -53,7 +60,11 @@ private:
 	Sprite *sprite_saltar_derecha;
 	Sprite *sprite_patada_izquierda;
 	Sprite *sprite_patada_derecha;
+	Sprite *sprite_correr;
+	Sprite *recibir_golpe;
+	Sprite *puñetazo_arriba;
+	Sprite *puñetazo_arriba_izq;
 	TileMap *map;
-
+	ShaderProgram mapShader;
 };
 

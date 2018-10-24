@@ -21,8 +21,6 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, in
 {	
 	level = lev;
 	posLevel = 50;
-	xpuñetazo = 0;
-	tiempoAtacandoPuñetazo = 0.f;
 	mapShader = shaderProgram;
 	movimiento = 0;
 	bJumping = false;
@@ -287,8 +285,6 @@ void Player::update(int deltaTime)
 			if (movimiento != 4) {
 				sprite_pegando_derecha->changeAnimation(0);
 			}
-			tiempoAtacandoPuñetazo = 0.f;
-			//if (puñetazo == true) puñetazo = false;
 			movimiento = 4;
 		}
 
@@ -296,7 +292,6 @@ void Player::update(int deltaTime)
 			if (movimiento != 5) {
 				sprite_pegando_izquierda->changeAnimation(0);
 			}
-			tiempoAtacandoPuñetazo = 0.f;
 			movimiento = 5;
 		}
 
@@ -373,7 +368,7 @@ void Player::update(int deltaTime)
 			}*/
 		}
 
-		if (Game::instance().getSpecialKey(GLUT_KEY_UP) && !patada && !puñetazo && posPlayer.y > 165)
+		if (Game::instance().getSpecialKey(GLUT_KEY_UP) && posPlayer.y > 165)
 		{
 			if ((level == 1 && posPlayer.y > 165) || (level == 2 && posPlayer.y > 210)) {
 				if (!bJumping && movimiento == 3 || movimiento == 1) movimiento = 3;
@@ -382,7 +377,7 @@ void Player::update(int deltaTime)
 			}
 		}
 
-		else if (Game::instance().getSpecialKey(GLUT_KEY_DOWN) && !patada && !puñetazo && posPlayer.y < 380)
+		else if (Game::instance().getSpecialKey(GLUT_KEY_DOWN) && posPlayer.y < 380)
 		{
 			if (!bJumping && movimiento == 3 || movimiento == 1) movimiento = 3;
 			if (!bJumping && movimiento == 2 || movimiento == 0) movimiento = 2;

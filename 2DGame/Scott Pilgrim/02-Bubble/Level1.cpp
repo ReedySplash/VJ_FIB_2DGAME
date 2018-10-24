@@ -53,7 +53,7 @@ void Level1::init(bool music)
 	texs[1].setMagFilter(GL_NEAREST);
 
 
-	personaje = 0;
+	personaje = 1;
 
 	//Init jugador, depende del elegido
 	if (personaje == 0) {
@@ -66,7 +66,7 @@ void Level1::init(bool music)
 
 	else if (personaje == 1) {
 		kim = new Kim();
-		kim->init(glm::ivec2(SCREEN_X, SCREEN_Y), simpleTexProgram);
+		kim->init(glm::ivec2(SCREEN_X, SCREEN_Y), simpleTexProgram, 1);
 		kim->setPosition(glm::vec2(65, 260));
 	}
 
@@ -92,7 +92,6 @@ void Level1::init(bool music)
 void Level1::update(int deltaTime)
 {
 	currentTime += deltaTime;
-	glm::vec2 pos;
 	bool isWalking, isRunning;
 	if (personaje == 0) {
 		player->update(deltaTime);
@@ -187,7 +186,7 @@ void Level1::render()
 
 	glm::mat4 modelview2;
 	modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
-	modelview2 = glm::translate(modelview2, glm::vec3(player->getPosition().x, player->getPosition().y + 70, 0.f));
+	modelview2 = glm::translate(modelview2, glm::vec3(pos.x, pos.y + 70, 0.f));
 	modelview2 = glm::scale(modelview2, glm::vec3(0.08f, 0.08f, 0.f));
 	texProgram.setUniformMatrix4f("modelview", modelview2);
 	texQuad[1]->render(texs[1]);
@@ -281,8 +280,8 @@ void Level1::comprobarLucha(int i, glm::vec2 posPlayer) {
 		isPunching_right = kim->isPunching_right();
 		isKicking_left = kim->isKicking_left();
 		isKicking_right = kim->isKicking_right();
-		//isPunching_up_left = player->isPunching_up_left();
-		//isPunching_up_right = player->isPunching_up_right();
+		isPunching_up_left = kim->isPunching_up_left();
+		isPunching_up_right = kim->isPunching_up_right();
 	}
 	posEnemy = enemigo1[i]->getPosition();
 	if ((posPlayer.x <= (posEnemy.x + 90) && (posPlayer.x - 40 > posEnemy.x)) && (posPlayer.y >= posEnemy.y+40  && posPlayer.y <= posEnemy.y +60)) {

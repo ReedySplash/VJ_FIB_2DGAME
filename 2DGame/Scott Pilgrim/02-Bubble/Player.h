@@ -36,11 +36,8 @@ public:
 private:
 	bool bJumping;
 	int level;
-	float tiempoAtacandoPuñetazo;
 	int movimiento, tiempoPatada;
 	float posLevel;
-	bool puñetazo, patada, puñetazo_aux, patada_aux;;
-	int xpuñetazo;
 	glm::ivec2 tileMapDispl, posPlayer;
 	int jumpAngle, startY;
 	Texture spritesheet;

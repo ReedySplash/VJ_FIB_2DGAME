@@ -36,7 +36,7 @@ void Scene::init()
 	player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * map->getTileSize(), INIT_PLAYER_Y_TILES * map->getTileSize()));
 	player->setTileMap(map);
 	kim = new Kim();
-	kim->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
+	kim->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram, 1);
 	kim->setPosition(glm::vec2(INIT_PLAYER_X_TILES * map->getTileSize(), INIT_PLAYER_Y_TILES * map->getTileSize()));
 	kim->setTileMap(map);
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
