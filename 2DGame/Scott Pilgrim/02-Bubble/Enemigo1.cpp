@@ -477,6 +477,12 @@ void Enemigo1::recibirPuñetazoArribaIzquierda() {
 
 
 
+bool Enemigo1::isDying() {
+	if ((sprite_enemigo->animation() == 7 || sprite_enemigo_left->animation() == 7 || (sprite_enemigo->animation() == 8 || sprite_enemigo_left->animation() == 8)) && vida <= 0) {
+		return true;
+	}
+	return false;
+}
 bool Enemigo1::isDeath() {
 	if ((sprite_enemigo->animation() == 8 || sprite_enemigo_left->animation() == 8) && timeAfterDeath > 1000 & vida <= 0) {
 		return true;
@@ -485,7 +491,7 @@ bool Enemigo1::isDeath() {
 }
 
 bool Enemigo1::isCompletlyDeath() {
-	if (muriendo >= 200) {
+	if (muriendo >= 150) {
 		return true;
 	}
 	return false;

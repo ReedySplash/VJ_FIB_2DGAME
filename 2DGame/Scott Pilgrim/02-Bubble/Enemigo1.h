@@ -24,6 +24,7 @@ public:
 	void recibirPatadaDerecha();
 	void recibirPuñetazoArribaDerecha();
 	void recibirPuñetazoArribaIzquierda();
+	bool isDying();
 	bool isDeath();
 	bool isCompletlyDeath();
 	void free();

@@ -20,6 +20,7 @@ enum PlayerAnims
 void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, int lev)
 {	
 	level = lev;
+	vida = 100;
 	posLevel = 50;
 	mapShader = shaderProgram;
 	movimiento = 0;
@@ -251,6 +252,81 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, in
 		puñetazo_arriba_izq->addKeyframe(0, glm::vec2(0.125, 0.f));
 		puñetazo_arriba_izq->addKeyframe(0, glm::vec2(0, 0.f));
 
+	spritesheet_recibir_daño.loadFromFile("images/Scott/recibir_daño.png", TEXTURE_PIXEL_FORMAT_RGBA);
+		sprite_recibir = Sprite::createSprite(glm::ivec2(80, 120), glm::vec2(0.0357142857, 1), &spritesheet_recibir_daño, &shaderProgram);
+		sprite_recibir->setNumberAnimations(3);
+
+		sprite_recibir->setAnimationSpeed(0, 4);
+		sprite_recibir->addKeyframe(0, glm::vec2(0.0357142857 * 0, 0.f));
+		sprite_recibir->addKeyframe(0, glm::vec2(0.0357142857, 0.f));
+
+		sprite_recibir->setAnimationSpeed(1, 6);
+		sprite_recibir->addKeyframe(1, glm::vec2(0.0357142857 * 2, 0.f));
+		sprite_recibir->addKeyframe(1, glm::vec2(0.0357142857 * 3, 0.f));
+		sprite_recibir->addKeyframe(1, glm::vec2(0.0357142857 * 4, 0.f));
+		sprite_recibir->addKeyframe(1, glm::vec2(0.0357142857 * 5, 0.f));
+		sprite_recibir->addKeyframe(1, glm::vec2(0.0357142857 * 6, 0.f));
+		
+		sprite_recibir->setAnimationSpeed(2, 10);
+		sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 7, 0.f));
+		sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 8, 0.f));
+		sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 9, 0.f));
+		sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 10, 0.f));
+		sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 11, 0.f));
+		sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 12, 0.f));
+		sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 13, 0.f));
+		sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 14, 0.f));
+		sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 15, 0.f));
+		sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 16, 0.f));
+		sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 17, 0.f));
+		sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 18, 0.f));
+		sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 19, 0.f));
+		sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 20, 0.f));
+		sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 21, 0.f));
+		sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 22, 0.f));
+		sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 23, 0.f));
+		sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 24, 0.f));
+		sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 25, 0.f));
+		sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 26, 0.f));
+		sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 27, 0.f));
+
+	spritesheet_recibir_daño_izq.loadFromFile("images/Scott/recibir_daño_izq.png", TEXTURE_PIXEL_FORMAT_RGBA);
+		sprite_recibir_izq = Sprite::createSprite(glm::ivec2(80, 130), glm::vec2(0.0357142857, 1), &spritesheet_recibir_daño_izq, &shaderProgram);
+		sprite_recibir_izq->setNumberAnimations(3);
+
+		sprite_recibir_izq->setAnimationSpeed(0, 4);
+		sprite_recibir_izq->addKeyframe(0, glm::vec2(0.0357142857 * 27, 0.f));
+		sprite_recibir_izq->addKeyframe(0, glm::vec2(0.0357142857 * 26, 0.f));
+
+		sprite_recibir_izq->setAnimationSpeed(1, 6);
+		sprite_recibir_izq->addKeyframe(1, glm::vec2(0.0357142857 * 25, 0.f));
+		sprite_recibir_izq->addKeyframe(1, glm::vec2(0.0357142857 * 24, 0.f));
+		sprite_recibir_izq->addKeyframe(1, glm::vec2(0.0357142857 * 23, 0.f));
+		sprite_recibir_izq->addKeyframe(1, glm::vec2(0.0357142857 * 22, 0.f));
+		sprite_recibir_izq->addKeyframe(1, glm::vec2(0.0357142857 * 21, 0.f));
+
+		sprite_recibir_izq->setAnimationSpeed(2, 10);
+		sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 20, 0.f));
+		sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 19, 0.f));
+		sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 18, 0.f));
+		sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 17, 0.f));
+		sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 16, 0.f));
+		sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 15, 0.f));
+		sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 14, 0.f));
+		sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 13, 0.f));
+		sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 12, 0.f));
+		sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 11, 0.f));
+		sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 10, 0.f));
+		sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 9, 0.f));
+		sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 8, 0.f));
+		sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 7, 0.f));
+		sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 6, 0.f));
+		sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 5, 0.f));
+		sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 4, 0.f));
+		sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 3, 0.f));
+		sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 2, 0.f));
+		sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 1, 0.f));
+		sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 0, 0.f));
 
 
 			
@@ -278,9 +354,22 @@ void Player::update(int deltaTime)
 	sprite_correr->update(deltaTime);
 	puñetazo_arriba->update(deltaTime);
 	puñetazo_arriba_izq->update(deltaTime);
+	sprite_recibir_izq->update(deltaTime);
+	sprite_recibir->update(deltaTime);
+
+	if (movimiento == 13 || movimiento == 14 && (sprite_recibir->animation() == 2 || sprite_recibir_izq->animation() == 2)) {
+		if (sprite_recibir->animation() == 2 || sprite_recibir_izq->animation() == 2) recuperando += deltaTime;
+		if (sprite_recibir->animation() == 2 && movimiento == 14 && recuperando < 1500) posPlayer.x -= 1.5f;
+		else if (sprite_recibir_izq->animation() == 2 && movimiento == 13 && recuperando < 1500) posPlayer.x += 1.5f;
+		else if (recuperando > 2300) {
+			if (movimiento == 13) movimiento = 0;
+			else movimiento = 1;
+			recuperando = 0;
+		}
+	}
 
 
-	if (sprite_pegando_derecha->isFinalized() && sprite_pegando_izquierda->isFinalized() && sprite_patada_derecha->isFinalized() && sprite_patada_izquierda->isFinalized() && puñetazo_arriba->isFinalized() && puñetazo_arriba_izq->isFinalized()) {
+	if (sprite_pegando_derecha->isFinalized() && sprite_pegando_izquierda->isFinalized() && sprite_patada_derecha->isFinalized() && sprite_patada_izquierda->isFinalized() && puñetazo_arriba->isFinalized() && puñetazo_arriba_izq->isFinalized() && movimiento != 13 && movimiento != 14) {
 		if (Game::instance().getKey('x') && (movimiento == 1 || movimiento == 3 || movimiento == 4)) {
 			if (movimiento != 4) {
 				sprite_pegando_derecha->changeAnimation(0);
@@ -481,6 +570,8 @@ void Player::update(int deltaTime)
 	sprite_correr->setPosition(glm::vec2(float(posPlayer.x), float(posPlayer.y)));
 	puñetazo_arriba->setPosition(glm::vec2(float(posPlayer.x - 20), float(posPlayer.y)));
 	puñetazo_arriba_izq->setPosition(glm::vec2(float(posPlayer.x - 20), float(posPlayer.y)));
+	sprite_recibir->setPosition(glm::vec2(float(posPlayer.x), float(posPlayer.y - 15)));
+	sprite_recibir_izq->setPosition(glm::vec2(float(posPlayer.x - 20), float(posPlayer.y - 15)));
 }
 
 void Player::render()
@@ -525,6 +616,12 @@ void Player::render()
 			break;
 		case 12:
 			puñetazo_arriba_izq->render();
+			break;
+		case 13:
+			sprite_recibir_izq->render();
+			break;
+		case 14:
+			sprite_recibir->render();
 			break;
 	}
 }
@@ -584,13 +681,52 @@ bool Player::isPunching_up_right() {
 	if (movimiento == 11) return true;
 	else return false;
 }
+bool Player::isRecuperando() {
+	if (recuperando > 0) return true;
+	else return false;
+}
+bool Player::isJumping() {
+	return bJumping;
+}
 
 void Player::recibirPuñetazoIzquierda() {
+	if (vida > 0 && movimiento != 13) {
+		if (sprite_recibir_izq->animation() != 0 && movimiento != 13) sprite_recibir_izq->changeAnimation(0);
+		movimiento = 13;
+	}
+
+	else if (vida > 0 && movimiento == 13) {
+		++hits;
+	}
+
+	if (vida > 0 && (movimiento == 13) && hits == 5) {
+		hits = 0;
+		sprite_recibir_izq->changeAnimation(2);
+		recuperando = 0;
+	}
 
 }
 
 void Player::recibirPuñetazoDerecha() {
+	if (vida > 0 && movimiento != 14) {
+		if (sprite_recibir->animation() != 0 && movimiento != 14) sprite_recibir->changeAnimation(0);
+		movimiento = 14;
+	}
 
+	else if (vida > 0 && movimiento == 14) {
+		++hits;
+	}
+
+	if (vida > 0 && (movimiento == 14) && hits == 5) {
+		hits = 0;
+		sprite_recibir->changeAnimation(2);
+		recuperando = 0;
+	}
+}
+
+void Player::turnToWalk() {
+	if (movimiento == 13) movimiento = 0;
+	else movimiento = 1;
 }
 
 
