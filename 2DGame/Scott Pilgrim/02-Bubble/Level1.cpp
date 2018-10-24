@@ -295,6 +295,7 @@ void Level1::comprobarLucha(int i, glm::vec2 posPlayer) {
 		else if (isPunching_up_left) {
 			enemigo1[i]->recibirPuñetazoArribaDerecha();
 		}
+		else enemigo1[i]->setGolpesto0();
 	}
 
 	else if ((posPlayer.x >= posEnemy.x - 20 && posPlayer.x < posEnemy.x+20) && (posPlayer.y >= posEnemy.y + 40 && posPlayer.y <= posEnemy.y + 60)) {
@@ -307,6 +308,7 @@ void Level1::comprobarLucha(int i, glm::vec2 posPlayer) {
 		else if (isPunching_up_right) {
 			enemigo1[i]->recibirPuñetazoArribaIzquierda();
 		}
+		else enemigo1[i]->setGolpesto0();
 	}
 }
 

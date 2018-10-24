@@ -32,6 +32,7 @@ public:
 	bool isPunchingRight();
 	bool isPunchingLeft();
 	void turnToWalk();
+	void setGolpesto0();
 
 
 private:
@@ -42,7 +43,7 @@ private:
 	glm::fvec2 posPlayer;
 	int jumpAngle, startY;
 	int deltaTimeDeath, hitTime, timeAfterDeath, restablecer;
-	int puñetazos = 0;
+	int golpe = 0;
 	TileMap *map;
 	ShaderProgram mapShader;
 	Texture spritesheet_enemigo, spritesheet_enemigo_left;
