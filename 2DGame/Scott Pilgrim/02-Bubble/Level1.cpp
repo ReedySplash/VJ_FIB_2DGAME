@@ -190,40 +190,45 @@ void Level1::render()
 	if (personaje == 0) {
 		jumping = player->isJumping();
 		if (!jumping) y = pos.y;
+		if (jumping) {
+			modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
+			modelview2 = glm::translate(modelview2, glm::vec3(pos.x, y + 80, 0.f));
+			modelview2 = glm::scale(modelview2, glm::vec3(0.08f, 0.07f, 0.f));
+			texProgram.setUniformMatrix4f("modelview", modelview2);
+			texQuad[1]->render(texs[1]);
+		}
+		else if (player->isRecuperando()) {
+			modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
+			modelview2 = glm::translate(modelview2, glm::vec3(pos.x, y + 40, 0.f));
+			modelview2 = glm::scale(modelview2, glm::vec3(0.08f, 0.07f, 0.f));
+			texProgram.setUniformMatrix4f("modelview", modelview2);
+			texQuad[1]->render(texs[1]);
+		}
+		else {
+			modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
+			modelview2 = glm::translate(modelview2, glm::vec3(pos.x, pos.y + 80, 0.f));
+			modelview2 = glm::scale(modelview2, glm::vec3(0.08f, 0.07f, 0.f));
+			texProgram.setUniformMatrix4f("modelview", modelview2);
+			texQuad[1]->render(texs[1]);
+		}
 	}
 	//else if (personaje == 1) //jumping = kim->render();
 	//else if (personaje == 2) ramona->render();
-
-	if (jumping) {
-		modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
-		modelview2 = glm::translate(modelview2, glm::vec3(pos.x, y + 70, 0.f));
-		modelview2 = glm::scale(modelview2, glm::vec3(0.08f, 0.08f, 0.f));
-		texProgram.setUniformMatrix4f("modelview", modelview2);
-		texQuad[1]->render(texs[1]);
-	}
-
-	else {
-		modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
-		modelview2 = glm::translate(modelview2, glm::vec3(pos.x, pos.y + 70, 0.f));
-		modelview2 = glm::scale(modelview2, glm::vec3(0.08f, 0.08f, 0.f));
-		texProgram.setUniformMatrix4f("modelview", modelview2);
-		texQuad[1]->render(texs[1]);
-	}
 
 	//renderizamos sombras enemigas
 	int i;
 	for (i = 0; i < 6; ++i) {
 		if (!enemigo1[i]->isCompletlyDeath() && !enemigo1[i]->isDying()) {
 			modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
-			modelview2 = glm::translate(modelview2, glm::vec3(enemigo1[i]->getPosition().x + 20, enemigo1[i]->getPosition().y + 120, 0.f));
-			modelview2 = glm::scale(modelview2, glm::vec3(0.10f, 0.10f, 0.f));
+			modelview2 = glm::translate(modelview2, glm::vec3(enemigo1[i]->getPosition().x + 18, enemigo1[i]->getPosition().y + 120, 0.f));
+			modelview2 = glm::scale(modelview2, glm::vec3(0.10f, 0.08f, 0.f));
 			texProgram.setUniformMatrix4f("modelview", modelview2);
 			texQuad[1]->render(texs[1]);
 		}
 		else if (!enemigo1[i]->isCompletlyDeath() && enemigo1[i]->isDying()) {
 			modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
 			modelview2 = glm::translate(modelview2, glm::vec3(enemigo1[i]->getPosition().x + 20, enemigo1[i]->getPosition().y + 90, 0.f));
-			modelview2 = glm::scale(modelview2, glm::vec3(0.10f, 0.10f, 0.f));
+			modelview2 = glm::scale(modelview2, glm::vec3(0.10f, 0.08f, 0.f));
 			texProgram.setUniformMatrix4f("modelview", modelview2);
 			texQuad[1]->render(texs[1]);
 		}
@@ -326,7 +331,7 @@ void Level1::comprobarLucha(int i, glm::vec2 posPlayer) {
 		isPunching_up_right = kim->isPunching_up_right();
 	}
 	posEnemy = enemigo1[i]->getPosition();
-	if ((posPlayer.x <= (posEnemy.x + 90) && (posPlayer.x - 40 > posEnemy.x)) && (posPlayer.y >= posEnemy.y + 40  && posPlayer.y <= posEnemy.y + 60)) {
+	if ((posPlayer.x <= (posEnemy.x + 90) && (posPlayer.x - 30 > posEnemy.x)) && (posPlayer.y >= posEnemy.y + 40  && posPlayer.y <= posEnemy.y + 60)) {
 		if (isPunching_left) {
 			enemigo1[i]->recibirPuñetazoDerecha();
 		}
@@ -339,7 +344,7 @@ void Level1::comprobarLucha(int i, glm::vec2 posPlayer) {
 		else enemigo1[i]->setGolpesto0();
 	}
 
-	else if ((posPlayer.x >= posEnemy.x - 20 && posPlayer.x < posEnemy.x+20) && (posPlayer.y >= posEnemy.y + 40 && posPlayer.y <= posEnemy.y + 60)) {
+	else if ((posPlayer.x >= posEnemy.x - 30 && posPlayer.x < posEnemy.x+20) && (posPlayer.y >= posEnemy.y + 40 && posPlayer.y <= posEnemy.y + 60)) {
 		if (isPunching_right) {
 			enemigo1[i]->recibirPuñetazoIzquierda();
 		}
@@ -355,7 +360,7 @@ void Level1::comprobarLucha(int i, glm::vec2 posPlayer) {
 
 void Level1::comprobarAtaqueEnemigo(int i, glm::vec2 posPlayer) {
 	bool isPunching_left, isKicking_left, isPunching_right, isKicking_right;
-	if (!enemigo1[i]->isDeath()) {
+	if (!enemigo1[i]->isDeath() && !enemigo1[i]->isDying()) {
 		if (personaje == 0) {
 			isPunching_left = player->isPunching_left();
 			isPunching_right = player->isPunching_right();
