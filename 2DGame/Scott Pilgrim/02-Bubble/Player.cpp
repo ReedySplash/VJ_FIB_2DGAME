@@ -176,7 +176,7 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, in
 			sprite_patada_derecha = Sprite::createSprite(glm::ivec2(60, 100), glm::vec2(0.125, 1), &spritesheet_patada_derecha, &shaderProgram);
 			sprite_patada_derecha->setNumberAnimations(1);
 
-			sprite_patada_derecha->setAnimationSpeed(0, 8);
+			sprite_patada_derecha->setAnimationSpeed(0, 10);
 			sprite_patada_derecha->addKeyframe(0, glm::vec2(0.f, 0.f));
 			sprite_patada_derecha->addKeyframe(0, glm::vec2(0.125, 0.f));
 			sprite_patada_derecha->addKeyframe(0, glm::vec2(0.25, 0.f));
@@ -190,7 +190,7 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, in
 			sprite_patada_izquierda = Sprite::createSprite(glm::ivec2(60, 100), glm::vec2(0.125, 1), &spritesheet_patada_izquierda, &shaderProgram);
 			sprite_patada_izquierda->setNumberAnimations(1);
 
-			sprite_patada_izquierda->setAnimationSpeed(0, 8);
+			sprite_patada_izquierda->setAnimationSpeed(0, 10);
 			sprite_patada_izquierda->addKeyframe(0, glm::vec2(0.875, 0.f));
 			sprite_patada_izquierda->addKeyframe(0, glm::vec2(0.75, 0.f));
 			sprite_patada_izquierda->addKeyframe(0, glm::vec2(0.625, 0.f));
@@ -228,7 +228,7 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, in
 	puñetazo_arriba = Sprite::createSprite(glm::ivec2(60, 100), glm::vec2(0.125, 1), &spritesheet_puñetazo_arriba, &shaderProgram);
 	puñetazo_arriba->setNumberAnimations(1);
 
-		puñetazo_arriba->setAnimationSpeed(0, 10);
+		puñetazo_arriba->setAnimationSpeed(0, 12);
 		puñetazo_arriba->addKeyframe(0, glm::vec2(0, 0.f));
 		puñetazo_arriba->addKeyframe(0, glm::vec2(0.125, 0.f));
 		puñetazo_arriba->addKeyframe(0, glm::vec2(0.125 * 2, 0.f));
@@ -242,7 +242,7 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, in
 	puñetazo_arriba_izq = Sprite::createSprite(glm::ivec2(60, 100), glm::vec2(0.125, 1), &spritesheet_puñetazo_arriba_izq, &shaderProgram);
 	puñetazo_arriba_izq->setNumberAnimations(1);
 
-		puñetazo_arriba_izq->setAnimationSpeed(0, 10);
+		puñetazo_arriba_izq->setAnimationSpeed(0, 12);
 		puñetazo_arriba_izq->addKeyframe(0, glm::vec2(0.125 * 7, 0.f));
 		puñetazo_arriba_izq->addKeyframe(0, glm::vec2(0.125 * 6, 0.f));
 		puñetazo_arriba_izq->addKeyframe(0, glm::vec2(0.125 * 5, 0.f));
@@ -691,7 +691,7 @@ bool Player::isJumping() {
 
 void Player::recibirPuñetazoIzquierda() {
 	if (vida > 0 && movimiento != 13) {
-		if (sprite_recibir_izq->animation() != 0 && movimiento != 13) sprite_recibir_izq->changeAnimation(0);
+		if (movimiento != 13) sprite_recibir_izq->changeAnimation(0);
 		movimiento = 13;
 	}
 

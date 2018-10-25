@@ -52,7 +52,7 @@ void Level1::init(bool music)
 	texs[1].loadFromFile("images/sombra.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	texs[1].setMagFilter(GL_NEAREST);
 
-
+	hud.init(0, texProgram, simpleTexProgram);
 	personaje = 0;
 
 	//Init jugador, depende del elegido
@@ -257,6 +257,7 @@ void Level1::render()
 		else enemigo1[i]->free();
 	}
 	
+	hud.render();
 
 }
 

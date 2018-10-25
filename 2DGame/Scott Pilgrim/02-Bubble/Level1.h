@@ -5,7 +5,6 @@
 #include "ShaderProgram.h"
 #include "Player.h"
 #include <iostream>
-#include <glm/glm.hpp>
 #include <vector>
 #include <windows.h>
 #include <cmath>
@@ -15,6 +14,7 @@
 #include "Enemigo1.h"
 #include "Kim.h"
 #include "Ramona.h"
+#include "Hud.h"
 
 
 class Level1
@@ -45,6 +45,7 @@ private:
 	Player *player;
 	Kim *kim;
 	Ramona *ramona;
+	Hud hud;
 
 	//Def enemies
 	Enemigo1 *enemigo1[6];
