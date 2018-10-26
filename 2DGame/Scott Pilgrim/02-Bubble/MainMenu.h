@@ -1,17 +1,14 @@
 #ifndef _MAINMENU_INCLUDE
 #define _MAINMENU_INCLUDE
 
-#include <iostream>
 #include <glm/glm.hpp>
 #include "ShaderProgram.h"
 #include <vector>
+#include <Windows.h>
 #include "Scene.h"
-#include <windows.h>
-#include <cmath>
 #include <glm/gtc/matrix_transform.hpp>
-#include "Scene.h"
 #include "TexturedQuad.h"
-#include "Quad.h"
+
 
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 480
@@ -35,7 +32,6 @@ private:
 	Texture texs[2];
 	ShaderProgram simpleTexProgram;
 	ShaderProgram texProgram;
-	Quad *quad;
 	glm::mat4 projection;
 
 	void initShaders();

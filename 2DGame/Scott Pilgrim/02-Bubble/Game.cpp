@@ -24,8 +24,11 @@ bool Game::update(int deltaTime)
 		else level2.update(deltaTime);
 	}
 	else if (!gameStarted) {
-		if (!menu.update(deltaTime))
+		if (!menuO && !menu.update(deltaTime))
 			bPlay = false;
+		else if (menuO) {
+			menuOptions.update(deltaTime);
+		}
 	}
 	return bPlay;
 }
@@ -34,10 +37,13 @@ void Game::render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	if (!gameStarted) {
+	if (!gameStarted && !menuO) {
 		menu.render();
 	}
-	else {
+	else if (!gameStarted && menuO) {
+		menuOptions.render();
+	}
+	else  {
 		if (!level_1 && !level_2)
 		scene.render();
 		else if (level_1) level1.render();
@@ -62,6 +68,10 @@ void Game::keyPressed(int key)
 		level2.init(music);
 		level_2 = true;
 		gameStarted = true;
+	}
+	if (key == 'm') {
+		menuOptions.init(music);
+		menuO = true;
 	}
 	keys[key] = true;
 }

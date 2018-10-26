@@ -4,6 +4,7 @@
 
 #include "Scene.h"
 #include "MainMenu.h"
+#include "MenuOptions.h"
 #include "Level1.h"
 #include "Level2.h"
 
@@ -55,7 +56,9 @@ private:
 	bool level_1;
 	bool level_2;
 	bool gameStarted;
+	bool menuO;
 	MainMenu menu;
+	MenuOptions menuOptions;
 	Level1 level1;
 	Level2 level2;
 };

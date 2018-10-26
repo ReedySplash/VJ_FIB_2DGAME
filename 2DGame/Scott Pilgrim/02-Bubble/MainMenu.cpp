@@ -1,6 +1,4 @@
-
 #include "MainMenu.h"
-#include <glm/gtc/matrix_transform.hpp>
 
 
 
@@ -18,12 +16,10 @@ MainMenu::~MainMenu()
 void MainMenu::init(bool music) {
 
 	if (music) {
-		//	mciSendString(TEXT("play sounds/SOUND/FileSelect-SuperMario64MusicExtended.mp3 repeat"), NULL, 0, NULL);
-		//mciSendString(TEXT("play sounds/SOUND/MenuTheme.mp3 repeat"), NULL, 0, NULL);
+		mciSendString(TEXT("play sounds/SOUND/MenuTheme.mp3 repeat"), NULL, 0, NULL);
 	}
 	else {
-		//	mciSendString(TEXT("stop sounds/SOUND/FileSelect-SuperMario64MusicExtended.mp3"), NULL, 0, NULL);
-		//mciSendString(TEXT("stop sounds/SOUND/MenuTheme.mp3"), NULL, 0, NULL);
+		mciSendString(TEXT("stop sounds/SOUND/MenuTheme.mp3"), NULL, 0, NULL);
 	}
 	musica = music;
 	currentTime = 0.0f;
@@ -33,14 +29,9 @@ void MainMenu::init(bool music) {
 	initShaders();
 	texCoords[0] = glm::vec2(0.f, 0.f); texCoords[1] = glm::vec2(1.f, 1.f);
 	texQuad[0] = TexturedQuad::createTexturedQuad(geom, texCoords, texProgram);
-	//texQuad[1] = TexturedQuad::createTexturedQuad(geom, texCoords, texProgram);
 	texs[0].loadFromFile("images/MainMenu_new.jpg", TEXTURE_PIXEL_FORMAT_RGBA);
 	texs[0].setMagFilter(GL_NEAREST);
-	/*texs[1].loadFromFile("images/Scott-pilgrim-logo.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	texs[1].setMagFilter(GL_NEAREST);*/
-
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
-
 }
 
 bool MainMenu::update(int deltaTime) {
