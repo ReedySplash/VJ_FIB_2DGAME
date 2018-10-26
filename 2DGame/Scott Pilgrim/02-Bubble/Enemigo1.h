@@ -32,6 +32,7 @@ public:
 	void atacarPuñetadosIzquierda();
 	bool isPunchingRight();
 	bool isPunchingLeft();
+	bool isRecuperando();
 	void turnToWalk();
 	void setGolpesto0();
 

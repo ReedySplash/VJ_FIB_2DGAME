@@ -34,6 +34,7 @@ public:
 	void recibirPuñetazoDerecha();
 	void recibirPuñetazoIzquierda();
 	void turnToWalk();
+	int getVida();
 
 	
 private:

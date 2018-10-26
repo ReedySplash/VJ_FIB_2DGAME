@@ -54,10 +54,22 @@
     <ClInclude Include="Level1.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\VJ_FIB_2DGAME\2DGame\Scott Pilgrim\02-Bubble\Kim.h">
+    <ClInclude Include="Enemigo1.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\VJ_FIB_2DGAME\2DGame\Scott Pilgrim\02-Bubble\Enemigo1.h">
+    <ClInclude Include="Kim.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Level2.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Ramona.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Hud.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
@@ -101,10 +113,22 @@
     <ClCompile Include="Level1.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\VJ_FIB_2DGAME\2DGame\Scott Pilgrim\02-Bubble\Kim.cpp">
+    <ClCompile Include="Enemigo1.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\VJ_FIB_2DGAME\2DGame\Scott Pilgrim\02-Bubble\Enemigo1.cpp">
+    <ClCompile Include="Kim.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="Level2.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="Ramona.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="Hud.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
   </ItemGroup>

@@ -101,7 +101,7 @@ void Enemigo1::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	sprite_enemigo->addKeyframe(10, glm::vec2(0.0163934426 * 34, 0.f));
 	sprite_enemigo->addKeyframe(10, glm::vec2(0.0163934426 * 35, 0.f));
 
-	sprite_enemigo->setAnimationSpeed(11, 6);
+	sprite_enemigo->setAnimationSpeed(11, 10);
 	sprite_enemigo->addKeyframe(11, glm::vec2(0.0163934426 * 36, 0.f));
 	sprite_enemigo->addKeyframe(11, glm::vec2(0.0163934426 * 37, 0.f));
 	sprite_enemigo->addKeyframe(11, glm::vec2(0.0163934426 * 38, 0.f));
@@ -216,7 +216,7 @@ void Enemigo1::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	sprite_enemigo_left->addKeyframe(10, glm::vec2(0.0163934426 * 26, 0.f));
 	sprite_enemigo_left->addKeyframe(10, glm::vec2(0.0163934426 * 25, 0.f));
 
-	sprite_enemigo_left->setAnimationSpeed(11, 6);
+	sprite_enemigo_left->setAnimationSpeed(11, 10);
 	sprite_enemigo_left->addKeyframe(11, glm::vec2(0.0163934426 * 24, 0.f));
 	sprite_enemigo_left->addKeyframe(11, glm::vec2(0.0163934426 * 23, 0.f));
 	sprite_enemigo_left->addKeyframe(11, glm::vec2(0.0163934426 * 22, 0.f));
@@ -266,8 +266,8 @@ void Enemigo1::update(int deltaTime)
 	else if (sprite_enemigo_left->animation() == 5 || sprite_enemigo_left->animation() == 6 || sprite_enemigo->animation() == 6 || sprite_enemigo->animation() == 5) hitTime += deltaTime;
 	
 	else if ((sprite_enemigo_left->animation() == 11 || sprite_enemigo->animation() == 11) && (!sprite_enemigo_left->isFinalized() || !sprite_enemigo->isFinalized())) {
-		if (movimiento == 1 && restablecer < 1700  && posPlayer.x < 580) posPlayer.x += 1;
-		else if (restablecer < 1700 && posPlayer.x > 0) posPlayer.x -= 1;
+		if (movimiento == 1 && restablecer < 1200  && posPlayer.x < 580) posPlayer.x += 1;
+		else if (restablecer < 1200 && posPlayer.x > 0) posPlayer.x -= 1;
 		restablecer += deltaTime;
 	}
 
@@ -353,8 +353,7 @@ void Enemigo1::recibirPuñetazoIzquierda() {
 		movimiento = 1;
 		if (sprite_enemigo_left->animation() != 5) sprite_enemigo_left->changeAnimation(5);
 		hitTime = 0;
-		if (golpe == 1) {
-			//mciSendString(TEXT("stop sounds/SOUND/Punch.mp3"), NULL, 0, NULL);
+		if (golpe == 2) {
 			mciSendString(TEXT("play sounds/SOUND/Punch.mp3 "), NULL, 0, NULL);
 			mciSendString(TEXT("setaudio sounds/SOUND/Punch.mp3 volume to 94"), NULL, 0, NULL);
 			golpe = 0;
@@ -396,7 +395,7 @@ void Enemigo1::recibirPuñetazoDerecha() {
 		movimiento = 0;
 		if (sprite_enemigo->animation() != 5) sprite_enemigo->changeAnimation(5);
 		hitTime = 0;
-		if (golpe == 1) {
+		if (golpe == 2) {
 			mciSendString(TEXT("play sounds/SOUND/Punch.mp3 "), NULL, 0, NULL);
 			mciSendString(TEXT("setaudio sounds/SOUND/Punch.mp3 volume to 94"), NULL, 0, NULL);
 			golpe = 0;
@@ -515,13 +514,13 @@ void Enemigo1::free() {
 
 
 void Enemigo1::atacarPuñetazosDerecha() {
-	if (sprite_enemigo->animation() != 3 && sprite_enemigo->animation() != 6 && sprite_enemigo->animation() != 5 && sprite_enemigo->animation() != 7 && sprite_enemigo->animation() != 8 && sprite_enemigo->animation() != 9 && sprite_enemigo->animation() != 10 && vida > 0) {
+	if (sprite_enemigo->animation() != 3 && sprite_enemigo->animation() != 6 && sprite_enemigo->animation() != 5 && sprite_enemigo->animation() != 7 && sprite_enemigo->animation() != 8 && sprite_enemigo->animation() != 9 && sprite_enemigo->animation() != 10 && sprite_enemigo->animation() != 11 && vida > 0) {
 		sprite_enemigo->changeAnimation(3);
 		movimiento = 0;
 	}
 }
 void Enemigo1::atacarPuñetadosIzquierda() {
-	if (sprite_enemigo_left->animation() != 3 && sprite_enemigo_left->animation() != 5 && sprite_enemigo_left->animation() != 6 && sprite_enemigo_left->animation() != 8 && sprite_enemigo_left->animation() != 9 && sprite_enemigo_left->animation() != 10 && vida > 0) {
+	if (sprite_enemigo_left->animation() != 3 && sprite_enemigo_left->animation() != 5 && sprite_enemigo_left->animation() != 6 && sprite_enemigo_left->animation() != 8 && sprite_enemigo_left->animation() != 9 && sprite_enemigo_left->animation() != 10 && sprite_enemigo_left->animation() != 11 && vida > 0) {
 		sprite_enemigo_left->changeAnimation(3);
 		movimiento = 1;
 		}
@@ -540,6 +539,12 @@ bool Enemigo1::isPunchingLeft() {
 void Enemigo1::turnToWalk() {
 	if (sprite_enemigo->animation() == 3 && movimiento == 0) sprite_enemigo->changeAnimation(0);
 	if (sprite_enemigo_left->animation() == 3 && movimiento == 1) sprite_enemigo_left->changeAnimation(0);
+}
+
+bool Enemigo1::isRecuperando() {
+	if (sprite_enemigo_left->animation() == 11 && movimiento == 1) return true;
+	else if (sprite_enemigo->animation() == 11 && movimiento == 0) return true;
+	return false;
 }
 
 void Enemigo1::setGolpesto0() {

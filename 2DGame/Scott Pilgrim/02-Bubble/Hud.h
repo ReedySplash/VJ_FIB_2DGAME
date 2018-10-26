@@ -22,6 +22,7 @@ public:
 
 private:
 	int personaje, currentTime;
+	float lifeInBarra,vidaInicial, currentVida;;
 	ShaderProgram texProgram, simpleProgram;
 	TexturedQuad *texQuad[2];
 	Texture texs[2];

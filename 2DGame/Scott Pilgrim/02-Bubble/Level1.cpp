@@ -15,15 +15,17 @@
 
 Level1::Level1()
 {
-	//player = NULL;
+	player = NULL;
 }
 
 Level1::~Level1()
 {
-	/*if (map != NULL)
-		delete map;
 	if (player != NULL)
-		delete player;*/
+		delete player;
+
+	for (int i = 0; i<3; i++)
+		if (texQuad[i] != NULL)
+			delete texQuad[i];
 }
 
 
@@ -51,6 +53,7 @@ void Level1::init(bool music)
 	texs[0].setMagFilter(GL_NEAREST);
 	texs[1].loadFromFile("images/sombra.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	texs[1].setMagFilter(GL_NEAREST);
+
 
 	hud.init(0, texProgram, simpleTexProgram);
 	personaje = 0;
@@ -164,6 +167,11 @@ void Level1::update(int deltaTime)
 		enemigo1[i]->update(deltaTime);
 	}
 	yplayer = pos.y;
+	
+	if (personaje == 0) hud.changeLife(player->getVida());
+	//else if (personaje == 1)
+	//else 
+	hud.update(deltaTime);
 }
 
 void Level1::render()
@@ -204,6 +212,15 @@ void Level1::render()
 			texProgram.setUniformMatrix4f("modelview", modelview2);
 			texQuad[1]->render(texs[1]);
 		}
+
+		else if (player->getVida() <= 0) {
+			modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
+			modelview2 = glm::translate(modelview2, glm::vec3(pos.x, y + 40, 0.f));
+			modelview2 = glm::scale(modelview2, glm::vec3(0.08f, 0.07f, 0.f));
+			texProgram.setUniformMatrix4f("modelview", modelview2);
+			texQuad[1]->render(texs[1]);
+		}
+
 		else {
 			modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
 			modelview2 = glm::translate(modelview2, glm::vec3(pos.x, pos.y + 80, 0.f));
@@ -378,23 +395,23 @@ void Level1::comprobarAtaqueEnemigo(int i, glm::vec2 posPlayer) {
 		
 		if ((posPlayer.x > posEnemy.x - 35) && (posPlayer.x < posEnemy.x + 20) && (posPlayer.y >= posEnemy.y + 40 && posPlayer.y <= posEnemy.y + 50)) {
 			if (rand() % 120 == 3) {
-				if (!isPunching_right && !isKicking_right && !enemigo1[i]->isDeath()) {
+				if (!isPunching_right && !isKicking_right && !enemigo1[i]->isDeath() && !enemigo1[i]->isRecuperando()) {
 					enemigo1[i]->atacarPuñetadosIzquierda();
 					if (personaje == 0) player->recibirPuñetazoDerecha();
 					else if (personaje == 1) kim->recibirPuñetazoDerecha();
+					atacando[i] = true;
 				}
-				atacando[i] = true;
 			}
 		}
 
 		else if ((posEnemy.x + 80 >= posPlayer.x - 5 && posEnemy.x + 10 < posPlayer.x) && (posPlayer.y >= posEnemy.y + 40 && posPlayer.y <= posEnemy.y + 50)) {
 			if (rand() % 100 == 3) {
-				if (!isPunching_left && !isKicking_left && !enemigo1[i]->isDeath()) {
+				if (!isPunching_left && !isKicking_left && !enemigo1[i]->isDeath() && !enemigo1[i]->isRecuperando()) {
 					enemigo1[i]->atacarPuñetazosDerecha();
 					if (personaje == 0) player->recibirPuñetazoIzquierda();
 					else if (personaje == 1) kim->recibirPuñetazoIzquierda();
+					atacando[i] = true;
 				}
-				atacando[i] = true;
 			}
 		}
 

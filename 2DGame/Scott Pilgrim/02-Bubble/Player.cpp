@@ -254,7 +254,7 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, in
 
 	spritesheet_recibir_daño.loadFromFile("images/Scott/recibir_daño.png", TEXTURE_PIXEL_FORMAT_RGBA);
 		sprite_recibir = Sprite::createSprite(glm::ivec2(80, 120), glm::vec2(0.0357142857, 1), &spritesheet_recibir_daño, &shaderProgram);
-		sprite_recibir->setNumberAnimations(3);
+		sprite_recibir->setNumberAnimations(5);
 
 		sprite_recibir->setAnimationSpeed(0, 4);
 		sprite_recibir->addKeyframe(0, glm::vec2(0.0357142857 * 0, 0.f));
@@ -290,9 +290,24 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, in
 		sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 26, 0.f));
 		sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 27, 0.f));
 
+		sprite_recibir->setAnimationSpeed(3, 10);
+		sprite_recibir->addKeyframe(3, glm::vec2(0.0357142857 * 7, 0.f));
+		sprite_recibir->addKeyframe(3, glm::vec2(0.0357142857 * 8, 0.f));
+		sprite_recibir->addKeyframe(3, glm::vec2(0.0357142857 * 9, 0.f));
+		sprite_recibir->addKeyframe(3, glm::vec2(0.0357142857 * 10, 0.f));
+		sprite_recibir->addKeyframe(3, glm::vec2(0.0357142857 * 11, 0.f));
+		sprite_recibir->addKeyframe(3, glm::vec2(0.0357142857 * 12, 0.f));
+		sprite_recibir->addKeyframe(3, glm::vec2(0.0357142857 * 13, 0.f));
+		sprite_recibir->addKeyframe(3, glm::vec2(0.0357142857 * 14, 0.f));
+		sprite_recibir->addKeyframe(3, glm::vec2(0.0357142857 * 15, 0.f));
+		sprite_recibir->addKeyframe(3, glm::vec2(0.0357142857 * 16, 0.f));
+
+		sprite_recibir->setAnimationSpeed(4, 10);
+		sprite_recibir->addKeyframe(4, glm::vec2(0.0357142857 * 16, 0.f));
+
 	spritesheet_recibir_daño_izq.loadFromFile("images/Scott/recibir_daño_izq.png", TEXTURE_PIXEL_FORMAT_RGBA);
 		sprite_recibir_izq = Sprite::createSprite(glm::ivec2(80, 130), glm::vec2(0.0357142857, 1), &spritesheet_recibir_daño_izq, &shaderProgram);
-		sprite_recibir_izq->setNumberAnimations(3);
+		sprite_recibir_izq->setNumberAnimations(5);
 
 		sprite_recibir_izq->setAnimationSpeed(0, 4);
 		sprite_recibir_izq->addKeyframe(0, glm::vec2(0.0357142857 * 27, 0.f));
@@ -328,6 +343,21 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, in
 		sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 1, 0.f));
 		sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 0, 0.f));
 
+		sprite_recibir_izq->setAnimationSpeed(3, 10);
+		sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0357142857 * 20, 0.f));
+		sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0357142857 * 19, 0.f));
+		sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0357142857 * 18, 0.f));
+		sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0357142857 * 17, 0.f));
+		sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0357142857 * 16, 0.f));
+		sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0357142857 * 15, 0.f));
+		sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0357142857 * 14, 0.f));
+		sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0357142857 * 13, 0.f));
+		sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0357142857 * 12, 0.f));
+		sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0357142857 * 11, 0.f));
+
+		sprite_recibir_izq->setAnimationSpeed(4, 10);
+		sprite_recibir_izq->addKeyframe(4, glm::vec2(0.0357142857 * 11, 0.f));
+
 
 			
 	sprite->changeAnimation(STAND_RIGHT);
@@ -357,203 +387,216 @@ void Player::update(int deltaTime)
 	sprite_recibir_izq->update(deltaTime);
 	sprite_recibir->update(deltaTime);
 
-	if (movimiento == 13 || movimiento == 14 && (sprite_recibir->animation() == 2 || sprite_recibir_izq->animation() == 2)) {
-		if (sprite_recibir->animation() == 2 || sprite_recibir_izq->animation() == 2) recuperando += deltaTime;
-		if (sprite_recibir->animation() == 2 && movimiento == 14 && recuperando < 1500) posPlayer.x -= 1.5f;
-		else if (sprite_recibir_izq->animation() == 2 && movimiento == 13 && recuperando < 1500) posPlayer.x += 1.5f;
-		else if (recuperando > 2300) {
-			if (movimiento == 13) movimiento = 0;
-			else movimiento = 1;
-			recuperando = 0;
-		}
+	if (vida <= 0) {
+		if (movimiento == 13 && sprite_recibir_izq->animation() != 3 && sprite_recibir_izq->animation() != 4) sprite_recibir_izq->changeAnimation(3);
+		else if (movimiento == 14 && sprite_recibir->animation() != 3 && sprite_recibir->animation() != 4) sprite_recibir->changeAnimation(3);
+		else if (!sprite_recibir_izq->isFinalized() && sprite_recibir_izq->animation() != 4) ++posPlayer.x;
+		else if (!sprite_recibir->isFinalized() && sprite_recibir->animation() != 4) --posPlayer.x;
+
+		if (movimiento == 13 && sprite_recibir_izq->isFinalized()) sprite_recibir_izq->changeAnimation(4);
+		else if (movimiento == 14 && sprite_recibir->isFinalized()) sprite_recibir->changeAnimation(4);
 	}
 
+	else {
 
-	if (sprite_pegando_derecha->isFinalized() && sprite_pegando_izquierda->isFinalized() && sprite_patada_derecha->isFinalized() && sprite_patada_izquierda->isFinalized() && puñetazo_arriba->isFinalized() && puñetazo_arriba_izq->isFinalized() && movimiento != 13 && movimiento != 14) {
-		if (Game::instance().getKey('x') && (movimiento == 1 || movimiento == 3 || movimiento == 4)) {
-			if (movimiento != 4) {
-				sprite_pegando_derecha->changeAnimation(0);
+		if (movimiento == 13 || movimiento == 14 && (sprite_recibir->animation() == 2 || sprite_recibir_izq->animation() == 2)) {
+			if (sprite_recibir->animation() == 2 || sprite_recibir_izq->animation() == 2) recuperando += deltaTime;
+			if (sprite_recibir->animation() == 2 && movimiento == 14 && recuperando < 1500) posPlayer.x -= 1.5f;
+			else if (sprite_recibir_izq->animation() == 2 && movimiento == 13 && recuperando < 1500) posPlayer.x += 1.5f;
+			else if (recuperando > 2300) {
+				if (movimiento == 13) movimiento = 0;
+				else movimiento = 1;
+				recuperando = 0;
 			}
-			movimiento = 4;
 		}
 
-		else if (Game::instance().getKey('x') && (movimiento == 0 || movimiento == 2 || movimiento == 5)) {
-			if (movimiento != 5) {
-				sprite_pegando_izquierda->changeAnimation(0);
+
+		if (sprite_pegando_derecha->isFinalized() && sprite_pegando_izquierda->isFinalized() && sprite_patada_derecha->isFinalized() && sprite_patada_izquierda->isFinalized() && puñetazo_arriba->isFinalized() && puñetazo_arriba_izq->isFinalized() && movimiento != 13 && movimiento != 14) {
+			if (Game::instance().getKey('x') && (movimiento == 1 || movimiento == 3 || movimiento == 4)) {
+				if (movimiento != 4) {
+					sprite_pegando_derecha->changeAnimation(0);
+				}
+				movimiento = 4;
 			}
-			movimiento = 5;
-		}
 
-		else if (Game::instance().getKey('c') && (movimiento == 1 || movimiento == 3 || movimiento == 4 || movimiento == 9)) {
-			if (movimiento != 9)sprite_patada_derecha->changeAnimation(0);
-			movimiento = 9;
-		}
+			else if (Game::instance().getKey('x') && (movimiento == 0 || movimiento == 2 || movimiento == 5)) {
+				if (movimiento != 5) {
+					sprite_pegando_izquierda->changeAnimation(0);
+				}
+				movimiento = 5;
+			}
 
-		else if (Game::instance().getKey('c') && (movimiento == 0 || movimiento == 2 || movimiento == 5 || movimiento == 8)) {
-			if (movimiento != 8)sprite_patada_izquierda->changeAnimation(0);
-			movimiento = 8;
-		}
+			else if (Game::instance().getKey('c') && (movimiento == 1 || movimiento == 3 || movimiento == 4 || movimiento == 9)) {
+				if (movimiento != 9)sprite_patada_derecha->changeAnimation(0);
+				movimiento = 9;
+			}
 
-		else if (Game::instance().getKey('v') && (movimiento == 1 || movimiento == 3 || movimiento == 4 || movimiento == 11)) {
-			if (movimiento != 11) puñetazo_arriba->changeAnimation(0);
-			movimiento = 11;
-		}
+			else if (Game::instance().getKey('c') && (movimiento == 0 || movimiento == 2 || movimiento == 5 || movimiento == 8)) {
+				if (movimiento != 8)sprite_patada_izquierda->changeAnimation(0);
+				movimiento = 8;
+			}
 
-		else if (Game::instance().getKey('v') && (movimiento == 0 || movimiento == 2 || movimiento == 5 || movimiento == 12)) {
-			if (movimiento != 12)puñetazo_arriba_izq->changeAnimation(0);
-			movimiento = 12;
-		}
+			else if (Game::instance().getKey('v') && (movimiento == 1 || movimiento == 3 || movimiento == 4 || movimiento == 11)) {
+				if (movimiento != 11) puñetazo_arriba->changeAnimation(0);
+				movimiento = 11;
+			}
+
+			else if (Game::instance().getKey('v') && (movimiento == 0 || movimiento == 2 || movimiento == 5 || movimiento == 12)) {
+				if (movimiento != 12)puñetazo_arriba_izq->changeAnimation(0);
+				movimiento = 12;
+			}
 
 
-		else if (Game::instance().getKey('<') && (Game::instance().getSpecialKey(GLUT_KEY_LEFT) || (Game::instance().getSpecialKey(GLUT_KEY_RIGHT)))) {
-			if (Game::instance().getSpecialKey(GLUT_KEY_LEFT)) {
-				if (!bJumping) movimiento = 10;
-				if (sprite_correr->animation() == 0) sprite_correr->changeAnimation(1);
+			else if (Game::instance().getKey('<') && (Game::instance().getSpecialKey(GLUT_KEY_LEFT) || (Game::instance().getSpecialKey(GLUT_KEY_RIGHT)))) {
+				if (Game::instance().getSpecialKey(GLUT_KEY_LEFT)) {
+					if (!bJumping) movimiento = 10;
+					if (sprite_correr->animation() == 0) sprite_correr->changeAnimation(1);
+					if (posPlayer.x > 60 && posLevel >= 50) {
+						posPlayer.x -= 4.f;
+						posLevel -= 4.f;
+					}
+					else if (posPlayer.x > 0 && posLevel < 50) {
+						posPlayer.x -= 4.f;
+						posLevel -= 4.f;
+					}
+					else posLevel -= 4.f;
+				}
+				else if (Game::instance().getSpecialKey(GLUT_KEY_RIGHT)) {
+					if (!bJumping) movimiento = 10;
+					if (sprite_correr->animation() == 1) sprite_correr->changeAnimation(0);
+					if (posLevel < 5000) {
+						if (posPlayer.x < 540) {
+							posPlayer.x += 4.f;
+						}
+						posLevel += 4.f;
+					}
+				}
+			}
+
+
+			else if (Game::instance().getSpecialKey(GLUT_KEY_LEFT))
+			{
+				if (!bJumping) movimiento = 2;
 				if (posPlayer.x > 60 && posLevel >= 50) {
-					posPlayer.x -= 4.f;
-					posLevel -= 4.f;
+					posPlayer.x -= 2.f;
+					posLevel -= 2.f;
 				}
 				else if (posPlayer.x > 0 && posLevel < 50) {
-					posPlayer.x -= 4.f;
-					posLevel -= 4.f;
+					posPlayer.x -= 2.f;
+					posLevel -= 2.f;
 				}
-				else posLevel -= 4.f;
+				else posLevel -= 2.f;
+				/*if (map->collisionMoveLeft(posPlayer, glm::ivec2(38.625, 61)))
+				{
+					if (!bJumping) movimiento = 0;
+					posPlayer.x += 2;
+				}*/
 			}
-			else if (Game::instance().getSpecialKey(GLUT_KEY_RIGHT)) {
-				if (!bJumping) movimiento = 10;
-				if (sprite_correr->animation() == 1) sprite_correr->changeAnimation(0);
+			else if (Game::instance().getSpecialKey(GLUT_KEY_RIGHT))
+			{
+				if (!bJumping) movimiento = 3;
 				if (posLevel < 5000) {
 					if (posPlayer.x < 540) {
-						posPlayer.x += 4.f;
+						posPlayer.x += 2.f;
 					}
-					posLevel += 4.f;
+					posLevel += 2.f;
+				}
+				/*if (map->collisionMoveRight(posPlayer, glm::ivec2(38.625, 61)))
+				{
+					if (!bJumping) movimiento = 1;
+
+					posPlayer.x -= 2;
+				}*/
+			}
+
+			if (Game::instance().getSpecialKey(GLUT_KEY_UP) && posPlayer.y > 165)
+			{
+				if ((level == 1 && posPlayer.y > 165) || (level == 2 && posPlayer.y > 210)) {
+					if (!bJumping && movimiento == 3 || movimiento == 1) movimiento = 3;
+					if (!bJumping && movimiento == 2 || movimiento == 0) movimiento = 2;
+					posPlayer.y -= 2;
 				}
 			}
-		}
 
-
-		else if (Game::instance().getSpecialKey(GLUT_KEY_LEFT))
-		{
-			if (!bJumping) movimiento = 2;
-			if (posPlayer.x > 60 && posLevel >= 50) {
-				posPlayer.x -= 2.f;
-				posLevel -= 2.f;
-			}
-			else if (posPlayer.x > 0 && posLevel < 50) {
-				posPlayer.x -= 2.f;
-				posLevel -= 2.f;
-			}
-			else posLevel -= 2.f;
-			/*if (map->collisionMoveLeft(posPlayer, glm::ivec2(38.625, 61)))
+			else if (Game::instance().getSpecialKey(GLUT_KEY_DOWN) && posPlayer.y < 380)
 			{
-				if (!bJumping) movimiento = 0;
-				posPlayer.x += 2;
-			}*/
-		}
-		else if (Game::instance().getSpecialKey(GLUT_KEY_RIGHT))
-		{
-			if (!bJumping) movimiento = 3;
-			if (posLevel < 5000) {
-				if (posPlayer.x < 540) {
-					posPlayer.x += 2.f;
-				}
-				posLevel += 2.f;
-			}
-			/*if (map->collisionMoveRight(posPlayer, glm::ivec2(38.625, 61)))
-			{
-				if (!bJumping) movimiento = 1;
-
-				posPlayer.x -= 2;
-			}*/
-		}
-
-		if (Game::instance().getSpecialKey(GLUT_KEY_UP) && posPlayer.y > 165)
-		{
-			if ((level == 1 && posPlayer.y > 165) || (level == 2 && posPlayer.y > 210)) {
 				if (!bJumping && movimiento == 3 || movimiento == 1) movimiento = 3;
 				if (!bJumping && movimiento == 2 || movimiento == 0) movimiento = 2;
-				posPlayer.y -= 2;
+				posPlayer.y += 2;
 			}
-		}
-
-		else if (Game::instance().getSpecialKey(GLUT_KEY_DOWN) && posPlayer.y < 380)
-		{
-			if (!bJumping && movimiento == 3 || movimiento == 1) movimiento = 3;
-			if (!bJumping && movimiento == 2 || movimiento == 0) movimiento = 2;
-			posPlayer.y += 2;
-		}
 
 
-		else if (!Game::instance().getSpecialKey(GLUT_KEY_LEFT) && !Game::instance().getSpecialKey(GLUT_KEY_RIGHT) && !Game::instance().getSpecialKey(GLUT_KEY_UP) && !Game::instance().getSpecialKey(GLUT_KEY_DOWN) && !Game::instance().getKey('x') && !Game::instance().getKey('c') && !Game::instance().getKey('v'))
-		{
-			if (movimiento == 2 || movimiento == 5 || movimiento == 8 || movimiento == 10 && sprite_correr->animation() == 1 || movimiento == 12)
-				movimiento = 0;
-			else if (movimiento == 3 || movimiento == 4 || movimiento == 9 || movimiento == 10 && sprite_correr->animation() == 0 || movimiento == 11)
-				movimiento = 1;
-		}
-
-		if (bJumping)
-		{
-			if (movimiento == 1 || movimiento == 3 || movimiento == 4 || movimiento == 7 || movimiento == 10 && sprite_correr->animation() == 0)
-				movimiento = 7;
-			else movimiento = 6;
-
-			jumpAngle += JUMP_ANGLE_STEP;
-			if (jumpAngle == 180)
+			else if (!Game::instance().getSpecialKey(GLUT_KEY_LEFT) && !Game::instance().getSpecialKey(GLUT_KEY_RIGHT) && !Game::instance().getSpecialKey(GLUT_KEY_UP) && !Game::instance().getSpecialKey(GLUT_KEY_DOWN) && !Game::instance().getKey('x') && !Game::instance().getKey('c') && !Game::instance().getKey('v'))
 			{
-				bJumping = false;
-				posPlayer.y = startY;
-				if (movimiento == 6) movimiento = 0;
-				else movimiento = 1;
+				if (movimiento == 2 || movimiento == 5 || movimiento == 8 || movimiento == 10 && sprite_correr->animation() == 1 || movimiento == 12)
+					movimiento = 0;
+				else if (movimiento == 3 || movimiento == 4 || movimiento == 9 || movimiento == 10 && sprite_correr->animation() == 0 || movimiento == 11)
+					movimiento = 1;
+			}
 
+			if (bJumping)
+			{
+				if (movimiento == 1 || movimiento == 3 || movimiento == 4 || movimiento == 7 || movimiento == 10 && sprite_correr->animation() == 0)
+					movimiento = 7;
+				else movimiento = 6;
+
+				jumpAngle += JUMP_ANGLE_STEP;
+				if (jumpAngle == 180)
+				{
+					bJumping = false;
+					posPlayer.y = startY;
+					if (movimiento == 6) movimiento = 0;
+					else movimiento = 1;
+
+				}
+				else
+				{
+					posPlayer.y = int(startY - 96 * sin(3.14159f * jumpAngle / 180.f));
+					if (jumpAngle > 90) {
+						//bJumping = !map->collisionMoveDown(posPlayer, glm::ivec2(38.625, 61), &posPlayer.y);
+						if (!bJumping) {
+							if (movimiento == 6) movimiento = 0;
+							else movimiento = 1;
+						}
+					}
+				}
 			}
 			else
 			{
-				posPlayer.y = int(startY - 96 * sin(3.14159f * jumpAngle / 180.f));
-				if (jumpAngle > 90) {
-					//bJumping = !map->collisionMoveDown(posPlayer, glm::ivec2(38.625, 61), &posPlayer.y);
-					if (!bJumping) {
-						if (movimiento == 6) movimiento = 0;
-						else movimiento = 1;
-					}
-				}
-			}
-		}
-		else
-		{
-			if (Game::instance().getKey('z'))
-			{
-				bJumping = true;
-				sprite_saltar_derecha->changeAnimation(0);
-				sprite_saltar_izquierda->changeAnimation(0);
-				jumpAngle = 0;
-				startY = posPlayer.y;
-			}
-			/*posPlayer.y += FALL_STEP;
-			if (map->collisionMoveDown(posPlayer, glm::ivec2(38.625, 61), &posPlayer.y))
-			{
-				if (movimiento == 7) movimiento = 1;
-				else if (movimiento == 6) movimiento = 0;
-				sprite_saltar_derecha->changeAnimation(0);
-				sprite_saltar_izquierda->changeAnimation(0);
-				if (Game::instance().getSpecialKey(GLUT_KEY_UP))
+				if (Game::instance().getKey('z'))
 				{
 					bJumping = true;
+					sprite_saltar_derecha->changeAnimation(0);
+					sprite_saltar_izquierda->changeAnimation(0);
 					jumpAngle = 0;
 					startY = posPlayer.y;
 				}
-			}
-			else {
-				if (movimiento == 7 || movimiento == 3) {
-					movimiento = 7;
-					sprite_saltar_derecha->changeAnimation(1);
+				/*posPlayer.y += FALL_STEP;
+				if (map->collisionMoveDown(posPlayer, glm::ivec2(38.625, 61), &posPlayer.y))
+				{
+					if (movimiento == 7) movimiento = 1;
+					else if (movimiento == 6) movimiento = 0;
+					sprite_saltar_derecha->changeAnimation(0);
+					sprite_saltar_izquierda->changeAnimation(0);
+					if (Game::instance().getSpecialKey(GLUT_KEY_UP))
+					{
+						bJumping = true;
+						jumpAngle = 0;
+						startY = posPlayer.y;
+					}
 				}
-				else if (movimiento == 6 || movimiento == 2) {
-					movimiento = 6;
-					sprite_saltar_izquierda->changeAnimation(1);
-				}
+				else {
+					if (movimiento == 7 || movimiento == 3) {
+						movimiento = 7;
+						sprite_saltar_derecha->changeAnimation(1);
+					}
+					else if (movimiento == 6 || movimiento == 2) {
+						movimiento = 6;
+						sprite_saltar_izquierda->changeAnimation(1);
+					}
 
-			}*/
+				}*/
+			}
 		}
 	}
 
@@ -697,6 +740,7 @@ void Player::recibirPuñetazoIzquierda() {
 
 	else if (vida > 0 && movimiento == 13) {
 		++hits;
+		vida -= 3;
 	}
 
 	if (vida > 0 && (movimiento == 13) && hits == 5) {
@@ -711,10 +755,13 @@ void Player::recibirPuñetazoDerecha() {
 	if (vida > 0 && movimiento != 14) {
 		if (sprite_recibir->animation() != 0 && movimiento != 14) sprite_recibir->changeAnimation(0);
 		movimiento = 14;
+		vida -= 10;
+		++hits;
 	}
 
 	else if (vida > 0 && movimiento == 14) {
 		++hits;
+		vida -= 10;
 	}
 
 	if (vida > 0 && (movimiento == 14) && hits == 5) {
@@ -725,8 +772,14 @@ void Player::recibirPuñetazoDerecha() {
 }
 
 void Player::turnToWalk() {
-	if (movimiento == 13) movimiento = 0;
-	else movimiento = 1;
+	if (vida > 0) {
+		if (movimiento == 13) movimiento = 0;
+		else movimiento = 1;
+	}
+}
+
+int Player::getVida() {
+	return vida;
 }
 
 

@@ -25,8 +25,12 @@ public:
 	bool isPunching_right();
 	bool isPunching_up_left();
 	bool isPunching_up_right();
+	bool isJumping();
+	bool isRecuperando();
 	void recibirPuñetazoDerecha();
 	void recibirPuñetazoIzquierda();
+	void turnToWalk();
+	int getVida();
 
 
 private:
@@ -50,6 +54,8 @@ private:
 	Texture spritesheet_recibir_golpe;
 	Texture spritesheet_puñetazo_arriba;
 	Texture spritesheet_puñetazo_arriba_izq;
+	Texture spritesheet_recibir_daño;
+	Texture spritesheet_recibir_daño_izq;
 	Sprite *sprite;
 	Sprite *sprite_caminando;
 	Sprite *sprite_caminando_izq;
@@ -64,7 +70,13 @@ private:
 	Sprite *recibir_golpe;
 	Sprite *puñetazo_arriba;
 	Sprite *puñetazo_arriba_izq;
+	Sprite *sprite_recibir;
+	Sprite *sprite_recibir_izq;
 	TileMap *map;
 	ShaderProgram mapShader;
+
+	int vida;
+	int hits;
+	float recuperando;
 };
 
