@@ -301,9 +301,14 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, in
 		sprite_recibir->addKeyframe(3, glm::vec2(0.0357142857 * 14, 0.f));
 		sprite_recibir->addKeyframe(3, glm::vec2(0.0357142857 * 15, 0.f));
 		sprite_recibir->addKeyframe(3, glm::vec2(0.0357142857 * 16, 0.f));
+		sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 17, 0.f));
+		sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 18, 0.f));
+		sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 19, 0.f));
+
+		
 
 		sprite_recibir->setAnimationSpeed(4, 10);
-		sprite_recibir->addKeyframe(4, glm::vec2(0.0357142857 * 16, 0.f));
+		sprite_recibir->addKeyframe(4, glm::vec2(0.0357142857 * 19, 0.f));
 
 	spritesheet_recibir_daño_izq.loadFromFile("images/Scott/recibir_daño_izq.png", TEXTURE_PIXEL_FORMAT_RGBA);
 		sprite_recibir_izq = Sprite::createSprite(glm::ivec2(80, 130), glm::vec2(0.0357142857, 1), &spritesheet_recibir_daño_izq, &shaderProgram);
@@ -354,9 +359,13 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, in
 		sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0357142857 * 13, 0.f));
 		sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0357142857 * 12, 0.f));
 		sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0357142857 * 11, 0.f));
+		sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 10, 0.f));
+		sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 9, 0.f));
+		sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 8, 0.f));
+		
 
 		sprite_recibir_izq->setAnimationSpeed(4, 10);
-		sprite_recibir_izq->addKeyframe(4, glm::vec2(0.0357142857 * 11, 0.f));
+		sprite_recibir_izq->addKeyframe(4, glm::vec2(0.0357142857 *8, 0.f));
 
 
 			
@@ -744,11 +753,13 @@ void Player::recibirPuñetazoIzquierda() {
 	if (vida > 0 && movimiento != 13) {
 		if (movimiento != 13) sprite_recibir_izq->changeAnimation(0);
 		movimiento = 13;
+		vida -= 10;
+		++hits;
 	}
 
 	else if (vida > 0 && movimiento == 13) {
 		++hits;
-		vida -= 3;
+		vida -= 10;
 	}
 
 	if (vida > 0 && (movimiento == 13) && hits == 5) {

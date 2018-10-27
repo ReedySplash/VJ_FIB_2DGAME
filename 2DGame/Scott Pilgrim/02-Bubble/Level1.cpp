@@ -169,12 +169,9 @@ void Level1::update(int deltaTime)
 	yplayer = pos.y;
 	
 	if (personaje == 0) hud.changeLife(player->getVida());
-	//else if (personaje == 1)
+	else if (personaje == 1) hud.changeLife(kim->getVida());
 	//else 
 	hud.update(deltaTime);
-
-	if (Game::instance().getKey(8)) {
-	}
 }
 
 void Level1::render()
@@ -234,7 +231,7 @@ void Level1::render()
 	}
 	else if (personaje == 1) {
 		jumping = kim->isJumping();
-		if (!jumping && !kim->isRecuperando() && kim->getVida() >= 0) y = pos.y;
+		if (!jumping && !kim->isRecuperando() && kim->getVida() > 0) y = pos.y;
 		if (jumping) {
 			modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
 			modelview2 = glm::translate(modelview2, glm::vec3(pos.x, y + 80, 0.f));
@@ -407,7 +404,7 @@ void Level1::comprobarAtaqueEnemigo(int i, glm::vec2 posPlayer) {
 		if ((enemigo1[i]->isPunchingLeft() || enemigo1[i]->isPunchingRight()) && !enemigo1[i]->isDeath() && !atacando[i]) {
 			enemigo1[i]->turnToWalk();
 			if (personaje == 0 && !player->isRecuperando()) player->turnToWalk();
-			//else if (personaje == 1) kim->turnToWalk();
+			else if (personaje == 1 && !kim->isRecuperando()) kim->turnToWalk();
 		}
 	}
 }

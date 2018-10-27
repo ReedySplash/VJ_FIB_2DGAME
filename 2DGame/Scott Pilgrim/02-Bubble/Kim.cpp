@@ -22,7 +22,7 @@ enum KimAnims
 void Kim::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, int lev)
 {
 	level = lev;
-	vida = 100;
+	vida = 10;
 	posLevel = 50;
 	mapShader = shaderProgram;
 	movimiento = 0;
@@ -247,7 +247,7 @@ void Kim::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, int l
 
 	spritesheet_recibir_daño.loadFromFile("images/Kim/recibir_daño.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite_recibir = Sprite::createSprite(glm::ivec2(80, 120), glm::vec2(0.0434782609, 1), &spritesheet_recibir_daño, &shaderProgram);
-	sprite_recibir->setNumberAnimations(3);
+	sprite_recibir->setNumberAnimations(5);
 
 	sprite_recibir->setAnimationSpeed(0, 4);
 	sprite_recibir->addKeyframe(0, glm::vec2(0.0434782609 * 0, 0.f));
@@ -283,7 +283,7 @@ void Kim::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, int l
 	sprite_recibir->addKeyframe(2, glm::vec2(0.0434782609 * 21, 0.f));
 	sprite_recibir->addKeyframe(2, glm::vec2(0.0434782609 * 22, 0.f));
 
-	sprite_recibir->setAnimationSpeed(3, 10);
+	sprite_recibir->setAnimationSpeed(3, 8);
 	sprite_recibir->addKeyframe(3, glm::vec2(0.0434782609 * 3, 0.f));
 	sprite_recibir->addKeyframe(3, glm::vec2(0.0434782609 * 4, 0.f));
 	sprite_recibir->addKeyframe(3, glm::vec2(0.0434782609 * 5, 0.f));
@@ -294,14 +294,17 @@ void Kim::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, int l
 	sprite_recibir->addKeyframe(3, glm::vec2(0.0434782609 * 10, 0.f));
 	sprite_recibir->addKeyframe(3, glm::vec2(0.0434782609 * 11, 0.f));
 	sprite_recibir->addKeyframe(3, glm::vec2(0.0434782609 * 12, 0.f));
+	sprite_recibir->addKeyframe(3, glm::vec2(0.0434782609 * 13, 0.f));
+	sprite_recibir->addKeyframe(3, glm::vec2(0.0434782609 * 14, 0.f));
+	
 
 	sprite_recibir->setAnimationSpeed(4, 10);
-	sprite_recibir->addKeyframe(4, glm::vec2(0.0434782609 * 12, 0.f));
+	sprite_recibir->addKeyframe(4, glm::vec2(0.0434782609 * 14, 0.f));
 	
 
 	spritesheet_recibir_daño_izq.loadFromFile("images/Kim/recibir_daño_izq.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite_recibir_izq = Sprite::createSprite(glm::ivec2(80, 130), glm::vec2(0.0434782609, 1), &spritesheet_recibir_daño_izq, &shaderProgram);
-	sprite_recibir_izq->setNumberAnimations(3);
+	sprite_recibir_izq->setNumberAnimations(5);
 
 	sprite_recibir_izq->setAnimationSpeed(0, 4);
 	sprite_recibir_izq->addKeyframe(0, glm::vec2(0.0434782609 * 22, 0.f));
@@ -337,7 +340,7 @@ void Kim::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, int l
 	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0434782609 * 1, 0.f));
 	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0434782609 * 0, 0.f));
 
-	sprite_recibir_izq->setAnimationSpeed(3, 10);
+	sprite_recibir_izq->setAnimationSpeed(3, 8);
 	sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0434782609 * 19, 0.f));
 	sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0434782609 * 18, 0.f));
 	sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0434782609 * 17, 0.f));
@@ -348,10 +351,12 @@ void Kim::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, int l
 	sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0434782609 * 12, 0.f));
 	sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0434782609 * 11, 0.f));
 	sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0434782609 * 10, 0.f));
+	sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0434782609 * 9, 0.f));
+	sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0434782609 * 8, 0.f));
+	
 
 	sprite_recibir_izq->setAnimationSpeed(4, 10);
-	sprite_recibir_izq->addKeyframe(4, glm::vec2(0.0434782609 * 10, 0.f));
-
+	sprite_recibir_izq->addKeyframe(4, glm::vec2(0.0434782609 * 8, 0.f));
 
 
 	sprite->changeAnimation(STAND_RIGHT);
@@ -385,14 +390,20 @@ void Kim::update(int deltaTime)
 	if (vida <= 0) {
 		if (movimiento == 13 && sprite_recibir_izq->animation() != 3 && sprite_recibir_izq->animation() != 4) sprite_recibir_izq->changeAnimation(3);
 		else if (movimiento == 14 && sprite_recibir->animation() != 3 && sprite_recibir->animation() != 4) sprite_recibir->changeAnimation(3);
-		else if (!sprite_recibir_izq->isFinalized() && sprite_recibir_izq->animation() != 4) ++posPlayer.x;
-		else if (!sprite_recibir->isFinalized() && sprite_recibir->animation() != 4) --posPlayer.x;
-		if (movimiento == 13 && sprite_recibir_izq->isFinalized()) sprite_recibir_izq->changeAnimation(4);
-		else if (movimiento == 14 && sprite_recibir->isFinalized()) sprite_recibir->changeAnimation(4);
+		else if (!sprite_recibir_izq->isFinalized() && sprite_recibir_izq->animation() != 4) posPlayer.x += 1.5f;
+		else if (!sprite_recibir->isFinalized() && sprite_recibir->animation() != 4) posPlayer.x -= 1.5f;
+		if (sprite_recibir->animation() != 4 && sprite_recibir_izq->animation() != 4) posPlayer.y += 0.6;
+		if (movimiento == 13 && sprite_recibir_izq->isFinalized()) {
+			//if (sprite_recibir_izq->animation() != 4) posPlayer.y -= 15.4f;
+			sprite_recibir_izq->changeAnimation(4);
+		}
+		else if (movimiento == 14 && sprite_recibir->isFinalized()) {
+			//if (sprite_recibir->animation() != 4) posPlayer.y -= 15.4f;
+			sprite_recibir->changeAnimation(4);
+		}
 	}
 
 	else {
-
 		if (movimiento == 13 || movimiento == 14 && (sprite_recibir->animation() == 2 || sprite_recibir_izq->animation() == 2)) {
 			if (sprite_recibir->animation() == 2 || sprite_recibir_izq->animation() == 2) recuperando += deltaTime;
 			if (sprite_recibir->animation() == 2 && movimiento == 14 && recuperando < 1300) posPlayer.x -= 1.5f;
@@ -695,11 +706,13 @@ void Kim::recibirPuñetazoIzquierda() {
 	if (vida > 0 && movimiento != 13) {
 		if (movimiento != 13) sprite_recibir_izq->changeAnimation(0);
 		movimiento = 13;
+		vida -= 10;
+		++hits;
 	}
 
 	else if (vida > 0 && movimiento == 13) {
 		++hits;
-		vida -= 3;
+		vida -= 10;
 	}
 
 	if (vida > 0 && (movimiento == 13) && hits == 5) {
@@ -714,6 +727,8 @@ void Kim::recibirPuñetazoDerecha() {
 	if (vida > 0 && movimiento != 14) {
 		if (sprite_recibir->animation() != 0 && movimiento != 14) sprite_recibir->changeAnimation(0);
 		movimiento = 14;
+		vida -= 10;
+		++hits;
 	}
 
 	else if (vida > 0 && movimiento == 14) {
@@ -729,8 +744,10 @@ void Kim::recibirPuñetazoDerecha() {
 }
 
 void Kim::turnToWalk() {
-	if (movimiento == 13) movimiento = 0;
-	else movimiento = 1;
+	if (vida > 0) {
+		if (movimiento == 13) movimiento = 0;
+		else movimiento = 1;
+	}
 }
 
 int Kim::getVida() {
