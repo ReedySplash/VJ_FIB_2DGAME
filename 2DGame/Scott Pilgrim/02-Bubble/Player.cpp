@@ -20,7 +20,7 @@ enum PlayerAnims
 void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, int lev)
 {	
 	level = lev;
-	vida = 100;
+	vida = 10;
 	posLevel = 50;
 	mapShader = shaderProgram;
 	movimiento = 0;
@@ -392,9 +392,15 @@ void Player::update(int deltaTime)
 		else if (movimiento == 14 && sprite_recibir->animation() != 3 && sprite_recibir->animation() != 4) sprite_recibir->changeAnimation(3);
 		else if (!sprite_recibir_izq->isFinalized() && sprite_recibir_izq->animation() != 4) ++posPlayer.x;
 		else if (!sprite_recibir->isFinalized() && sprite_recibir->animation() != 4) --posPlayer.x;
-
-		if (movimiento == 13 && sprite_recibir_izq->isFinalized()) sprite_recibir_izq->changeAnimation(4);
-		else if (movimiento == 14 && sprite_recibir->isFinalized()) sprite_recibir->changeAnimation(4);
+		if (sprite_recibir->animation() != 4 && sprite_recibir_izq->animation() != 4) posPlayer.y += 0.6;
+		if (movimiento == 13 && sprite_recibir_izq->isFinalized()) {
+			//if (sprite_recibir_izq->animation() != 4) posPlayer.y -= 15.4f;
+			sprite_recibir_izq->changeAnimation(4); 
+		}
+		else if (movimiento == 14 && sprite_recibir->isFinalized()) {
+			//if (sprite_recibir->animation() != 4) posPlayer.y -= 15.4f;
+			sprite_recibir->changeAnimation(4);
+		}
 	}
 
 	else {
@@ -403,10 +409,12 @@ void Player::update(int deltaTime)
 			if (sprite_recibir->animation() == 2 || sprite_recibir_izq->animation() == 2) recuperando += deltaTime;
 			if (sprite_recibir->animation() == 2 && movimiento == 14 && recuperando < 1500) posPlayer.x -= 1.5f;
 			else if (sprite_recibir_izq->animation() == 2 && movimiento == 13 && recuperando < 1500) posPlayer.x += 1.5f;
+			if (recuperando < 1300) posPlayer.y += 0.25;
 			else if (recuperando > 2300) {
 				if (movimiento == 13) movimiento = 0;
 				else movimiento = 1;
 				recuperando = 0;
+				posPlayer.y -= 18.4f;
 			}
 		}
 

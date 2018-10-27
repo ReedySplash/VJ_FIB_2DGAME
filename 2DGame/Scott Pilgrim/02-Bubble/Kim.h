@@ -38,7 +38,7 @@ private:
 	int level;
 	int movimiento, tiempoPatada;
 	float posLevel;
-	glm::ivec2 tileMapDispl, posPlayer;
+	glm::fvec2 tileMapDispl, posPlayer;
 	int jumpAngle, startY;
 	Texture spritesheet;
 	Texture spritesheet_caminando;

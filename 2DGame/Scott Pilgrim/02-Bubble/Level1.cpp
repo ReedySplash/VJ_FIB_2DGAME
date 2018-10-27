@@ -200,7 +200,7 @@ void Level1::render()
 	//comprobamos si salta, si no lo hace, nos guardamos su y por si lo hace
 	if (personaje == 0) {
 		jumping = player->isJumping();
-		if (!jumping) y = pos.y;
+		if (!jumping && !player->isRecuperando() && player->getVida() > 0) y = pos.y;
 		if (jumping) {
 			modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
 			modelview2 = glm::translate(modelview2, glm::vec3(pos.x, y + 80, 0.f));
@@ -210,7 +210,7 @@ void Level1::render()
 		}
 		else if (player->isRecuperando()) {
 			modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
-			modelview2 = glm::translate(modelview2, glm::vec3(pos.x, y + 40, 0.f));
+			modelview2 = glm::translate(modelview2, glm::vec3(pos.x, y+80, 0.f));
 			modelview2 = glm::scale(modelview2, glm::vec3(0.08f, 0.07f, 0.f));
 			texProgram.setUniformMatrix4f("modelview", modelview2);
 			texQuad[1]->render(texs[1]);
@@ -218,7 +218,7 @@ void Level1::render()
 
 		else if (player->getVida() <= 0) {
 			modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
-			modelview2 = glm::translate(modelview2, glm::vec3(pos.x, y + 40, 0.f));
+			modelview2 = glm::translate(modelview2, glm::vec3(pos.x, y + 80, 0.f));
 			modelview2 = glm::scale(modelview2, glm::vec3(0.08f, 0.07f, 0.f));
 			texProgram.setUniformMatrix4f("modelview", modelview2);
 			texQuad[1]->render(texs[1]);
@@ -232,7 +232,40 @@ void Level1::render()
 			texQuad[1]->render(texs[1]);
 		}
 	}
-	//else if (personaje == 1) //jumping = kim->render();
+	else if (personaje == 1) {
+		jumping = kim->isJumping();
+		if (!jumping && !kim->isRecuperando() && kim->getVida() >= 0) y = pos.y;
+		if (jumping) {
+			modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
+			modelview2 = glm::translate(modelview2, glm::vec3(pos.x, y + 80, 0.f));
+			modelview2 = glm::scale(modelview2, glm::vec3(0.08f, 0.07f, 0.f));
+			texProgram.setUniformMatrix4f("modelview", modelview2);
+			texQuad[1]->render(texs[1]);
+		}
+		else if (kim->isRecuperando()) {
+			modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
+			modelview2 = glm::translate(modelview2, glm::vec3(pos.x, y+80, 0.f));
+			modelview2 = glm::scale(modelview2, glm::vec3(0.08f, 0.07f, 0.f));
+			texProgram.setUniformMatrix4f("modelview", modelview2);
+			texQuad[1]->render(texs[1]);
+		}
+
+		else if (kim->getVida() <= 0) {
+			modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
+			modelview2 = glm::translate(modelview2, glm::vec3(pos.x, y + 80, 0.f));
+			modelview2 = glm::scale(modelview2, glm::vec3(0.08f, 0.07f, 0.f));
+			texProgram.setUniformMatrix4f("modelview", modelview2);
+			texQuad[1]->render(texs[1]);
+		}
+
+		else {
+			modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
+			modelview2 = glm::translate(modelview2, glm::vec3(pos.x, pos.y + 80, 0.f));
+			modelview2 = glm::scale(modelview2, glm::vec3(0.08f, 0.07f, 0.f));
+			texProgram.setUniformMatrix4f("modelview", modelview2);
+			texQuad[1]->render(texs[1]);
+		}
+	}
 	//else if (personaje == 2) ramona->render();
 
 	//renderizamos sombras enemigas

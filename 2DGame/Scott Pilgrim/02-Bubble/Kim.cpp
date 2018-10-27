@@ -27,37 +27,31 @@ void Kim::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, int l
 	mapShader = shaderProgram;
 	movimiento = 0;
 	bJumping = false;
+
 	spritesheet.loadFromFile("images/Kim/Kim_stand_right.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite = Sprite::createSprite(glm::ivec2(45, 100), glm::vec2(0.125, 1), &spritesheet, &shaderProgram);
+	sprite = Sprite::createSprite(glm::ivec2(42, 100), glm::vec2(0.25, 1), &spritesheet, &shaderProgram);
 	sprite->setNumberAnimations(4);
 
 	sprite->setAnimationSpeed(STAND_RIGHT, 8);
 	sprite->addKeyframe(STAND_RIGHT, glm::vec2(0.f, 0.f));
-	sprite->addKeyframe(STAND_RIGHT, glm::vec2(0.125, 0.f));
 	sprite->addKeyframe(STAND_RIGHT, glm::vec2(0.25, 0.f));
-	sprite->addKeyframe(STAND_RIGHT, glm::vec2(0.375, 0.f));
 	sprite->addKeyframe(STAND_RIGHT, glm::vec2(0.5, 0.f));
-	sprite->addKeyframe(STAND_RIGHT, glm::vec2(0.625f, 0.f));
-	sprite->addKeyframe(STAND_RIGHT, glm::vec2(0.75f, 0.f));
-	sprite->addKeyframe(STAND_RIGHT, glm::vec2(0.875f, 0.f));
+	sprite->addKeyframe(STAND_RIGHT, glm::vec2(0.75, 0.f));
 
-	spritesheet_standLeft.loadFromFile("images/Scott/Kim_stand_left.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite_standLeft = Sprite::createSprite(glm::ivec2(45, 100), glm::vec2(0.125, 1), &spritesheet_standLeft, &shaderProgram);
+	spritesheet_standLeft.loadFromFile("images/Kim/Kim_stand_left.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	sprite_standLeft = Sprite::createSprite(glm::ivec2(42, 100), glm::vec2(0.25, 1), &spritesheet_standLeft, &shaderProgram);
 	sprite_standLeft->setNumberAnimations(4);
 
 	sprite_standLeft->setAnimationSpeed(STAND_LEFT, 8);
-	sprite_standLeft->addKeyframe(STAND_LEFT, glm::vec2(0.f, 0.f));
-	sprite_standLeft->addKeyframe(STAND_LEFT, glm::vec2(0.125, 0.f));
-	sprite_standLeft->addKeyframe(STAND_LEFT, glm::vec2(0.25, 0.f));
-	sprite_standLeft->addKeyframe(STAND_LEFT, glm::vec2(0.375, 0.f));
+	sprite_standLeft->addKeyframe(STAND_LEFT, glm::vec2(0.75, 0.f));
 	sprite_standLeft->addKeyframe(STAND_LEFT, glm::vec2(0.5, 0.f));
-	sprite_standLeft->addKeyframe(STAND_LEFT, glm::vec2(0.625f, 0.f));
-	sprite_standLeft->addKeyframe(STAND_LEFT, glm::vec2(0.75f, 0.f));
-	sprite_standLeft->addKeyframe(STAND_LEFT, glm::vec2(0.875f, 0.f));
+	sprite_standLeft->addKeyframe(STAND_LEFT, glm::vec2(0.25, 0.f));
+	sprite_standLeft->addKeyframe(STAND_LEFT, glm::vec2(0, 0.f));
 
 
-	spritesheet_caminando.loadFromFile("images/Scott/0.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite_caminando = Sprite::createSprite(glm::ivec2(60, 100), glm::vec2(0.1666666667, 1), &spritesheet_caminando, &shaderProgram);
+
+	spritesheet_caminando.loadFromFile("images/Kim/Kim_walk_right.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	sprite_caminando = Sprite::createSprite(glm::ivec2(45, 100), glm::vec2(0.1666666667, 1), &spritesheet_caminando, &shaderProgram);
 	sprite_caminando->setNumberAnimations(4);
 
 
@@ -69,8 +63,8 @@ void Kim::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, int l
 	sprite_caminando->addKeyframe(MOVE_RIGHT, glm::vec2(0.6777777777, 0.f));
 	sprite_caminando->addKeyframe(MOVE_RIGHT, glm::vec2(0.83333333333, 0.f));
 
-	spritesheet_caminando_izq.loadFromFile("images/Scott/0_izq.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite_caminando_izq = Sprite::createSprite(glm::ivec2(60, 100), glm::vec2(0.1666666667, 1), &spritesheet_caminando_izq, &shaderProgram);
+	spritesheet_caminando_izq.loadFromFile("images/Kim/Kim_walk_left.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	sprite_caminando_izq = Sprite::createSprite(glm::ivec2(45, 100), glm::vec2(0.1666666667, 1), &spritesheet_caminando_izq, &shaderProgram);
 	sprite_caminando_izq->setNumberAnimations(4);
 
 
@@ -82,54 +76,45 @@ void Kim::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, int l
 	sprite_caminando_izq->addKeyframe(MOVE_LEFT, glm::vec2(0.1666666667, 0.f));
 	sprite_caminando_izq->addKeyframe(MOVE_LEFT, glm::vec2(0.f, 0.f));
 
-	spritesheet_pegando_derecha.loadFromFile("images/Scott/atacar_puño_derecha.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite_pegando_derecha = Sprite::createSprite(glm::ivec2(60, 100), glm::vec2(0.0588235294, 1), &spritesheet_pegando_derecha, &shaderProgram);
+	spritesheet_pegando_derecha.loadFromFile("images/Kim/Kim_puñetazos_derecha.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	sprite_pegando_derecha = Sprite::createSprite(glm::ivec2(70, 100), glm::vec2(0.0833333333, 1), &spritesheet_pegando_derecha, &shaderProgram);
 	sprite_pegando_derecha->setNumberAnimations(1);
 
-	sprite_pegando_derecha->setAnimationSpeed(0, 11);
+	sprite_pegando_derecha->setAnimationSpeed(0, 10);
 	sprite_pegando_derecha->addKeyframe(0, glm::vec2(0.f, 0.f));
-	sprite_pegando_derecha->addKeyframe(0, glm::vec2(0.0588235294f, 0.f));
-	sprite_pegando_derecha->addKeyframe(0, glm::vec2(0.117647059, 0.f));
-	sprite_pegando_derecha->addKeyframe(0, glm::vec2(0.0588235294f*3.f, 0.f));
-	sprite_pegando_derecha->addKeyframe(0, glm::vec2(0.0588235294f*4.f, 0.f));
-	sprite_pegando_derecha->addKeyframe(0, glm::vec2(0.0588235294f*5.f, 0.f));
-	sprite_pegando_derecha->addKeyframe(0, glm::vec2(0.0588235294f*6.f, 0.f));
-	sprite_pegando_derecha->addKeyframe(0, glm::vec2(0.0588235294f*7.f, 0.f));
-	sprite_pegando_derecha->addKeyframe(0, glm::vec2(0.0588235294f*8.f, 0.f));
-	sprite_pegando_derecha->addKeyframe(0, glm::vec2(0.0588235294f*9.f, 0.f));
-	sprite_pegando_derecha->addKeyframe(0, glm::vec2(0.0588235294f*10.f, 0.f));
-	sprite_pegando_derecha->addKeyframe(0, glm::vec2(0.0588235294f*11.f, 0.f));
-	sprite_pegando_derecha->addKeyframe(0, glm::vec2(0.0588235294f*12.f, 0.f));
-	sprite_pegando_derecha->addKeyframe(0, glm::vec2(0.0588235294f*13.f, 0.f));
-	sprite_pegando_derecha->addKeyframe(0, glm::vec2(0.0588235294f*14.f, 0.f));
-	sprite_pegando_derecha->addKeyframe(0, glm::vec2(0.0588235294f*15.f, 0.f));
-	sprite_pegando_derecha->addKeyframe(0, glm::vec2(0.0588235294f*16.f, 0.f));
+	sprite_pegando_derecha->addKeyframe(0, glm::vec2(0.083333333, 0.f));
+	sprite_pegando_derecha->addKeyframe(0, glm::vec2(0.083333333 * 2, 0.f));
+	sprite_pegando_derecha->addKeyframe(0, glm::vec2(0.083333333*3.f, 0.f));
+	sprite_pegando_derecha->addKeyframe(0, glm::vec2(0.083333333*4.f, 0.f));
+	sprite_pegando_derecha->addKeyframe(0, glm::vec2(0.083333333*5.f, 0.f));
+	sprite_pegando_derecha->addKeyframe(0, glm::vec2(0.083333333*6.f, 0.f));
+	sprite_pegando_derecha->addKeyframe(0, glm::vec2(0.083333333*7.f, 0.f));
+	sprite_pegando_derecha->addKeyframe(0, glm::vec2(0.083333333*8.f, 0.f));
+	sprite_pegando_derecha->addKeyframe(0, glm::vec2(0.083333333*9.f, 0.f));
+	sprite_pegando_derecha->addKeyframe(0, glm::vec2(0.083333333*10.f, 0.f));
+	sprite_pegando_derecha->addKeyframe(0, glm::vec2(0.083333333*11.f, 0.f));
 
-	spritesheet_pegando_izquierda.loadFromFile("images/Scott/atacar_puño_izquierda.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite_pegando_izquierda = Sprite::createSprite(glm::ivec2(60, 100), glm::vec2(0.0588235294, 1), &spritesheet_pegando_izquierda, &shaderProgram);
+
+	spritesheet_pegando_izquierda.loadFromFile("images/Kim/Kim_puñetazos_izquierda.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	sprite_pegando_izquierda = Sprite::createSprite(glm::ivec2(70, 100), glm::vec2(0.083333333, 1), &spritesheet_pegando_izquierda, &shaderProgram);
 	sprite_pegando_izquierda->setNumberAnimations(1);
 
-	sprite_pegando_izquierda->setAnimationSpeed(0, 11);
-	sprite_pegando_izquierda->addKeyframe(0, glm::vec2(0.f, 0.f));
-	sprite_pegando_izquierda->addKeyframe(0, glm::vec2(0.0588235294f, 0.f));
-	sprite_pegando_izquierda->addKeyframe(0, glm::vec2(0.117647059, 0.f));
-	sprite_pegando_izquierda->addKeyframe(0, glm::vec2(0.0588235294f*3.f, 0.f));
-	sprite_pegando_izquierda->addKeyframe(0, glm::vec2(0.0588235294f*4.f, 0.f));
-	sprite_pegando_izquierda->addKeyframe(0, glm::vec2(0.0588235294f*5.f, 0.f));
-	sprite_pegando_izquierda->addKeyframe(0, glm::vec2(0.0588235294f*6.f, 0.f));
-	sprite_pegando_izquierda->addKeyframe(0, glm::vec2(0.0588235294f*7.f, 0.f));
-	sprite_pegando_izquierda->addKeyframe(0, glm::vec2(0.0588235294f*8.f, 0.f));
-	sprite_pegando_izquierda->addKeyframe(0, glm::vec2(0.0588235294f*9.f, 0.f));
-	sprite_pegando_izquierda->addKeyframe(0, glm::vec2(0.0588235294f*10.f, 0.f));
-	sprite_pegando_izquierda->addKeyframe(0, glm::vec2(0.0588235294f*11.f, 0.f));
-	sprite_pegando_izquierda->addKeyframe(0, glm::vec2(0.0588235294f*12.f, 0.f));
-	sprite_pegando_izquierda->addKeyframe(0, glm::vec2(0.0588235294f*13.f, 0.f));
-	sprite_pegando_izquierda->addKeyframe(0, glm::vec2(0.0588235294f*14.f, 0.f));
-	sprite_pegando_izquierda->addKeyframe(0, glm::vec2(0.0588235294f*15.f, 0.f));
-	sprite_pegando_izquierda->addKeyframe(0, glm::vec2(0.0588235294f*16.f, 0.f));
+	sprite_pegando_izquierda->setAnimationSpeed(0, 10);
+	sprite_pegando_izquierda->addKeyframe(0, glm::vec2(0.083333333*11.f, 0.f));
+	sprite_pegando_izquierda->addKeyframe(0, glm::vec2(0.083333333*10.f, 0.f));
+	sprite_pegando_izquierda->addKeyframe(0, glm::vec2(0.083333333*9.f, 0.f));
+	sprite_pegando_izquierda->addKeyframe(0, glm::vec2(0.083333333*8.f, 0.f));
+	sprite_pegando_izquierda->addKeyframe(0, glm::vec2(0.083333333*7.f, 0.f));
+	sprite_pegando_izquierda->addKeyframe(0, glm::vec2(0.083333333*6.f, 0.f));
+	sprite_pegando_izquierda->addKeyframe(0, glm::vec2(0.083333333*5.f, 0.f));
+	sprite_pegando_izquierda->addKeyframe(0, glm::vec2(0.083333333*4.f, 0.f));
+	sprite_pegando_izquierda->addKeyframe(0, glm::vec2(0.083333333*3.f, 0.f));
+	sprite_pegando_izquierda->addKeyframe(0, glm::vec2(0.083333333*2.f, 0.f));
+	sprite_pegando_izquierda->addKeyframe(0, glm::vec2(0.083333333*1.f, 0.f));
+	sprite_pegando_izquierda->addKeyframe(0, glm::vec2(0.083333333*0.f, 0.f));
 
-	spritesheet_saltar_derecha.loadFromFile("images/Scott/saltar_derecha.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite_saltar_derecha = Sprite::createSprite(glm::ivec2(47, 100), glm::vec2(0.0769230769, 1), &spritesheet_saltar_derecha, &shaderProgram);
+	spritesheet_saltar_derecha.loadFromFile("images/Kim/Kim_jump_right.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	sprite_saltar_derecha = Sprite::createSprite(glm::ivec2(65, 110), glm::vec2(0.0769230769, 1), &spritesheet_saltar_derecha, &shaderProgram);
 	sprite_saltar_derecha->setNumberAnimations(2);
 
 	sprite_saltar_derecha->setAnimationSpeed(0, 8);
@@ -151,8 +136,8 @@ void Kim::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, int l
 	sprite_saltar_derecha->addKeyframe(1, glm::vec2(0.0769230769 * 10, 0.f));
 	sprite_saltar_derecha->addKeyframe(1, glm::vec2(0.0769230769 * 11, 0.f));
 
-	spritesheet_saltar_izquierda.loadFromFile("images/Scott/saltar_izquierda.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite_saltar_izquierda = Sprite::createSprite(glm::ivec2(47, 100), glm::vec2(0.0769230769, 1), &spritesheet_saltar_izquierda, &shaderProgram);
+	spritesheet_saltar_izquierda.loadFromFile("images/Kim/Kim_jump_left.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	sprite_saltar_izquierda = Sprite::createSprite(glm::ivec2(65, 110), glm::vec2(0.0769230769, 1), &spritesheet_saltar_izquierda, &shaderProgram);
 	sprite_saltar_izquierda->setNumberAnimations(2);
 
 	sprite_saltar_izquierda->setAnimationSpeed(0, 8);
@@ -174,35 +159,33 @@ void Kim::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, int l
 	sprite_saltar_izquierda->addKeyframe(1, glm::vec2(0.0769230769 * 2, 0.f));
 	sprite_saltar_izquierda->addKeyframe(1, glm::vec2(0.0769230769 * 1, 0.f));
 
-	spritesheet_patada_derecha.loadFromFile("images/Scott/patada_derecha.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite_patada_derecha = Sprite::createSprite(glm::ivec2(60, 100), glm::vec2(0.125, 1), &spritesheet_patada_derecha, &shaderProgram);
+	spritesheet_patada_derecha.loadFromFile("images/Kim/Kim_patada_derecha.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	sprite_patada_derecha = Sprite::createSprite(glm::ivec2(75, 105), glm::vec2(0.142857143, 1), &spritesheet_patada_derecha, &shaderProgram);
 	sprite_patada_derecha->setNumberAnimations(1);
 
 	sprite_patada_derecha->setAnimationSpeed(0, 10);
 	sprite_patada_derecha->addKeyframe(0, glm::vec2(0.f, 0.f));
-	sprite_patada_derecha->addKeyframe(0, glm::vec2(0.125, 0.f));
-	sprite_patada_derecha->addKeyframe(0, glm::vec2(0.25, 0.f));
-	sprite_patada_derecha->addKeyframe(0, glm::vec2(0.375, 0.f));
-	sprite_patada_derecha->addKeyframe(0, glm::vec2(0.5, 0.f));
-	sprite_patada_derecha->addKeyframe(0, glm::vec2(0.625f, 0.f));
-	sprite_patada_derecha->addKeyframe(0, glm::vec2(0.75f, 0.f));
-	sprite_patada_derecha->addKeyframe(0, glm::vec2(0.875f, 0.f));
+	sprite_patada_derecha->addKeyframe(0, glm::vec2(0.142857143, 0.f));
+	sprite_patada_derecha->addKeyframe(0, glm::vec2(0.142857143 * 2, 0.f));
+	sprite_patada_derecha->addKeyframe(0, glm::vec2(0.142857143 * 3, 0.f));
+	sprite_patada_derecha->addKeyframe(0, glm::vec2(0.142857143 * 4, 0.f));
+	sprite_patada_derecha->addKeyframe(0, glm::vec2(0.142857143 * 5, 0.f));
+	sprite_patada_derecha->addKeyframe(0, glm::vec2(0.142857143 * 6, 0.f));
 
-	spritesheet_patada_izquierda.loadFromFile("images/Scott/patada_izquierda.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite_patada_izquierda = Sprite::createSprite(glm::ivec2(60, 100), glm::vec2(0.125, 1), &spritesheet_patada_izquierda, &shaderProgram);
+	spritesheet_patada_izquierda.loadFromFile("images/Kim/Kim_patada_izquierda.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	sprite_patada_izquierda = Sprite::createSprite(glm::ivec2(75, 105), glm::vec2(0.142857143, 1), &spritesheet_patada_izquierda, &shaderProgram);
 	sprite_patada_izquierda->setNumberAnimations(1);
 
 	sprite_patada_izquierda->setAnimationSpeed(0, 10);
-	sprite_patada_izquierda->addKeyframe(0, glm::vec2(0.875, 0.f));
-	sprite_patada_izquierda->addKeyframe(0, glm::vec2(0.75, 0.f));
-	sprite_patada_izquierda->addKeyframe(0, glm::vec2(0.625, 0.f));
-	sprite_patada_izquierda->addKeyframe(0, glm::vec2(0.5, 0.f));
-	sprite_patada_izquierda->addKeyframe(0, glm::vec2(0.375, 0.f));
-	sprite_patada_izquierda->addKeyframe(0, glm::vec2(0.25, 0.f));
-	sprite_patada_izquierda->addKeyframe(0, glm::vec2(0.125, 0.f));
+	sprite_patada_izquierda->addKeyframe(0, glm::vec2(0.142857143 * 6, 0.f));
+	sprite_patada_izquierda->addKeyframe(0, glm::vec2(0.142857143 * 5, 0.f));
+	sprite_patada_izquierda->addKeyframe(0, glm::vec2(0.142857143 * 4, 0.f));
+	sprite_patada_izquierda->addKeyframe(0, glm::vec2(0.142857143 * 3, 0.f));
+	sprite_patada_izquierda->addKeyframe(0, glm::vec2(0.142857143 * 2, 0.f));
+	sprite_patada_izquierda->addKeyframe(0, glm::vec2(0.142857143, 0.f));
 	sprite_patada_izquierda->addKeyframe(0, glm::vec2(0, 0.f));
 
-	spritesheet_correr.loadFromFile("images/Scott/scott_correr.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spritesheet_correr.loadFromFile("images/Kim/kim_run.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite_correr = Sprite::createSprite(glm::ivec2(60, 100), glm::vec2(0.0625, 1), &spritesheet_correr, &shaderProgram);
 	sprite_correr->setNumberAnimations(2);
 
@@ -226,109 +209,148 @@ void Kim::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, int l
 	sprite_correr->addKeyframe(1, glm::vec2(0.0625 * 14, 0.f));
 	sprite_correr->addKeyframe(1, glm::vec2(0.0625 * 15, 0.f));
 
-	spritesheet_puñetazo_arriba.loadFromFile("images/Scott/scott_puñetazo_arriba_derecha.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	puñetazo_arriba = Sprite::createSprite(glm::ivec2(60, 100), glm::vec2(0.125, 1), &spritesheet_puñetazo_arriba, &shaderProgram);
+	spritesheet_puñetazo_arriba.loadFromFile("images/Kim/kim_escp_right.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	puñetazo_arriba = Sprite::createSprite(glm::ivec2(150, 100), glm::vec2(0.0833333333, 1), &spritesheet_puñetazo_arriba, &shaderProgram);
 	puñetazo_arriba->setNumberAnimations(1);
 
 	puñetazo_arriba->setAnimationSpeed(0, 12);
 	puñetazo_arriba->addKeyframe(0, glm::vec2(0, 0.f));
-	puñetazo_arriba->addKeyframe(0, glm::vec2(0.125, 0.f));
-	puñetazo_arriba->addKeyframe(0, glm::vec2(0.125 * 2, 0.f));
-	puñetazo_arriba->addKeyframe(0, glm::vec2(0.125 * 3, 0.f));
-	puñetazo_arriba->addKeyframe(0, glm::vec2(0.125 * 4, 0.f));
-	puñetazo_arriba->addKeyframe(0, glm::vec2(0.125 * 5, 0.f));
-	puñetazo_arriba->addKeyframe(0, glm::vec2(0.125 * 6, 0.f));
-	puñetazo_arriba->addKeyframe(0, glm::vec2(0.125 * 7, 0.f));
+	puñetazo_arriba->addKeyframe(0, glm::vec2(0.0833333333, 0.f));
+	puñetazo_arriba->addKeyframe(0, glm::vec2(0.0833333333 * 2, 0.f));
+	puñetazo_arriba->addKeyframe(0, glm::vec2(0.0833333333 * 3, 0.f));
+	puñetazo_arriba->addKeyframe(0, glm::vec2(0.0833333333 * 4, 0.f));
+	puñetazo_arriba->addKeyframe(0, glm::vec2(0.0833333333 * 5, 0.f));
+	puñetazo_arriba->addKeyframe(0, glm::vec2(0.0833333333 * 6, 0.f));
+	puñetazo_arriba->addKeyframe(0, glm::vec2(0.0833333333 * 7, 0.f));
+	puñetazo_arriba->addKeyframe(0, glm::vec2(0.0833333333 * 8, 0.f));
+	puñetazo_arriba->addKeyframe(0, glm::vec2(0.0833333333 * 9, 0.f));
+	puñetazo_arriba->addKeyframe(0, glm::vec2(0.0833333333 * 10, 0.f));
+	puñetazo_arriba->addKeyframe(0, glm::vec2(0.0833333333 * 11, 0.f));
 
-	spritesheet_puñetazo_arriba_izq.loadFromFile("images/Scott/scott_puñetazo_arriba_izquierda.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	puñetazo_arriba_izq = Sprite::createSprite(glm::ivec2(60, 100), glm::vec2(0.125, 1), &spritesheet_puñetazo_arriba_izq, &shaderProgram);
+	spritesheet_puñetazo_arriba_izq.loadFromFile("images/Kim/kim_escp_left.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	puñetazo_arriba_izq = Sprite::createSprite(glm::ivec2(150, 100), glm::vec2(0.0833333333, 1), &spritesheet_puñetazo_arriba_izq, &shaderProgram);
 	puñetazo_arriba_izq->setNumberAnimations(1);
 
 	puñetazo_arriba_izq->setAnimationSpeed(0, 12);
-	puñetazo_arriba_izq->addKeyframe(0, glm::vec2(0.125 * 7, 0.f));
-	puñetazo_arriba_izq->addKeyframe(0, glm::vec2(0.125 * 6, 0.f));
-	puñetazo_arriba_izq->addKeyframe(0, glm::vec2(0.125 * 5, 0.f));
-	puñetazo_arriba_izq->addKeyframe(0, glm::vec2(0.125 * 4, 0.f));
-	puñetazo_arriba_izq->addKeyframe(0, glm::vec2(0.125 * 3, 0.f));
-	puñetazo_arriba_izq->addKeyframe(0, glm::vec2(0.125 * 2, 0.f));
-	puñetazo_arriba_izq->addKeyframe(0, glm::vec2(0.125, 0.f));
+	puñetazo_arriba_izq->addKeyframe(0, glm::vec2(0.0833333333 * 11, 0.f));
+	puñetazo_arriba_izq->addKeyframe(0, glm::vec2(0.0833333333 * 10, 0.f));
+	puñetazo_arriba_izq->addKeyframe(0, glm::vec2(0.0833333333 * 9, 0.f));
+	puñetazo_arriba_izq->addKeyframe(0, glm::vec2(0.0833333333 * 8, 0.f));
+	puñetazo_arriba_izq->addKeyframe(0, glm::vec2(0.0833333333 * 7, 0.f));
+	puñetazo_arriba_izq->addKeyframe(0, glm::vec2(0.0833333333 * 6, 0.f));
+	puñetazo_arriba_izq->addKeyframe(0, glm::vec2(0.0833333333 * 5, 0.f));
+	puñetazo_arriba_izq->addKeyframe(0, glm::vec2(0.0833333333 * 4, 0.f));
+	puñetazo_arriba_izq->addKeyframe(0, glm::vec2(0.0833333333 * 3, 0.f));
+	puñetazo_arriba_izq->addKeyframe(0, glm::vec2(0.0833333333 * 2, 0.f));
+	puñetazo_arriba_izq->addKeyframe(0, glm::vec2(0.0833333333, 0.f));
 	puñetazo_arriba_izq->addKeyframe(0, glm::vec2(0, 0.f));
 
-	spritesheet_recibir_daño.loadFromFile("images/Scott/recibir_daño.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite_recibir = Sprite::createSprite(glm::ivec2(80, 120), glm::vec2(0.0357142857, 1), &spritesheet_recibir_daño, &shaderProgram);
+	spritesheet_recibir_daño.loadFromFile("images/Kim/recibir_daño.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	sprite_recibir = Sprite::createSprite(glm::ivec2(80, 120), glm::vec2(0.0434782609, 1), &spritesheet_recibir_daño, &shaderProgram);
 	sprite_recibir->setNumberAnimations(3);
 
 	sprite_recibir->setAnimationSpeed(0, 4);
-	sprite_recibir->addKeyframe(0, glm::vec2(0.0357142857 * 0, 0.f));
-	sprite_recibir->addKeyframe(0, glm::vec2(0.0357142857, 0.f));
+	sprite_recibir->addKeyframe(0, glm::vec2(0.0434782609 * 0, 0.f));
+	sprite_recibir->addKeyframe(0, glm::vec2(0.0434782609, 0.f));
+	sprite_recibir->addKeyframe(0, glm::vec2(0.0434782609 * 2, 0.f));
 
 	sprite_recibir->setAnimationSpeed(1, 6);
-	sprite_recibir->addKeyframe(1, glm::vec2(0.0357142857 * 2, 0.f));
-	sprite_recibir->addKeyframe(1, glm::vec2(0.0357142857 * 3, 0.f));
-	sprite_recibir->addKeyframe(1, glm::vec2(0.0357142857 * 4, 0.f));
-	sprite_recibir->addKeyframe(1, glm::vec2(0.0357142857 * 5, 0.f));
-	sprite_recibir->addKeyframe(1, glm::vec2(0.0357142857 * 6, 0.f));
+	sprite_recibir->addKeyframe(1, glm::vec2(0.0434782609 * 2, 0.f));
+	sprite_recibir->addKeyframe(1, glm::vec2(0.0434782609 * 3, 0.f));
+	sprite_recibir->addKeyframe(1, glm::vec2(0.0434782609 * 4, 0.f));
+	sprite_recibir->addKeyframe(1, glm::vec2(0.0434782609 * 5, 0.f));
+	sprite_recibir->addKeyframe(1, glm::vec2(0.0434782609 * 6, 0.f));
 
 	sprite_recibir->setAnimationSpeed(2, 10);
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 7, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 8, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 9, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 10, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 11, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 12, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 13, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 14, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 15, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 16, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 17, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 18, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 19, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 20, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 21, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 22, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 23, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 24, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 25, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 26, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 27, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0434782609 * 3, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0434782609 * 4, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0434782609 * 5, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0434782609 * 6, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0434782609 * 7, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0434782609 * 8, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0434782609 * 9, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0434782609 * 10, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0434782609 * 11, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0434782609 * 12, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0434782609 * 13, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0434782609 * 14, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0434782609 * 15, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0434782609 * 16, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0434782609 * 17, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0434782609 * 18, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0434782609 * 19, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0434782609 * 20, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0434782609 * 21, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0434782609 * 22, 0.f));
 
-	spritesheet_recibir_daño_izq.loadFromFile("images/Scott/recibir_daño_izq.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite_recibir_izq = Sprite::createSprite(glm::ivec2(80, 130), glm::vec2(0.0357142857, 1), &spritesheet_recibir_daño_izq, &shaderProgram);
+	sprite_recibir->setAnimationSpeed(3, 10);
+	sprite_recibir->addKeyframe(3, glm::vec2(0.0434782609 * 3, 0.f));
+	sprite_recibir->addKeyframe(3, glm::vec2(0.0434782609 * 4, 0.f));
+	sprite_recibir->addKeyframe(3, glm::vec2(0.0434782609 * 5, 0.f));
+	sprite_recibir->addKeyframe(3, glm::vec2(0.0434782609 * 6, 0.f));
+	sprite_recibir->addKeyframe(3, glm::vec2(0.0434782609 * 7, 0.f));
+	sprite_recibir->addKeyframe(3, glm::vec2(0.0434782609 * 8, 0.f));
+	sprite_recibir->addKeyframe(3, glm::vec2(0.0434782609 * 9, 0.f));
+	sprite_recibir->addKeyframe(3, glm::vec2(0.0434782609 * 10, 0.f));
+	sprite_recibir->addKeyframe(3, glm::vec2(0.0434782609 * 11, 0.f));
+	sprite_recibir->addKeyframe(3, glm::vec2(0.0434782609 * 12, 0.f));
+
+	sprite_recibir->setAnimationSpeed(4, 10);
+	sprite_recibir->addKeyframe(4, glm::vec2(0.0434782609 * 12, 0.f));
+	
+
+	spritesheet_recibir_daño_izq.loadFromFile("images/Kim/recibir_daño_izq.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	sprite_recibir_izq = Sprite::createSprite(glm::ivec2(80, 130), glm::vec2(0.0434782609, 1), &spritesheet_recibir_daño_izq, &shaderProgram);
 	sprite_recibir_izq->setNumberAnimations(3);
 
 	sprite_recibir_izq->setAnimationSpeed(0, 4);
-	sprite_recibir_izq->addKeyframe(0, glm::vec2(0.0357142857 * 27, 0.f));
-	sprite_recibir_izq->addKeyframe(0, glm::vec2(0.0357142857 * 26, 0.f));
+	sprite_recibir_izq->addKeyframe(0, glm::vec2(0.0434782609 * 22, 0.f));
+	sprite_recibir_izq->addKeyframe(0, glm::vec2(0.0434782609 * 21, 0.f));
+	sprite_recibir_izq->addKeyframe(0, glm::vec2(0.0434782609 * 20, 0.f));
 
 	sprite_recibir_izq->setAnimationSpeed(1, 6);
-	sprite_recibir_izq->addKeyframe(1, glm::vec2(0.0357142857 * 25, 0.f));
-	sprite_recibir_izq->addKeyframe(1, glm::vec2(0.0357142857 * 24, 0.f));
-	sprite_recibir_izq->addKeyframe(1, glm::vec2(0.0357142857 * 23, 0.f));
-	sprite_recibir_izq->addKeyframe(1, glm::vec2(0.0357142857 * 22, 0.f));
-	sprite_recibir_izq->addKeyframe(1, glm::vec2(0.0357142857 * 21, 0.f));
+	sprite_recibir_izq->addKeyframe(1, glm::vec2(0.0434782609 * 25, 0.f));
+	sprite_recibir_izq->addKeyframe(1, glm::vec2(0.0434782609 * 24, 0.f));
+	sprite_recibir_izq->addKeyframe(1, glm::vec2(0.0434782609 * 23, 0.f));
+	sprite_recibir_izq->addKeyframe(1, glm::vec2(0.0434782609 * 22, 0.f));
+	sprite_recibir_izq->addKeyframe(1, glm::vec2(0.0434782609 * 21, 0.f));
 
 	sprite_recibir_izq->setAnimationSpeed(2, 10);
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 20, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 19, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 18, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 17, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 16, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 15, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 14, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 13, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 12, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 11, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 10, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 9, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 8, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 7, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 6, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 5, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 4, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 3, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 2, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 1, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 0, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0434782609 * 19, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0434782609 * 18, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0434782609 * 17, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0434782609 * 16, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0434782609 * 15, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0434782609 * 14, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0434782609 * 13, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0434782609 * 12, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0434782609 * 11, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0434782609 * 10, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0434782609 * 9, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0434782609 * 8, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0434782609 * 7, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0434782609 * 6, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0434782609 * 5, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0434782609 * 4, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0434782609 * 3, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0434782609 * 2, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0434782609 * 1, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0434782609 * 0, 0.f));
+
+	sprite_recibir_izq->setAnimationSpeed(3, 10);
+	sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0434782609 * 19, 0.f));
+	sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0434782609 * 18, 0.f));
+	sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0434782609 * 17, 0.f));
+	sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0434782609 * 16, 0.f));
+	sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0434782609 * 15, 0.f));
+	sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0434782609 * 14, 0.f));
+	sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0434782609 * 13, 0.f));
+	sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0434782609 * 12, 0.f));
+	sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0434782609 * 11, 0.f));
+	sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0434782609 * 10, 0.f));
+
+	sprite_recibir_izq->setAnimationSpeed(4, 10);
+	sprite_recibir_izq->addKeyframe(4, glm::vec2(0.0434782609 * 10, 0.f));
 
 
 
@@ -359,203 +381,181 @@ void Kim::update(int deltaTime)
 	sprite_recibir_izq->update(deltaTime);
 	sprite_recibir->update(deltaTime);
 
-	if (movimiento == 13 || movimiento == 14 && (sprite_recibir->animation() == 2 || sprite_recibir_izq->animation() == 2)) {
-		if (sprite_recibir->animation() == 2 || sprite_recibir_izq->animation() == 2) recuperando += deltaTime;
-		if (sprite_recibir->animation() == 2 && movimiento == 14 && recuperando < 1500) posPlayer.x -= 1.5f;
-		else if (sprite_recibir_izq->animation() == 2 && movimiento == 13 && recuperando < 1500) posPlayer.x += 1.5f;
-		else if (recuperando > 2300) {
-			if (movimiento == 13) movimiento = 0;
-			else movimiento = 1;
-			recuperando = 0;
-		}
+
+	if (vida <= 0) {
+		if (movimiento == 13 && sprite_recibir_izq->animation() != 3 && sprite_recibir_izq->animation() != 4) sprite_recibir_izq->changeAnimation(3);
+		else if (movimiento == 14 && sprite_recibir->animation() != 3 && sprite_recibir->animation() != 4) sprite_recibir->changeAnimation(3);
+		else if (!sprite_recibir_izq->isFinalized() && sprite_recibir_izq->animation() != 4) ++posPlayer.x;
+		else if (!sprite_recibir->isFinalized() && sprite_recibir->animation() != 4) --posPlayer.x;
+		if (movimiento == 13 && sprite_recibir_izq->isFinalized()) sprite_recibir_izq->changeAnimation(4);
+		else if (movimiento == 14 && sprite_recibir->isFinalized()) sprite_recibir->changeAnimation(4);
 	}
 
+	else {
 
-	if (sprite_pegando_derecha->isFinalized() && sprite_pegando_izquierda->isFinalized() && sprite_patada_derecha->isFinalized() && sprite_patada_izquierda->isFinalized() && puñetazo_arriba->isFinalized() && puñetazo_arriba_izq->isFinalized() && movimiento != 13 && movimiento != 14) {
-		if (Game::instance().getKey('x') && (movimiento == 1 || movimiento == 3 || movimiento == 4)) {
-			if (movimiento != 4) {
-				sprite_pegando_derecha->changeAnimation(0);
+		if (movimiento == 13 || movimiento == 14 && (sprite_recibir->animation() == 2 || sprite_recibir_izq->animation() == 2)) {
+			if (sprite_recibir->animation() == 2 || sprite_recibir_izq->animation() == 2) recuperando += deltaTime;
+			if (sprite_recibir->animation() == 2 && movimiento == 14 && recuperando < 1300) posPlayer.x -= 1.5f;
+			else if (sprite_recibir_izq->animation() == 2 && movimiento == 13 && recuperando < 1300) posPlayer.x += 1.5f;
+			if (recuperando < 1300) posPlayer.y += 0.25;
+			else if (recuperando > 2160) {
+				if (movimiento == 13) movimiento = 0;
+				else movimiento = 1;
+				recuperando = 0;
+				posPlayer.y -= 18.4f;
 			}
-			movimiento = 4;
 		}
 
-		else if (Game::instance().getKey('x') && (movimiento == 0 || movimiento == 2 || movimiento == 5)) {
-			if (movimiento != 5) {
-				sprite_pegando_izquierda->changeAnimation(0);
+
+		if (sprite_pegando_derecha->isFinalized() && sprite_pegando_izquierda->isFinalized() && sprite_patada_derecha->isFinalized() && sprite_patada_izquierda->isFinalized() && puñetazo_arriba->isFinalized() && puñetazo_arriba_izq->isFinalized() && movimiento != 13 && movimiento != 14) {
+			if (Game::instance().getKey('x') && (movimiento == 1 || movimiento == 3 || movimiento == 4)) {
+				if (movimiento != 4) {
+					sprite_pegando_derecha->changeAnimation(0);
+				}
+				movimiento = 4;
 			}
-			movimiento = 5;
-		}
 
-		else if (Game::instance().getKey('c') && (movimiento == 1 || movimiento == 3 || movimiento == 4 || movimiento == 9)) {
-			if (movimiento != 9)sprite_patada_derecha->changeAnimation(0);
-			movimiento = 9;
-		}
+			else if (Game::instance().getKey('x') && (movimiento == 0 || movimiento == 2 || movimiento == 5)) {
+				if (movimiento != 5) {
+					sprite_pegando_izquierda->changeAnimation(0);
+				}
+				movimiento = 5;
+			}
 
-		else if (Game::instance().getKey('c') && (movimiento == 0 || movimiento == 2 || movimiento == 5 || movimiento == 8)) {
-			if (movimiento != 8)sprite_patada_izquierda->changeAnimation(0);
-			movimiento = 8;
-		}
+			else if (Game::instance().getKey('c') && (movimiento == 1 || movimiento == 3 || movimiento == 4 || movimiento == 9)) {
+				if (movimiento != 9)sprite_patada_derecha->changeAnimation(0);
+				movimiento = 9;
+			}
 
-		else if (Game::instance().getKey('v') && (movimiento == 1 || movimiento == 3 || movimiento == 4 || movimiento == 11)) {
-			if (movimiento != 11) puñetazo_arriba->changeAnimation(0);
-			movimiento = 11;
-		}
+			else if (Game::instance().getKey('c') && (movimiento == 0 || movimiento == 2 || movimiento == 5 || movimiento == 8)) {
+				if (movimiento != 8)sprite_patada_izquierda->changeAnimation(0);
+				movimiento = 8;
+			}
 
-		else if (Game::instance().getKey('v') && (movimiento == 0 || movimiento == 2 || movimiento == 5 || movimiento == 12)) {
-			if (movimiento != 12)puñetazo_arriba_izq->changeAnimation(0);
-			movimiento = 12;
-		}
+			else if (Game::instance().getKey('v') && (movimiento == 1 || movimiento == 3 || movimiento == 4 || movimiento == 11)) {
+				if (movimiento != 11) puñetazo_arriba->changeAnimation(0);
+				movimiento = 11;
+			}
+
+			else if (Game::instance().getKey('v') && (movimiento == 0 || movimiento == 2 || movimiento == 5 || movimiento == 12)) {
+				if (movimiento != 12)puñetazo_arriba_izq->changeAnimation(0);
+				movimiento = 12;
+			}
 
 
-		else if (Game::instance().getKey('<') && (Game::instance().getSpecialKey(GLUT_KEY_LEFT) || (Game::instance().getSpecialKey(GLUT_KEY_RIGHT)))) {
-			if (Game::instance().getSpecialKey(GLUT_KEY_LEFT)) {
-				if (!bJumping) movimiento = 10;
-				if (sprite_correr->animation() == 0) sprite_correr->changeAnimation(1);
+			else if (Game::instance().getKey('<') && (Game::instance().getSpecialKey(GLUT_KEY_LEFT) || (Game::instance().getSpecialKey(GLUT_KEY_RIGHT)))) {
+				if (Game::instance().getSpecialKey(GLUT_KEY_LEFT)) {
+					if (!bJumping) movimiento = 10;
+					if (sprite_correr->animation() == 0) sprite_correr->changeAnimation(1);
+					if (posPlayer.x > 60 && posLevel >= 50) {
+						posPlayer.x -= 4.f;
+						posLevel -= 4.f;
+					}
+					else if (posPlayer.x > 0 && posLevel < 50) {
+						posPlayer.x -= 4.f;
+						posLevel -= 4.f;
+					}
+					else posLevel -= 4.f;
+				}
+				else if (Game::instance().getSpecialKey(GLUT_KEY_RIGHT)) {
+					if (!bJumping) movimiento = 10;
+					if (sprite_correr->animation() == 1) sprite_correr->changeAnimation(0);
+					if (posLevel < 5000) {
+						if (posPlayer.x < 540) {
+							posPlayer.x += 4.f;
+						}
+						posLevel += 4.f;
+					}
+				}
+			}
+
+
+			else if (Game::instance().getSpecialKey(GLUT_KEY_LEFT))
+			{
+				if (!bJumping) movimiento = 2;
 				if (posPlayer.x > 60 && posLevel >= 50) {
-					posPlayer.x -= 4.f;
-					posLevel -= 4.f;
+					posPlayer.x -= 2.f;
+					posLevel -= 2.f;
 				}
 				else if (posPlayer.x > 0 && posLevel < 50) {
-					posPlayer.x -= 4.f;
-					posLevel -= 4.f;
+					posPlayer.x -= 2.f;
+					posLevel -= 2.f;
 				}
-				else posLevel -= 4.f;
+				else posLevel -= 2.f;
 			}
-			else if (Game::instance().getSpecialKey(GLUT_KEY_RIGHT)) {
-				if (!bJumping) movimiento = 10;
-				if (sprite_correr->animation() == 1) sprite_correr->changeAnimation(0);
+			else if (Game::instance().getSpecialKey(GLUT_KEY_RIGHT))
+			{
+				if (!bJumping) movimiento = 3;
 				if (posLevel < 5000) {
 					if (posPlayer.x < 540) {
-						posPlayer.x += 4.f;
+						posPlayer.x += 2.f;
 					}
-					posLevel += 4.f;
+					posLevel += 2.f;
 				}
 			}
-		}
 
-
-		else if (Game::instance().getSpecialKey(GLUT_KEY_LEFT))
-		{
-			if (!bJumping) movimiento = 2;
-			if (posPlayer.x > 60 && posLevel >= 50) {
-				posPlayer.x -= 2.f;
-				posLevel -= 2.f;
-			}
-			else if (posPlayer.x > 0 && posLevel < 50) {
-				posPlayer.x -= 2.f;
-				posLevel -= 2.f;
-			}
-			else posLevel -= 2.f;
-			/*if (map->collisionMoveLeft(posPlayer, glm::ivec2(38.625, 61)))
+			if (Game::instance().getSpecialKey(GLUT_KEY_UP) && posPlayer.y > 165)
 			{
-			if (!bJumping) movimiento = 0;
-			posPlayer.x += 2;
-			}*/
-		}
-		else if (Game::instance().getSpecialKey(GLUT_KEY_RIGHT))
-		{
-			if (!bJumping) movimiento = 3;
-			if (posLevel < 5000) {
-				if (posPlayer.x < 540) {
-					posPlayer.x += 2.f;
+				if ((level == 1 && posPlayer.y > 165) || (level == 2 && posPlayer.y > 210)) {
+					if (!bJumping && movimiento == 3 || movimiento == 1) movimiento = 3;
+					if (!bJumping && movimiento == 2 || movimiento == 0) movimiento = 2;
+					posPlayer.y -= 2;
 				}
-				posLevel += 2.f;
 			}
-			/*if (map->collisionMoveRight(posPlayer, glm::ivec2(38.625, 61)))
+
+			else if (Game::instance().getSpecialKey(GLUT_KEY_DOWN) && posPlayer.y < 380)
 			{
-			if (!bJumping) movimiento = 1;
-
-			posPlayer.x -= 2;
-			}*/
-		}
-
-		if (Game::instance().getSpecialKey(GLUT_KEY_UP) && posPlayer.y > 165)
-		{
-			if ((level == 1 && posPlayer.y > 165) || (level == 2 && posPlayer.y > 210)) {
 				if (!bJumping && movimiento == 3 || movimiento == 1) movimiento = 3;
 				if (!bJumping && movimiento == 2 || movimiento == 0) movimiento = 2;
-				posPlayer.y -= 2;
+				posPlayer.y += 2;
 			}
-		}
-
-		else if (Game::instance().getSpecialKey(GLUT_KEY_DOWN) && posPlayer.y < 380)
-		{
-			if (!bJumping && movimiento == 3 || movimiento == 1) movimiento = 3;
-			if (!bJumping && movimiento == 2 || movimiento == 0) movimiento = 2;
-			posPlayer.y += 2;
-		}
 
 
-		else if (!Game::instance().getSpecialKey(GLUT_KEY_LEFT) && !Game::instance().getSpecialKey(GLUT_KEY_RIGHT) && !Game::instance().getSpecialKey(GLUT_KEY_UP) && !Game::instance().getSpecialKey(GLUT_KEY_DOWN) && !Game::instance().getKey('x') && !Game::instance().getKey('c') && !Game::instance().getKey('v'))
-		{
-			if (movimiento == 2 || movimiento == 5 || movimiento == 8 || movimiento == 10 && sprite_correr->animation() == 1 || movimiento == 12)
-				movimiento = 0;
-			else if (movimiento == 3 || movimiento == 4 || movimiento == 9 || movimiento == 10 && sprite_correr->animation() == 0 || movimiento == 11)
-				movimiento = 1;
-		}
-
-		if (bJumping)
-		{
-			if (movimiento == 1 || movimiento == 3 || movimiento == 4 || movimiento == 7 || movimiento == 10 && sprite_correr->animation() == 0)
-				movimiento = 7;
-			else movimiento = 6;
-
-			jumpAngle += JUMP_ANGLE_STEP;
-			if (jumpAngle == 180)
+			else if (!Game::instance().getSpecialKey(GLUT_KEY_LEFT) && !Game::instance().getSpecialKey(GLUT_KEY_RIGHT) && !Game::instance().getSpecialKey(GLUT_KEY_UP) && !Game::instance().getSpecialKey(GLUT_KEY_DOWN) && !Game::instance().getKey('x') && !Game::instance().getKey('c') && !Game::instance().getKey('v'))
 			{
-				bJumping = false;
-				posPlayer.y = startY;
-				if (movimiento == 6) movimiento = 0;
-				else movimiento = 1;
+				if (movimiento == 2 || movimiento == 5 || movimiento == 8 || movimiento == 10 && sprite_correr->animation() == 1 || movimiento == 12)
+					movimiento = 0;
+				else if (movimiento == 3 || movimiento == 4 || movimiento == 9 || movimiento == 10 && sprite_correr->animation() == 0 || movimiento == 11)
+					movimiento = 1;
+			}
 
+			if (bJumping)
+			{
+				if (movimiento == 1 || movimiento == 3 || movimiento == 4 || movimiento == 7 || movimiento == 10 && sprite_correr->animation() == 0)
+					movimiento = 7;
+				else movimiento = 6;
+
+				jumpAngle += JUMP_ANGLE_STEP;
+				if (jumpAngle == 180)
+				{
+					bJumping = false;
+					posPlayer.y = startY;
+					if (movimiento == 6) movimiento = 0;
+					else movimiento = 1;
+
+				}
+				else
+				{
+					posPlayer.y = int(startY - 96 * sin(3.14159f * jumpAngle / 180.f));
+					if (jumpAngle > 90) {
+						if (!bJumping) {
+							if (movimiento == 6) movimiento = 0;
+							else movimiento = 1;
+						}
+					}
+				}
 			}
 			else
 			{
-				posPlayer.y = int(startY - 96 * sin(3.14159f * jumpAngle / 180.f));
-				if (jumpAngle > 90) {
-					//bJumping = !map->collisionMoveDown(posPlayer, glm::ivec2(38.625, 61), &posPlayer.y);
-					if (!bJumping) {
-						if (movimiento == 6) movimiento = 0;
-						else movimiento = 1;
-					}
+				if (Game::instance().getKey('z'))
+				{
+					bJumping = true;
+					sprite_saltar_derecha->changeAnimation(0);
+					sprite_saltar_izquierda->changeAnimation(0);
+					jumpAngle = 0;
+					startY = posPlayer.y;
 				}
 			}
-		}
-		else
-		{
-			if (Game::instance().getKey('z'))
-			{
-				bJumping = true;
-				sprite_saltar_derecha->changeAnimation(0);
-				sprite_saltar_izquierda->changeAnimation(0);
-				jumpAngle = 0;
-				startY = posPlayer.y;
-			}
-			/*posPlayer.y += FALL_STEP;
-			if (map->collisionMoveDown(posPlayer, glm::ivec2(38.625, 61), &posPlayer.y))
-			{
-			if (movimiento == 7) movimiento = 1;
-			else if (movimiento == 6) movimiento = 0;
-			sprite_saltar_derecha->changeAnimation(0);
-			sprite_saltar_izquierda->changeAnimation(0);
-			if (Game::instance().getSpecialKey(GLUT_KEY_UP))
-			{
-			bJumping = true;
-			jumpAngle = 0;
-			startY = posPlayer.y;
-			}
-			}
-			else {
-			if (movimiento == 7 || movimiento == 3) {
-			movimiento = 7;
-			sprite_saltar_derecha->changeAnimation(1);
-			}
-			else if (movimiento == 6 || movimiento == 2) {
-			movimiento = 6;
-			sprite_saltar_izquierda->changeAnimation(1);
-			}
-
-			}*/
 		}
 	}
 
