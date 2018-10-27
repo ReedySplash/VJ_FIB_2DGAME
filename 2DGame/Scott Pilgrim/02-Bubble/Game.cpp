@@ -95,6 +95,8 @@ void Game::specialKeyReleased(int key)
 {
 	if (key == 103 && menuO) menuOptions.upOption();
 	else if (key == 101 && menuO) menuOptions.downOption();
+	else if (key == 100 && menuO) menuOptions.changeCharLeft();
+	else if (key == 102 && menuO) menuOptions.changeCharRight();
 	specialKeys[key] = false;
 }
 

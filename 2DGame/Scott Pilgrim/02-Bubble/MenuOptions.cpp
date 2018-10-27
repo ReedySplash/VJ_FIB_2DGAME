@@ -88,13 +88,25 @@ void MenuOptions::render()
 
 
 void MenuOptions::upOption() {
-	++opcion;
-	if (opcion == 3) opcion = 0;
+	if (!play) {
+		++opcion;
+		if (opcion == 3) opcion = 0;
+	}
 }
 
 void MenuOptions::downOption() {
-	--opcion;
-	if (opcion == -1) opcion = 2;
+	if (!play) {
+		--opcion;
+		if (opcion == -1) opcion = 2;
+	}
+}
+
+void MenuOptions::changeCharLeft() {
+	if (play) slevel.left();
+}
+
+void MenuOptions::changeCharRight() {
+	if (play) slevel.right();
 }
 
 void MenuOptions::changeMusica() {

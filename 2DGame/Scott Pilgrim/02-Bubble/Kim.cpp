@@ -27,7 +27,7 @@ void Kim::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, int l
 	mapShader = shaderProgram;
 	movimiento = 0;
 	bJumping = false;
-	spritesheet.loadFromFile("images/Scott/Scott quieto.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spritesheet.loadFromFile("images/Kim/Kim_stand_right.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite = Sprite::createSprite(glm::ivec2(45, 100), glm::vec2(0.125, 1), &spritesheet, &shaderProgram);
 	sprite->setNumberAnimations(4);
 
@@ -41,7 +41,7 @@ void Kim::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, int l
 	sprite->addKeyframe(STAND_RIGHT, glm::vec2(0.75f, 0.f));
 	sprite->addKeyframe(STAND_RIGHT, glm::vec2(0.875f, 0.f));
 
-	spritesheet_standLeft.loadFromFile("images/Scott/Scott quieto left.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spritesheet_standLeft.loadFromFile("images/Scott/Kim_stand_left.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite_standLeft = Sprite::createSprite(glm::ivec2(45, 100), glm::vec2(0.125, 1), &spritesheet_standLeft, &shaderProgram);
 	sprite_standLeft->setNumberAnimations(4);
 

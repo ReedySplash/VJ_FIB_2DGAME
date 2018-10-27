@@ -27,6 +27,8 @@ public:
 	void upOption();
 	void downOption();
 	void changeMusica();
+	void changeCharLeft();
+	void changeCharRight();
 	void playGame();
 	void showCredits();
 

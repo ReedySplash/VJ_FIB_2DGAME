@@ -17,6 +17,9 @@ public:
 	void init(ShaderProgram &simpleTexProgram, ShaderProgram &texProgram);
 	void update(int deltaTime);
 	void render();
+	void right();
+	void left();
+
 private:
 	int currentTime;
 	int opcion;
@@ -27,7 +30,18 @@ private:
 	ShaderProgram simpleTexProgram;
 	ShaderProgram texProgram;
 	glm::mat4 projection;
-	Text white, black;
+	Text text;
+	string personaje_name;
+	int personaje, level_num;
+
+
+	Texture spritesheet_Scott;
+	Texture spritesheet_Kim;
+	Texture spritesheet_Ramona;
+
+	Sprite *sprite_Scott;
+	Sprite *sprite_Kim;
+	Sprite *sprite_Ramona;
 
 	void initShaders();
 };
