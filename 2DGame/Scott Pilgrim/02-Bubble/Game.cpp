@@ -18,9 +18,7 @@ void Game::init()
 bool Game::update(int deltaTime)
 {
 	if (gameStarted) {
-		if (!level_1 && !level_2)
-		scene.update(deltaTime);
-		else if (level_1) level1.update(deltaTime);
+		if (level_1) level1.update(deltaTime);
 		else level2.update(deltaTime);
 	}
 	else if (!gameStarted) {
@@ -44,9 +42,7 @@ void Game::render()
 		menuOptions.render();
 	}
 	else  {
-		if (!level_1 && !level_2)
-		scene.render();
-		else if (level_1) level1.render();
+		if (level_1) level1.render();
 		else level2.render();
 	}
 }
@@ -55,15 +51,7 @@ void Game::keyPressed(int key)
 {
 	if(key == 27) // Escape code
 		bPlay = false;
-	if (key == 's') {
-		scene.init();
-		gameStarted = true;
-	}
-	if (key == '1') {
-		level1.init(music);
-		level_1 = true;
-		gameStarted = true;
-	}
+
 	if (key == '2') {
 		level2.init(music);
 		level_2 = true;
@@ -78,11 +66,33 @@ void Game::keyReleased(int key)
 		menuOptions.changeMusica();
 		menuOptions.playGame();
 		menuOptions.showCredits();
+		if (menuOptions.getLevel() == 0) {
+			level_1 = true;
+			gameStarted = true;
+			music = menuOptions.getMusic();
+			menuO = false;
+			int personaje = menuOptions.getPersonaje();
+			level1.init(music, personaje);
+		}
+		else if (menuOptions.getLevel() == 1) {
+			level_2 = true;
+			gameStarted = true;
+			level2.init(music);
+		}
 	}
 	if (key == 13 && !menuO && !level_2 && !level_1) {
 		menuOptions.init(music);
 		menuO = true;
 	}
+
+	else if (key == 8) {
+		menuO = true;
+		level_1 = false;
+		level_2 = false;
+		gameStarted = false;
+		menuOptions.init(music);
+	}
+
 	keys[key] = false;
 }
 

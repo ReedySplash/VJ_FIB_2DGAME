@@ -24,7 +24,7 @@ public:
 	~Level1();
 
 
-	void init(bool music);
+	void init(bool , int personaje);
 	void update(int deltaTime);
 	void render();
 	void comprobarLucha(int i, glm::vec2 posPlayer);

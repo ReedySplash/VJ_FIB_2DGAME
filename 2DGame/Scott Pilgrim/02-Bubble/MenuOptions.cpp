@@ -14,6 +14,7 @@ MenuOptions::~MenuOptions()
 void MenuOptions::init(bool music)
 {
 	if (music) {
+		mciSendString(TEXT("stop sounds/SOUND/Level1.mp3"), NULL, 0, NULL);
 		mciSendString(TEXT("play sounds/SOUND/MenuTheme.mp3 repeat"), NULL, 0, NULL);
 		mciSendString(TEXT("setaudio sounds/SOUND/MenuTheme.mp3 to volume 95"), NULL, 0, NULL);
 	}
@@ -112,7 +113,7 @@ void MenuOptions::changeCharRight() {
 void MenuOptions::changeMusica() {
 	if (!musica && opcion == 1) {
 		musica = true;
-		mciSendString(TEXT("resume sounds/SOUND/MenuTheme.mp3"), NULL, 0, NULL);
+		mciSendString(TEXT("play sounds/SOUND/MenuTheme.mp3 repeat"), NULL, 0, NULL);
 		mciSendString(TEXT("setaudio sounds/SOUND/MenuTheme.mp3 to volume 95"), NULL, 0, NULL);
 	}
 	else if (opcion == 1) {
@@ -122,7 +123,7 @@ void MenuOptions::changeMusica() {
 }
 
 void MenuOptions::playGame() {
-	if (opcion == 0) {
+	if (opcion == 0 && !play) {
 		play = true;
 		slevel.init(simpleTexProgram, texProgram);
 	}
@@ -131,6 +132,18 @@ void MenuOptions::playGame() {
 void MenuOptions::showCredits() {
 	if (opcion == 2) credits = true;
 	else credits = false;
+}
+
+int MenuOptions::getLevel() {
+	return slevel.getLevel();
+}
+
+bool MenuOptions::getMusic() {
+	return musica;
+}
+
+int MenuOptions::getPersonaje() {
+	return slevel.getPersonaje();
 }
 
 void MenuOptions::initShaders()

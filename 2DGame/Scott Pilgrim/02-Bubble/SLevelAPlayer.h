@@ -19,6 +19,8 @@ public:
 	void render();
 	void right();
 	void left();
+	int getLevel();
+	int getPersonaje();
 
 private:
 	int currentTime;
@@ -33,6 +35,7 @@ private:
 	Text text;
 	string personaje_name;
 	int personaje, level_num;
+	bool comenzar;
 
 
 	Texture spritesheet_Scott;

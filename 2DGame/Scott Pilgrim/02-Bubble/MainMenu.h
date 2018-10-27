@@ -5,7 +5,7 @@
 #include "ShaderProgram.h"
 #include <vector>
 #include <Windows.h>
-#include "Scene.h"
+#include <iostream>
 #include <glm/gtc/matrix_transform.hpp>
 #include "TexturedQuad.h"
 

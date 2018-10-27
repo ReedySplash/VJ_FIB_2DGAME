@@ -29,7 +29,7 @@ Level1::~Level1()
 }
 
 
-void Level1::init(bool music)
+void Level1::init(bool music, int pers)
 {
 	if(music) {
 		mciSendString(TEXT("stop sounds/SOUND/MenuTheme.mp3"), NULL, 0, NULL);
@@ -56,7 +56,7 @@ void Level1::init(bool music)
 
 
 	hud.init(0, texProgram, simpleTexProgram);
-	personaje = 0;
+	personaje = pers;
 
 	//Init jugador, depende del elegido
 	if (personaje == 0) {
@@ -172,6 +172,9 @@ void Level1::update(int deltaTime)
 	//else if (personaje == 1)
 	//else 
 	hud.update(deltaTime);
+
+	if (Game::instance().getKey(8)) {
+	}
 }
 
 void Level1::render()

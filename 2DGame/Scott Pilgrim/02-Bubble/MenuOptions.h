@@ -4,7 +4,6 @@
 #include <glm/glm.hpp>
 #include "ShaderProgram.h"
 #include <Windows.h>
-#include "Scene.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include "TexturedQuad.h"
 #include "Text.h"
@@ -31,6 +30,9 @@ public:
 	void changeCharRight();
 	void playGame();
 	void showCredits();
+	int getLevel();
+	bool getMusic();
+	int getPersonaje();
 
 private:
 	int currentTime;

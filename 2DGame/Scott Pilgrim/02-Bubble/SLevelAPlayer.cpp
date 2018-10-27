@@ -73,6 +73,9 @@ void SLevelAPlayer::init(ShaderProgram &simpleTexProgram, ShaderProgram &texProg
 	sprite_Scott->setPosition(glm::vec2(float(300), float(170)));
 	sprite_Kim->setPosition(glm::vec2(float(300), float(170)));
 	sprite_Ramona->setPosition(glm::vec2(float(300), float(170)));
+
+	comenzar = false;
+	level_num = 0;
 }
 
 void SLevelAPlayer::update(int deltaTime)
@@ -83,15 +86,19 @@ void SLevelAPlayer::update(int deltaTime)
 	sprite_Scott->update(deltaTime);
 
 	if (Game::instance().getSpecialKey(103)) {
-		++level_num;
-		if (level_num == 2) level_num = 0;
+		if (level_num == 0) level_num = 1;
+		else if (level_num == 1) level_num = 0;
 		Sleep(100);
 	}
 
 	else if (Game::instance().getSpecialKey(101)) {
-		--level_num;
-		if (level_num == -1) level_num = 1;
+		if(level_num == 0) level_num = 1;
+		else if(level_num == 1) level_num = 0;
 		Sleep(100);
+	}
+
+	else if (Game::instance().getKey(13)) {
+		comenzar = true;
 	}
 
 }
@@ -124,10 +131,10 @@ void SLevelAPlayer::render()
 	}
 
 	if (level_num == 0) {
-		text.render("Level 1", glm::vec2(180, 400), 48, glm::vec4(1, 1, 1, 1));
+		text.render("Level 1", glm::vec2(190, 400), 48, glm::vec4(1, 1, 1, 1));
 	}
 
-	else text.render("Level 2", glm::vec2(180, 400), 48, glm::vec4(1, 1, 1, 1));
+	else text.render("Level 2", glm::vec2(190, 400), 48, glm::vec4(1, 1, 1, 1));
 }
 
 void SLevelAPlayer::right() {
@@ -138,6 +145,19 @@ void SLevelAPlayer::right() {
 void SLevelAPlayer::left() {
 	--personaje;
 	if (personaje == -1) personaje = 2;
+}
+
+int SLevelAPlayer::getLevel() {
+	if (comenzar) {
+		int num = level_num;
+		level_num = -1;
+		return num;
+	}
+	return -1;
+}
+
+int SLevelAPlayer::getPersonaje() {
+	return personaje;
 }
 
 void SLevelAPlayer::initShaders()

@@ -24,3 +24,8 @@
 *.obj
 *.dll
 *.pdb
+*.enc
+*.obj
+*.ipch
+*.pdb
+*.idb
