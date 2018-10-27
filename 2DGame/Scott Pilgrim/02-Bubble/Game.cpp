@@ -69,15 +69,20 @@ void Game::keyPressed(int key)
 		level_2 = true;
 		gameStarted = true;
 	}
-	if (key == 'm') {
-		menuOptions.init(music);
-		menuO = true;
-	}
 	keys[key] = true;
 }
 
 void Game::keyReleased(int key)
 {
+	if (key == 13 && menuO && !level_2 && !level_1) {
+		menuOptions.changeMusica();
+		menuOptions.playGame();
+		menuOptions.showCredits();
+	}
+	if (key == 13 && !menuO && !level_2 && !level_1) {
+		menuOptions.init(music);
+		menuO = true;
+	}
 	keys[key] = false;
 }
 
@@ -88,6 +93,8 @@ void Game::specialKeyPressed(int key)
 
 void Game::specialKeyReleased(int key)
 {
+	if (key == 103 && menuO) menuOptions.upOption();
+	else if (key == 101 && menuO) menuOptions.downOption();
 	specialKeys[key] = false;
 }
 

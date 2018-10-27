@@ -7,6 +7,14 @@
 #include "Scene.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include "TexturedQuad.h"
+#include "Text.h"
+#include <iostream>
+#include <vector>
+#include "SLevelAPlayer.h"
+
+
+#define CAMERA_WIDTH 640
+#define CAMERA_HEIGHT 480
 
 class MenuOptions
 {
@@ -16,6 +24,11 @@ public:
 	void init(bool musica);
 	void update(int deltaTime);
 	void render();
+	void upOption();
+	void downOption();
+	void changeMusica();
+	void playGame();
+	void showCredits();
 
 private:
 	int currentTime;
@@ -24,9 +37,13 @@ private:
 
 	TexturedQuad *texQuad[3];
 	Texture texs[2];
-	ShaderProgram simpleTexProgram;
-	ShaderProgram texProgram;
+	ShaderProgram simpleTexProgram, texProgram;
 	glm::mat4 projection;
+	Text white, black;
+	string musica_string[2];
+	string text_music;
+	bool play, credits;
+	SLevelAPlayer slevel;
 
 	void initShaders();
 };

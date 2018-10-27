@@ -16,7 +16,7 @@ MainMenu::~MainMenu()
 void MainMenu::init(bool music) {
 
 	if (music) {
-		mciSendString(TEXT("play sounds/SOUND/MenuTheme.mp3 repeat"), NULL, 0, NULL);
+		//mciSendString(TEXT("play sounds/SOUND/MenuTheme.mp3 repeat"), NULL, 0, NULL);
 	}
 	else {
 		mciSendString(TEXT("stop sounds/SOUND/MenuTheme.mp3"), NULL, 0, NULL);
