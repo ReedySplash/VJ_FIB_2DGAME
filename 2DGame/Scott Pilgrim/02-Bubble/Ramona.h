@@ -27,14 +27,22 @@ public:
 	bool isKicking_right();
 	bool isPunching_left();
 	bool isPunching_right();
+	bool isPunching_up_left();
+	bool isPunching_up_right();
+	bool isRecuperando();
+	bool isJumping();
+	void recibirPuñetazoDerecha();
+	void recibirPuñetazoIzquierda();
+	void turnToWalk();
+	int getVida();
 
 private:
 	bool bJumping;
 	int level;
 	bool derecha;
-	int movimiento = 0;
+	int movimiento = 0, tiempoPatada;
 	float posLevel;
-	glm::ivec2 tileMapDispl, posRamona;
+	glm::fvec2 tileMapDispl, posPlayer;
 	int jumpAngle, startY;
 	Texture spritesheet;
 	Texture spritesheet_caminando;
@@ -51,6 +59,8 @@ private:
 	Texture spritesheet_recibir_golpe;
 	Texture spritesheet_martillo;
 	Texture spritesheet_martillo_izq;
+	Texture spritesheet_recibir_daño;
+	Texture spritesheet_recibir_daño_izq;
 	Sprite *sprite;
 	Sprite *sprite_caminando;
 	Sprite *sprite_caminando_izq;
@@ -66,9 +76,14 @@ private:
 	Sprite *recibir_golpe;
 	Sprite *sprite_martillo;
 	Sprite *sprite_martillo_iz;
+	Sprite *sprite_recibir;
+	Sprite *sprite_recibir_izq;
 	TileMap *map;
 	ShaderProgram mapShader;
 
+	int vida;
+	int hits;
+	float recuperando;
 };
 
 

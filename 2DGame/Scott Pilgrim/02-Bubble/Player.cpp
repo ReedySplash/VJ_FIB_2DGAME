@@ -20,10 +20,10 @@ enum PlayerAnims
 void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, int lev)
 {	
 	level = lev;
-	vida = 100;
-	posLevel = 50;
+	vida = 10;
+	posLevel = 75;
 	mapShader = shaderProgram;
-	movimiento = 0;
+	movimiento = 1;
 	bJumping = false;
 	spritesheet.loadFromFile("images/Scott/Scott quieto.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite = Sprite::createSprite(glm::ivec2(45, 100), glm::vec2(0.125, 1), &spritesheet, &shaderProgram);
@@ -301,9 +301,14 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, in
 		sprite_recibir->addKeyframe(3, glm::vec2(0.0357142857 * 14, 0.f));
 		sprite_recibir->addKeyframe(3, glm::vec2(0.0357142857 * 15, 0.f));
 		sprite_recibir->addKeyframe(3, glm::vec2(0.0357142857 * 16, 0.f));
+		sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 17, 0.f));
+		sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 18, 0.f));
+		sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 19, 0.f));
+
+		
 
 		sprite_recibir->setAnimationSpeed(4, 10);
-		sprite_recibir->addKeyframe(4, glm::vec2(0.0357142857 * 16, 0.f));
+		sprite_recibir->addKeyframe(4, glm::vec2(0.0357142857 * 19, 0.f));
 
 	spritesheet_recibir_daño_izq.loadFromFile("images/Scott/recibir_daño_izq.png", TEXTURE_PIXEL_FORMAT_RGBA);
 		sprite_recibir_izq = Sprite::createSprite(glm::ivec2(80, 130), glm::vec2(0.0357142857, 1), &spritesheet_recibir_daño_izq, &shaderProgram);
@@ -354,9 +359,13 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, in
 		sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0357142857 * 13, 0.f));
 		sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0357142857 * 12, 0.f));
 		sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0357142857 * 11, 0.f));
+		sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 10, 0.f));
+		sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 9, 0.f));
+		sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 8, 0.f));
+		
 
 		sprite_recibir_izq->setAnimationSpeed(4, 10);
-		sprite_recibir_izq->addKeyframe(4, glm::vec2(0.0357142857 * 11, 0.f));
+		sprite_recibir_izq->addKeyframe(4, glm::vec2(0.0357142857 *8, 0.f));
 
 
 			
@@ -392,9 +401,15 @@ void Player::update(int deltaTime)
 		else if (movimiento == 14 && sprite_recibir->animation() != 3 && sprite_recibir->animation() != 4) sprite_recibir->changeAnimation(3);
 		else if (!sprite_recibir_izq->isFinalized() && sprite_recibir_izq->animation() != 4) ++posPlayer.x;
 		else if (!sprite_recibir->isFinalized() && sprite_recibir->animation() != 4) --posPlayer.x;
-
-		if (movimiento == 13 && sprite_recibir_izq->isFinalized()) sprite_recibir_izq->changeAnimation(4);
-		else if (movimiento == 14 && sprite_recibir->isFinalized()) sprite_recibir->changeAnimation(4);
+		if (sprite_recibir->animation() != 4 && sprite_recibir_izq->animation() != 4) posPlayer.y += 0.6;
+		if (movimiento == 13 && sprite_recibir_izq->isFinalized()) {
+			//if (sprite_recibir_izq->animation() != 4) posPlayer.y -= 15.4f;
+			sprite_recibir_izq->changeAnimation(4); 
+		}
+		else if (movimiento == 14 && sprite_recibir->isFinalized()) {
+			//if (sprite_recibir->animation() != 4) posPlayer.y -= 15.4f;
+			sprite_recibir->changeAnimation(4);
+		}
 	}
 
 	else {
@@ -403,10 +418,12 @@ void Player::update(int deltaTime)
 			if (sprite_recibir->animation() == 2 || sprite_recibir_izq->animation() == 2) recuperando += deltaTime;
 			if (sprite_recibir->animation() == 2 && movimiento == 14 && recuperando < 1500) posPlayer.x -= 1.5f;
 			else if (sprite_recibir_izq->animation() == 2 && movimiento == 13 && recuperando < 1500) posPlayer.x += 1.5f;
+			if (recuperando < 1300) posPlayer.y += 0.25;
 			else if (recuperando > 2300) {
 				if (movimiento == 13) movimiento = 0;
 				else movimiento = 1;
 				recuperando = 0;
+				posPlayer.y -= 18.4f;
 			}
 		}
 
@@ -451,21 +468,22 @@ void Player::update(int deltaTime)
 				if (Game::instance().getSpecialKey(GLUT_KEY_LEFT)) {
 					if (!bJumping) movimiento = 10;
 					if (sprite_correr->animation() == 0) sprite_correr->changeAnimation(1);
-					if (posPlayer.x > 60 && posLevel >= 50) {
+					if (posPlayer.x > 200 && posLevel >= 210) {
 						posPlayer.x -= 4.f;
 						posLevel -= 4.f;
 					}
-					else if (posPlayer.x > 0 && posLevel < 50) {
+					else if (posPlayer.x > 0 && posLevel < 210) {
 						posPlayer.x -= 4.f;
 						posLevel -= 4.f;
 					}
 					else posLevel -= 4.f;
+					if (posPlayer.x <= 0) posLevel += 4.f;
 				}
 				else if (Game::instance().getSpecialKey(GLUT_KEY_RIGHT)) {
 					if (!bJumping) movimiento = 10;
 					if (sprite_correr->animation() == 1) sprite_correr->changeAnimation(0);
 					if (posLevel < 5000) {
-						if (posPlayer.x < 540) {
+						if (posPlayer.x < 380) {
 							posPlayer.x += 4.f;
 						}
 						posLevel += 4.f;
@@ -477,15 +495,16 @@ void Player::update(int deltaTime)
 			else if (Game::instance().getSpecialKey(GLUT_KEY_LEFT))
 			{
 				if (!bJumping) movimiento = 2;
-				if (posPlayer.x > 60 && posLevel >= 50) {
+				if (posPlayer.x > 200 && posLevel >= 210) {
 					posPlayer.x -= 2.f;
 					posLevel -= 2.f;
 				}
-				else if (posPlayer.x > 0 && posLevel < 50) {
+				else if (posPlayer.x > 0 && posLevel < 210) {
 					posPlayer.x -= 2.f;
 					posLevel -= 2.f;
 				}
 				else posLevel -= 2.f;
+				if (posPlayer.x <= 0) posLevel += 2.f;
 				/*if (map->collisionMoveLeft(posPlayer, glm::ivec2(38.625, 61)))
 				{
 					if (!bJumping) movimiento = 0;
@@ -496,7 +515,7 @@ void Player::update(int deltaTime)
 			{
 				if (!bJumping) movimiento = 3;
 				if (posLevel < 5000) {
-					if (posPlayer.x < 540) {
+					if (posPlayer.x < 380) {
 						posPlayer.x += 2.f;
 					}
 					posLevel += 2.f;
@@ -603,7 +622,7 @@ void Player::update(int deltaTime)
 	sprite->setPosition(glm::vec2(float(posPlayer.x), float(posPlayer.y)));
 	sprite_caminando->setPosition(glm::vec2(float( posPlayer.x), float( posPlayer.y)));
 	sprite_standLeft->setPosition(glm::vec2(float( posPlayer.x), float(  posPlayer.y)));
-	sprite_caminando_izq->setPosition(glm::vec2(float(  posPlayer.x), float(  posPlayer.y)));
+	sprite_caminando_izq->setPosition(glm::vec2(float(  posPlayer.x-5), float(  posPlayer.y)));
 	sprite_pegando_derecha->setPosition(glm::vec2(float( posPlayer.x), float(  posPlayer.y)));
 	sprite_pegando_izquierda->setPosition(glm::vec2(float( posPlayer.x-20), float(  posPlayer.y)));
 	sprite_saltar_derecha->setPosition(glm::vec2(float(  posPlayer.x), float(  posPlayer.y)));
@@ -736,11 +755,13 @@ void Player::recibirPuñetazoIzquierda() {
 	if (vida > 0 && movimiento != 13) {
 		if (movimiento != 13) sprite_recibir_izq->changeAnimation(0);
 		movimiento = 13;
+		vida -= 10;
+		++hits;
 	}
 
 	else if (vida > 0 && movimiento == 13) {
 		++hits;
-		vida -= 3;
+		vida -= 10;
 	}
 
 	if (vida > 0 && (movimiento == 13) && hits == 5) {

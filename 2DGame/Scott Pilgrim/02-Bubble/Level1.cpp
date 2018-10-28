@@ -55,8 +55,8 @@ void Level1::init(bool music, int pers)
 	texs[1].setMagFilter(GL_NEAREST);
 
 
-	hud.init(0, texProgram, simpleTexProgram);
 	personaje = pers;
+	hud.init(personaje, texProgram, simpleTexProgram);
 
 	//Init jugador, depende del elegido
 	if (personaje == 0) {
@@ -86,6 +86,10 @@ void Level1::init(bool music, int pers)
 		if (i < 3) enemigo1[i]->setPosition(glm::vec2((i+1)*150, 260));
 		else enemigo1[i]->setPosition(glm::vec2((i + 1) * 150 + 400, 260));
 	}
+	boss = new Boss1();
+	boss->init(glm::ivec2(SCREEN_X, SCREEN_Y), simpleTexProgram);
+	boss->setPosition(glm::vec2(3000, 260));
+
 
 	x = 0.f;
 	projection = glm::ortho(0.f, 50.f, float(SCREEN_HEIGHT - 1), 0.f);
@@ -116,9 +120,9 @@ void Level1::update(int deltaTime)
 		isRunning = ramona->isRunning();
 	}
 
-	if (pos.x > 539 && isWalking) {
+	if (pos.x >= 380 && isWalking) {
 		x += 0.2f;
-		projection = glm::ortho(max(0, 0 + x), max(50, 50 + x), float(SCREEN_HEIGHT - 1), 0.f);
+		projection = glm::ortho(min(max(0, 0 + x), 0 + 218), min(max(50, 50 + x), 50 + 218), float(SCREEN_HEIGHT - 1), 0.f);
 		for (int i = 0; i < 6; ++i) {
 			if (!enemigo1[i]->isCompletlyDeath()) {
 				glm::vec2 pose = enemigo1[i]->getPosition();
@@ -126,10 +130,14 @@ void Level1::update(int deltaTime)
 				enemigo1[i]->setPosition(pose);
 			}
 		}
+		glm::vec2 pose = boss->getPosition();
+		pose.x -= 2.57f;
+		boss->setPosition(pose);
+		
 	}
-	else if (pos.x < 61 && isWalking) {
+	else if (pos.x <= 200 && isWalking) {
 		x -= 0.2f;
-		projection = glm::ortho(max(0, 0 + x), max(50, 50 + x), float(SCREEN_HEIGHT - 1), 0.f);
+		projection = glm::ortho(min(max(0, 0 + x), 0 + 218), min(max(50, 50 + x), 50 + 218), float(SCREEN_HEIGHT - 1), 0.f);
 		for (int i = 0; i < 6; ++i) {
 			if (!enemigo1[i]->isCompletlyDeath()) {
 				glm::vec2 pose = enemigo1[i]->getPosition();
@@ -137,10 +145,13 @@ void Level1::update(int deltaTime)
 				enemigo1[i]->setPosition(pose);
 			}
 		}
+		glm::vec2 pose = boss->getPosition();
+		pose.x += 2.57f;
+		boss->setPosition(pose);
 	}
-	else if (pos.x > 539 && isRunning) {
+	else if (pos.x >= 380 && isRunning) {
 		x += 0.35f;
-		projection = glm::ortho(max(0, 0 + x), max(50, 50 + x), float(SCREEN_HEIGHT - 1), 0.f);
+		projection = glm::ortho(min(max(0, 0 + x), 0 + 218), min(max(50, 50 + x), 50 + 218), float(SCREEN_HEIGHT - 1), 0.f);
 		for (int i = 0; i < 6; ++i) {
 			if (!enemigo1[i]->isCompletlyDeath()) {
 				glm::vec2 pose = enemigo1[i]->getPosition();
@@ -148,10 +159,13 @@ void Level1::update(int deltaTime)
 				enemigo1[i]->setPosition(pose);
 			}
 		}
+		glm::vec2 pose = boss->getPosition();
+		pose.x -= 2.6f*1.725f;
+		boss->setPosition(pose);
 	}
-	else if (pos.x < 61 && isRunning) {
+	else if (pos.x <= 200 && isRunning) {
 		x -= 0.35f;
-		projection = glm::ortho(max(0, 0 + x), max(50, 50 + x), float(SCREEN_HEIGHT - 1), 0.f);
+		projection = glm::ortho(min(max(0, 0 + x), 0 + 218), min(max(50, 50 + x), 50 + 218), float(SCREEN_HEIGHT - 1), 0.f);
 		for (int i = 0; i < 6; ++i) {
 			if (!enemigo1[i]->isCompletlyDeath()) {
 				glm::vec2 pose = enemigo1[i]->getPosition();
@@ -159,6 +173,9 @@ void Level1::update(int deltaTime)
 				enemigo1[i]->setPosition(pose);
 			}
 		}
+		glm::vec2 pose = boss->getPosition();
+		pose.x += 2.6f*1.725f;
+		boss->setPosition(pose);
 	}
 	if (x <= 0) x = 0.f;
 	for (int i = 0; i < 6; ++i) {
@@ -168,13 +185,11 @@ void Level1::update(int deltaTime)
 	}
 	yplayer = pos.y;
 	
+	boss->update(deltaTime);
 	if (personaje == 0) hud.changeLife(player->getVida());
-	//else if (personaje == 1)
-	//else 
+	else if (personaje == 1) hud.changeLife(kim->getVida());
+	else hud.changeLife(ramona->getVida());
 	hud.update(deltaTime);
-
-	if (Game::instance().getKey(8)) {
-	}
 }
 
 void Level1::render()
@@ -200,7 +215,7 @@ void Level1::render()
 	//comprobamos si salta, si no lo hace, nos guardamos su y por si lo hace
 	if (personaje == 0) {
 		jumping = player->isJumping();
-		if (!jumping) y = pos.y;
+		if (!jumping && !player->isRecuperando() && player->getVida() > 0) y = pos.y;
 		if (jumping) {
 			modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
 			modelview2 = glm::translate(modelview2, glm::vec3(pos.x, y + 80, 0.f));
@@ -210,7 +225,7 @@ void Level1::render()
 		}
 		else if (player->isRecuperando()) {
 			modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
-			modelview2 = glm::translate(modelview2, glm::vec3(pos.x, y + 40, 0.f));
+			modelview2 = glm::translate(modelview2, glm::vec3(pos.x, y+80, 0.f));
 			modelview2 = glm::scale(modelview2, glm::vec3(0.08f, 0.07f, 0.f));
 			texProgram.setUniformMatrix4f("modelview", modelview2);
 			texQuad[1]->render(texs[1]);
@@ -218,7 +233,7 @@ void Level1::render()
 
 		else if (player->getVida() <= 0) {
 			modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
-			modelview2 = glm::translate(modelview2, glm::vec3(pos.x, y + 40, 0.f));
+			modelview2 = glm::translate(modelview2, glm::vec3(pos.x, y + 80, 0.f));
 			modelview2 = glm::scale(modelview2, glm::vec3(0.08f, 0.07f, 0.f));
 			texProgram.setUniformMatrix4f("modelview", modelview2);
 			texQuad[1]->render(texs[1]);
@@ -232,7 +247,75 @@ void Level1::render()
 			texQuad[1]->render(texs[1]);
 		}
 	}
-	//else if (personaje == 1) //jumping = kim->render();
+	else if (personaje == 1) {
+		jumping = kim->isJumping();
+		if (!jumping && !kim->isRecuperando() && kim->getVida() > 0) y = pos.y;
+		if (jumping) {
+			modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
+			modelview2 = glm::translate(modelview2, glm::vec3(pos.x, y + 80, 0.f));
+			modelview2 = glm::scale(modelview2, glm::vec3(0.08f, 0.07f, 0.f));
+			texProgram.setUniformMatrix4f("modelview", modelview2);
+			texQuad[1]->render(texs[1]);
+		}
+		else if (kim->isRecuperando()) {
+			modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
+			modelview2 = glm::translate(modelview2, glm::vec3(pos.x, y+80, 0.f));
+			modelview2 = glm::scale(modelview2, glm::vec3(0.08f, 0.07f, 0.f));
+			texProgram.setUniformMatrix4f("modelview", modelview2);
+			texQuad[1]->render(texs[1]);
+		}
+
+		else if (kim->getVida() <= 0) {
+			modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
+			modelview2 = glm::translate(modelview2, glm::vec3(pos.x, y + 80, 0.f));
+			modelview2 = glm::scale(modelview2, glm::vec3(0.08f, 0.07f, 0.f));
+			texProgram.setUniformMatrix4f("modelview", modelview2);
+			texQuad[1]->render(texs[1]);
+		}
+
+		else {
+			modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
+			modelview2 = glm::translate(modelview2, glm::vec3(pos.x, pos.y + 80, 0.f));
+			modelview2 = glm::scale(modelview2, glm::vec3(0.08f, 0.07f, 0.f));
+			texProgram.setUniformMatrix4f("modelview", modelview2);
+			texQuad[1]->render(texs[1]);
+		}
+	}
+
+	else if (personaje == 2) {
+		jumping = ramona->isJumping();
+		if (!jumping && !ramona->isRecuperando() && ramona->getVida() > 0) y = pos.y;
+		if (jumping) {
+			modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
+			modelview2 = glm::translate(modelview2, glm::vec3(pos.x, y + 80, 0.f));
+			modelview2 = glm::scale(modelview2, glm::vec3(0.08f, 0.07f, 0.f));
+			texProgram.setUniformMatrix4f("modelview", modelview2);
+			texQuad[1]->render(texs[1]);
+		}
+		else if (ramona->isRecuperando()) {
+			modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
+			modelview2 = glm::translate(modelview2, glm::vec3(pos.x, y + 80, 0.f));
+			modelview2 = glm::scale(modelview2, glm::vec3(0.08f, 0.07f, 0.f));
+			texProgram.setUniformMatrix4f("modelview", modelview2);
+			texQuad[1]->render(texs[1]);
+		}
+
+		else if (ramona->getVida() <= 0) {
+			modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
+			modelview2 = glm::translate(modelview2, glm::vec3(pos.x, y + 80, 0.f));
+			modelview2 = glm::scale(modelview2, glm::vec3(0.08f, 0.07f, 0.f));
+			texProgram.setUniformMatrix4f("modelview", modelview2);
+			texQuad[1]->render(texs[1]);
+		}
+
+		else {
+			modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
+			modelview2 = glm::translate(modelview2, glm::vec3(pos.x, pos.y + 80, 0.f));
+			modelview2 = glm::scale(modelview2, glm::vec3(0.08f, 0.07f, 0.f));
+			texProgram.setUniformMatrix4f("modelview", modelview2);
+			texQuad[1]->render(texs[1]);
+		}
+	}
 	//else if (personaje == 2) ramona->render();
 
 	//renderizamos sombras enemigas
@@ -277,6 +360,7 @@ void Level1::render()
 		else enemigo1[i]->free();
 	}
 	
+	boss->render();
 	hud.render();
 
 }
@@ -299,6 +383,14 @@ void Level1::comprobarLucha(int i, glm::vec2 posPlayer) {
 		isKicking_right = kim->isKicking_right();
 		isPunching_up_left = kim->isPunching_up_left();
 		isPunching_up_right = kim->isPunching_up_right();
+	}
+	else if (personaje == 2) {
+		isPunching_left = ramona->isPunching_left();
+		isPunching_right = ramona->isPunching_right();
+		isKicking_left = ramona->isKicking_left();
+		isKicking_right = ramona->isKicking_right();
+		isPunching_up_left = ramona->isPunching_up_left();
+		isPunching_up_right = ramona->isPunching_up_right();
 	}
 	posEnemy = enemigo1[i]->getPosition();
 	if ((posPlayer.x <= (posEnemy.x + 90) && (posPlayer.x - 30 > posEnemy.x)) && (posPlayer.y >= posEnemy.y + 40  && posPlayer.y <= posEnemy.y + 60)) {
@@ -343,6 +435,12 @@ void Level1::comprobarAtaqueEnemigo(int i, glm::vec2 posPlayer) {
 			isKicking_left = kim->isKicking_left();
 			isKicking_right = kim->isKicking_right();
 		}
+		else if (personaje == 2) {
+			isPunching_left = ramona->isPunching_left();
+			isPunching_right = ramona->isPunching_right();
+			isKicking_left = ramona->isKicking_left();
+			isKicking_right = ramona->isKicking_right();
+		}
 		posEnemy = enemigo1[i]->getPosition();
 		
 		if ((posPlayer.x > posEnemy.x - 35) && (posPlayer.x < posEnemy.x + 20) && (posPlayer.y >= posEnemy.y + 40 && posPlayer.y <= posEnemy.y + 50)) {
@@ -351,6 +449,7 @@ void Level1::comprobarAtaqueEnemigo(int i, glm::vec2 posPlayer) {
 					enemigo1[i]->atacarPuñetadosIzquierda();
 					if (personaje == 0) player->recibirPuñetazoDerecha();
 					else if (personaje == 1) kim->recibirPuñetazoDerecha();
+					else if (personaje == 2) ramona->recibirPuñetazoDerecha();
 					atacando[i] = true;
 				}
 			}
@@ -362,6 +461,7 @@ void Level1::comprobarAtaqueEnemigo(int i, glm::vec2 posPlayer) {
 					enemigo1[i]->atacarPuñetazosDerecha();
 					if (personaje == 0) player->recibirPuñetazoIzquierda();
 					else if (personaje == 1) kim->recibirPuñetazoIzquierda();
+					else if (personaje == 2) ramona->recibirPuñetazoIzquierda();
 					atacando[i] = true;
 				}
 			}
@@ -374,7 +474,8 @@ void Level1::comprobarAtaqueEnemigo(int i, glm::vec2 posPlayer) {
 		if ((enemigo1[i]->isPunchingLeft() || enemigo1[i]->isPunchingRight()) && !enemigo1[i]->isDeath() && !atacando[i]) {
 			enemigo1[i]->turnToWalk();
 			if (personaje == 0 && !player->isRecuperando()) player->turnToWalk();
-			//else if (personaje == 1) kim->turnToWalk();
+			else if (personaje == 1 && !kim->isRecuperando()) kim->turnToWalk();
+			else if (personaje == 2 && !ramona->isRecuperando()) ramona->turnToWalk();
 		}
 	}
 }

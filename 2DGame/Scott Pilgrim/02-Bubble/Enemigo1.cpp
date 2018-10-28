@@ -22,13 +22,13 @@ void Enemigo1::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	spritesheet_enemigo.loadFromFile("images/Enemigo1/sprite_enemigo1.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite_enemigo = Sprite::createSprite(glm::ivec2(100, 180), glm::vec2(0.0163934426, 1), &spritesheet_enemigo, &shaderProgram);
 	sprite_enemigo->setNumberAnimations(12);
-
+	//quieto
 	sprite_enemigo->setAnimationSpeed(0, 8);
 	sprite_enemigo->addKeyframe(0, glm::vec2(0.0163934426 * 0, 0.f));
 	sprite_enemigo->addKeyframe(0, glm::vec2(0.0163934426 * 1, 0.f));
 	sprite_enemigo->addKeyframe(0, glm::vec2(0.0163934426 * 2, 0.f));
 	sprite_enemigo->addKeyframe(0, glm::vec2(0.0163934426 * 3, 0.f));
-
+	//caminar
 	sprite_enemigo->setAnimationSpeed(1, 8);
 	sprite_enemigo->addKeyframe(1, glm::vec2(0.0163934426 * 4, 0.f));
 	sprite_enemigo->addKeyframe(1, glm::vec2(0.0163934426 * 5, 0.f));
@@ -38,7 +38,7 @@ void Enemigo1::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	sprite_enemigo->addKeyframe(1, glm::vec2(0.0163934426 * 9, 0.f));
 	sprite_enemigo->addKeyframe(1, glm::vec2(0.0163934426 * 10, 0.f));
 	sprite_enemigo->addKeyframe(1, glm::vec2(0.0163934426 * 11, 0.f));
-
+	//correr
 	sprite_enemigo->setAnimationSpeed(2, 8);
 	sprite_enemigo->addKeyframe(2, glm::vec2(0.0163934426 * 12, 0.f));
 	sprite_enemigo->addKeyframe(2, glm::vec2(0.0163934426 * 13, 0.f));
@@ -48,31 +48,31 @@ void Enemigo1::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	sprite_enemigo->addKeyframe(2, glm::vec2(0.0163934426 * 17, 0.f));
 	sprite_enemigo->addKeyframe(2, glm::vec2(0.0163934426 * 18, 0.f));
 	sprite_enemigo->addKeyframe(2, glm::vec2(0.0163934426 * 19, 0.f));
-
+	//patada
 	sprite_enemigo->setAnimationSpeed(3, 8);
 	sprite_enemigo->addKeyframe(3, glm::vec2(0.0163934426 * 20, 0.f));
 	sprite_enemigo->addKeyframe(3, glm::vec2(0.0163934426 * 21, 0.f));
 	sprite_enemigo->addKeyframe(3, glm::vec2(0.0163934426 * 22, 0.f));
 	sprite_enemigo->addKeyframe(3, glm::vec2(0.0163934426 * 23, 0.f));
-
+	//puñetazo
 	sprite_enemigo->setAnimationSpeed(4, 8);
 	sprite_enemigo->addKeyframe(4, glm::vec2(0.0163934426 * 24, 0.f));
 	sprite_enemigo->addKeyframe(4, glm::vec2(0.0163934426 * 25, 0.f));
 	sprite_enemigo->addKeyframe(4, glm::vec2(0.0163934426 * 26, 0.f));
 	sprite_enemigo->addKeyframe(4, glm::vec2(0.0163934426 * 27, 0.f));
 	sprite_enemigo->addKeyframe(4, glm::vec2(0.0163934426 * 28, 0.f));
-
+	//recibir
 	sprite_enemigo->setAnimationSpeed(5, 6);
 	sprite_enemigo->addKeyframe(5, glm::vec2(0.0163934426 * 29, 0.f));
 	sprite_enemigo->addKeyframe(5, glm::vec2(0.0163934426 * 30, 0.f));
 	sprite_enemigo->addKeyframe(5, glm::vec2(0.0163934426 * 31, 0.f));
-
+	//recibir
 	sprite_enemigo->setAnimationSpeed(6, 6);
 	sprite_enemigo->addKeyframe(6, glm::vec2(0.0163934426 * 32, 0.f));
 	sprite_enemigo->addKeyframe(6, glm::vec2(0.0163934426 * 33, 0.f));
 	sprite_enemigo->addKeyframe(6, glm::vec2(0.0163934426 * 34, 0.f));
 	sprite_enemigo->addKeyframe(6, glm::vec2(0.0163934426 * 35, 0.f));
-
+	//morir
 	sprite_enemigo->setAnimationSpeed(7, 7);
 	sprite_enemigo->addKeyframe(7, glm::vec2(0.0163934426 * 36, 0.f));
 	sprite_enemigo->addKeyframe(7, glm::vec2(0.0163934426 * 37, 0.f));
@@ -89,18 +89,18 @@ void Enemigo1::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	sprite_enemigo->addKeyframe(7, glm::vec2(0.0163934426 * 48, 0.f));
 	sprite_enemigo->addKeyframe(7, glm::vec2(0.0163934426 * 49, 0.f));
 	sprite_enemigo->addKeyframe(7, glm::vec2(0.0163934426 * 50, 0.f));
-
+	//quedarse en el suelo
 	sprite_enemigo->setAnimationSpeed(8, 7);
 	sprite_enemigo->addKeyframe(8, glm::vec2(0.0163934426 * 50, 0.f));
-
+	//recibir
 	sprite_enemigo->setAnimationSpeed(9, 6);
 	sprite_enemigo->addKeyframe(9, glm::vec2(0.0163934426 * 30, 0.f));
 	sprite_enemigo->addKeyframe(9, glm::vec2(0.0163934426 * 31, 0.f));
-
+	//recibir
 	sprite_enemigo->setAnimationSpeed(10, 6);
 	sprite_enemigo->addKeyframe(10, glm::vec2(0.0163934426 * 34, 0.f));
 	sprite_enemigo->addKeyframe(10, glm::vec2(0.0163934426 * 35, 0.f));
-
+	//recuperar
 	sprite_enemigo->setAnimationSpeed(11, 10);
 	sprite_enemigo->addKeyframe(11, glm::vec2(0.0163934426 * 36, 0.f));
 	sprite_enemigo->addKeyframe(11, glm::vec2(0.0163934426 * 37, 0.f));
