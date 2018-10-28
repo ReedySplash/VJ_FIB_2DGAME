@@ -1,5 +1,5 @@
-#ifndef _ENEMIGO1_INCLUDE
-#define _ENEMIGO1_INCLUDE
+#ifndef _ENEMIGO3_INCLUDE
+#define _ENEMIGO3_INCLUDE
 
 
 #include "Sprite.h"
@@ -9,7 +9,7 @@
 #include <iostream>
 
 
-class Enemigo1
+class Enemigo3
 {
 public:
 	void init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram);

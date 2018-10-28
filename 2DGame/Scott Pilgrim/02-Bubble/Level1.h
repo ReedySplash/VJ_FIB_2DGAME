@@ -13,6 +13,7 @@
 #include "Player.h"
 #include "Enemigo1.h"
 #include "Enemigo2.h"
+#include "Enemigo3.h"
 #include "Kim.h"
 #include "Ramona.h"
 #include "Hud.h"
