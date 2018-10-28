@@ -55,8 +55,8 @@ void Level1::init(bool music, int pers)
 	texs[1].setMagFilter(GL_NEAREST);
 
 
-	hud.init(0, texProgram, simpleTexProgram);
 	personaje = pers;
+	hud.init(personaje, texProgram, simpleTexProgram);
 
 	//Init jugador, depende del elegido
 	if (personaje == 0) {
@@ -116,9 +116,9 @@ void Level1::update(int deltaTime)
 		isRunning = ramona->isRunning();
 	}
 
-	if (pos.x > 539 && isWalking) {
+	if (pos.x >= 380 && isWalking) {
 		x += 0.2f;
-		projection = glm::ortho(max(0, 0 + x), max(50, 50 + x), float(SCREEN_HEIGHT - 1), 0.f);
+		projection = glm::ortho(min(max(0, 0 + x), 0 + 218), min(max(50, 50 + x), 50 + 218), float(SCREEN_HEIGHT - 1), 0.f);
 		for (int i = 0; i < 6; ++i) {
 			if (!enemigo1[i]->isCompletlyDeath()) {
 				glm::vec2 pose = enemigo1[i]->getPosition();
@@ -127,9 +127,9 @@ void Level1::update(int deltaTime)
 			}
 		}
 	}
-	else if (pos.x < 61 && isWalking) {
+	else if (pos.x <= 200 && isWalking) {
 		x -= 0.2f;
-		projection = glm::ortho(max(0, 0 + x), max(50, 50 + x), float(SCREEN_HEIGHT - 1), 0.f);
+		projection = glm::ortho(min(max(0, 0 + x), 0 + 218), min(max(50, 50 + x), 50 + 218), float(SCREEN_HEIGHT - 1), 0.f);
 		for (int i = 0; i < 6; ++i) {
 			if (!enemigo1[i]->isCompletlyDeath()) {
 				glm::vec2 pose = enemigo1[i]->getPosition();
@@ -138,9 +138,9 @@ void Level1::update(int deltaTime)
 			}
 		}
 	}
-	else if (pos.x > 539 && isRunning) {
+	else if (pos.x >= 380 && isRunning) {
 		x += 0.35f;
-		projection = glm::ortho(max(0, 0 + x), max(50, 50 + x), float(SCREEN_HEIGHT - 1), 0.f);
+		projection = glm::ortho(min(max(0, 0 + x), 0 + 218), min(max(50, 50 + x), 50 + 218), float(SCREEN_HEIGHT - 1), 0.f);
 		for (int i = 0; i < 6; ++i) {
 			if (!enemigo1[i]->isCompletlyDeath()) {
 				glm::vec2 pose = enemigo1[i]->getPosition();
@@ -149,9 +149,9 @@ void Level1::update(int deltaTime)
 			}
 		}
 	}
-	else if (pos.x < 61 && isRunning) {
+	else if (pos.x <= 200 && isRunning) {
 		x -= 0.35f;
-		projection = glm::ortho(max(0, 0 + x), max(50, 50 + x), float(SCREEN_HEIGHT - 1), 0.f);
+		projection = glm::ortho(min(max(0, 0 + x), 0 + 218), min(max(50, 50 + x), 50 + 218), float(SCREEN_HEIGHT - 1), 0.f);
 		for (int i = 0; i < 6; ++i) {
 			if (!enemigo1[i]->isCompletlyDeath()) {
 				glm::vec2 pose = enemigo1[i]->getPosition();

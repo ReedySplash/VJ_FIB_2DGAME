@@ -51,12 +51,6 @@ void Game::keyPressed(int key)
 {
 	if(key == 27) // Escape code
 		bPlay = false;
-
-	if (key == '2') {
-		level2.init(music);
-		level_2 = true;
-		gameStarted = true;
-	}
 	keys[key] = true;
 }
 
@@ -66,7 +60,8 @@ void Game::keyReleased(int key)
 		menuOptions.changeMusica();
 		menuOptions.playGame();
 		menuOptions.showCredits();
-		if (menuOptions.getLevel() == 0) {
+		int level = menuOptions.getLevel();
+		if (level == 0) {
 			level_1 = true;
 			gameStarted = true;
 			music = menuOptions.getMusic();
@@ -74,10 +69,13 @@ void Game::keyReleased(int key)
 			int personaje = menuOptions.getPersonaje();
 			level1.init(music, personaje);
 		}
-		else if (menuOptions.getLevel() == 1) {
+		else if (level == 1) {
 			level_2 = true;
 			gameStarted = true;
-			level2.init(music);
+			music = menuOptions.getMusic();
+			menuO = false;
+			int personaje = menuOptions.getPersonaje();
+			level2.init(music, personaje);
 		}
 	}
 	if (key == 13 && !menuO && !level_2 && !level_1) {

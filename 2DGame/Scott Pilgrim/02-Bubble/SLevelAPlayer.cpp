@@ -141,14 +141,14 @@ void SLevelAPlayer::render()
 
 	if (level_num == 0) {
 		if (glutGet(GLUT_WINDOW_WIDTH) == 1280)
-			text.render("Level 1", glm::vec2(485, 600), 60, glm::vec4(1, 1, 1, 1));
+			text.render("Level 1", glm::vec2(470, 600), 60, glm::vec4(1, 1, 1, 1));
 		else if (glutGet(GLUT_WINDOW_WIDTH) == 1920)
 			text.render("Level 1", glm::vec2(722, 900), 90, glm::vec4(1, 1, 1, 1));
 	}
 
 	else {
 		if (glutGet(GLUT_WINDOW_WIDTH) == 1280)
-			text.render("Level 2", glm::vec2(485, 600), 60, glm::vec4(1, 1, 1, 1));
+			text.render("Level 2", glm::vec2(470, 600), 60, glm::vec4(1, 1, 1, 1));
 		else if (glutGet(GLUT_WINDOW_WIDTH) == 1920)
 			text.render("Level 2", glm::vec2(722, 900), 90, glm::vec4(1, 1, 1, 1));
 	}
@@ -168,6 +168,7 @@ int SLevelAPlayer::getLevel() {
 	if (comenzar) {
 		int num = level_num;
 		level_num = -1;
+		comenzar = false;
 		return num;
 	}
 	return -1;

@@ -21,7 +21,7 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, in
 {	
 	level = lev;
 	vida = 10;
-	posLevel = 50;
+	posLevel = 75;
 	mapShader = shaderProgram;
 	movimiento = 0;
 	bJumping = false;
@@ -468,21 +468,22 @@ void Player::update(int deltaTime)
 				if (Game::instance().getSpecialKey(GLUT_KEY_LEFT)) {
 					if (!bJumping) movimiento = 10;
 					if (sprite_correr->animation() == 0) sprite_correr->changeAnimation(1);
-					if (posPlayer.x > 60 && posLevel >= 50) {
+					if (posPlayer.x > 200 && posLevel >= 210) {
 						posPlayer.x -= 4.f;
 						posLevel -= 4.f;
 					}
-					else if (posPlayer.x > 0 && posLevel < 50) {
+					else if (posPlayer.x > 0 && posLevel < 210) {
 						posPlayer.x -= 4.f;
 						posLevel -= 4.f;
 					}
 					else posLevel -= 4.f;
+					if (posPlayer.x <= 0) posLevel += 4.f;
 				}
 				else if (Game::instance().getSpecialKey(GLUT_KEY_RIGHT)) {
 					if (!bJumping) movimiento = 10;
 					if (sprite_correr->animation() == 1) sprite_correr->changeAnimation(0);
 					if (posLevel < 5000) {
-						if (posPlayer.x < 540) {
+						if (posPlayer.x < 380) {
 							posPlayer.x += 4.f;
 						}
 						posLevel += 4.f;
@@ -494,15 +495,16 @@ void Player::update(int deltaTime)
 			else if (Game::instance().getSpecialKey(GLUT_KEY_LEFT))
 			{
 				if (!bJumping) movimiento = 2;
-				if (posPlayer.x > 60 && posLevel >= 50) {
+				if (posPlayer.x > 200 && posLevel >= 210) {
 					posPlayer.x -= 2.f;
 					posLevel -= 2.f;
 				}
-				else if (posPlayer.x > 0 && posLevel < 50) {
+				else if (posPlayer.x > 0 && posLevel < 210) {
 					posPlayer.x -= 2.f;
 					posLevel -= 2.f;
 				}
 				else posLevel -= 2.f;
+				if (posPlayer.x <= 0) posLevel += 2.f;
 				/*if (map->collisionMoveLeft(posPlayer, glm::ivec2(38.625, 61)))
 				{
 					if (!bJumping) movimiento = 0;
@@ -513,7 +515,7 @@ void Player::update(int deltaTime)
 			{
 				if (!bJumping) movimiento = 3;
 				if (posLevel < 5000) {
-					if (posPlayer.x < 540) {
+					if (posPlayer.x < 380) {
 						posPlayer.x += 2.f;
 					}
 					posLevel += 2.f;

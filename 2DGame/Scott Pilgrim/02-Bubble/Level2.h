@@ -5,7 +5,6 @@
 #include "ShaderProgram.h"
 #include "Player.h"
 #include <iostream>
-#include <glm/glm.hpp>
 #include <vector>
 #include <windows.h>
 #include <cmath>
@@ -13,6 +12,9 @@
 #include "TexturedQuad.h"
 #include "Player.h"
 #include "Enemigo1.h"
+#include "Kim.h"
+#include "Ramona.h"
+#include "Hud.h"
 
 
 class Level2
@@ -22,22 +24,32 @@ public:
 	~Level2();
 
 
-	void init(bool music);
+	void init(bool music, int personaje);
 	void update(int deltaTime);
 	void render();
-	void comprobarLucha(int i);
+	void comprobarLucha(int i, glm::vec2 posPlayer);
+	void comprobarAtaqueEnemigo(int i, glm::vec2 posPlayer);
 private:
 	bool musica;
 	float currentTime;
-	float pos_ini, pos_fin;
 	TexturedQuad *texQuad[3];
 	Texture texs[2];
 	ShaderProgram simpleTexProgram, texProgram;
 	glm::mat4 projection;
 	glm::ivec2 posPlayer, posEnemy;
+	float x, yplayer, y;
+	glm::vec2 pos;
+
+	//Personajes dentro del juego
+	int personaje; //0-2  depende del persoanje (Hay 3)
 	Player *player;
-	Enemigo1 *enemigo1[1];
-	float x;
+	Kim *kim;
+	Ramona *ramona;
+	Hud hud;
+
+	//Def enemies
+	Enemigo1 *enemigo1[6];
+	bool atacando[6];
 
 	void initShaders();
 };
