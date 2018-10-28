@@ -12,6 +12,7 @@
 #include "TexturedQuad.h"
 #include "Player.h"
 #include "Enemigo1.h"
+#include "Enemigo2.h"
 #include "Kim.h"
 #include "Ramona.h"
 #include "Hud.h"
@@ -48,7 +49,7 @@ private:
 	Hud hud;
 
 	//Def enemies
-	Enemigo1 *enemigo1[6];
+	Enemigo2 *enemigo1[6];
 	bool atacando[6];
 
 	void initShaders();

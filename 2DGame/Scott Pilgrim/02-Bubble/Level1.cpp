@@ -81,7 +81,7 @@ void Level1::init(bool music, int pers)
 
 	//Init Enemigos
 	for (int i = 0; i < 6; ++i) {
-		enemigo1[i] = new Enemigo1();
+		enemigo1[i] = new Enemigo2();
 		enemigo1[i]->init(glm::ivec2(SCREEN_X, SCREEN_Y), simpleTexProgram);
 		if (i < 3) enemigo1[i]->setPosition(glm::vec2((i+1)*150, 260));
 		else enemigo1[i]->setPosition(glm::vec2((i + 1) * 150 + 400, 260));
