@@ -69,15 +69,32 @@ void MenuOptions::render()
 		texProgram.setUniformMatrix4f("modelview", modelview);
 		texQuad[0]->render(texs[0]);
 
+		if (glutGet(GLUT_WINDOW_WIDTH) == 1280) {
+			if (opcion == 0) black.render("Play", glm::vec2(720, 420), 56, glm::vec4(0, 0, 0, 1));
+			else black.render("Play", glm::vec2(740, 420), 56, glm::vec4(1, 1, 1, 1));
+		}
+		else if (glutGet(GLUT_WINDOW_WIDTH) == 1920) {
+			if (opcion == 0) black.render("Play", glm::vec2(1040, 620), 65, glm::vec4(0, 0, 0, 1));
+			else black.render("Play", glm::vec2(1080, 620), 65, glm::vec4(1, 1, 1, 1));
+		}
 
-		if (opcion == 0) black.render("Play", glm::vec2(350, 280), 24, glm::vec4(0, 0, 0, 1));
-		else black.render("Play", glm::vec2(370, 280), 24, glm::vec4(1, 1, 1, 1));
+		if (glutGet(GLUT_WINDOW_WIDTH) == 1280) {
+			if (opcion == 1) black.render(text_music, glm::vec2(720, 520), 56, glm::vec4(0, 0, 0, 1));
+			else black.render(text_music, glm::vec2(740, 520), 56, glm::vec4(1, 1, 1, 1));;
+		}
+		else if (glutGet(GLUT_WINDOW_WIDTH) == 1920) {
+			if (opcion == 1) black.render(text_music, glm::vec2(1040, 770), 65, glm::vec4(0, 0, 0, 1));
+			else black.render(text_music, glm::vec2(1080, 770), 65, glm::vec4(1, 1, 1, 1));;
+		}
 
-		if (opcion == 1) black.render(text_music, glm::vec2(350, 340), 24, glm::vec4(0, 0, 0, 1));
-		else black.render(text_music, glm::vec2(370, 340), 24, glm::vec4(1, 1, 1, 1));;
-
-		if (opcion == 2) black.render("Credits", glm::vec2(350, 400), 24, glm::vec4(0, 0, 0, 1));
-		else black.render("Credits", glm::vec2(370, 400), 24, glm::vec4(1, 1, 1, 1));
+		if (glutGet(GLUT_WINDOW_WIDTH) == 1280) {
+			if (opcion == 2) black.render("Credits", glm::vec2(720, 620), 56, glm::vec4(0, 0, 0, 1));
+			else black.render("Credits", glm::vec2(740, 620), 56, glm::vec4(1, 1, 1, 1));
+		}
+		else if (glutGet(GLUT_WINDOW_WIDTH) == 1920) {
+			if (opcion == 2) black.render("Credits", glm::vec2(1040, 920), 65, glm::vec4(0, 0, 0, 1));
+			else black.render("Credits", glm::vec2(1080, 920), 65, glm::vec4(1, 1, 1, 1));
+		}
 	}
 	else if (!play && credits) {
 

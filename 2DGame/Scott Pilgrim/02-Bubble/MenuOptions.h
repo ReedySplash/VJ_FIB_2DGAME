@@ -12,8 +12,8 @@
 #include "SLevelAPlayer.h"
 
 
-#define CAMERA_WIDTH 640
-#define CAMERA_HEIGHT 480
+#define CAMERA_WIDTH 1280
+#define CAMERA_HEIGHT 720
 
 class MenuOptions
 {

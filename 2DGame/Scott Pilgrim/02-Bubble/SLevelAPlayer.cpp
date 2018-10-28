@@ -117,24 +117,41 @@ void SLevelAPlayer::render()
 
 	if (personaje == 0) {
 		sprite_Scott->render();
-		text.render("Scott", glm::vec2(272, 300), 24, glm::vec4(1, 1, 1, 1));
+		if (glutGet(GLUT_WINDOW_WIDTH) == 1280)
+			text.render("Scott", glm::vec2(565, 450), 36, glm::vec4(1, 1, 1, 1));
+		else if (glutGet(GLUT_WINDOW_WIDTH) == 1920)
+			text.render("Scott", glm::vec2(868, 640), 48, glm::vec4(1, 1, 1, 1));
 	}
 
 	else if (personaje == 1) {
 		sprite_Kim->render();
-		text.render("Kim", glm::vec2(300, 300), 24, glm::vec4(1, 1, 1, 1));
+		if (glutGet(GLUT_WINDOW_WIDTH) == 1280)
+			text.render("Kim", glm::vec2(613, 450), 36, glm::vec4(1, 1, 1, 1));
+		else if (glutGet(GLUT_WINDOW_WIDTH) == 1920)
+			text.render("Kim", glm::vec2(924, 640), 48, glm::vec4(1, 1, 1, 1));
 	}
 
 	else {
 		sprite_Ramona->render();
-		text.render("Ramona", glm::vec2(260, 300), 24, glm::vec4(1, 1, 1, 1));
+		if (glutGet(GLUT_WINDOW_WIDTH) == 1280)
+			text.render("Ramona", glm::vec2(548, 450), 36, glm::vec4(1, 1, 1, 1));
+		else if (glutGet(GLUT_WINDOW_WIDTH) == 1920)
+			text.render("Ramona", glm::vec2(845, 640), 48, glm::vec4(1, 1, 1, 1));
 	}
 
 	if (level_num == 0) {
-		text.render("Level 1", glm::vec2(190, 400), 48, glm::vec4(1, 1, 1, 1));
+		if (glutGet(GLUT_WINDOW_WIDTH) == 1280)
+			text.render("Level 1", glm::vec2(485, 600), 60, glm::vec4(1, 1, 1, 1));
+		else if (glutGet(GLUT_WINDOW_WIDTH) == 1920)
+			text.render("Level 1", glm::vec2(722, 900), 90, glm::vec4(1, 1, 1, 1));
 	}
 
-	else text.render("Level 2", glm::vec2(190, 400), 48, glm::vec4(1, 1, 1, 1));
+	else {
+		if (glutGet(GLUT_WINDOW_WIDTH) == 1280)
+			text.render("Level 2", glm::vec2(485, 600), 60, glm::vec4(1, 1, 1, 1));
+		else if (glutGet(GLUT_WINDOW_WIDTH) == 1920)
+			text.render("Level 2", glm::vec2(722, 900), 90, glm::vec4(1, 1, 1, 1));
+	}
 }
 
 void SLevelAPlayer::right() {
