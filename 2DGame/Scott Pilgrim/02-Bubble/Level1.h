@@ -15,6 +15,7 @@
 #include "Kim.h"
 #include "Ramona.h"
 #include "Hud.h"
+#include "Boss1.h"
 
 
 class Level1
@@ -46,6 +47,7 @@ private:
 	Kim *kim;
 	Ramona *ramona;
 	Hud hud;
+	Boss1 *boss;
 
 	//Def enemies
 	Enemigo1 *enemigo1[6];

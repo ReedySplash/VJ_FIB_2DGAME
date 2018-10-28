@@ -23,7 +23,7 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, in
 	vida = 10;
 	posLevel = 75;
 	mapShader = shaderProgram;
-	movimiento = 0;
+	movimiento = 1;
 	bJumping = false;
 	spritesheet.loadFromFile("images/Scott/Scott quieto.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite = Sprite::createSprite(glm::ivec2(45, 100), glm::vec2(0.125, 1), &spritesheet, &shaderProgram);
@@ -622,7 +622,7 @@ void Player::update(int deltaTime)
 	sprite->setPosition(glm::vec2(float(posPlayer.x), float(posPlayer.y)));
 	sprite_caminando->setPosition(glm::vec2(float( posPlayer.x), float( posPlayer.y)));
 	sprite_standLeft->setPosition(glm::vec2(float( posPlayer.x), float(  posPlayer.y)));
-	sprite_caminando_izq->setPosition(glm::vec2(float(  posPlayer.x), float(  posPlayer.y)));
+	sprite_caminando_izq->setPosition(glm::vec2(float(  posPlayer.x-5), float(  posPlayer.y)));
 	sprite_pegando_derecha->setPosition(glm::vec2(float( posPlayer.x), float(  posPlayer.y)));
 	sprite_pegando_izquierda->setPosition(glm::vec2(float( posPlayer.x-20), float(  posPlayer.y)));
 	sprite_saltar_derecha->setPosition(glm::vec2(float(  posPlayer.x), float(  posPlayer.y)));

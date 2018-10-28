@@ -86,6 +86,10 @@ void Level1::init(bool music, int pers)
 		if (i < 3) enemigo1[i]->setPosition(glm::vec2((i+1)*150, 260));
 		else enemigo1[i]->setPosition(glm::vec2((i + 1) * 150 + 400, 260));
 	}
+	boss = new Boss1();
+	boss->init(glm::ivec2(SCREEN_X, SCREEN_Y), simpleTexProgram);
+	boss->setPosition(glm::vec2(3000, 260));
+
 
 	x = 0.f;
 	projection = glm::ortho(0.f, 50.f, float(SCREEN_HEIGHT - 1), 0.f);
@@ -126,6 +130,10 @@ void Level1::update(int deltaTime)
 				enemigo1[i]->setPosition(pose);
 			}
 		}
+		glm::vec2 pose = boss->getPosition();
+		pose.x -= 2.57f;
+		boss->setPosition(pose);
+		
 	}
 	else if (pos.x <= 200 && isWalking) {
 		x -= 0.2f;
@@ -137,6 +145,9 @@ void Level1::update(int deltaTime)
 				enemigo1[i]->setPosition(pose);
 			}
 		}
+		glm::vec2 pose = boss->getPosition();
+		pose.x += 2.57f;
+		boss->setPosition(pose);
 	}
 	else if (pos.x >= 380 && isRunning) {
 		x += 0.35f;
@@ -148,6 +159,9 @@ void Level1::update(int deltaTime)
 				enemigo1[i]->setPosition(pose);
 			}
 		}
+		glm::vec2 pose = boss->getPosition();
+		pose.x -= 2.6f*1.725f;
+		boss->setPosition(pose);
 	}
 	else if (pos.x <= 200 && isRunning) {
 		x -= 0.35f;
@@ -159,6 +173,9 @@ void Level1::update(int deltaTime)
 				enemigo1[i]->setPosition(pose);
 			}
 		}
+		glm::vec2 pose = boss->getPosition();
+		pose.x += 2.6f*1.725f;
+		boss->setPosition(pose);
 	}
 	if (x <= 0) x = 0.f;
 	for (int i = 0; i < 6; ++i) {
@@ -168,6 +185,7 @@ void Level1::update(int deltaTime)
 	}
 	yplayer = pos.y;
 	
+	boss->update(deltaTime);
 	if (personaje == 0) hud.changeLife(player->getVida());
 	else if (personaje == 1) hud.changeLife(kim->getVida());
 	else hud.changeLife(ramona->getVida());
@@ -342,6 +360,7 @@ void Level1::render()
 		else enemigo1[i]->free();
 	}
 	
+	boss->render();
 	hud.render();
 
 }
