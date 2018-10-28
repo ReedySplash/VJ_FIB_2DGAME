@@ -19,7 +19,7 @@ enum PlayerAnims
 void Ramona::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, int lev)
 {
 	level = lev;
-	vida = 10;
+	vida = 100;
 	posLevel = 50;
 	mapShader = shaderProgram;
 	movimiento = 0;
@@ -221,120 +221,121 @@ void Ramona::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, in
 	sprite_martillo_iz->addKeyframe(0, glm::vec2(0.125, 0.f));
 	sprite_martillo_iz->addKeyframe(0, glm::vec2(0.f, 0.f));
 
-	spritesheet_recibir_daño.loadFromFile("images/Scott/recibir_daño.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite_recibir = Sprite::createSprite(glm::ivec2(80, 120), glm::vec2(0.0357142857, 1), &spritesheet_recibir_daño, &shaderProgram);
+	spritesheet_recibir_daño.loadFromFile("images/Ramona/ramona_recibir.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	sprite_recibir = Sprite::createSprite(glm::ivec2(80, 120), glm::vec2(0.0344827586, 1), &spritesheet_recibir_daño, &shaderProgram);
 	sprite_recibir->setNumberAnimations(5);
 
 	sprite_recibir->setAnimationSpeed(0, 4);
-	sprite_recibir->addKeyframe(0, glm::vec2(0.0357142857 * 0, 0.f));
-	sprite_recibir->addKeyframe(0, glm::vec2(0.0357142857, 0.f));
+	sprite_recibir->addKeyframe(0, glm::vec2(0, 0.f));
+	sprite_recibir->addKeyframe(0, glm::vec2(0.0344827586, 0.f));
+	sprite_recibir->addKeyframe(0, glm::vec2(0.0344827586 * 2, 0.f));
 
 	sprite_recibir->setAnimationSpeed(1, 6);
-	sprite_recibir->addKeyframe(1, glm::vec2(0.0357142857 * 2, 0.f));
-	sprite_recibir->addKeyframe(1, glm::vec2(0.0357142857 * 3, 0.f));
-	sprite_recibir->addKeyframe(1, glm::vec2(0.0357142857 * 4, 0.f));
-	sprite_recibir->addKeyframe(1, glm::vec2(0.0357142857 * 5, 0.f));
-	sprite_recibir->addKeyframe(1, glm::vec2(0.0357142857 * 6, 0.f));
+	sprite_recibir->addKeyframe(1, glm::vec2(0.0344827586 * 3, 0.f));
+	sprite_recibir->addKeyframe(1, glm::vec2(0.0344827586 * 4, 0.f));
+	sprite_recibir->addKeyframe(1, glm::vec2(0.0344827586 * 5, 0.f));
+	sprite_recibir->addKeyframe(1, glm::vec2(0.0344827586 * 6, 0.f));
 
 	sprite_recibir->setAnimationSpeed(2, 10);
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 7, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 8, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 9, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 10, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 11, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 12, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 13, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 14, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 15, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 16, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 17, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 18, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 19, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 20, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 21, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 22, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 23, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 24, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 25, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 26, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 27, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0344827586 * 7, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0344827586 * 8, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0344827586 * 9, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0344827586 * 10, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0344827586 * 11, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0344827586 * 12, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0344827586 * 13, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0344827586 * 14, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0344827586 * 15, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0344827586 * 16, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0344827586 * 17, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0344827586 * 18, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0344827586 * 19, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0344827586 * 20, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0344827586 * 21, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0344827586 * 22, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0344827586 * 23, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0344827586 * 24, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0344827586 * 25, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0344827586 * 26, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0344827586 * 27, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0344827586 * 28, 0.f));
 
 	sprite_recibir->setAnimationSpeed(3, 10);
-	sprite_recibir->addKeyframe(3, glm::vec2(0.0357142857 * 7, 0.f));
-	sprite_recibir->addKeyframe(3, glm::vec2(0.0357142857 * 8, 0.f));
-	sprite_recibir->addKeyframe(3, glm::vec2(0.0357142857 * 9, 0.f));
-	sprite_recibir->addKeyframe(3, glm::vec2(0.0357142857 * 10, 0.f));
-	sprite_recibir->addKeyframe(3, glm::vec2(0.0357142857 * 11, 0.f));
-	sprite_recibir->addKeyframe(3, glm::vec2(0.0357142857 * 12, 0.f));
-	sprite_recibir->addKeyframe(3, glm::vec2(0.0357142857 * 13, 0.f));
-	sprite_recibir->addKeyframe(3, glm::vec2(0.0357142857 * 14, 0.f));
-	sprite_recibir->addKeyframe(3, glm::vec2(0.0357142857 * 15, 0.f));
-	sprite_recibir->addKeyframe(3, glm::vec2(0.0357142857 * 16, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 17, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 18, 0.f));
-	sprite_recibir->addKeyframe(2, glm::vec2(0.0357142857 * 19, 0.f));
-
-
+	sprite_recibir->addKeyframe(3, glm::vec2(0.0344827586 * 7, 0.f));
+	sprite_recibir->addKeyframe(3, glm::vec2(0.0344827586 * 8, 0.f));
+	sprite_recibir->addKeyframe(3, glm::vec2(0.0344827586 * 9, 0.f));
+	sprite_recibir->addKeyframe(3, glm::vec2(0.0344827586 * 10, 0.f));
+	sprite_recibir->addKeyframe(3, glm::vec2(0.0344827586 * 11, 0.f));
+	sprite_recibir->addKeyframe(3, glm::vec2(0.0344827586 * 12, 0.f));
+	sprite_recibir->addKeyframe(3, glm::vec2(0.0344827586 * 13, 0.f));
+	sprite_recibir->addKeyframe(3, glm::vec2(0.0344827586 * 14, 0.f));
+	sprite_recibir->addKeyframe(3, glm::vec2(0.0344827586 * 15, 0.f));
+	sprite_recibir->addKeyframe(3, glm::vec2(0.0344827586 * 16, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0344827586 * 17, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0344827586 * 18, 0.f));
+	sprite_recibir->addKeyframe(2, glm::vec2(0.0344827586 * 19, 0.f));
 
 	sprite_recibir->setAnimationSpeed(4, 10);
-	sprite_recibir->addKeyframe(4, glm::vec2(0.0357142857 * 19, 0.f));
+	sprite_recibir->addKeyframe(4, glm::vec2(0.0344827586 * 19, 0.f));
 
-	spritesheet_recibir_daño_izq.loadFromFile("images/Scott/recibir_daño_izq.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite_recibir_izq = Sprite::createSprite(glm::ivec2(80, 130), glm::vec2(0.0357142857, 1), &spritesheet_recibir_daño_izq, &shaderProgram);
+
+	spritesheet_recibir_daño_izq.loadFromFile("images/Ramona/ramona_recibir_izq.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	sprite_recibir_izq = Sprite::createSprite(glm::ivec2(80, 130), glm::vec2(0.0344827586, 1), &spritesheet_recibir_daño_izq, &shaderProgram);
 	sprite_recibir_izq->setNumberAnimations(5);
 
 	sprite_recibir_izq->setAnimationSpeed(0, 4);
-	sprite_recibir_izq->addKeyframe(0, glm::vec2(0.0357142857 * 27, 0.f));
-	sprite_recibir_izq->addKeyframe(0, glm::vec2(0.0357142857 * 26, 0.f));
+	sprite_recibir_izq->addKeyframe(0, glm::vec2(0.0344827586 * 28, 0.f));
+	sprite_recibir_izq->addKeyframe(0, glm::vec2(0.0344827586 * 27, 0.f));
+	sprite_recibir_izq->addKeyframe(0, glm::vec2(0.0344827586 * 26, 0.f));
 
 	sprite_recibir_izq->setAnimationSpeed(1, 6);
-	sprite_recibir_izq->addKeyframe(1, glm::vec2(0.0357142857 * 25, 0.f));
-	sprite_recibir_izq->addKeyframe(1, glm::vec2(0.0357142857 * 24, 0.f));
-	sprite_recibir_izq->addKeyframe(1, glm::vec2(0.0357142857 * 23, 0.f));
-	sprite_recibir_izq->addKeyframe(1, glm::vec2(0.0357142857 * 22, 0.f));
-	sprite_recibir_izq->addKeyframe(1, glm::vec2(0.0357142857 * 21, 0.f));
+	sprite_recibir_izq->addKeyframe(1, glm::vec2(0.0344827586 * 25, 0.f));
+	sprite_recibir_izq->addKeyframe(1, glm::vec2(0.0344827586 * 24, 0.f));
+	sprite_recibir_izq->addKeyframe(1, glm::vec2(0.0344827586 * 23, 0.f));
+	sprite_recibir_izq->addKeyframe(1, glm::vec2(0.0344827586 * 22, 0.f));
 
 	sprite_recibir_izq->setAnimationSpeed(2, 10);
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 20, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 19, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 18, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 17, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 16, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 15, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 14, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 13, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 12, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 11, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 10, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 9, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 8, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 7, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 6, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 5, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 4, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 3, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 2, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 1, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 0, 0.f));
+	sprite_recibir_izq->addKeyframe(1, glm::vec2(0.0344827586 * 21, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0344827586 * 20, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0344827586 * 19, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0344827586 * 18, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0344827586 * 17, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0344827586 * 16, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0344827586 * 15, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0344827586 * 14, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0344827586 * 13, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0344827586 * 12, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0344827586 * 11, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0344827586 * 10, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0344827586 * 9, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0344827586 * 8, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0344827586 * 7, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0344827586 * 6, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0344827586 * 5, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0344827586 * 4, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0344827586 * 3, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0344827586 * 2, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0344827586 * 1, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0344827586 * 0, 0.f));
 
 	sprite_recibir_izq->setAnimationSpeed(3, 10);
-	sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0357142857 * 20, 0.f));
-	sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0357142857 * 19, 0.f));
-	sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0357142857 * 18, 0.f));
-	sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0357142857 * 17, 0.f));
-	sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0357142857 * 16, 0.f));
-	sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0357142857 * 15, 0.f));
-	sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0357142857 * 14, 0.f));
-	sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0357142857 * 13, 0.f));
-	sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0357142857 * 12, 0.f));
-	sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0357142857 * 11, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 10, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 9, 0.f));
-	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0357142857 * 8, 0.f));
+	sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0344827586 * 20, 0.f));
+	sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0344827586 * 19, 0.f));
+	sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0344827586 * 18, 0.f));
+	sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0344827586 * 17, 0.f));
+	sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0344827586 * 16, 0.f));
+	sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0344827586 * 15, 0.f));
+	sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0344827586 * 14, 0.f));
+	sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0344827586 * 13, 0.f));
+	sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0344827586 * 12, 0.f));
+	sprite_recibir_izq->addKeyframe(3, glm::vec2(0.0344827586 * 11, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0344827586 * 10, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0344827586 * 9, 0.f));
+	sprite_recibir_izq->addKeyframe(2, glm::vec2(0.0344827586 * 8, 0.f));
 
 
 	sprite_recibir_izq->setAnimationSpeed(4, 10);
-	sprite_recibir_izq->addKeyframe(4, glm::vec2(0.0357142857 * 8, 0.f));
+	sprite_recibir_izq->addKeyframe(4, glm::vec2(0.0344827586 * 8, 0.f));
 
 
 
@@ -375,8 +376,8 @@ void Ramona::update(int deltaTime)
 	if (vida <= 0) {
 		if (movimiento == 13 && sprite_recibir_izq->animation() != 3 && sprite_recibir_izq->animation() != 4) sprite_recibir_izq->changeAnimation(3);
 		else if (movimiento == 14 && sprite_recibir->animation() != 3 && sprite_recibir->animation() != 4) sprite_recibir->changeAnimation(3);
-		else if (!sprite_recibir_izq->isFinalized() && sprite_recibir_izq->animation() != 4) ++posPlayer.x;
-		else if (!sprite_recibir->isFinalized() && sprite_recibir->animation() != 4) --posPlayer.x;
+		else if (!sprite_recibir_izq->isFinalized() && sprite_recibir_izq->animation() != 4) posPlayer.x += 1.5f;
+		else if (!sprite_recibir->isFinalized() && sprite_recibir->animation() != 4) posPlayer.x -= 1.5f;
 		if (sprite_recibir->animation() != 4 && sprite_recibir_izq->animation() != 4) posPlayer.y += 0.6;
 		if (movimiento == 13 && sprite_recibir_izq->isFinalized()) {
 			sprite_recibir_izq->changeAnimation(4);
