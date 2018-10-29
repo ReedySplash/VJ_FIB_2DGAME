@@ -12,6 +12,8 @@
 #include "TexturedQuad.h"
 #include "Player.h"
 #include "Enemigo1.h"
+#include "Enemigo2.h"
+#include "Enemigo3.h"
 #include "Kim.h"
 #include "Ramona.h"
 #include "Hud.h"
@@ -28,8 +30,8 @@ public:
 	void init(bool music, int personaje);
 	void update(int deltaTime);
 	void render();
-	void comprobarLucha(int i, glm::vec2 posPlayer);
-	void comprobarAtaqueEnemigo(int i, glm::vec2 posPlayer);
+	void comprobarLucha(int i, glm::vec2 posPlayer, int enemigo);
+	void comprobarAtaqueEnemigo(int i, glm::vec2 posPlayer, int enemigo);
 	void comprobarLuchaBoss(glm::vec2 posPlayer);
 	void comprobarAtaqueBoss(glm::vec2 posPlayer);
 private:
@@ -52,8 +54,12 @@ private:
 
 	//Def enemies
 	Enemigo1 *enemigo1[6];
+	Enemigo2 *enemigo2[4];
+	Enemigo3 *enemigo3[3];
 	Boss2 *boss;
-	bool atacando[6];
+	bool atacando1[3];
+	bool atacando2[3];
+	bool atacando3[3];
 	bool atacando_boss;
 	void initShaders();
 };

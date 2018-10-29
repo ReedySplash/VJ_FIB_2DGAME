@@ -26,7 +26,7 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, in
 	}
 	else {
 		posIni = 2200;
-		posFin = 3100;
+		posFin = 2970;
 	}
 	vida = 100;
 	posLevel = 75;
@@ -618,8 +618,8 @@ void Player::update(int deltaTime)
 	sprite_patada_derecha->setPosition(glm::vec2(float(  posPlayer.x), float(  posPlayer.y)));
 	sprite_patada_izquierda->setPosition(glm::vec2(float(  posPlayer.x-20), float(  posPlayer.y)));
 	sprite_correr->setPosition(glm::vec2(float(posPlayer.x), float(posPlayer.y)));
-	puñetazo_arriba->setPosition(glm::vec2(float(posPlayer.x - 20), float(posPlayer.y)));
-	puñetazo_arriba_izq->setPosition(glm::vec2(float(posPlayer.x - 20), float(posPlayer.y)));
+	puñetazo_arriba->setPosition(glm::vec2(float(posPlayer.x), float(posPlayer.y)));
+	puñetazo_arriba_izq->setPosition(glm::vec2(float(posPlayer.x), float(posPlayer.y)));
 	sprite_recibir->setPosition(glm::vec2(float(posPlayer.x), float(posPlayer.y - 15)));
 	sprite_recibir_izq->setPosition(glm::vec2(float(posPlayer.x - 20), float(posPlayer.y - 15)));
 }
