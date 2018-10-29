@@ -595,31 +595,6 @@ void Player::update(int deltaTime)
 					jumpAngle = 0;
 					startY = posPlayer.y;
 				}
-				/*posPlayer.y += FALL_STEP;
-				if (map->collisionMoveDown(posPlayer, glm::ivec2(38.625, 61), &posPlayer.y))
-				{
-					if (movimiento == 7) movimiento = 1;
-					else if (movimiento == 6) movimiento = 0;
-					sprite_saltar_derecha->changeAnimation(0);
-					sprite_saltar_izquierda->changeAnimation(0);
-					if (Game::instance().getSpecialKey(GLUT_KEY_UP))
-					{
-						bJumping = true;
-						jumpAngle = 0;
-						startY = posPlayer.y;
-					}
-				}
-				else {
-					if (movimiento == 7 || movimiento == 3) {
-						movimiento = 7;
-						sprite_saltar_derecha->changeAnimation(1);
-					}
-					else if (movimiento == 6 || movimiento == 2) {
-						movimiento = 6;
-						sprite_saltar_izquierda->changeAnimation(1);
-					}
-
-				}*/
 			}
 		}
 	}
