@@ -53,7 +53,7 @@ private:
 	Hud hud;
 
 	//Def enemies
-	Enemigo2 *enemigo1[6];
+	Enemigo3 *enemigo1[6];
 	Boss1 *boss;
 	bool atacando[6];
 	bool atacando_boss;
