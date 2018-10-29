@@ -20,7 +20,7 @@ enum PlayerAnims
 void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, int lev)
 {	
 	level = lev;
-	vida = 10;
+	vida = 100;
 	posLevel = 75;
 	mapShader = shaderProgram;
 	movimiento = 1;
@@ -476,18 +476,26 @@ void Player::update(int deltaTime)
 						posPlayer.x -= 4.f;
 						posLevel -= 4.f;
 					}
+					else if (posPlayer.x > 0 && posLevel > 2300) {
+						posPlayer.x -= 4.f;
+						posLevel -= 4.f;
+					}
 					else posLevel -= 4.f;
 					if (posPlayer.x <= 0) posLevel += 4.f;
 				}
 				else if (Game::instance().getSpecialKey(GLUT_KEY_RIGHT)) {
 					if (!bJumping) movimiento = 10;
 					if (sprite_correr->animation() == 1) sprite_correr->changeAnimation(0);
-					if (posLevel < 5000) {
-						if (posPlayer.x < 380) {
-							posPlayer.x += 4.f;
-						}
+					if (posPlayer.x < 380 && posLevel >= 0) {
+						posPlayer.x += 4.f;
 						posLevel += 4.f;
 					}
+					else if (posPlayer.x < 580 && posLevel > 2740) {
+						posPlayer.x += 4.f;
+						posLevel += 4.f;
+					}
+					else posLevel += 4.f;
+					if (posPlayer.x >= 580) posLevel -= 4.f;
 				}
 			}
 
@@ -503,29 +511,26 @@ void Player::update(int deltaTime)
 					posPlayer.x -= 2.f;
 					posLevel -= 2.f;
 				}
+				else if (posPlayer.x > 0 && posLevel > 2300) {
+					posPlayer.x -= 2.f;
+					posLevel -= 2.f;
+				}
 				else posLevel -= 2.f;
 				if (posPlayer.x <= 0) posLevel += 2.f;
-				/*if (map->collisionMoveLeft(posPlayer, glm::ivec2(38.625, 61)))
-				{
-					if (!bJumping) movimiento = 0;
-					posPlayer.x += 2;
-				}*/
 			}
 			else if (Game::instance().getSpecialKey(GLUT_KEY_RIGHT))
 			{
 				if (!bJumping) movimiento = 3;
-				if (posLevel < 5000) {
-					if (posPlayer.x < 380) {
-						posPlayer.x += 2.f;
-					}
+				if (posPlayer.x < 380 && posLevel >= 0 ) {
+					posPlayer.x += 2.f;
 					posLevel += 2.f;
 				}
-				/*if (map->collisionMoveRight(posPlayer, glm::ivec2(38.625, 61)))
-				{
-					if (!bJumping) movimiento = 1;
-
-					posPlayer.x -= 2;
-				}*/
+				else if (posPlayer.x < 580 && posLevel > 2740) {
+					posPlayer.x += 2.f;
+					posLevel += 2.f;
+				}
+				else posLevel += 2.f;
+				if (posPlayer.x >= 580) posLevel -= 2.f;
 			}
 
 			if (Game::instance().getSpecialKey(GLUT_KEY_UP) && posPlayer.y > 165)
@@ -753,7 +758,7 @@ bool Player::isJumping() {
 
 void Player::recibirPuñetazoIzquierda() {
 	if (vida > 0 && movimiento != 13) {
-		if (movimiento != 13) sprite_recibir_izq->changeAnimation(0);
+		if (sprite_recibir_izq->animation() != 0 && movimiento != 13) sprite_recibir_izq->changeAnimation(0);
 		movimiento = 13;
 		vida -= 10;
 		++hits;

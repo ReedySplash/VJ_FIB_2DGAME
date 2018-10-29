@@ -32,6 +32,8 @@ public:
 	void render();
 	void comprobarLucha(int i, glm::vec2 posPlayer);
 	void comprobarAtaqueEnemigo(int i, glm::vec2 posPlayer);
+	void comprobarLuchaBoss(glm::vec2 posPlayer);
+	void comprobarAtaqueBoss(glm::vec2 posPlayer);
 private:
 	bool musica;
 	float currentTime;
@@ -49,12 +51,12 @@ private:
 	Kim *kim;
 	Ramona *ramona;
 	Hud hud;
-	Boss1 *boss;
 
 	//Def enemies
 	Enemigo2 *enemigo1[6];
+	Boss1 *boss;
 	bool atacando[6];
-
+	bool atacando_boss;
 	void initShaders();
 };
 

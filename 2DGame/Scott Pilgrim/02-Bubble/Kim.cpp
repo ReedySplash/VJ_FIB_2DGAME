@@ -466,18 +466,26 @@ void Kim::update(int deltaTime)
 						posPlayer.x -= 4.f;
 						posLevel -= 4.f;
 					}
+					else if (posPlayer.x > 0 && posLevel > 2300) {
+						posPlayer.x -= 4.f;
+						posLevel -= 4.f;
+					}
 					else posLevel -= 4.f;
 					if (posPlayer.x <= 0) posLevel += 4.f;
 				}
 				else if (Game::instance().getSpecialKey(GLUT_KEY_RIGHT)) {
 					if (!bJumping) movimiento = 10;
 					if (sprite_correr->animation() == 1) sprite_correr->changeAnimation(0);
-					if (posLevel < 5000) {
-						if (posPlayer.x < 380) {
-							posPlayer.x += 4.f;
-						}
+					if (posPlayer.x < 380 && posLevel >= 0) {
+						posPlayer.x += 4.f;
 						posLevel += 4.f;
 					}
+					else if (posPlayer.x < 580 && posLevel > 2740) {
+						posPlayer.x += 4.f;
+						posLevel += 4.f;
+					}
+					else posLevel += 4.f;
+					if (posPlayer.x >= 580) posLevel -= 4.f;
 				}
 			}
 
@@ -493,18 +501,26 @@ void Kim::update(int deltaTime)
 					posPlayer.x -= 2.f;
 					posLevel -= 2.f;
 				}
+				else if (posPlayer.x > 0 && posLevel > 2300) {
+					posPlayer.x -= 2.f;
+					posLevel -= 2.f;
+				}
 				else posLevel -= 2.f;
 				if (posPlayer.x <= 0) posLevel += 2.f;
 			}
 			else if (Game::instance().getSpecialKey(GLUT_KEY_RIGHT))
 			{
 				if (!bJumping) movimiento = 3;
-				if (posLevel < 5000) {
-					if (posPlayer.x < 380) {
-						posPlayer.x += 2.f;
-					}
+				if (posPlayer.x < 380 && posLevel >= 0) {
+					posPlayer.x += 2.f;
 					posLevel += 2.f;
 				}
+				else if (posPlayer.x < 580 && posLevel > 2740) {
+					posPlayer.x += 2.f;
+					posLevel += 2.f;
+				}
+				else posLevel += 2.f;
+				if (posPlayer.x >= 580) posLevel -= 2.f;
 			}
 
 			if (Game::instance().getSpecialKey(GLUT_KEY_UP) && posPlayer.y > 165)
