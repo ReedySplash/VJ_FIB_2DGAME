@@ -353,6 +353,22 @@ void Level1::render()
 		}
 	}
 
+	//sombra boss
+	if (!boss->isDying() && !boss->isCompletlyDeath()) {
+		modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
+		modelview2 = glm::translate(modelview2, glm::vec3(boss->getPosition().x + 20, boss->getPosition().y + 125, 0.f));
+		modelview2 = glm::scale(modelview2, glm::vec3(0.08f, 0.06f, 0.f));
+		texProgram.setUniformMatrix4f("modelview", modelview2);
+		texQuad[1]->render(texs[1]);
+	}
+	else if (boss->isDying() && !boss->isCompletlyDeath()) {
+		modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
+		modelview2 = glm::translate(modelview2, glm::vec3(boss->getPosition().x + 20, boss->getPosition().y + 140, 0.f));
+		modelview2 = glm::scale(modelview2, glm::vec3(0.08f, 0.06f, 0.f));
+		texProgram.setUniformMatrix4f("modelview", modelview2);
+		texQuad[1]->render(texs[1]);
+	}
+
 	modelview = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
 	texProgram.setUniformMatrix4f("modelview", modelview);
 
@@ -438,7 +454,7 @@ void Level1::comprobarLucha(int i, glm::vec2 posPlayer) {
 
 void Level1::comprobarAtaqueEnemigo(int i, glm::vec2 posPlayer) {
 	bool isPunching_left, isKicking_left, isPunching_right, isKicking_right;
-	if (!enemigo1[i]->isDeath() && !enemigo1[i]->isDying()) {
+	if (!enemigo1[i]->isDeath() && !enemigo1[i]->isDying() && !enemigo1[i]->isRecuperando()) {
 		if (personaje == 0) {
 			isPunching_left = player->isPunching_left();
 			isPunching_right = player->isPunching_right();
@@ -552,7 +568,7 @@ void Level1::comprobarLuchaBoss(glm::vec2 posPlayer) {
 
 void Level1::comprobarAtaqueBoss(glm::vec2 posPlayer) {
 	bool isPunching_left, isKicking_left, isPunching_right, isKicking_right;
-	if (!boss->isDeath() && !boss->isDying()) {
+	if (!boss->isDeath() && !boss->isDying() && !boss->isRecuperando()) {
 		if (personaje == 0) {
 			isPunching_left = player->isPunching_left();
 			isPunching_right = player->isPunching_right();
@@ -601,7 +617,7 @@ void Level1::comprobarAtaqueBoss(glm::vec2 posPlayer) {
 		if (rand() % 200 == 2) atacando_boss = false;
 
 
-		if ((boss->isPunchingLeft() || boss->isPunchingRight()) && boss->isDeath() && atacando_boss) {
+		if ((boss->isPunchingLeft() || boss->isPunchingRight()) && !boss->isDeath() && !atacando_boss) {
 			boss->turnToWalk();
 			if (personaje == 0 && !player->isRecuperando()) player->turnToWalk();
 			else if (personaje == 1 && !kim->isRecuperando()) kim->turnToWalk();

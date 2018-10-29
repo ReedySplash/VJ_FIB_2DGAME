@@ -15,6 +15,7 @@
 #include "Kim.h"
 #include "Ramona.h"
 #include "Hud.h"
+#include "Boss1.h"
 
 
 class Level2
@@ -29,6 +30,8 @@ public:
 	void render();
 	void comprobarLucha(int i, glm::vec2 posPlayer);
 	void comprobarAtaqueEnemigo(int i, glm::vec2 posPlayer);
+	void comprobarLuchaBoss(glm::vec2 posPlayer);
+	void comprobarAtaqueBoss(glm::vec2 posPlayer);
 private:
 	bool musica;
 	float currentTime;
@@ -49,8 +52,9 @@ private:
 
 	//Def enemies
 	Enemigo1 *enemigo1[6];
+	Boss1 *boss;
 	bool atacando[6];
-
+	bool atacando_boss;
 	void initShaders();
 };
 
