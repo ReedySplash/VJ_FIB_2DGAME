@@ -18,6 +18,7 @@
 #include "Ramona.h"
 #include "Hud.h"
 #include "Boss1.h"
+#include "Boss2.h"
 
 
 class Level1
@@ -54,7 +55,7 @@ private:
 
 	//Def enemies
 	Enemigo3 *enemigo1[6];
-	Boss1 *boss;
+	Boss2 *boss;
 	bool atacando[6];
 	bool atacando_boss;
 	void initShaders();
