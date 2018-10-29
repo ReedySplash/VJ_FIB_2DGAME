@@ -80,11 +80,16 @@ void Level1::init(bool music, int pers)
 	}
 
 	//Init Enemigos
-	for (int i = 0; i < 6; ++i) {
-		enemigo1[i] = new Enemigo3();
+	for (int i = 0; i < 3; ++i) {
+		enemigo1[i] = new Enemigo1();
 		enemigo1[i]->init(glm::ivec2(SCREEN_X, SCREEN_Y), simpleTexProgram);
-		if (i < 3) enemigo1[i]->setPosition(glm::vec2((i+1)*150, 260));
-		else enemigo1[i]->setPosition(glm::vec2((i + 1) * 150 + 400, 260));
+		enemigo1[i]->setPosition(glm::vec2((i+1)*150, 260));
+		enemigo2[i] = new Enemigo2();
+		enemigo2[i]->init(glm::ivec2(SCREEN_X, SCREEN_Y), simpleTexProgram);
+		enemigo2[i]->setPosition(glm::vec2((i + 1) * 150 + 800, 260));
+		enemigo3[i] = new Enemigo3();
+		enemigo3[i]->init(glm::ivec2(SCREEN_X, SCREEN_Y), simpleTexProgram);
+		enemigo3[i]->setPosition(glm::vec2((i + 1) *150 + 1700, 260));
 	}
 	boss = new Boss1();
 	boss->init(glm::ivec2(SCREEN_X, SCREEN_Y), simpleTexProgram);
@@ -124,11 +129,21 @@ void Level1::update(int deltaTime)
 		if (pos.x >= 380 && isWalking) {
 			x += 0.2f;
 			projection = glm::ortho(min(max(0, 0 + x), 0 + 218), min(max(50, 50 + x), 50 + 218), float(SCREEN_HEIGHT - 1), 0.f);
-			for (int i = 0; i < 6; ++i) {
+			for (int i = 0; i < 3; ++i) {
 				if (!enemigo1[i]->isCompletlyDeath()) {
-					glm::vec2 pose = enemigo1[i]->getPosition();
-					if (x < 218) pose.x -= 2.57f;
-					enemigo1[i]->setPosition(pose);
+					glm::vec2 pose1 = enemigo1[i]->getPosition();
+					if (x < 218) pose1.x -= 2.57f;
+					enemigo1[i]->setPosition(pose1);
+				}
+				if (!enemigo2[i]->isCompletlyDeath()) {
+					glm::vec2 pose2 = enemigo2[i]->getPosition();
+					if (x < 218) pose2.x -= 2.57f;
+					enemigo2[i]->setPosition(pose2);
+				}
+				if (!enemigo3[i]->isCompletlyDeath()) {
+					glm::vec2 pose3 = enemigo3[i]->getPosition();
+					if (x < 218) pose3.x -= 2.57f;
+					enemigo3[i]->setPosition(pose3);
 				}
 			}
 			glm::vec2 pose = boss->getPosition();
@@ -139,11 +154,21 @@ void Level1::update(int deltaTime)
 		else if (pos.x <= 200 && isWalking) {
 			x -= 0.2f;
 			projection = glm::ortho(min(max(0, 0 + x), 0 + 218), min(max(50, 50 + x), 50 + 218), float(SCREEN_HEIGHT - 1), 0.f);
-			for (int i = 0; i < 6; ++i) {
+			for (int i = 0; i < 3; ++i) {
 				if (!enemigo1[i]->isCompletlyDeath()) {
-					glm::vec2 pose = enemigo1[i]->getPosition();
-					if (x > 0) pose.x += 2.57f;
-					enemigo1[i]->setPosition(pose);
+					glm::vec2 pose1 = enemigo1[i]->getPosition();
+					if (x > 0) pose1.x += 2.57f;
+					enemigo1[i]->setPosition(pose1);
+				}
+				if (!enemigo2[i]->isCompletlyDeath()) {
+					glm::vec2 pose2 = enemigo2[i]->getPosition();
+					if (x > 0) pose2.x += 2.57f;
+					enemigo2[i]->setPosition(pose2);
+				}
+				if (!enemigo1[i]->isCompletlyDeath()) {
+					glm::vec2 pose3 = enemigo3[i]->getPosition();
+					if (x > 0) pose3.x += 2.57f;
+					enemigo3[i]->setPosition(pose3);
 				}
 			}
 			glm::vec2 pose = boss->getPosition();
@@ -153,11 +178,21 @@ void Level1::update(int deltaTime)
 		else if (pos.x >= 380 && isRunning) {
 			x += 0.35f;
 			projection = glm::ortho(min(max(0, 0 + x), 0 + 218), min(max(50, 50 + x), 50 + 218), float(SCREEN_HEIGHT - 1), 0.f);
-			for (int i = 0; i < 6; ++i) {
+			for (int i = 0; i < 3; ++i) {
 				if (!enemigo1[i]->isCompletlyDeath()) {
-					glm::vec2 pose = enemigo1[i]->getPosition();
-					if (x < 218) pose.x -= 2.6f*1.725f;
-					enemigo1[i]->setPosition(pose);
+					glm::vec2 pose1 = enemigo1[i]->getPosition();
+					if (x < 218) pose1.x -= 2.6f*1.725f;
+					enemigo1[i]->setPosition(pose1);
+				}
+				if (!enemigo2[i]->isCompletlyDeath()) {
+					glm::vec2 pose2 = enemigo2[i]->getPosition();
+					if (x < 218) pose2.x -= 2.6f*1.725f;
+					enemigo2[i]->setPosition(pose2);
+				}
+				if (!enemigo3[i]->isCompletlyDeath()) {
+					glm::vec2 pose3 = enemigo3[i]->getPosition();
+					if (x < 218) pose3.x -= 2.6f*1.725f;
+					enemigo3[i]->setPosition(pose3);
 				}
 			}
 			glm::vec2 pose = boss->getPosition();
@@ -167,11 +202,21 @@ void Level1::update(int deltaTime)
 		else if (pos.x <= 200 && isRunning) {
 			x -= 0.35f;
 			projection = glm::ortho(min(max(0, 0 + x), 0 + 218), min(max(50, 50 + x), 50 + 218), float(SCREEN_HEIGHT - 1), 0.f);
-			for (int i = 0; i < 6; ++i) {
+			for (int i = 0; i < 3; ++i) {
 				if (!enemigo1[i]->isCompletlyDeath()) {
-					glm::vec2 pose = enemigo1[i]->getPosition();
-					if (x > 0) pose.x += 2.6f*1.725f;
-					enemigo1[i]->setPosition(pose);
+					glm::vec2 pose1 = enemigo1[i]->getPosition();
+					if (x > 0) pose1.x += 2.6f*1.725f;
+					enemigo1[i]->setPosition(pose1);
+				}
+				if (!enemigo2[i]->isCompletlyDeath()) {
+					glm::vec2 pose2 = enemigo2[i]->getPosition();
+					if (x > 0) pose2.x += 2.6f*1.725f;
+					enemigo2[i]->setPosition(pose2);
+				}
+				if (!enemigo3[i]->isCompletlyDeath()) {
+					glm::vec2 pose3 = enemigo3[i]->getPosition();
+					if (x > 0) pose3.x += 2.6f*1.725f;
+					enemigo3[i]->setPosition(pose3);
 				}
 			}
 			glm::vec2 pose = boss->getPosition();
@@ -181,10 +226,16 @@ void Level1::update(int deltaTime)
 		if (x <= 0) x = 0.f;
 		else if (x > 218) x = 218.f;
 
-		for (int i = 0; i < 6; ++i) {
-			comprobarLucha(i, pos);
-			comprobarAtaqueEnemigo(i, pos);
+		for (int i = 0; i < 3; ++i) {
+			comprobarLucha(i, pos, 1);
+			comprobarLucha(i, pos, 2);
+			comprobarLucha(i, pos, 3);
+			comprobarAtaqueEnemigo(i, pos, 1);
+			comprobarAtaqueEnemigo(i, pos, 2);
+			comprobarAtaqueEnemigo(i, pos, 3);
 			enemigo1[i]->update(deltaTime);
+			enemigo2[i]->update(deltaTime);
+			enemigo3[i]->update(deltaTime);
 		}
 	}
 
@@ -336,7 +387,7 @@ void Level1::render()
 
 	//renderizamos sombras enemigas
 	int i;
-	for (i = 0; i < 6; ++i) {
+	for (i = 0; i < 3; ++i) {
 		if (!enemigo1[i]->isCompletlyDeath() && !enemigo1[i]->isDying()) {
 			modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
 			modelview2 = glm::translate(modelview2, glm::vec3(enemigo1[i]->getPosition().x + 18, enemigo1[i]->getPosition().y + 120, 0.f));
@@ -351,6 +402,27 @@ void Level1::render()
 			texProgram.setUniformMatrix4f("modelview", modelview2);
 			texQuad[1]->render(texs[1]);
 		}
+		if (!enemigo2[i]->isCompletlyDeath() && !enemigo2[i]->isDying()) {
+			modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
+			modelview2 = glm::translate(modelview2, glm::vec3(enemigo2[i]->getPosition().x + 18, enemigo2[i]->getPosition().y + 130, 0.f));
+			modelview2 = glm::scale(modelview2, glm::vec3(0.10f, 0.08f, 0.f));
+			texProgram.setUniformMatrix4f("modelview", modelview2);
+			texQuad[1]->render(texs[1]);
+		}
+		else if (!enemigo2[i]->isCompletlyDeath() && enemigo2[i]->isDying()) {
+			modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
+			modelview2 = glm::translate(modelview2, glm::vec3(enemigo2[i]->getPosition().x + 20, enemigo2[i]->getPosition().y + 95, 0.f));
+			modelview2 = glm::scale(modelview2, glm::vec3(0.10f, 0.08f, 0.f));
+			texProgram.setUniformMatrix4f("modelview", modelview2);
+			texQuad[1]->render(texs[1]);
+		}
+		if (!enemigo3[i]->isCompletlyDeath()) {
+			modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
+			modelview2 = glm::translate(modelview2, glm::vec3(enemigo3[i]->getPosition().x + 25, enemigo3[i]->getPosition().y + 120, 0.f));
+			modelview2 = glm::scale(modelview2, glm::vec3(0.10f, 0.08f, 0.f));
+			texProgram.setUniformMatrix4f("modelview", modelview2);
+			texQuad[1]->render(texs[1]);
+		}
 	}
 
 	//sombra boss
@@ -361,35 +433,42 @@ void Level1::render()
 		texProgram.setUniformMatrix4f("modelview", modelview2);
 		texQuad[1]->render(texs[1]);
 	}
-	else if (boss->isDying() && !boss->isCompletlyDeath()) {
-		modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
-		modelview2 = glm::translate(modelview2, glm::vec3(boss->getPosition().x + 20, boss->getPosition().y + 140, 0.f));
-		modelview2 = glm::scale(modelview2, glm::vec3(0.08f, 0.06f, 0.f));
-		texProgram.setUniformMatrix4f("modelview", modelview2);
-		texQuad[1]->render(texs[1]);
-	}
 
 	modelview = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
 	texProgram.setUniformMatrix4f("modelview", modelview);
 
-	for (i = 0; i < 6; ++i) {
+	for (i = 0; i < 3; ++i) {
 		if (enemigo1[i]->getPosition().y + 40 <= yplayer && !enemigo1[i]->isCompletlyDeath() && !enemigo1[i]->isDeath() && !enemigo1[i]->isDying()) {
 			enemigo1[i]->render();
 		}
 		else if (enemigo1[i]->getPosition().y <= yplayer - 10 && !enemigo1[i]->isCompletlyDeath() && (enemigo1[i]->isDeath() || enemigo1[i]->isDying())) {
 			enemigo1[i]->render();
 		}
-		else enemigo1[i]->free();
+		if (enemigo2[i]->getPosition().y + 40 <= yplayer && !enemigo2[i]->isCompletlyDeath() && !enemigo2[i]->isDeath() && !enemigo2[i]->isDying()) {
+			enemigo2[i]->render();
+		}
+		else if (enemigo2[i]->getPosition().y <= yplayer - 10 && !enemigo2[i]->isCompletlyDeath() && (enemigo2[i]->isDeath() || enemigo2[i]->isDying())) {
+			enemigo2[i]->render();
+		}
+		if (enemigo3[i]->getPosition().y + 40 <= yplayer && !enemigo3[i]->isCompletlyDeath() && !enemigo3[i]->isDeath() && !enemigo3[i]->isDying()) {
+			enemigo3[i]->render();
+		}
+		else if (enemigo3[i]->getPosition().y <= yplayer - 10 && !enemigo3[i]->isCompletlyDeath() && (enemigo3[i]->isDeath() || enemigo3[i]->isDying())) {
+			enemigo3[i]->render();
+		}
 	}
 	
 	if (personaje == 0) player->render();
 	else if (personaje == 1) kim->render();
 	else if (personaje == 2) ramona->render();
 	
-	for (i = 0; i < 6; ++i) {
+	for (i = 0; i < 3; ++i) {
 		if (enemigo1[i]->getPosition().y + 40 > yplayer && !enemigo1[i]->isCompletlyDeath() && !enemigo1[i]->isDeath() && !enemigo1[i]->isDying()) enemigo1[i]->render();
 		else if (enemigo1[i]->getPosition().y > yplayer - 10 && !enemigo1[i]->isCompletlyDeath() && (enemigo1[i]->isDeath() || enemigo1[i]->isDying())) enemigo1[i]->render();
-		else enemigo1[i]->free();
+		if (enemigo2[i]->getPosition().y + 40 > yplayer && !enemigo2[i]->isCompletlyDeath() && !enemigo2[i]->isDeath() && !enemigo2[i]->isDying()) enemigo2[i]->render();
+		else if (enemigo2[i]->getPosition().y > yplayer - 10 && !enemigo2[i]->isCompletlyDeath() && (enemigo2[i]->isDeath() || enemigo2[i]->isDying())) enemigo2[i]->render();
+		if (enemigo3[i]->getPosition().y + 40 > yplayer && !enemigo3[i]->isCompletlyDeath() && !enemigo3[i]->isDeath() && !enemigo3[i]->isDying()) enemigo3[i]->render();
+		else if (enemigo3[i]->getPosition().y > yplayer - 10 && !enemigo3[i]->isCompletlyDeath() && (enemigo3[i]->isDeath() || enemigo3[i]->isDying())) enemigo3[i]->render();
 	}
 	
 	boss->render();
@@ -398,7 +477,7 @@ void Level1::render()
 }
 
 
-void Level1::comprobarLucha(int i, glm::vec2 posPlayer) {
+void Level1::comprobarLucha(int i, glm::vec2 posPlayer, int enemigo) {
 	bool isPunching_left, isKicking_left, isPunching_right, isKicking_right, isPunching_up_left, isPunching_up_right;
 	if (personaje == 0) {
 		isPunching_left = player->isPunching_left();
@@ -424,35 +503,58 @@ void Level1::comprobarLucha(int i, glm::vec2 posPlayer) {
 		isPunching_up_left = ramona->isPunching_up_left();
 		isPunching_up_right = ramona->isPunching_up_right();
 	}
-	posEnemy = enemigo1[i]->getPosition();
+	if (enemigo == 1) posEnemy = enemigo1[i]->getPosition();
+	if (enemigo == 2) posEnemy = enemigo2[i]->getPosition();
+	if (enemigo == 3) posEnemy = enemigo3[i]->getPosition();
+
 	if ((posPlayer.x <= (posEnemy.x + 90) && (posPlayer.x - 30 > posEnemy.x)) && (posPlayer.y >= posEnemy.y + 40  && posPlayer.y <= posEnemy.y + 60)) {
 		if (isPunching_left) {
-			enemigo1[i]->recibirPuñetazoDerecha();
+			if (enemigo == 1) enemigo1[i]->recibirPuñetazoDerecha();
+			if (enemigo == 2) enemigo2[i]->recibirPuñetazoDerecha();
+			if (enemigo == 3) enemigo3[i]->recibirPuñetazoDerecha();
 		}
 		else if (isKicking_left) {
-			enemigo1[i]->recibirPatadaDerecha();
+			if (enemigo == 1) enemigo1[i]->recibirPatadaDerecha();
+			if (enemigo == 2) enemigo2[i]->recibirPatadaDerecha();
+			if (enemigo == 3) enemigo3[i]->recibirPatadaDerecha();
 		}
 		else if (isPunching_up_left) {
-			enemigo1[i]->recibirPuñetazoArribaDerecha();
+			if (enemigo == 1) enemigo1[i]->recibirPuñetazoArribaDerecha();
+			if (enemigo == 2) enemigo2[i]->recibirPuñetazoArribaDerecha();
+			if (enemigo == 3) enemigo3[i]->recibirPuñetazoArribaDerecha();
 		}
-		else enemigo1[i]->setGolpesto0();
+		else {
+			if (enemigo == 1) enemigo1[i]->setGolpesto0();
+			if (enemigo == 2) enemigo2[i]->setGolpesto0();
+			if (enemigo == 3) enemigo3[i]->setGolpesto0();
+		}
 	}
 
 	else if ((posPlayer.x >= posEnemy.x - 30 && posPlayer.x < posEnemy.x+20) && (posPlayer.y >= posEnemy.y + 40 && posPlayer.y <= posEnemy.y + 60)) {
 		if (isPunching_right) {
-			enemigo1[i]->recibirPuñetazoIzquierda();
+			if (enemigo == 1) enemigo1[i]->recibirPuñetazoIzquierda();
+			if (enemigo == 2) enemigo2[i]->recibirPuñetazoIzquierda();
+			if (enemigo == 3) enemigo3[i]->recibirPuñetazoIzquierda();
 		}
 		else if (isKicking_right) {
-			enemigo1[i]->recibirPatadaIzquierda();
+			if (enemigo == 1) enemigo1[i]->recibirPatadaIzquierda();
+			if (enemigo == 2) enemigo2[i]->recibirPatadaIzquierda();
+			if (enemigo == 3) enemigo3[i]->recibirPatadaIzquierda();
 		}
 		else if (isPunching_up_right) {
-			enemigo1[i]->recibirPuñetazoArribaIzquierda();
+			if (enemigo == 1) enemigo1[i]->recibirPuñetazoArribaIzquierda();
+			if (enemigo == 2) enemigo2[i]->recibirPuñetazoArribaIzquierda();
+			if (enemigo == 3) enemigo3[i]->recibirPuñetazoArribaIzquierda();
 		}
-		else enemigo1[i]->setGolpesto0();
+		else {
+			if (enemigo == 1) enemigo1[i]->setGolpesto0();
+			if (enemigo == 2) enemigo2[i]->setGolpesto0();
+			if (enemigo == 3) enemigo3[i]->setGolpesto0();
+		}
 	}
 }
 
-void Level1::comprobarAtaqueEnemigo(int i, glm::vec2 posPlayer) {
+void Level1::comprobarAtaqueEnemigo(int i, glm::vec2 posPlayer, int enemigo) {
 	bool isPunching_left, isKicking_left, isPunching_right, isKicking_right;
 	if (!enemigo1[i]->isDeath() && !enemigo1[i]->isDying() && !enemigo1[i]->isRecuperando()) {
 		if (personaje == 0) {
@@ -473,7 +575,9 @@ void Level1::comprobarAtaqueEnemigo(int i, glm::vec2 posPlayer) {
 			isKicking_left = ramona->isKicking_left();
 			isKicking_right = ramona->isKicking_right();
 		}
-		posEnemy = enemigo1[i]->getPosition();
+		if (enemigo == 1) posEnemy = enemigo1[i]->getPosition();
+		if (enemigo == 2) posEnemy = enemigo2[i]->getPosition();
+		if (enemigo == 3) posEnemy = enemigo3[i]->getPosition();
 		
 		if ((posPlayer.x > posEnemy.x - 35) && (posPlayer.x < posEnemy.x + 20) && (posPlayer.y >= posEnemy.y + 40 && posPlayer.y <= posEnemy.y + 50)) {
 			if (rand() % 120 == 3) {
@@ -482,7 +586,9 @@ void Level1::comprobarAtaqueEnemigo(int i, glm::vec2 posPlayer) {
 					if (personaje == 0) player->recibirPuñetazoDerecha();
 					else if (personaje == 1) kim->recibirPuñetazoDerecha();
 					else if (personaje == 2) ramona->recibirPuñetazoDerecha();
-					atacando[i] = true;
+					if (enemigo == 1) atacando1[i] = true;
+					if (enemigo == 2) atacando2[i] = true;
+					if (enemigo == 3) atacando3[i] = true;
 				}
 			}
 		}
@@ -494,17 +600,34 @@ void Level1::comprobarAtaqueEnemigo(int i, glm::vec2 posPlayer) {
 					if (personaje == 0) player->recibirPuñetazoIzquierda();
 					else if (personaje == 1) kim->recibirPuñetazoIzquierda();
 					else if (personaje == 2) ramona->recibirPuñetazoIzquierda();
-					atacando[i] = true;
+					if (enemigo == 1) atacando1[i] = true;
+					if (enemigo == 2) atacando2[i] = true;
+					if (enemigo == 3) atacando3[i] = true;
 				}
 			}
 		}
 
-		else atacando[i] = false;
-		if (rand() % 200 == 2) atacando[i] = false;
-	
+		else {
+			if (enemigo == 1) atacando1[i] = true;
+			if (enemigo == 2) atacando2[i] = true;
+			if (enemigo == 3) atacando3[i] = true;
+		}
 
-		if ((enemigo1[i]->isPunchingLeft() || enemigo1[i]->isPunchingRight()) && !enemigo1[i]->isDeath() && !atacando[i]) {
-			enemigo1[i]->turnToWalk();
+		if (rand() % 200 == 2) {
+			if (enemigo == 1) atacando1[i] = true;
+			if (enemigo == 2) atacando2[i] = true;
+			if (enemigo == 3) atacando3[i] = true;
+		}
+	
+		bool atack;
+		if (enemigo == 1) atack = atacando1[i];
+		if (enemigo == 2) atack = atacando2[i];
+		if (enemigo == 3) atack = atacando3[i];
+
+		if ((enemigo1[i]->isPunchingLeft() || enemigo1[i]->isPunchingRight()) && !enemigo1[i]->isDeath() && atack) {
+			if (enemigo == 1) enemigo1[i]->turnToWalk();
+			if (enemigo == 2) enemigo2[i]->turnToWalk();
+			if (enemigo == 3) enemigo3[i]->turnToWalk();
 			if (personaje == 0 && !player->isRecuperando()) player->turnToWalk();
 			else if (personaje == 1 && !kim->isRecuperando()) kim->turnToWalk();
 			else if (personaje == 2 && !ramona->isRecuperando()) ramona->turnToWalk();

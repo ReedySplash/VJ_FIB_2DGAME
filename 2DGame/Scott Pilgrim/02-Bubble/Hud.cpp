@@ -8,18 +8,12 @@
 
 Hud::Hud()
 {
-	quad = NULL;
 }
 
 
 Hud::~Hud()
 {
 
-	if (quad != NULL)
-		delete quad;
-	for (int i = 0; i<3; i++)
-		if (texQuad[i] != NULL)
-			delete texQuad[i];
 }
 
 void Hud::init(int person, ShaderProgram &shader, ShaderProgram& simple) {

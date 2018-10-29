@@ -20,7 +20,7 @@ void Enemigo3::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	vida = 500;
 	movimiento = 1;
 	spritesheet_enemigo.loadFromFile("images/Enemigo3/Enemigo3_derecha.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite_enemigo = Sprite::createSprite(glm::ivec2(100, 120), glm::vec2(0.0204081633, 1), &spritesheet_enemigo, &shaderProgram);
+	sprite_enemigo = Sprite::createSprite(glm::ivec2(120, 160), glm::vec2(0.0204081633, 1), &spritesheet_enemigo, &shaderProgram);
 	sprite_enemigo->setNumberAnimations(12);
 	//quieto
 	sprite_enemigo->setAnimationSpeed(0, 8);
@@ -132,7 +132,7 @@ void Enemigo3::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 
 
 	spritesheet_enemigo_left.loadFromFile("images/Enemigo3/Enemigo3_izquierda.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite_enemigo_left = Sprite::createSprite(glm::ivec2(100, 120), glm::vec2(0.0204081633, 1), &spritesheet_enemigo_left, &shaderProgram);
+	sprite_enemigo_left = Sprite::createSprite(glm::ivec2(120, 160), glm::vec2(0.0204081633, 1), &spritesheet_enemigo_left, &shaderProgram);
 	sprite_enemigo_left->setNumberAnimations(12);
 
 	sprite_enemigo_left->setAnimationSpeed(0, 8);

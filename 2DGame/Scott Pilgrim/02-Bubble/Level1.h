@@ -30,8 +30,8 @@ public:
 	void init(bool , int personaje);
 	void update(int deltaTime);
 	void render();
-	void comprobarLucha(int i, glm::vec2 posPlayer);
-	void comprobarAtaqueEnemigo(int i, glm::vec2 posPlayer);
+	void comprobarLucha(int i, glm::vec2 posPlayer, int enemigo);
+	void comprobarAtaqueEnemigo(int i, glm::vec2 posPlayer, int enemigo);
 	void comprobarLuchaBoss(glm::vec2 posPlayer);
 	void comprobarAtaqueBoss(glm::vec2 posPlayer);
 private:
@@ -53,9 +53,13 @@ private:
 	Hud hud;
 
 	//Def enemies
-	Enemigo3 *enemigo1[6];
+	Enemigo1 *enemigo1[3];
+	Enemigo2 *enemigo2[3];
+	Enemigo3 *enemigo3[3];
 	Boss1 *boss;
-	bool atacando[6];
+	bool atacando1[3];
+	bool atacando2[3];
+	bool atacando3[3];
 	bool atacando_boss;
 	void initShaders();
 };
