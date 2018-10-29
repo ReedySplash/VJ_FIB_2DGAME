@@ -35,7 +35,6 @@ public:
 	void recibirPuñetazoIzquierda();
 	void turnToWalk();
 	int getVida();
-
 	
 private:
 	bool bJumping;
@@ -83,6 +82,7 @@ private:
 	int hits;
 	float recuperando;
 
+	int posFin, posIni;
 };
 
 

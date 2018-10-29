@@ -88,13 +88,13 @@ void SLevelAPlayer::update(int deltaTime)
 	if (Game::instance().getSpecialKey(103)) {
 		if (level_num == 0) level_num = 1;
 		else if (level_num == 1) level_num = 0;
-		Sleep(100);
+		Sleep(150);
 	}
 
 	else if (Game::instance().getSpecialKey(101)) {
 		if(level_num == 0) level_num = 1;
 		else if(level_num == 1) level_num = 0;
-		Sleep(100);
+		Sleep(150);
 	}
 
 	else if (Game::instance().getKey(13)) {

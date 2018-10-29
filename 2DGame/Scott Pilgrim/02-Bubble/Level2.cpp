@@ -79,7 +79,7 @@ void Level2::init(bool music, int pers)
 		enemigo1[i]->setPosition(glm::vec2(100, 260));
 	}
 	
-	boss = new Boss1();
+	boss = new Boss2();
 	boss->init(glm::ivec2(SCREEN_X, SCREEN_Y), simpleTexProgram);
 	boss->setPosition(glm::vec2(3120, 240));
 
@@ -112,7 +112,7 @@ void Level2::update(int deltaTime)
 		isRunning = ramona->isRunning();
 	}
 
-	if (x < 458) {
+	if (x < 457) {
 		if (pos.x >= 380 && isWalking) {
 			x += 0.4f;
 			projection = glm::ortho(min(max(0, 0 + x), 0 + 460), min(max(100, 100 + x), 100 + 460), float(SCREEN_HEIGHT - 1), 0.f);

@@ -91,9 +91,9 @@ void Level1::init(bool music, int pers)
 		enemigo3[i]->init(glm::ivec2(SCREEN_X, SCREEN_Y), simpleTexProgram);
 		enemigo3[i]->setPosition(glm::vec2((i + 1) *150 + 1700, 260));
 	}
-	boss = new Boss2();
+	boss = new Boss1();
 	boss->init(glm::ivec2(SCREEN_X, SCREEN_Y), simpleTexProgram);
-	boss->setPosition(glm::vec2(3000, 240));
+	boss->setPosition(glm::vec2(3300, 220));
 
 
 	x = 0.f;
@@ -418,7 +418,7 @@ void Level1::render()
 		}
 		if (!enemigo3[i]->isCompletlyDeath()) {
 			modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
-			modelview2 = glm::translate(modelview2, glm::vec3(enemigo3[i]->getPosition().x + 25, enemigo3[i]->getPosition().y + 120, 0.f));
+			modelview2 = glm::translate(modelview2, glm::vec3(enemigo3[i]->getPosition().x + 35, enemigo3[i]->getPosition().y + 120, 0.f));
 			modelview2 = glm::scale(modelview2, glm::vec3(0.10f, 0.08f, 0.f));
 			texProgram.setUniformMatrix4f("modelview", modelview2);
 			texQuad[1]->render(texs[1]);

@@ -14,7 +14,7 @@ void Boss1::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	mapShader = shaderProgram;
 	vida = 500;
 	movimiento = 1;
-	spritesheet_enemigo.loadFromFile("images/Boss_level1/Am.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spritesheet_enemigo.loadFromFile("images/Boss_level1/EnvyAdams.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite_enemigo = Sprite::createSprite(glm::ivec2(100, 180), glm::vec2(0.0107526882, 1), &spritesheet_enemigo, &shaderProgram);
 	sprite_enemigo->setNumberAnimations(8);
 
@@ -88,7 +88,7 @@ void Boss1::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	sprite_enemigo->addKeyframe(6, glm::vec2(0.0107526882 * 52, 0.f));
 
 	//morir
-	sprite_enemigo->setAnimationSpeed(7, 7);
+	sprite_enemigo->setAnimationSpeed(7, 12);
 	sprite_enemigo->addKeyframe(7, glm::vec2(0.0107526882 * 53, 0.f));
 	sprite_enemigo->addKeyframe(7, glm::vec2(0.0107526882 * 54, 0.f));
 	sprite_enemigo->addKeyframe(7, glm::vec2(0.0107526882 * 55, 0.f));
@@ -136,13 +136,13 @@ void Boss1::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	sprite_enemigo_left->setNumberAnimations(8);
 
 	//quieto
-	sprite_enemigo_left->setAnimationSpeed(0, 8);
+	sprite_enemigo_left->setAnimationSpeed(0, 9);
 	sprite_enemigo_left->addKeyframe(0, glm::vec2(0.0107526882 * 92, 0.f));
 	sprite_enemigo_left->addKeyframe(0, glm::vec2(0.0107526882 * 91, 0.f));
 	sprite_enemigo_left->addKeyframe(0, glm::vec2(0.0107526882 * 90, 0.f));
 	sprite_enemigo_left->addKeyframe(0, glm::vec2(0.0107526882 * 89, 0.f));
 	//caminar
-	sprite_enemigo_left->setAnimationSpeed(1, 8);
+	sprite_enemigo_left->setAnimationSpeed(1, 9);
 	sprite_enemigo_left->addKeyframe(1, glm::vec2(0.0107526882 * 88, 0.f));
 	sprite_enemigo_left->addKeyframe(1, glm::vec2(0.0107526882 * 87, 0.f));
 	sprite_enemigo_left->addKeyframe(1, glm::vec2(0.0107526882 * 86, 0.f));
@@ -150,7 +150,7 @@ void Boss1::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	sprite_enemigo_left->addKeyframe(1, glm::vec2(0.0107526882 * 84, 0.f));
 	sprite_enemigo_left->addKeyframe(1, glm::vec2(0.0107526882 * 83, 0.f));
 	//patada1
-	sprite_enemigo_left->setAnimationSpeed(2, 8);
+	sprite_enemigo_left->setAnimationSpeed(2, 10);
 	sprite_enemigo_left->addKeyframe(2, glm::vec2(0.0107526882 * 82, 0.f));
 	sprite_enemigo_left->addKeyframe(2, glm::vec2(0.0107526882 * 81, 0.f));
 	sprite_enemigo_left->addKeyframe(2, glm::vec2(0.0107526882 * 80, 0.f));
@@ -159,7 +159,7 @@ void Boss1::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	sprite_enemigo_left->addKeyframe(2, glm::vec2(0.0107526882 * 77, 0.f));
 	sprite_enemigo_left->addKeyframe(2, glm::vec2(0.0107526882 * 76, 0.f));
 	//patada2
-	sprite_enemigo_left->setAnimationSpeed(3, 8);
+	sprite_enemigo_left->setAnimationSpeed(3, 10);
 	sprite_enemigo_left->addKeyframe(3, glm::vec2(0.0107526882 * 75, 0.f));
 	sprite_enemigo_left->addKeyframe(3, glm::vec2(0.0107526882 * 74, 0.f));
 	sprite_enemigo_left->addKeyframe(3, glm::vec2(0.0107526882 * 73, 0.f));
@@ -167,7 +167,7 @@ void Boss1::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	sprite_enemigo_left->addKeyframe(3, glm::vec2(0.0107526882 * 71, 0.f));
 	sprite_enemigo_left->addKeyframe(3, glm::vec2(0.0107526882 * 70, 0.f));
 	//patada_arriba
-	sprite_enemigo_left->setAnimationSpeed(4, 8);
+	sprite_enemigo_left->setAnimationSpeed(4, 10);
 	sprite_enemigo_left->addKeyframe(4, glm::vec2(0.0107526882 * 69, 0.f));
 	sprite_enemigo_left->addKeyframe(4, glm::vec2(0.0107526882 * 68, 0.f));
 	sprite_enemigo_left->addKeyframe(4, glm::vec2(0.0107526882 * 67, 0.f));
@@ -178,13 +178,13 @@ void Boss1::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	sprite_enemigo_left->addKeyframe(4, glm::vec2(0.0107526882 * 62, 0.f));
 	sprite_enemigo_left->addKeyframe(4, glm::vec2(0.0107526882 * 61, 0.f));
 	//recbir_daño
-	sprite_enemigo_left->setAnimationSpeed(5, 6);
+	sprite_enemigo_left->setAnimationSpeed(5, 10);
 	sprite_enemigo_left->addKeyframe(5, glm::vec2(0.0107526882 * 60, 0.f));
 	sprite_enemigo_left->addKeyframe(5, glm::vec2(0.0107526882 * 59, 0.f));
 	sprite_enemigo_left->addKeyframe(5, glm::vec2(0.0107526882 * 58, 0.f));
 
 	//recibir y recuperar
-	sprite_enemigo_left->setAnimationSpeed(6, 6);
+	sprite_enemigo_left->setAnimationSpeed(6, 10);
 	sprite_enemigo_left->addKeyframe(6, glm::vec2(0.0107526882 * 57, 0.f));
 	sprite_enemigo_left->addKeyframe(6, glm::vec2(0.0107526882 * 56, 0.f));
 	sprite_enemigo_left->addKeyframe(6, glm::vec2(0.0107526882 * 55, 0.f));
@@ -205,7 +205,7 @@ void Boss1::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	sprite_enemigo_left->addKeyframe(6, glm::vec2(0.0107526882 * 40, 0.f));
 
 	//morir
-	sprite_enemigo_left->setAnimationSpeed(7, 7);
+	sprite_enemigo_left->setAnimationSpeed(7, 12);
 	sprite_enemigo_left->addKeyframe(7, glm::vec2(0.0107526882 * 39, 0.f));
 	sprite_enemigo_left->addKeyframe(7, glm::vec2(0.0107526882 * 38, 0.f));
 	sprite_enemigo_left->addKeyframe(7, glm::vec2(0.0107526882 * 37, 0.f));
@@ -287,22 +287,12 @@ void Boss1::update(int deltaTime)
 		}
 	}
 
-	if (movimiento == 0 && sprite_enemigo->animation() == 7 && deltaTimeDeath >= 2000) {
+	if (movimiento == 0 && sprite_enemigo->animation() == 7 && deltaTimeDeath >= 3200) {
 		muerto = true;
 	}
 
-	else if (movimiento == 1 && sprite_enemigo_left->animation() == 7 && deltaTimeDeath >= 2000) {
+	else if (movimiento == 1 && sprite_enemigo_left->animation() == 7 && deltaTimeDeath >= 3200) {
 		muerto = true;
-	}
-
-	if (sprite_enemigo->animation() == 7 && movimiento == 0 && !muerto) {
-		posPlayer.x -= 1;
-		//posPlayer.y += 0.1f;
-	}
-
-	if (sprite_enemigo_left->animation() == 7 && movimiento == 1 && !muerto) {
-		posPlayer.x += 1;
-		//posPlayer.y += 0.1f;
 	}
 
 	sprite_enemigo->setPosition(glm::vec2(float(posPlayer.x), float(posPlayer.y)));
@@ -341,6 +331,7 @@ void Boss1::recibirPuñetazoIzquierda() {
 			vida -= 5;
 		}
 		else ++golpe;
+		if (golpe == 10) golpe = 0;
 	}
 	if (vida <= 0 && (sprite_enemigo->animation() != 7) && (sprite_enemigo_left->animation() != 7)) {
 		mciSendString(TEXT("stop sounds/SOUND/Punch.mp3"), NULL, 0, NULL);
@@ -374,13 +365,14 @@ void Boss1::recibirPuñetazoDerecha() {
 		movimiento = 0;
 		if (sprite_enemigo->animation() != 5) sprite_enemigo->changeAnimation(5);
 		hitTime = 0;
-		if (golpe == 2) {
+		if (golpe == 0) {
 			mciSendString(TEXT("play sounds/SOUND/Punch.mp3 "), NULL, 0, NULL);
 			mciSendString(TEXT("setaudio sounds/SOUND/Punch.mp3 volume to 94"), NULL, 0, NULL);
-			golpe = 0;
 			vida -= 5;
+			++golpe;
 		}
 		else ++golpe;
+		if (golpe == 10) golpe = 0;
 	}
 	if (vida <= 0 && (sprite_enemigo->animation() != 7) && (sprite_enemigo_left->animation() != 7)) {
 		mciSendString(TEXT("stop sounds/SOUND/Punch.mp3"), NULL, 0, NULL);

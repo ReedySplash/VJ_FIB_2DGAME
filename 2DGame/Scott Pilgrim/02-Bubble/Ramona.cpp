@@ -19,6 +19,14 @@ enum PlayerAnims
 void Ramona::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, int lev)
 {
 	level = lev;
+	if (lev == 1) {
+		posIni = 2200;
+		posFin = 2700;
+	}
+	else {
+		posIni = 2200;
+		posFin = 3100;
+	}
 	vida = 100;
 	posLevel = 75;
 	mapShader = shaderProgram;
@@ -441,8 +449,9 @@ void Ramona::update(int deltaTime)
 
 			else if (Game::instance().getKey('<') && (Game::instance().getSpecialKey(GLUT_KEY_LEFT) || (Game::instance().getSpecialKey(GLUT_KEY_RIGHT)))) {
 				if (Game::instance().getSpecialKey(GLUT_KEY_LEFT)) {
+					derecha = false;
 					if (!bJumping) movimiento = 10;
-					if (sprite_correr->animation() == 0) sprite_correr->changeAnimation(1);
+					if (!sprite_correr_iz->animation() == 0) sprite_correr_iz->changeAnimation(0);
 					if (posPlayer.x > 200 && posLevel >= 210) {
 						posPlayer.x -= 4.f;
 						posLevel -= 4.f;
@@ -451,7 +460,7 @@ void Ramona::update(int deltaTime)
 						posPlayer.x -= 4.f;
 						posLevel -= 4.f;
 					}
-					else if (posPlayer.x > 0 && posLevel > 2300) {
+					else if (posPlayer.x > 0 && posLevel > posIni) {
 						posPlayer.x -= 4.f;
 						posLevel -= 4.f;
 					}
@@ -459,13 +468,14 @@ void Ramona::update(int deltaTime)
 					if (posPlayer.x <= 0) posLevel += 4.f;
 				}
 				else if (Game::instance().getSpecialKey(GLUT_KEY_RIGHT)) {
+					derecha = true;
 					if (!bJumping) movimiento = 10;
-					if (sprite_correr->animation() == 1) sprite_correr->changeAnimation(0);
+					if (!sprite_correr->animation() == 0) sprite_correr->changeAnimation(0);
 					if (posPlayer.x < 380 && posLevel >= 0) {
 						posPlayer.x += 4.f;
 						posLevel += 4.f;
 					}
-					else if (posPlayer.x < 580 && posLevel > 2740) {
+					else if (posPlayer.x < 580 && posLevel > posFin) {
 						posPlayer.x += 4.f;
 						posLevel += 4.f;
 					}
@@ -486,7 +496,7 @@ void Ramona::update(int deltaTime)
 					posPlayer.x -= 2.f;
 					posLevel -= 2.f;
 				}
-				else if (posPlayer.x > 0 && posLevel > 2300) {
+				else if (posPlayer.x > 0 && posLevel > posIni) {
 					posPlayer.x -= 2.f;
 					posLevel -= 2.f;
 				}
@@ -500,7 +510,7 @@ void Ramona::update(int deltaTime)
 					posPlayer.x += 2.f;
 					posLevel += 2.f;
 				}
-				else if (posPlayer.x < 580 && posLevel > 2740) {
+				else if (posPlayer.x < 580 && posLevel > posFin) {
 					posPlayer.x += 2.f;
 					posLevel += 2.f;
 				}
@@ -758,7 +768,5 @@ void Ramona::turnToWalk() {
 int Ramona::getVida() {
 	return vida;
 }
-
-
 
 

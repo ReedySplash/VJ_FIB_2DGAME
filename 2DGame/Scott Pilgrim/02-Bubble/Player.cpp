@@ -20,6 +20,14 @@ enum PlayerAnims
 void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, int lev)
 {	
 	level = lev;
+	if (lev == 1) {
+		posIni = 2200;
+		posFin = 2700;
+	}
+	else {
+		posIni = 2200;
+		posFin = 3100;
+	}
 	vida = 100;
 	posLevel = 75;
 	mapShader = shaderProgram;
@@ -476,7 +484,7 @@ void Player::update(int deltaTime)
 						posPlayer.x -= 4.f;
 						posLevel -= 4.f;
 					}
-					else if (posPlayer.x > 0 && posLevel > 2300) {
+					else if (posPlayer.x > 0 && posLevel > posIni) {
 						posPlayer.x -= 4.f;
 						posLevel -= 4.f;
 					}
@@ -490,7 +498,7 @@ void Player::update(int deltaTime)
 						posPlayer.x += 4.f;
 						posLevel += 4.f;
 					}
-					else if (posPlayer.x < 580 && posLevel > 2740) {
+					else if (posPlayer.x < 580 && posLevel > posFin) {
 						posPlayer.x += 4.f;
 						posLevel += 4.f;
 					}
@@ -511,7 +519,7 @@ void Player::update(int deltaTime)
 					posPlayer.x -= 2.f;
 					posLevel -= 2.f;
 				}
-				else if (posPlayer.x > 0 && posLevel > 2300) {
+				else if (posPlayer.x > 0 && posLevel > posIni) {
 					posPlayer.x -= 2.f;
 					posLevel -= 2.f;
 				}
@@ -525,7 +533,7 @@ void Player::update(int deltaTime)
 					posPlayer.x += 2.f;
 					posLevel += 2.f;
 				}
-				else if (posPlayer.x < 580 && posLevel > 2740) {
+				else if (posPlayer.x < 580 && posLevel > posFin) {
 					posPlayer.x += 2.f;
 					posLevel += 2.f;
 				}

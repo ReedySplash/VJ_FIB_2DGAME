@@ -78,5 +78,7 @@ private:
 	int vida;
 	int hits;
 	float recuperando;
+	int posFin, posIni;
+
 };
 
