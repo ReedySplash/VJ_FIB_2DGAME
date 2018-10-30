@@ -60,6 +60,7 @@ void Game::keyReleased(int key)
 		menuOptions.changeMusica();
 		menuOptions.playGame();
 		menuOptions.showCredits();
+		menuOptions.showExtraMode();
 		int level = menuOptions.getLevel();
 		if (level == 0) {
 			level_1 = true;

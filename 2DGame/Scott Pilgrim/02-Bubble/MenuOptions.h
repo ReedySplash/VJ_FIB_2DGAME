@@ -11,6 +11,7 @@
 #include <vector>
 #include "SLevelAPlayer.h"
 #include "Instructions.h"
+#include "ExtraMode.h"
 
 #define CAMERA_WIDTH 1280
 #define CAMERA_HEIGHT 720
@@ -30,6 +31,7 @@ public:
 	void changeCharRight();
 	void playGame();
 	void showCredits();
+	void showExtraMode();
 	int getLevel();
 	bool getMusic();
 	int getPersonaje();
@@ -46,9 +48,10 @@ private:
 	Text white, black;
 	string musica_string[2];
 	string text_music;
-	bool play, instructions;
+	bool play, instructions, extraMode_opt;
 	SLevelAPlayer slevel;
 	Instructions inst;
+	ExtraMode extraMode;
 
 	void initShaders();
 };

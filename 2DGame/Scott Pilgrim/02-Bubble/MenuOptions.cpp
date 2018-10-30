@@ -28,11 +28,14 @@ void MenuOptions::init(bool music)
 	currentTime = 0.0f;
 	play = false;
 	instructions = false;
+	extraMode_opt = false;
 	glm::vec2 geom[2] = { glm::vec2(0.f, 0.f), glm::vec2(float(640), float(480)) };
 	glm::vec2 texCoords[2];
 
 	initShaders();
 	inst.init(texProgram);
+	extraMode.init(musica);
+
 	texCoords[0] = glm::vec2(0.f, 0.f); texCoords[1] = glm::vec2(1.f, 1.f);
 	texQuad[0] = TexturedQuad::createTexturedQuad(geom, texCoords, texProgram);
 	texs[0].loadFromFile("images/MenuOptions.png", TEXTURE_PIXEL_FORMAT_RGBA);
@@ -54,6 +57,9 @@ void MenuOptions::update(int deltaTime)
 	else if (instructions) {
 		inst.update(deltaTime);
 	}
+	else if (extraMode_opt) {
+		extraMode.update(deltaTime);
+	}
 	else {
 		if (musica) text_music = musica_string[0];
 		else text_music = musica_string[1];
@@ -62,7 +68,7 @@ void MenuOptions::update(int deltaTime)
 
 void MenuOptions::render()
 {
-	if (!play && !instructions) {
+	if (!play && !instructions && !extraMode_opt) {
 		glm::mat4 modelview;
 
 		texProgram.use();
@@ -74,35 +80,49 @@ void MenuOptions::render()
 		texQuad[0]->render(texs[0]);
 
 		if (glutGet(GLUT_WINDOW_WIDTH) == 1280) {
-			if (opcion == 0) black.render("Play", glm::vec2(690, 420), 56, glm::vec4(0, 0, 0, 1));
-			else black.render("Play", glm::vec2(710, 420), 56, glm::vec4(1, 1, 1, 1));
+			if (opcion == 0) black.render("Play", glm::vec2(690, 420), 45, glm::vec4(0, 0, 0, 1));
+			else black.render("Play", glm::vec2(710, 420), 45, glm::vec4(1, 1, 1, 1));
 		}
 		else if (glutGet(GLUT_WINDOW_WIDTH) == 1920) {
-			if (opcion == 0) black.render("Play", glm::vec2(1040, 620), 65, glm::vec4(0, 0, 0, 1));
-			else black.render("Play", glm::vec2(1080, 620), 65, glm::vec4(1, 1, 1, 1));
+			if (opcion == 0) black.render("Play", glm::vec2(1040, 600), 65, glm::vec4(0, 0, 0, 1));
+			else black.render("Play", glm::vec2(1080, 600), 65, glm::vec4(1, 1, 1, 1));
 		}
 
 		if (glutGet(GLUT_WINDOW_WIDTH) == 1280) {
-			if (opcion == 1) black.render(text_music, glm::vec2(690, 520), 56, glm::vec4(0, 0, 0, 1));
-			else black.render(text_music, glm::vec2(710, 520), 56, glm::vec4(1, 1, 1, 1));;
+			if (opcion == 1) black.render(text_music, glm::vec2(690, 500), 45, glm::vec4(0, 0, 0, 1));
+			else black.render(text_music, glm::vec2(710, 500), 45, glm::vec4(1, 1, 1, 1));;
 		}
 		else if (glutGet(GLUT_WINDOW_WIDTH) == 1920) {
-			if (opcion == 1) black.render(text_music, glm::vec2(1040, 770), 65, glm::vec4(0, 0, 0, 1));
-			else black.render(text_music, glm::vec2(1080, 770), 65, glm::vec4(1, 1, 1, 1));;
+			if (opcion == 1) black.render(text_music, glm::vec2(1040, 720), 65, glm::vec4(0, 0, 0, 1));
+			else black.render(text_music, glm::vec2(1080, 720), 65, glm::vec4(1, 1, 1, 1));;
 		}
 
 		if (glutGet(GLUT_WINDOW_WIDTH) == 1280) {
-			if (opcion == 2) black.render("How to Play", glm::vec2(690, 620), 56, glm::vec4(0, 0, 0, 1));
-			else black.render("How to Play", glm::vec2(710, 620), 56, glm::vec4(1, 1, 1, 1));
+			if (opcion == 2) black.render("How to Play", glm::vec2(690, 580), 45, glm::vec4(0, 0, 0, 1));
+			else black.render("How to Play", glm::vec2(710, 580), 45, glm::vec4(1, 1, 1, 1));
 		}
 		else if (glutGet(GLUT_WINDOW_WIDTH) == 1920) {
-			if (opcion == 2) black.render("How to Play", glm::vec2(1040, 920), 65, glm::vec4(0, 0, 0, 1));
-			else black.render("How to Play", glm::vec2(1080, 920), 65, glm::vec4(1, 1, 1, 1));
+			if (opcion == 2) black.render("How to Play", glm::vec2(1040, 840), 65, glm::vec4(0, 0, 0, 1));
+			else black.render("How to Play", glm::vec2(1080, 840), 65, glm::vec4(1, 1, 1, 1));
+		}
+
+		if (glutGet(GLUT_WINDOW_WIDTH) == 1280) {
+			if (opcion == 3) black.render("Extra Mode", glm::vec2(690, 660), 45, glm::vec4(0, 0, 0, 1));
+			else black.render("Extra Mode", glm::vec2(710, 660), 45, glm::vec4(1, 1, 1, 1));
+		}
+		else if (glutGet(GLUT_WINDOW_WIDTH) == 1920) {
+			if (opcion == 3) black.render("Extra Mode", glm::vec2(1040, 960), 65, glm::vec4(0, 0, 0, 1));
+			else black.render("Extra Mode", glm::vec2(1080, 960), 65, glm::vec4(1, 1, 1, 1));
 		}
 	}
 	else if (!play && instructions) {
 		inst.render();
 	}
+
+	else if (!play && !instructions && extraMode_opt) {
+		extraMode.render();
+	}
+
 	else {
 		slevel.render();
 	}
@@ -112,14 +132,14 @@ void MenuOptions::render()
 void MenuOptions::upOption() {
 	if (!play) {
 		++opcion;
-		if (opcion == 3) opcion = 0;
+		if (opcion == 4) opcion = 0;
 	}
 }
 
 void MenuOptions::downOption() {
 	if (!play) {
 		--opcion;
-		if (opcion == -1) opcion = 2;
+		if (opcion == -1) opcion = 3;
 	}
 }
 
@@ -153,6 +173,11 @@ void MenuOptions::playGame() {
 void MenuOptions::showCredits() {
 	if (opcion == 2) instructions = true;
 	else instructions = false;
+}
+
+void MenuOptions::showExtraMode() {
+	if (opcion == 3) extraMode_opt = true;
+	else extraMode_opt = false;
 }
 
 int MenuOptions::getLevel() {
