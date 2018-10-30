@@ -412,74 +412,82 @@ void Ramona::update(int deltaTime)
 
 
 		if (sprite_pegando_derecha->isFinalized() && sprite_pegando_izquierda->isFinalized() && sprite_martillo->isFinalized() && sprite_martillo_iz->isFinalized() && sprite_rayo_derecha->isFinalized() && sprite_rayo_izquierda->isFinalized() && movimiento != 13 && movimiento != 14) {
-			if (Game::instance().getKey('x') && (movimiento == 1 || movimiento == 3 || movimiento == 4)) {
+			if ((Game::instance().getKey('x') && level != 3) || (Game::instance().getKey('1') && level == 3) && (movimiento == 1 || movimiento == 3 || movimiento == 4)) {
 				if (movimiento != 4) {
 					sprite_pegando_derecha->changeAnimation(0);
 				}
 				movimiento = 4;
 			}
 
-			else if (Game::instance().getKey('x') && (movimiento == 0 || movimiento == 2 || movimiento == 5)) {
+			else if ((Game::instance().getKey('x') && level != 3) || (Game::instance().getKey('1') && level == 3) && (movimiento == 0 || movimiento == 2 || movimiento == 5)) {
 				if (movimiento != 5) {
 					sprite_pegando_izquierda->changeAnimation(0);
 				}
 				movimiento = 5;
 			}
 
-			else if (Game::instance().getKey('c') && (movimiento == 1 || movimiento == 3 || movimiento == 4 || movimiento == 9)) {
+			else if ((Game::instance().getKey('c') && level != 3) || (Game::instance().getKey('2') && level == 3) && (movimiento == 1 || movimiento == 3 || movimiento == 4 || movimiento == 9)) {
 				if (movimiento != 9)sprite_rayo_derecha->changeAnimation(0);
 				movimiento = 9;
 			}
 
-			else if (Game::instance().getKey('c') && (movimiento == 0 || movimiento == 2 || movimiento == 5 || movimiento == 8)) {
+			else if ((Game::instance().getKey('c') && level != 3) || (Game::instance().getKey('2') && level == 3) && (movimiento == 0 || movimiento == 2 || movimiento == 5 || movimiento == 8)) {
 				if (movimiento != 8)sprite_rayo_izquierda->changeAnimation(0);
 				movimiento = 8;
 			}
 
-			else if (Game::instance().getKey('v') && (movimiento == 1 || movimiento == 3 || movimiento == 4 || movimiento == 11)) {
+			else if ((Game::instance().getKey('v') && level != 3) || (Game::instance().getKey('3') && level == 3) && (movimiento == 1 || movimiento == 3 || movimiento == 4 || movimiento == 11)) {
 				if (movimiento != 11) sprite_martillo->changeAnimation(0);
 				movimiento = 11;
 			}
 
-			else if (Game::instance().getKey('v') && (movimiento == 0 || movimiento == 2 || movimiento == 5 || movimiento == 12)) {
+			else if ((Game::instance().getKey('v') && level != 3) || (Game::instance().getKey('3') && level == 3) && (movimiento == 0 || movimiento == 2 || movimiento == 5 || movimiento == 12)) {
 				if (movimiento != 12)sprite_martillo_iz->changeAnimation(0);
 				movimiento = 12;
 			}
 
 
-			else if (Game::instance().getKey('<') && (Game::instance().getSpecialKey(GLUT_KEY_LEFT) || (Game::instance().getSpecialKey(GLUT_KEY_RIGHT)))) {
+			else if (((Game::instance().getKey('<') && level != 3) || (Game::instance().getKey('0') && level == 3)) && (Game::instance().getSpecialKey(GLUT_KEY_LEFT) || (Game::instance().getSpecialKey(GLUT_KEY_RIGHT)))) {
 				if (Game::instance().getSpecialKey(GLUT_KEY_LEFT)) {
 					derecha = false;
 					if (!bJumping) movimiento = 10;
 					if (!sprite_correr_iz->animation() == 0) sprite_correr_iz->changeAnimation(0);
-					if (posPlayer.x > 200 && posLevel >= 210) {
+					if (posPlayer.x > 200 && posLevel >= 210 && level != 3) {
 						posPlayer.x -= 4.f;
 						posLevel -= 4.f;
 					}
-					else if (posPlayer.x > 0 && posLevel < 210) {
+					else if (posPlayer.x > 160 && level == 3) {
 						posPlayer.x -= 4.f;
 						posLevel -= 4.f;
 					}
-					else if (posPlayer.x > 0 && posLevel > posIni) {
+					else if (posPlayer.x > 0 && posLevel < 210 && level != 3) {
 						posPlayer.x -= 4.f;
 						posLevel -= 4.f;
 					}
-					else posLevel -= 4.f;
+					else if (posPlayer.x > 0 && posLevel > posIni && level != 3) {
+						posPlayer.x -= 4.f;
+						posLevel -= 4.f;
+					}
+					else if (level != 3) posLevel -= 4.f;
 					if (posPlayer.x <= 0) posLevel += 4.f;
 				}
 				else if (Game::instance().getSpecialKey(GLUT_KEY_RIGHT)) {
 					derecha = true;
 					if (!bJumping) movimiento = 10;
 					if (!sprite_correr->animation() == 0) sprite_correr->changeAnimation(0);
-					if (posPlayer.x < 380 && posLevel >= 0) {
+					if (posPlayer.x < 380 && posLevel >= 0 && level != 3) {
 						posPlayer.x += 4.f;
 						posLevel += 4.f;
 					}
-					else if (posPlayer.x < 580 && posLevel > posFin) {
+					else if (posPlayer.x < 420 && level == 3) {
 						posPlayer.x += 4.f;
 						posLevel += 4.f;
 					}
-					else posLevel += 4.f;
+					else if (posPlayer.x < 580 && posLevel > posFin && level != 3) {
+						posPlayer.x += 4.f;
+						posLevel += 4.f;
+					}
+					else if (level != 3) posLevel += 4.f;
 					if (posPlayer.x >= 580) posLevel -= 4.f;
 				}
 			}
@@ -488,54 +496,64 @@ void Ramona::update(int deltaTime)
 			else if (Game::instance().getSpecialKey(GLUT_KEY_LEFT))
 			{
 				if (!bJumping) movimiento = 2;
-				if (posPlayer.x > 200 && posLevel >= 210) {
+				if (posPlayer.x > 200 && posLevel >= 210 && level != 3) {
 					posPlayer.x -= 2.f;
 					posLevel -= 2.f;
 				}
-				else if (posPlayer.x > 0 && posLevel < 210) {
+				else if (posPlayer.x > 160 && level == 3) {
 					posPlayer.x -= 2.f;
 					posLevel -= 2.f;
 				}
-				else if (posPlayer.x > 0 && posLevel > posIni) {
+				else if (posPlayer.x > 0 && posLevel < 210 && level != 3) {
 					posPlayer.x -= 2.f;
 					posLevel -= 2.f;
 				}
-				else posLevel -= 2.f;
+				else if (posPlayer.x > 0 && posLevel > posIni && level != 3) {
+					posPlayer.x -= 2.f;
+					posLevel -= 2.f;
+				}
+				else if (level != 3) posLevel -= 2.f;
 				if (posPlayer.x <= 0) posLevel += 2.f;
 			}
 			else if (Game::instance().getSpecialKey(GLUT_KEY_RIGHT))
 			{
 				if (!bJumping) movimiento = 3;
-				if (posPlayer.x < 380 && posLevel >= 0) {
+				if (posPlayer.x < 380 && posLevel >= 0 && level != 3) {
 					posPlayer.x += 2.f;
 					posLevel += 2.f;
 				}
-				else if (posPlayer.x < 580 && posLevel > posFin) {
+				else if (posPlayer.x < 420 && level == 3) {
 					posPlayer.x += 2.f;
 					posLevel += 2.f;
 				}
-				else posLevel += 2.f;
+				else if (posPlayer.x < 580 && posLevel > posFin && level != 3) {
+					posPlayer.x += 2.f;
+					posLevel += 2.f;
+				}
+				else if (level != 3) posLevel += 2.f;
 				if (posPlayer.x >= 580) posLevel -= 2.f;
 			}
 
-			if (Game::instance().getSpecialKey(GLUT_KEY_UP) && posPlayer.y > 165)
+			if (Game::instance().getSpecialKey(GLUT_KEY_UP))
 			{
-				if ((level == 1 && posPlayer.y > 165) || (level == 2 && posPlayer.y > 210)) {
+				if ((level == 1 && posPlayer.y > 165) || (level == 2 && posPlayer.y > 210) || (level == 3 && posPlayer.y > 130)) {
 					if (!bJumping && movimiento == 3 || movimiento == 1) movimiento = 3;
 					if (!bJumping && movimiento == 2 || movimiento == 0) movimiento = 2;
 					posPlayer.y -= 2;
 				}
 			}
 
-			else if (Game::instance().getSpecialKey(GLUT_KEY_DOWN) && posPlayer.y < 380)
+			else if (Game::instance().getSpecialKey(GLUT_KEY_DOWN))
 			{
-				if (!bJumping && movimiento == 3 || movimiento == 1) movimiento = 3;
-				if (!bJumping && movimiento == 2 || movimiento == 0) movimiento = 2;
-				posPlayer.y += 2;
+				if ((level == 1 && posPlayer.y < 380) || (level == 2 && posPlayer.y < 380) || (level == 3 && posPlayer.y < 265)) {
+					if (!bJumping && movimiento == 3 || movimiento == 1) movimiento = 3;
+					if (!bJumping && movimiento == 2 || movimiento == 0) movimiento = 2;
+					posPlayer.y += 2;
+				}
 			}
 
 
-			else if (!Game::instance().getSpecialKey(GLUT_KEY_LEFT) && !Game::instance().getSpecialKey(GLUT_KEY_RIGHT) && !Game::instance().getSpecialKey(GLUT_KEY_UP) && !Game::instance().getSpecialKey(GLUT_KEY_DOWN) && !Game::instance().getKey('x') && !Game::instance().getKey('c') && !Game::instance().getKey('v'))
+			else if (!Game::instance().getSpecialKey(GLUT_KEY_LEFT) && !Game::instance().getSpecialKey(GLUT_KEY_RIGHT) && !Game::instance().getSpecialKey(GLUT_KEY_UP) && !Game::instance().getSpecialKey(GLUT_KEY_DOWN) && !Game::instance().getKey('x') && !Game::instance().getKey('c') && !Game::instance().getKey('v') && !Game::instance().getKey('1') && !Game::instance().getKey('2') && !Game::instance().getKey('3'))
 			{
 				if (movimiento == 2 || movimiento == 5 || movimiento == 8 || movimiento == 10 && sprite_correr->animation() == 1 || movimiento == 12)
 					movimiento = 0;
@@ -571,7 +589,7 @@ void Ramona::update(int deltaTime)
 			}
 			else
 			{
-				if (Game::instance().getKey('z'))
+				if ((Game::instance().getKey('z') && level != 3) || (Game::instance().getKey('.') && level == 3))
 				{
 					bJumping = true;
 					sprite_saltar_derecha->changeAnimation(0);

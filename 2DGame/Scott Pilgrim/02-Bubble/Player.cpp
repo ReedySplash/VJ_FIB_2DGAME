@@ -472,93 +472,109 @@ void Player::update(int deltaTime)
 			}
 
 
-			else if (Game::instance().getKey('<') && (Game::instance().getSpecialKey(GLUT_KEY_LEFT) || (Game::instance().getSpecialKey(GLUT_KEY_RIGHT)))) {
-				if (Game::instance().getSpecialKey(GLUT_KEY_LEFT)) {
+			else if (Game::instance().getKey('<') && (Game::instance().getSpecialKey(GLUT_KEY_LEFT) || (Game::instance().getSpecialKey(GLUT_KEY_RIGHT) || Game::instance().getKey('h') || Game::instance().getKey('k')))) {
+				if ((Game::instance().getSpecialKey(GLUT_KEY_LEFT) && level != 3) || (Game::instance().getKey('h') && level == 3)) {
 					if (!bJumping) movimiento = 10;
 					if (sprite_correr->animation() == 0) sprite_correr->changeAnimation(1);
-					if (posPlayer.x > 200 && posLevel >= 210) {
+					if (posPlayer.x > 200 && posLevel >= 210 && level != 3) {
 						posPlayer.x -= 4.f;
 						posLevel -= 4.f;
 					}
-					else if (posPlayer.x > 0 && posLevel < 210) {
+					else if (posPlayer.x > 160 && level == 3) {
 						posPlayer.x -= 4.f;
 						posLevel -= 4.f;
 					}
-					else if (posPlayer.x > 0 && posLevel > posIni) {
+					else if (posPlayer.x > 0 && posLevel < 210 && level != 3) {
 						posPlayer.x -= 4.f;
 						posLevel -= 4.f;
 					}
-					else posLevel -= 4.f;
+					else if (posPlayer.x > 0 && posLevel > posIni && level != 3) {
+						posPlayer.x -= 4.f;
+						posLevel -= 4.f;
+					}
+					else if (level != 3) posLevel -= 4.f;
 					if (posPlayer.x <= 0) posLevel += 4.f;
 				}
-				else if (Game::instance().getSpecialKey(GLUT_KEY_RIGHT)) {
+				else if ((Game::instance().getSpecialKey(GLUT_KEY_RIGHT) && level != 3) || (Game::instance().getKey('k') && level == 3)) {
 					if (!bJumping) movimiento = 10;
 					if (sprite_correr->animation() == 1) sprite_correr->changeAnimation(0);
-					if (posPlayer.x < 380 && posLevel >= 0) {
+					if (posPlayer.x < 380 && posLevel >= 0 && level != 3) {
 						posPlayer.x += 4.f;
 						posLevel += 4.f;
 					}
-					else if (posPlayer.x < 580 && posLevel > posFin) {
+					else if (posPlayer.x < 420 && level == 3) {
 						posPlayer.x += 4.f;
 						posLevel += 4.f;
 					}
-					else posLevel += 4.f;
+					else if (posPlayer.x < 580 && posLevel > posFin && level != 3) {
+						posPlayer.x += 4.f;
+						posLevel += 4.f;
+					}
+					else if (level != 3) posLevel += 4.f;
 					if (posPlayer.x >= 580) posLevel -= 4.f;
 				}
 			}
 
 
-			else if (Game::instance().getSpecialKey(GLUT_KEY_LEFT))
-			{
+			else if ((Game::instance().getSpecialKey(GLUT_KEY_LEFT) && level != 3) || (Game::instance().getKey('h') && level == 3)) {
 				if (!bJumping) movimiento = 2;
-				if (posPlayer.x > 200 && posLevel >= 210) {
+				if (posPlayer.x > 200 && posLevel >= 210 && level != 3) {
 					posPlayer.x -= 2.f;
 					posLevel -= 2.f;
 				}
-				else if (posPlayer.x > 0 && posLevel < 210) {
+				else if (posPlayer.x > 160 && level == 3) {
 					posPlayer.x -= 2.f;
 					posLevel -= 2.f;
 				}
-				else if (posPlayer.x > 0 && posLevel > posIni) {
+				else if (posPlayer.x > 0 && posLevel < 210 && level != 3) {
 					posPlayer.x -= 2.f;
 					posLevel -= 2.f;
 				}
-				else posLevel -= 2.f;
+				else if (posPlayer.x > 0 && posLevel > posIni && level != 3) {
+					posPlayer.x -= 2.f;
+					posLevel -= 2.f;
+				}
+				else if (level != 3) posLevel -= 2.f;
 				if (posPlayer.x <= 0) posLevel += 2.f;
 			}
-			else if (Game::instance().getSpecialKey(GLUT_KEY_RIGHT))
-			{
+			else if ((Game::instance().getSpecialKey(GLUT_KEY_RIGHT) && level != 3) || (Game::instance().getKey('k') && level == 3)) {
 				if (!bJumping) movimiento = 3;
-				if (posPlayer.x < 380 && posLevel >= 0 ) {
+				if (posPlayer.x < 380 && posLevel >= 0 && level != 3) {
 					posPlayer.x += 2.f;
 					posLevel += 2.f;
 				}
-				else if (posPlayer.x < 580 && posLevel > posFin) {
+				else if (posPlayer.x < 420 && level == 3) {
 					posPlayer.x += 2.f;
 					posLevel += 2.f;
 				}
-				else posLevel += 2.f;
+				else if (posPlayer.x < 580 && posLevel > posFin && level != 3) {
+					posPlayer.x += 2.f;
+					posLevel += 2.f;
+				}
+				else if (level != 3) posLevel += 2.f;
 				if (posPlayer.x >= 580) posLevel -= 2.f;
 			}
 
-			if (Game::instance().getSpecialKey(GLUT_KEY_UP) && posPlayer.y > 165)
+			if ((Game::instance().getSpecialKey(GLUT_KEY_UP) && level != 3) || (Game::instance().getKey('u') && level == 3)) 
 			{
-				if ((level == 1 && posPlayer.y > 165) || (level == 2 && posPlayer.y > 210)) {
+				if ((level == 1 && posPlayer.y > 165) || (level == 2 && posPlayer.y > 210) || (level == 3 && posPlayer.y > 130)) {
 					if (!bJumping && movimiento == 3 || movimiento == 1) movimiento = 3;
 					if (!bJumping && movimiento == 2 || movimiento == 0) movimiento = 2;
 					posPlayer.y -= 2;
 				}
 			}
 
-			else if (Game::instance().getSpecialKey(GLUT_KEY_DOWN) && posPlayer.y < 380)
+			else if ((Game::instance().getSpecialKey(GLUT_KEY_DOWN) && level != 3) || (Game::instance().getKey('j') && level == 3))
 			{
-				if (!bJumping && movimiento == 3 || movimiento == 1) movimiento = 3;
-				if (!bJumping && movimiento == 2 || movimiento == 0) movimiento = 2;
-				posPlayer.y += 2;
+				if ((level == 1 && posPlayer.y < 380) || (level == 2 && posPlayer.y < 380) || (level == 3 && posPlayer.y < 265)) {
+					if (!bJumping && movimiento == 3 || movimiento == 1) movimiento = 3;
+					if (!bJumping && movimiento == 2 || movimiento == 0) movimiento = 2;
+					posPlayer.y += 2;
+				}
 			}
 
 
-			else if (!Game::instance().getSpecialKey(GLUT_KEY_LEFT) && !Game::instance().getSpecialKey(GLUT_KEY_RIGHT) && !Game::instance().getSpecialKey(GLUT_KEY_UP) && !Game::instance().getSpecialKey(GLUT_KEY_DOWN) && !Game::instance().getKey('x') && !Game::instance().getKey('c') && !Game::instance().getKey('v'))
+			else if (!Game::instance().getSpecialKey(GLUT_KEY_LEFT) && !Game::instance().getSpecialKey(GLUT_KEY_RIGHT) && !Game::instance().getSpecialKey(GLUT_KEY_UP) && !Game::instance().getSpecialKey(GLUT_KEY_DOWN) && !Game::instance().getKey('x') && !Game::instance().getKey('c') && !Game::instance().getKey('v') && !Game::instance().getKey('u') && !Game::instance().getKey('h') && !Game::instance().getKey('j') && !Game::instance().getKey('k'))
 			{
 				if (movimiento == 2 || movimiento == 5 || movimiento == 8 || movimiento == 10 && sprite_correr->animation() == 1 || movimiento == 12)
 					movimiento = 0;

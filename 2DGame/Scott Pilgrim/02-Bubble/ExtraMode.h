@@ -8,6 +8,9 @@
 #include <iostream>
 #include <glm/gtc/matrix_transform.hpp>
 #include "TexturedQuad.h"
+#include "Player.h"
+#include "Ramona.h"
+#include "Hud.h"
 
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 480
@@ -23,14 +26,17 @@ public:
 
 
 private:
-	bool musica;
-	float currentTime;
-	TexturedQuad *texQuad[3];
+	bool musica, jumping, jumping2;
+	float currentTime, y, y_ramona;
+	TexturedQuad *texQuad[2];
 	Texture texs[2];
 	ShaderProgram simpleTexProgram;
 	ShaderProgram texProgram;
 	glm::mat4 projection;
 
+	Player *player;
+	Ramona *ramona;
+	Hud hud;
 	void initShaders();
 
 };
