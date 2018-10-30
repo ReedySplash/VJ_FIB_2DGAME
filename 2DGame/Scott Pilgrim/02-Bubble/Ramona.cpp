@@ -766,13 +766,13 @@ void Ramona::recibirPuñetazoDerecha() {
 	if (vida > 0 && movimiento != 14) {
 		if (sprite_recibir->animation() != 0 && movimiento != 14) sprite_recibir->changeAnimation(0);
 		movimiento = 14;
-		vida -= 10;
+		vida -= 5;
 		++hits;
 	}
 
 	else if (vida > 0 && movimiento == 14 && sprite_recibir->animation() != 2) {
 		++hits;
-		vida -= 10;
+		vida -= 5;
 	}
 
 	if (vida > 0 && (movimiento == 14) && ((hits == 5 && level != 3) || (hits == 2 && level == 3))) {
