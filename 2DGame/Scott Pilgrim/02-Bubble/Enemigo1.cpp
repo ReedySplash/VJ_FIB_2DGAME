@@ -8,12 +8,6 @@
 #define JUMP_ANGLE_STEP 4
 #define FALL_STEP 4
 
-enum EnumEnemy
-{
-	STAND_LEFT, STAND_RIGHT, WALK_LEFT, WALK_RIGHT, RUN_LEFT, RUN_RIGHT, PUNCH_LEFT, PUNCH_RIGHT, KICK_LEFT, KICK_RIGHT, RECIBIR_LEFT, RECIBIR_RIGHT, RECIBIR_LEFT2, RECIBIR_RIGHT2, MORIR_LEFT, MORIR_RIGHT
-};
-
-
 void Enemigo1::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 {
 	mapShader = shaderProgram;

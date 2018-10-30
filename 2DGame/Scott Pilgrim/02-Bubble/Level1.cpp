@@ -49,11 +49,13 @@ void Level1::init(bool music, int pers)
 
 	texQuad[0] = TexturedQuad::createTexturedQuad(geom, texCoords, simpleTexProgram);
 	texQuad[1] = TexturedQuad::createTexturedQuad(geom, texCoords, texProgram);
+	//texQuad[2] = TexturedQuad::createTexturedQuad(geom, texCoords, texProgram);
 	texs[0].loadFromFile("images/Levels/level1new.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	texs[0].setMagFilter(GL_NEAREST);
 	texs[1].loadFromFile("images/sombra.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	texs[1].setMagFilter(GL_NEAREST);
-
+	//texs[2].loadFromFile("images/GameOver.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	//texs[2].setMagFilter(GL_NEAREST);
 
 	personaje = pers;
 	hud.init(personaje, texProgram, simpleTexProgram);
@@ -473,6 +475,13 @@ void Level1::render()
 	
 	boss->render();
 	hud.render();
+	/*modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
+	modelview2 = glm::translate(modelview2, glm::vec3(60.f, 50.f, 0.f));
+	modelview2 = glm::scale(modelview2, glm::vec3(0.8f, 0.8f, 0.f));
+	texProgram.setUniformMatrix4f("modelview", modelview2);
+	if (personaje == 0 && player->isDead()) texQuad[2]->render(texs[2]);
+	else if (personaje == 1 && kim->isDead()) texQuad[2]->render(texs[2]);
+	else if (personaje == 2 && ramona->isDead()) texQuad[2]->render(texs[2]);*/
 
 }
 
@@ -608,15 +617,15 @@ void Level1::comprobarAtaqueEnemigo(int i, glm::vec2 posPlayer, int enemigo) {
 		}
 
 		else {
-			if (enemigo == 1) atacando1[i] = true;
-			if (enemigo == 2) atacando2[i] = true;
-			if (enemigo == 3) atacando3[i] = true;
+			if (enemigo == 1) atacando1[i] = false;
+			if (enemigo == 2) atacando2[i] = false;
+			if (enemigo == 3) atacando3[i] = false;
 		}
 
 		if (rand() % 200 == 2) {
-			if (enemigo == 1) atacando1[i] = true;
-			if (enemigo == 2) atacando2[i] = true;
-			if (enemigo == 3) atacando3[i] = true;
+			if (enemigo == 1) atacando1[i] = false;
+			if (enemigo == 2) atacando2[i] = false;
+			if (enemigo == 3) atacando3[i] = false;
 		}
 	
 		bool atack;
@@ -624,14 +633,24 @@ void Level1::comprobarAtaqueEnemigo(int i, glm::vec2 posPlayer, int enemigo) {
 		if (enemigo == 2) atack = atacando2[i];
 		if (enemigo == 3) atack = atacando3[i];
 
-		if ((enemigo1[i]->isPunchingLeft() || enemigo1[i]->isPunchingRight()) && !enemigo1[i]->isDeath() && atack) {
+		if ((enemigo1[i]->isPunchingLeft() || enemigo1[i]->isPunchingRight()) && !enemigo1[i]->isDeath() && !atack && enemigo == 1) {
 			if (enemigo == 1) enemigo1[i]->turnToWalk();
-			if (enemigo == 2) enemigo2[i]->turnToWalk();
-			if (enemigo == 3) enemigo3[i]->turnToWalk();
 			if (personaje == 0 && !player->isRecuperando()) player->turnToWalk();
 			else if (personaje == 1 && !kim->isRecuperando()) kim->turnToWalk();
 			else if (personaje == 2 && !ramona->isRecuperando()) ramona->turnToWalk();
 		}
+		else if ((enemigo2[i]->isPunchingLeft() || enemigo2[i]->isPunchingRight()) && !enemigo2[i]->isDeath() && !atack && enemigo == 2) {
+			if (enemigo == 2) enemigo2[i]->turnToWalk();
+			if (personaje == 0 && !player->isRecuperando()) player->turnToWalk();
+			else if (personaje == 1 && !kim->isRecuperando()) kim->turnToWalk();
+			else if (personaje == 2 && !ramona->isRecuperando()) ramona->turnToWalk();
+		}
+		else if ((enemigo3[i]->isPunchingLeft() || enemigo3[i]->isPunchingRight()) && !enemigo3[i]->isDeath() && !atack && enemigo == 3) {
+			if (enemigo == 3) enemigo3[i]->turnToWalk();
+			if (personaje == 0 && !player->isRecuperando()) player->turnToWalk();
+			else if (personaje == 1 && !kim->isRecuperando()) kim->turnToWalk();
+			else if (personaje == 2 && !ramona->isRecuperando()) ramona->turnToWalk();
+		}	
 	}
 }
 

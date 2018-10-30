@@ -727,6 +727,10 @@ bool Kim::isRecuperando() {
 bool Kim::isJumping() {
 	return bJumping;
 }
+bool Kim::isDead() {
+	if (sprite_recibir_izq->animation() == 4 || sprite_recibir->animation() == 4) return true;
+	return false;
+}
 
 void Kim::recibirPuñetazoIzquierda() {
 	if (vida > 0 && movimiento != 13) {

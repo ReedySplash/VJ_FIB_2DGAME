@@ -31,6 +31,7 @@ public:
 	bool isPunching_up_right();
 	bool isRecuperando();
 	bool isJumping();
+	bool isDead();
 	void recibirPuñetazoDerecha();
 	void recibirPuñetazoIzquierda();
 	void turnToWalk();

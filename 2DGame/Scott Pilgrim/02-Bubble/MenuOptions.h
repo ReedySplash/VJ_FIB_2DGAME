@@ -10,7 +10,7 @@
 #include <iostream>
 #include <vector>
 #include "SLevelAPlayer.h"
-
+#include "Instructions.h"
 
 #define CAMERA_WIDTH 1280
 #define CAMERA_HEIGHT 720
@@ -46,8 +46,9 @@ private:
 	Text white, black;
 	string musica_string[2];
 	string text_music;
-	bool play, credits;
+	bool play, instructions;
 	SLevelAPlayer slevel;
+	Instructions inst;
 
 	void initShaders();
 };

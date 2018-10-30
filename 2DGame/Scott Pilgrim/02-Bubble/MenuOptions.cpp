@@ -26,11 +26,12 @@ void MenuOptions::init(bool music)
 	musica = music;
 	currentTime = 0.0f;
 	play = false;
-	credits = false;
+	instructions = false;
 	glm::vec2 geom[2] = { glm::vec2(0.f, 0.f), glm::vec2(float(640), float(480)) };
 	glm::vec2 texCoords[2];
 
 	initShaders();
+	inst.init(texProgram);
 	texCoords[0] = glm::vec2(0.f, 0.f); texCoords[1] = glm::vec2(1.f, 1.f);
 	texQuad[0] = TexturedQuad::createTexturedQuad(geom, texCoords, texProgram);
 	texs[0].loadFromFile("images/MenuOptions.png", TEXTURE_PIXEL_FORMAT_RGBA);
@@ -49,8 +50,8 @@ void MenuOptions::update(int deltaTime)
 {
 	currentTime += deltaTime;
 	if (play) slevel.update(deltaTime);
-	else if (credits) {
-
+	else if (instructions) {
+		inst.update(deltaTime);
 	}
 	else {
 		if (musica) text_music = musica_string[0];
@@ -60,7 +61,7 @@ void MenuOptions::update(int deltaTime)
 
 void MenuOptions::render()
 {
-	if (!play && !credits) {
+	if (!play && !instructions) {
 		glm::mat4 modelview;
 
 		texProgram.use();
@@ -72,8 +73,8 @@ void MenuOptions::render()
 		texQuad[0]->render(texs[0]);
 
 		if (glutGet(GLUT_WINDOW_WIDTH) == 1280) {
-			if (opcion == 0) black.render("Play", glm::vec2(720, 420), 56, glm::vec4(0, 0, 0, 1));
-			else black.render("Play", glm::vec2(740, 420), 56, glm::vec4(1, 1, 1, 1));
+			if (opcion == 0) black.render("Play", glm::vec2(690, 420), 56, glm::vec4(0, 0, 0, 1));
+			else black.render("Play", glm::vec2(710, 420), 56, glm::vec4(1, 1, 1, 1));
 		}
 		else if (glutGet(GLUT_WINDOW_WIDTH) == 1920) {
 			if (opcion == 0) black.render("Play", glm::vec2(1040, 620), 65, glm::vec4(0, 0, 0, 1));
@@ -81,8 +82,8 @@ void MenuOptions::render()
 		}
 
 		if (glutGet(GLUT_WINDOW_WIDTH) == 1280) {
-			if (opcion == 1) black.render(text_music, glm::vec2(720, 520), 56, glm::vec4(0, 0, 0, 1));
-			else black.render(text_music, glm::vec2(740, 520), 56, glm::vec4(1, 1, 1, 1));;
+			if (opcion == 1) black.render(text_music, glm::vec2(690, 520), 56, glm::vec4(0, 0, 0, 1));
+			else black.render(text_music, glm::vec2(710, 520), 56, glm::vec4(1, 1, 1, 1));;
 		}
 		else if (glutGet(GLUT_WINDOW_WIDTH) == 1920) {
 			if (opcion == 1) black.render(text_music, glm::vec2(1040, 770), 65, glm::vec4(0, 0, 0, 1));
@@ -90,16 +91,16 @@ void MenuOptions::render()
 		}
 
 		if (glutGet(GLUT_WINDOW_WIDTH) == 1280) {
-			if (opcion == 2) black.render("Credits", glm::vec2(720, 620), 56, glm::vec4(0, 0, 0, 1));
-			else black.render("Credits", glm::vec2(740, 620), 56, glm::vec4(1, 1, 1, 1));
+			if (opcion == 2) black.render("How to Play", glm::vec2(690, 620), 56, glm::vec4(0, 0, 0, 1));
+			else black.render("How to Play", glm::vec2(710, 620), 56, glm::vec4(1, 1, 1, 1));
 		}
 		else if (glutGet(GLUT_WINDOW_WIDTH) == 1920) {
-			if (opcion == 2) black.render("Credits", glm::vec2(1040, 920), 65, glm::vec4(0, 0, 0, 1));
-			else black.render("Credits", glm::vec2(1080, 920), 65, glm::vec4(1, 1, 1, 1));
+			if (opcion == 2) black.render("How to Play", glm::vec2(1040, 920), 65, glm::vec4(0, 0, 0, 1));
+			else black.render("How to Play", glm::vec2(1080, 920), 65, glm::vec4(1, 1, 1, 1));
 		}
 	}
-	else if (!play && credits) {
-
+	else if (!play && instructions) {
+		inst.render();
 	}
 	else {
 		slevel.render();
@@ -149,8 +150,8 @@ void MenuOptions::playGame() {
 }
 
 void MenuOptions::showCredits() {
-	if (opcion == 2) credits = true;
-	else credits = false;
+	if (opcion == 2) instructions = true;
+	else instructions = false;
 }
 
 int MenuOptions::getLevel() {

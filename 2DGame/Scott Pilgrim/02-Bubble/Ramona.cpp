@@ -716,6 +716,10 @@ bool Ramona::isRecuperando() {
 bool Ramona::isJumping() {
 	return bJumping;
 }
+bool Ramona::isDead() {
+	if (sprite_recibir_izq->animation() == 4 || sprite_recibir->animation() == 4) return true;
+	return false;
+}
 
 void Ramona::recibirPuñetazoIzquierda() {
 	if (vida > 0 && movimiento != 13) {
