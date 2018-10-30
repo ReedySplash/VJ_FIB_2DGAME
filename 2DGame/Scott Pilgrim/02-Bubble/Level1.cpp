@@ -49,13 +49,16 @@ void Level1::init(bool music, int pers)
 
 	texQuad[0] = TexturedQuad::createTexturedQuad(geom, texCoords, simpleTexProgram);
 	texQuad[1] = TexturedQuad::createTexturedQuad(geom, texCoords, texProgram);
-	//texQuad[2] = TexturedQuad::createTexturedQuad(geom, texCoords, texProgram);
+	texQuad[2] = TexturedQuad::createTexturedQuad(geom, texCoords, texProgram);
+	texQuad[3] = TexturedQuad::createTexturedQuad(geom, texCoords, texProgram);
 	texs[0].loadFromFile("images/Levels/level1new.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	texs[0].setMagFilter(GL_NEAREST);
 	texs[1].loadFromFile("images/sombra.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	texs[1].setMagFilter(GL_NEAREST);
-	//texs[2].loadFromFile("images/GameOver.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	//texs[2].setMagFilter(GL_NEAREST);
+	texs[2].loadFromFile("images/GameOver.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	texs[2].setMagFilter(GL_NEAREST);
+	texs[3].loadFromFile("images/LevelFinalized.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	texs[3].setMagFilter(GL_NEAREST);
 
 	personaje = pers;
 	hud.init(personaje, texProgram, simpleTexProgram);
@@ -95,7 +98,7 @@ void Level1::init(bool music, int pers)
 	}
 	boss = new Boss1();
 	boss->init(glm::ivec2(SCREEN_X, SCREEN_Y), simpleTexProgram);
-	boss->setPosition(glm::vec2(3300, 220));
+	boss->setPosition(glm::vec2(3250, 220));
 
 
 	x = 0.f;
@@ -259,6 +262,14 @@ void Level1::update(int deltaTime)
 	else if (personaje == 1) hud.changeLife(kim->getVida());
 	else hud.changeLife(ramona->getVida());
 	hud.update(deltaTime);
+
+	if (boss->isCompletlyDeath()) {
+		if (musica) {
+			mciSendString(TEXT("stop sounds/SOUND/boss.mp3"), NULL, 0, NULL);
+			mciSendString(TEXT("play sounds/SOUND/VictoryTheme.mp3 repeat"), NULL, 0, NULL);
+			mciSendString(TEXT("setaudio sounds/SOUND/VictoryTheme.mp3 volume to 98"), NULL, 0, NULL);
+		}
+	}
 }
 
 void Level1::render()
@@ -475,13 +486,21 @@ void Level1::render()
 	
 	boss->render();
 	hud.render();
-	/*modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
+	modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
 	modelview2 = glm::translate(modelview2, glm::vec3(60.f, 50.f, 0.f));
 	modelview2 = glm::scale(modelview2, glm::vec3(0.8f, 0.8f, 0.f));
 	texProgram.setUniformMatrix4f("modelview", modelview2);
 	if (personaje == 0 && player->isDead()) texQuad[2]->render(texs[2]);
 	else if (personaje == 1 && kim->isDead()) texQuad[2]->render(texs[2]);
-	else if (personaje == 2 && ramona->isDead()) texQuad[2]->render(texs[2]);*/
+	else if (personaje == 2 && ramona->isDead()) texQuad[2]->render(texs[2]);
+
+	if (boss->isCompletlyDeath()) {
+		modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
+		modelview2 = glm::translate(modelview2, glm::vec3(160.f, 50.f, 0.f));
+		modelview2 = glm::scale(modelview2, glm::vec3(0.5f, 0.3f, 0.f));
+		texProgram.setUniformMatrix4f("modelview", modelview2);
+		texQuad[3]->render(texs[3]);
+	}
 
 }
 

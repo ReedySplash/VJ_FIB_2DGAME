@@ -21,7 +21,7 @@ void Ramona::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, in
 	level = lev;
 	if (lev == 1) {
 		posIni = 2200;
-		posFin = 2700;
+		posFin = 2600;
 	}
 	else {
 		posIni = 2200;

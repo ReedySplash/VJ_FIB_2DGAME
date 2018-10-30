@@ -24,7 +24,7 @@ void Kim::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram, int l
 	level = lev;
 	if (lev == 1) {
 		posIni = 2200;
-		posFin = 2700;
+		posFin = 2300;
 	}
 	else {
 		posIni = 2200;

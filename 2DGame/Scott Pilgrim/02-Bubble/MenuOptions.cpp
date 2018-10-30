@@ -17,6 +17,7 @@ void MenuOptions::init(bool music)
 		mciSendString(TEXT("stop sounds/SOUND/Level1.mp3"), NULL, 0, NULL);
 		mciSendString(TEXT("stop sounds/SOUND/Level2.mp3"), NULL, 0, NULL);
 		mciSendString(TEXT("stop sounds/SOUND/boss.mp3"), NULL, 0, NULL);
+		mciSendString(TEXT("stop sounds/SOUND/VictoryTheme.mp3"), NULL, 0, NULL);
 		mciSendString(TEXT("play sounds/SOUND/MenuTheme.mp3 repeat"), NULL, 0, NULL);
 		mciSendString(TEXT("setaudio sounds/SOUND/MenuTheme.mp3 to volume 95"), NULL, 0, NULL);
 	}

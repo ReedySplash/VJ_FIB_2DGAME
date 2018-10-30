@@ -45,12 +45,15 @@ void Level2::init(bool music, int pers)
 	texQuad[0] = TexturedQuad::createTexturedQuad(geom, texCoords, simpleTexProgram);
 	texQuad[1] = TexturedQuad::createTexturedQuad(geom, texCoords, texProgram);
 	texQuad[2] = TexturedQuad::createTexturedQuad(geom, texCoords, texProgram);
+	texQuad[3] = TexturedQuad::createTexturedQuad(geom, texCoords, texProgram);
 	texs[0].loadFromFile("images/Levels/level2new.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	texs[0].setMagFilter(GL_NEAREST);
 	texs[1].loadFromFile("images/sombra.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	texs[1].setMagFilter(GL_NEAREST);
 	texs[2].loadFromFile("images/GameOver.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	texs[2].setMagFilter(GL_NEAREST);
+	texs[3].loadFromFile("images/LevelFinalized.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	texs[3].setMagFilter(GL_NEAREST);
 	hud.init(personaje, texProgram, simpleTexProgram);
 
 	//Init jugador, depende del elegido
@@ -487,6 +490,14 @@ void Level2::render()
 	if (personaje == 0 && player->isDead()) texQuad[2]->render(texs[2]);
 	else if (personaje == 1 && kim->isDead()) texQuad[2]->render(texs[2]);
 	else if (personaje == 2 && ramona->isDead()) texQuad[2]->render(texs[2]);
+
+	if (boss->isCompletlyDeath()) {
+		modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
+		modelview2 = glm::translate(modelview2, glm::vec3(60.f, 50.f, 0.f));
+		modelview2 = glm::scale(modelview2, glm::vec3(0.5f, 0.3f, 0.f));
+		texProgram.setUniformMatrix4f("modelview", modelview2);
+		texQuad[3]->render(texs[3]);
+	}
 }
 
 void Level2::initShaders()

@@ -37,8 +37,8 @@ public:
 private:
 	bool musica;
 	float currentTime;
-	TexturedQuad *texQuad[3];
-	Texture texs[3];
+	TexturedQuad *texQuad[4];
+	Texture texs[4];
 	ShaderProgram simpleTexProgram, texProgram;
 	glm::mat4 projection;
 	glm::ivec2 posPlayer, posEnemy;
