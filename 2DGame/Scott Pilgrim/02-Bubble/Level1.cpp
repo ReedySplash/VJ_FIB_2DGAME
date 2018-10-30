@@ -61,7 +61,7 @@ void Level1::init(bool music, int pers)
 	texs[3].setMagFilter(GL_NEAREST);
 
 	personaje = pers;
-	hud.init(personaje, texProgram, simpleTexProgram);
+	hud.init(1, texProgram, simpleTexProgram);
 
 	//Init jugador, depende del elegido
 	if (personaje == 0) {

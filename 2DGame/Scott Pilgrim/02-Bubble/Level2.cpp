@@ -54,7 +54,7 @@ void Level2::init(bool music, int pers)
 	texs[2].setMagFilter(GL_NEAREST);
 	texs[3].loadFromFile("images/LevelFinalized.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	texs[3].setMagFilter(GL_NEAREST);
-	hud.init(personaje, texProgram, simpleTexProgram);
+	hud.init(1, texProgram, simpleTexProgram);
 
 	//Init jugador, depende del elegido
 	if (personaje == 0) {

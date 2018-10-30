@@ -37,11 +37,12 @@ void ExtraMode::init(bool music) {
 	//Init player
 	player = new Player();
 	player->init(glm::ivec2(SCREEN_WIDTH, SCREEN_HEIGHT), texProgram, 3);
-	player->setPosition(glm::vec2(200, 260));
+	player->setPosition(glm::vec2(164, 198));
 	ramona = new Ramona();
 	ramona->init(glm::ivec2(SCREEN_WIDTH, SCREEN_HEIGHT), texProgram, 3);
-	ramona->setPosition(glm::vec2(300, 260));
+	ramona->setPosition(glm::vec2(416, 198));
 	hud.init(1,texProgram,simpleTexProgram);
+	hud2.init(2, texProgram, simpleTexProgram);
 	
 }
 
@@ -49,10 +50,11 @@ bool ExtraMode::update(int deltaTime) {
 	currentTime += deltaTime;
 	player->update(deltaTime);
 	ramona->update(deltaTime);
-
+	comprobarLucha();
 	hud.changeLife(player->getVida());
-	//hud.changeLife(ramona->getVida());
+	hud2.changeLife(ramona->getVida());
 	hud.update(deltaTime);
+	hud2.update(deltaTime);
 	return true;
 }
 
@@ -149,6 +151,60 @@ void ExtraMode::render() {
 	}
 
 	hud.render();
+	hud2.render();
+}
+
+
+void ExtraMode::comprobarLucha() {
+	glm::fvec2 posPlayer = player->getPosition();
+	glm::fvec2 posEnemy = ramona->getPosition();
+	bool isPunching_left, isKicking_left, isPunching_right, isKicking_right, isPunching_up_left, isPunching_up_right;
+	bool isPunching_left_ra, isKicking_left_ra, isPunching_right_ra, isKicking_right_ra, isPunching_up_left_ra, isPunching_up_right_ra;
+	isPunching_left = player->isPunching_left();
+	isPunching_right = player->isPunching_right();
+	isKicking_left = player->isKicking_left();
+	isKicking_right = player->isKicking_right();
+	isPunching_up_left = player->isPunching_up_left();
+	isPunching_up_right = player->isPunching_up_right();
+
+	isPunching_left_ra = ramona->isPunching_left();
+	isPunching_right_ra = ramona->isPunching_right();
+	isKicking_left_ra = ramona->isKicking_left();
+	isKicking_right_ra = ramona->isKicking_right();
+	isPunching_up_left_ra = ramona->isPunching_up_left();
+	isPunching_up_right_ra = ramona->isPunching_up_right();
+
+	if ((posPlayer.x <= (posEnemy.x + 10) && (posPlayer.x >= posEnemy.x - 40)) && (posPlayer.y <= posEnemy.y + 10 && posPlayer.y >= posEnemy.y - 10)) {
+		if (isPunching_right|| isKicking_right || isPunching_up_right || isPunching_up_right) {
+			ramona->recibirPuñetazoIzquierda();
+			atacando = true;
+		}
+		else if (isPunching_left_ra || isKicking_left_ra || isPunching_up_left_ra || isPunching_up_left_ra) {
+			player->recibirPuñetazoDerecha();
+			atacando_ra = true;
+		}
+	}
+
+	else if ((posPlayer.x >= posEnemy.x - 10 && posPlayer.x < posEnemy.x + 40) && (posPlayer.y <= posEnemy.y + 10 && posPlayer.y >= posEnemy.y - 10)) {
+		if (isPunching_left || isKicking_left || isPunching_up_left || isPunching_up_left) {
+			ramona->recibirPuñetazoDerecha();
+			atacando = true;
+		}
+		else if (isPunching_right_ra || isKicking_right_ra || isPunching_up_right_ra || isPunching_up_right_ra) {
+			player->recibirPuñetazoIzquierda();
+			atacando_ra = true;
+		}
+	}
+	else {
+		if (atacando && !isPunching_left && !isPunching_right && !isKicking_left && !isKicking_right && !isPunching_up_left && !isPunching_up_right) {
+			player->turnToWalk();
+			atacando = false;
+		}
+		if (atacando_ra && !isPunching_left_ra && !isPunching_right_ra && !isKicking_left_ra && !isKicking_right_ra && !isPunching_up_left_ra && !isPunching_up_right_ra) {
+			ramona->turnToWalk();
+			atacando_ra = false;
+		}
+	}
 }
 
 
