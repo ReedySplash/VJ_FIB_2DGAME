@@ -23,10 +23,11 @@ public:
 	void init(bool music);
 	bool update(int deltTime);
 	void render();
+	void comprobarLucha();
 
 
 private:
-	bool musica, jumping, jumping2;
+	bool musica, jumping, jumping2, atacando, atacando_ra;
 	float currentTime, y, y_ramona;
 	TexturedQuad *texQuad[2];
 	Texture texs[2];
@@ -36,7 +37,7 @@ private:
 
 	Player *player;
 	Ramona *ramona;
-	Hud hud;
+	Hud hud, hud2;
 	void initShaders();
 
 };

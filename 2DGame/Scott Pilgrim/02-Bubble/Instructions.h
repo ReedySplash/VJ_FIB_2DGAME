@@ -25,6 +25,7 @@ public:
 
 private:
 	bool musica;
+	int inst;
 	float currentTime;
 	TexturedQuad *texQuad[3];
 	Texture texs[2];

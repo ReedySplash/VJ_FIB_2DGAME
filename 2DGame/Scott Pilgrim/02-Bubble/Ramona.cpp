@@ -399,8 +399,10 @@ void Ramona::update(int deltaTime)
 
 		if (movimiento == 13 || movimiento == 14 && (sprite_recibir->animation() == 2 || sprite_recibir_izq->animation() == 2)) {
 			if (sprite_recibir->animation() == 2 || sprite_recibir_izq->animation() == 2) recuperando += deltaTime;
-			if (sprite_recibir->animation() == 2 && movimiento == 14 && recuperando < 1500) posPlayer.x -= 1.5f;
-			else if (sprite_recibir_izq->animation() == 2 && movimiento == 13 && recuperando < 1500) posPlayer.x += 1.5f;
+			if (sprite_recibir->animation() == 2 && movimiento == 14 && recuperando < 1500 && level != 3) posPlayer.x -= 1.5f;
+			else if (sprite_recibir_izq->animation() == 2 && movimiento == 13 && recuperando < 1400 && level != 3) posPlayer.x += 1.5f;
+			if (sprite_recibir->animation() == 2 && movimiento == 14 && recuperando < 1500 && level == 3 && posPlayer.x > 160) posPlayer.x -= 1.5f;
+			else if (sprite_recibir_izq->animation() == 2 && movimiento == 13 && recuperando < 1400 && level == 3 && posPlayer.x < 420) posPlayer.x += 1.5f;
 			if (recuperando < 1300) posPlayer.y += 0.25;
 			else if (recuperando > 2300) {
 				if (movimiento == 13) movimiento = 0;
@@ -747,12 +749,12 @@ void Ramona::recibirPuñetazoIzquierda() {
 		++hits;
 	}
 
-	else if (vida > 0 && movimiento == 13) {
+	else if (vida > 0 && movimiento == 13 && sprite_recibir_izq->animation() != 2) {
 		++hits;
 		vida -= 10;
 	}
 
-	if (vida > 0 && (movimiento == 13) && hits == 5) {
+	if (vida > 0 && (movimiento == 13) && ((hits == 5 && level != 3) || (hits == 2 && level == 3))) {
 		hits = 0;
 		sprite_recibir_izq->changeAnimation(2);
 		recuperando = 0;
@@ -764,16 +766,16 @@ void Ramona::recibirPuñetazoDerecha() {
 	if (vida > 0 && movimiento != 14) {
 		if (sprite_recibir->animation() != 0 && movimiento != 14) sprite_recibir->changeAnimation(0);
 		movimiento = 14;
-		vida -= 10;
+		vida -= 5;
 		++hits;
 	}
 
-	else if (vida > 0 && movimiento == 14) {
+	else if (vida > 0 && movimiento == 14 && sprite_recibir->animation() != 2) {
 		++hits;
-		vida -= 10;
+		vida -= 5;
 	}
 
-	if (vida > 0 && (movimiento == 14) && hits == 5) {
+	if (vida > 0 && (movimiento == 14) && ((hits == 5 && level != 3) || (hits == 2 && level == 3))) {
 		hits = 0;
 		sprite_recibir->changeAnimation(2);
 		recuperando = 0;
