@@ -232,6 +232,7 @@ void Level1::update(int deltaTime)
 		else if (x > 218) x = 218.f;
 
 		for (int i = 0; i < 3; ++i) {
+			enemigo1[i]->moverse(pos.x, pos.y);
 			comprobarLucha(i, pos, 1);
 			comprobarLucha(i, pos, 2);
 			comprobarLucha(i, pos, 3);
