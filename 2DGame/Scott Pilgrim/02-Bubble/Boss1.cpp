@@ -451,14 +451,14 @@ bool Boss1::isDying() {
 	return false;
 }
 bool Boss1::isDeath() {
-	if ((sprite_enemigo->animation() == 7 || sprite_enemigo_left->animation() == 7) && deltaTimeDeath > 2000 & vida <= 0) {
+	if ((sprite_enemigo->animation() == 7 || sprite_enemigo_left->animation() == 7) && deltaTimeDeath > 3200 & vida <= 0) {
 		return true;
 	}
 	return false;
 }
 
 bool Boss1::isCompletlyDeath() {
-	if ((sprite_enemigo->animation() == 7 || sprite_enemigo_left->animation() == 7) && deltaTimeDeath > 2000) return true;
+	if ((sprite_enemigo->animation() == 7 || sprite_enemigo_left->animation() == 7) && deltaTimeDeath > 3200) return true;
 	return false;
 }
 
