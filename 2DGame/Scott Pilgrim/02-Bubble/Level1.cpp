@@ -607,11 +607,17 @@ void Level1::comprobarAtaqueEnemigo(int i, glm::vec2 posPlayer, int enemigo) {
 		if (enemigo == 1) posEnemy = enemigo1[i]->getPosition();
 		if (enemigo == 2) posEnemy = enemigo2[i]->getPosition();
 		if (enemigo == 3) posEnemy = enemigo3[i]->getPosition();
+		bool isDead, isRecuperando;
+		if (enemigo == 1) { isDead = enemigo1[i]->isDeath(); isRecuperando = enemigo1[i]->isRecuperando(); }
+		if (enemigo == 2) { isDead = enemigo2[i]->isDeath(); isRecuperando = enemigo2[i]->isRecuperando(); }
+		if (enemigo == 3) { isDead = enemigo3[i]->isDeath(); isRecuperando = enemigo3[i]->isRecuperando(); }
 		
 		if ((posPlayer.x > posEnemy.x - 35) && (posPlayer.x < posEnemy.x + 20) && (posPlayer.y >= posEnemy.y + 40 && posPlayer.y <= posEnemy.y + 50)) {
 			if (rand() % 120 == 3) {
-				if (!isPunching_right && !isKicking_right && !enemigo1[i]->isDeath() && !enemigo1[i]->isRecuperando()) {
-					enemigo1[i]->atacarPuñetadosIzquierda();
+				if (!isPunching_right && !isKicking_right && !isDead && !isRecuperando) {
+					if (enemigo == 1) enemigo1[i]->atacarPuñetadosIzquierda();
+					if (enemigo == 2) enemigo2[i]->atacarPuñetadosIzquierda();
+					if (enemigo == 3) enemigo3[i]->atacarPuñetadosIzquierda();
 					if (personaje == 0) player->recibirPuñetazoDerecha();
 					else if (personaje == 1) kim->recibirPuñetazoDerecha();
 					else if (personaje == 2) ramona->recibirPuñetazoDerecha();
@@ -624,8 +630,10 @@ void Level1::comprobarAtaqueEnemigo(int i, glm::vec2 posPlayer, int enemigo) {
 
 		else if ((posEnemy.x + 80 >= posPlayer.x - 5 && posEnemy.x + 10 < posPlayer.x) && (posPlayer.y >= posEnemy.y + 40 && posPlayer.y <= posEnemy.y + 50)) {
 			if (rand() % 100 == 3) {
-				if (!isPunching_left && !isKicking_left && !enemigo1[i]->isDeath() && !enemigo1[i]->isRecuperando()) {
-					enemigo1[i]->atacarPuñetazosDerecha();
+				if (!isPunching_left && !isKicking_left && !isDead && !isRecuperando) {
+					if (enemigo == 1) enemigo1[i]->atacarPuñetazosDerecha();
+					if (enemigo == 2) enemigo2[i]->atacarPuñetazosDerecha();
+					if (enemigo == 3) enemigo3[i]->atacarPuñetazosDerecha();
 					if (personaje == 0) player->recibirPuñetazoIzquierda();
 					else if (personaje == 1) kim->recibirPuñetazoIzquierda();
 					else if (personaje == 2) ramona->recibirPuñetazoIzquierda();
