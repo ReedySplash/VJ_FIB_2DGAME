@@ -510,6 +510,8 @@ void Boss1::turnToWalk() {
 bool Boss1::isRecuperando() {
 	if (sprite_enemigo_left->animation() == 6 && movimiento == 1) return true;
 	else if (sprite_enemigo->animation() == 6 && movimiento == 0) return true;
+	if (sprite_enemigo_left->animation() == 5 && movimiento == 1 && hitTime < 500) return true;
+	else if (sprite_enemigo->animation() == 5 && movimiento == 0 && hitTime < 500) return true;
 	return false;
 }
 

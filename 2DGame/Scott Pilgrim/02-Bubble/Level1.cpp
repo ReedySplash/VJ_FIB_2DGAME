@@ -232,8 +232,6 @@ void Level1::update(int deltaTime)
 		else if (x > 218) x = 218.f;
 
 		for (int i = 0; i < 3; ++i) {
-			if (!enemigo1[i]->isPunchingLeft() && !enemigo1[i]->isPunchingRight() && !enemigo1[i]->isRecuperando()) enemigo1[i]->moverse(pos.x, pos.y);
-			if (!enemigo2[i]->isPunchingLeft() && !enemigo2[i]->isPunchingRight() && !enemigo2[i]->isRecuperando()) enemigo2[i]->moverse(pos.x, pos.y);
 			comprobarLucha(i, pos, 1);
 			comprobarLucha(i, pos, 2);
 			comprobarLucha(i, pos, 3);
@@ -243,6 +241,8 @@ void Level1::update(int deltaTime)
 			enemigo1[i]->update(deltaTime);
 			enemigo2[i]->update(deltaTime);
 			enemigo3[i]->update(deltaTime);
+			if (!enemigo1[i]->isPunchingLeft() && !enemigo1[i]->isPunchingRight() && !enemigo1[i]->isRecuperando()) enemigo1[i]->moverse(pos.x, pos.y);
+			if (!enemigo2[i]->isPunchingLeft() && !enemigo2[i]->isPunchingRight() && !enemigo2[i]->isRecuperando()) enemigo2[i]->moverse(pos.x, pos.y);
 		}
 	}
 

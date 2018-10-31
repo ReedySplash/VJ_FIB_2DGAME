@@ -6,7 +6,7 @@
 void Game::init()
 {
 	bPlay = true;
-	music = false;
+	music = true;
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 	gameStarted = false;
 	level_1 = false;

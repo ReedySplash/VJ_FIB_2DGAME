@@ -18,6 +18,8 @@ void MenuOptions::init(bool music)
 		mciSendString(TEXT("stop sounds/SOUND/Level2.mp3"), NULL, 0, NULL);
 		mciSendString(TEXT("stop sounds/SOUND/boss.mp3"), NULL, 0, NULL);
 		mciSendString(TEXT("stop sounds/SOUND/VictoryTheme.mp3"), NULL, 0, NULL);
+		mciSendString(TEXT("stop sounds/SOUND/Boss2.mp3"), NULL, 0, NULL);
+		mciSendString(TEXT("stop sounds/SOUND/ExtraTheme.mp3"), NULL, 0, NULL);
 		mciSendString(TEXT("play sounds/SOUND/MenuTheme.mp3 repeat"), NULL, 0, NULL);
 		mciSendString(TEXT("setaudio sounds/SOUND/MenuTheme.mp3 volume to 80"), NULL, 0, NULL);
 	}
@@ -34,7 +36,6 @@ void MenuOptions::init(bool music)
 
 	initShaders();
 	inst.init(texProgram);
-	extraMode.init(musica);
 
 	texCoords[0] = glm::vec2(0.f, 0.f); texCoords[1] = glm::vec2(1.f, 1.f);
 	texQuad[0] = TexturedQuad::createTexturedQuad(geom, texCoords, texProgram);
@@ -176,8 +177,11 @@ void MenuOptions::showCredits() {
 }
 
 void MenuOptions::showExtraMode() {
-	if (opcion == 3) extraMode_opt = true;
-	else extraMode_opt = false;
+	if (opcion == 3 && extraMode_opt == false) {
+		extraMode_opt = true;
+		extraMode.init(musica);
+	}
+	//else extraMode_opt = false;
 }
 
 int MenuOptions::getLevel() {
