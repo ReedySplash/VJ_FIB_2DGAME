@@ -19,7 +19,7 @@ void MenuOptions::init(bool music)
 		mciSendString(TEXT("stop sounds/SOUND/boss.mp3"), NULL, 0, NULL);
 		mciSendString(TEXT("stop sounds/SOUND/VictoryTheme.mp3"), NULL, 0, NULL);
 		mciSendString(TEXT("play sounds/SOUND/MenuTheme.mp3 repeat"), NULL, 0, NULL);
-		mciSendString(TEXT("setaudio sounds/SOUND/MenuTheme.mp3 to volume 95"), NULL, 0, NULL);
+		mciSendString(TEXT("setaudio sounds/SOUND/MenuTheme.mp3 volume to 80"), NULL, 0, NULL);
 	}
 	else {
 		mciSendString(TEXT("stop sounds/SOUND/MenuTheme.mp3"), NULL, 0, NULL);
@@ -155,7 +155,7 @@ void MenuOptions::changeMusica() {
 	if (!musica && opcion == 1) {
 		musica = true;
 		mciSendString(TEXT("play sounds/SOUND/MenuTheme.mp3 repeat"), NULL, 0, NULL);
-		mciSendString(TEXT("setaudio sounds/SOUND/MenuTheme.mp3 to volume 95"), NULL, 0, NULL);
+		mciSendString(TEXT("setaudio sounds/SOUND/MenuTheme.mp3 volume to 80"), NULL, 0, NULL);
 	}
 	else if (opcion == 1) {
 		musica = false;
