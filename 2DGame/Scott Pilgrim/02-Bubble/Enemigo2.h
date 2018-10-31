@@ -35,7 +35,7 @@ public:
 	bool isRecuperando();
 	void turnToWalk();
 	void setGolpesto0();
-
+	
 
 private:
 	bool bJumping;

@@ -13,213 +13,248 @@ void Enemigo2::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	mapShader = shaderProgram;
 	vida = 500;
 	movimiento = 1;
-	spritesheet_enemigo.loadFromFile("images/Enemigo2/Enemigo2_derecha.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite_enemigo = Sprite::createSprite(glm::ivec2(100, 160), glm::vec2(0.0175438596, 1), &spritesheet_enemigo, &shaderProgram);
+	spritesheet_enemigo.loadFromFile("images/Enemigo2/Enemigo_derecha.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	sprite_enemigo = Sprite::createSprite(glm::ivec2(90, 160), glm::vec2(0.0188679245, 1), &spritesheet_enemigo, &shaderProgram);
 	sprite_enemigo->setNumberAnimations(12);
+		//quieto
+		sprite_enemigo->setAnimationSpeed(0, 8);
+		sprite_enemigo->addKeyframe(0, glm::vec2(0.0188679245 * 0, 0.f));
+		sprite_enemigo->addKeyframe(0, glm::vec2(0.0188679245 * 1, 0.f));
+		sprite_enemigo->addKeyframe(0, glm::vec2(0.0188679245 * 2, 0.f));
+		sprite_enemigo->addKeyframe(0, glm::vec2(0.0188679245 * 3, 0.f));
+		//caminar
+		sprite_enemigo->setAnimationSpeed(1, 8);
+		sprite_enemigo->addKeyframe(1, glm::vec2(0.0188679245 * 4, 0.f));
+		sprite_enemigo->addKeyframe(1, glm::vec2(0.0188679245 * 5, 0.f));
+		sprite_enemigo->addKeyframe(1, glm::vec2(0.0188679245 * 6, 0.f));
+		sprite_enemigo->addKeyframe(1, glm::vec2(0.0188679245 * 7, 0.f));
+		sprite_enemigo->addKeyframe(1, glm::vec2(0.0188679245 * 8, 0.f));
+		sprite_enemigo->addKeyframe(1, glm::vec2(0.0188679245 * 9, 0.f));
+		sprite_enemigo->addKeyframe(1, glm::vec2(0.0188679245 * 10, 0.f));
+		sprite_enemigo->addKeyframe(1, glm::vec2(0.0188679245 * 11, 0.f));
+		//correr
+		sprite_enemigo->setAnimationSpeed(2, 8);
+		sprite_enemigo->addKeyframe(2, glm::vec2(0.0188679245 * 12, 0.f));
+		sprite_enemigo->addKeyframe(2, glm::vec2(0.0188679245 * 13, 0.f));
+		sprite_enemigo->addKeyframe(2, glm::vec2(0.0188679245 * 14, 0.f));
+		sprite_enemigo->addKeyframe(2, glm::vec2(0.0188679245 * 15, 0.f));
+		sprite_enemigo->addKeyframe(2, glm::vec2(0.0188679245 * 16, 0.f));
+		sprite_enemigo->addKeyframe(2, glm::vec2(0.0188679245 * 17, 0.f));
+		sprite_enemigo->addKeyframe(2, glm::vec2(0.0188679245 * 18, 0.f));
+		sprite_enemigo->addKeyframe(2, glm::vec2(0.0188679245 * 19, 0.f));
+		//patada
+		sprite_enemigo->setAnimationSpeed(3, 8);
+		sprite_enemigo->addKeyframe(3, glm::vec2(0.0188679245 * 12, 0.f));
+		sprite_enemigo->addKeyframe(3, glm::vec2(0.0188679245 * 13, 0.f));
+		sprite_enemigo->addKeyframe(3, glm::vec2(0.0188679245 * 14, 0.f));
+		sprite_enemigo->addKeyframe(3, glm::vec2(0.0188679245 * 15, 0.f));
+		sprite_enemigo->addKeyframe(3, glm::vec2(0.0188679245 * 16, 0.f));
+		sprite_enemigo->addKeyframe(3, glm::vec2(0.0188679245 * 17, 0.f));
+		sprite_enemigo->addKeyframe(3, glm::vec2(0.0188679245 * 18, 0.f));
+		sprite_enemigo->addKeyframe(3, glm::vec2(0.0188679245 * 19, 0.f));
+		sprite_enemigo->addKeyframe(3, glm::vec2(0.0188679245 * 20, 0.f));
+		sprite_enemigo->addKeyframe(3, glm::vec2(0.0188679245 * 21, 0.f));
+		sprite_enemigo->addKeyframe(3, glm::vec2(0.0188679245 * 22, 0.f));
 
-	sprite_enemigo->setAnimationSpeed(0, 8);
-	sprite_enemigo->addKeyframe(0, glm::vec2(0.0175438596 * 0, 0.f));
-	sprite_enemigo->addKeyframe(0, glm::vec2(0.0175438596 * 1, 0.f));
-	sprite_enemigo->addKeyframe(0, glm::vec2(0.0175438596 * 2, 0.f));
-	sprite_enemigo->addKeyframe(0, glm::vec2(0.0175438596 * 3, 0.f));
-
-	sprite_enemigo->setAnimationSpeed(1, 8);
-	sprite_enemigo->addKeyframe(1, glm::vec2(0.0175438596 * 4, 0.f));
-	sprite_enemigo->addKeyframe(1, glm::vec2(0.0175438596 * 5, 0.f));
-	sprite_enemigo->addKeyframe(1, glm::vec2(0.0175438596 * 6, 0.f));
-	sprite_enemigo->addKeyframe(1, glm::vec2(0.0175438596 * 7, 0.f));
-	sprite_enemigo->addKeyframe(1, glm::vec2(0.0175438596 * 8, 0.f));
-	sprite_enemigo->addKeyframe(1, glm::vec2(0.0175438596 * 9, 0.f));
-	sprite_enemigo->addKeyframe(1, glm::vec2(0.0175438596 * 10, 0.f));
-	sprite_enemigo->addKeyframe(1, glm::vec2(0.0175438596 * 11, 0.f));
-
-	sprite_enemigo->setAnimationSpeed(2, 8);
-	sprite_enemigo->addKeyframe(2, glm::vec2(0.0175438596 * 12, 0.f));
-	sprite_enemigo->addKeyframe(2, glm::vec2(0.0175438596 * 13, 0.f));
-	sprite_enemigo->addKeyframe(2, glm::vec2(0.0175438596 * 14, 0.f));
-	sprite_enemigo->addKeyframe(2, glm::vec2(0.0175438596 * 15, 0.f));
-	sprite_enemigo->addKeyframe(2, glm::vec2(0.0175438596 * 16, 0.f));
-	sprite_enemigo->addKeyframe(2, glm::vec2(0.0175438596 * 17, 0.f));
-	sprite_enemigo->addKeyframe(2, glm::vec2(0.0175438596 * 18, 0.f));
-	sprite_enemigo->addKeyframe(2, glm::vec2(0.0175438596 * 19, 0.f));
-	sprite_enemigo->addKeyframe(2, glm::vec2(0.0175438596 * 20, 0.f));
-	sprite_enemigo->addKeyframe(2, glm::vec2(0.0175438596 * 21, 0.f));
-	sprite_enemigo->addKeyframe(2, glm::vec2(0.0175438596 * 22, 0.f));
-
-	sprite_enemigo->setAnimationSpeed(3, 8);
-	sprite_enemigo->addKeyframe(3, glm::vec2(0.0175438596 * 12, 0.f));
-	sprite_enemigo->addKeyframe(3, glm::vec2(0.0175438596 * 13, 0.f));
-	sprite_enemigo->addKeyframe(3, glm::vec2(0.0175438596 * 14, 0.f));
-	sprite_enemigo->addKeyframe(3, glm::vec2(0.0175438596 * 15, 0.f));
-	sprite_enemigo->addKeyframe(3, glm::vec2(0.0175438596 * 16, 0.f));
-	sprite_enemigo->addKeyframe(3, glm::vec2(0.0175438596 * 17, 0.f));
-	sprite_enemigo->addKeyframe(3, glm::vec2(0.0175438596 * 18, 0.f));
-	sprite_enemigo->addKeyframe(3, glm::vec2(0.0175438596 * 19, 0.f));
-	sprite_enemigo->addKeyframe(3, glm::vec2(0.0175438596 * 20, 0.f));
-	sprite_enemigo->addKeyframe(3, glm::vec2(0.0175438596 * 21, 0.f));
-	sprite_enemigo->addKeyframe(3, glm::vec2(0.0175438596 * 22, 0.f));
-
-	sprite_enemigo->setAnimationSpeed(4, 8);
-	sprite_enemigo->addKeyframe(4, glm::vec2(0.0175438596 * 23, 0.f));
-	sprite_enemigo->addKeyframe(4, glm::vec2(0.0175438596 * 24, 0.f));
-	sprite_enemigo->addKeyframe(4, glm::vec2(0.0175438596 * 25, 0.f));
-	sprite_enemigo->addKeyframe(4, glm::vec2(0.0175438596 * 26, 0.f));
-	sprite_enemigo->addKeyframe(4, glm::vec2(0.0175438596 * 27, 0.f));
-
-	sprite_enemigo->setAnimationSpeed(5, 6);
-	sprite_enemigo->addKeyframe(5, glm::vec2(0.0175438596 * 33, 0.f));
-	sprite_enemigo->addKeyframe(5, glm::vec2(0.0175438596 * 34, 0.f));
-	sprite_enemigo->addKeyframe(5, glm::vec2(0.0175438596 * 35, 0.f));
-
-	sprite_enemigo->setAnimationSpeed(6, 6);
-	sprite_enemigo->addKeyframe(6, glm::vec2(0.0175438596 * 28, 0.f));
-	sprite_enemigo->addKeyframe(6, glm::vec2(0.0175438596 * 29, 0.f));
-	sprite_enemigo->addKeyframe(6, glm::vec2(0.0175438596 * 30, 0.f));
-	sprite_enemigo->addKeyframe(6, glm::vec2(0.0175438596 * 31, 0.f));
-	sprite_enemigo->addKeyframe(6, glm::vec2(0.0175438596 * 32, 0.f));
-	sprite_enemigo->addKeyframe(6, glm::vec2(0.0175438596 * 36, 0.f));
-	sprite_enemigo->addKeyframe(6, glm::vec2(0.0175438596 * 37, 0.f));
-	sprite_enemigo->addKeyframe(6, glm::vec2(0.0175438596 * 38, 0.f));
-	sprite_enemigo->addKeyframe(6, glm::vec2(0.0175438596 * 39, 0.f));
-	sprite_enemigo->addKeyframe(6, glm::vec2(0.0175438596 * 40, 0.f));
-	sprite_enemigo->addKeyframe(6, glm::vec2(0.0175438596 * 41, 0.f));
-	sprite_enemigo->addKeyframe(6, glm::vec2(0.0175438596 * 42, 0.f));
-	sprite_enemigo->addKeyframe(6, glm::vec2(0.0175438596 * 43, 0.f));
-	sprite_enemigo->addKeyframe(6, glm::vec2(0.0175438596 * 44, 0.f));
-	sprite_enemigo->addKeyframe(6, glm::vec2(0.0175438596 * 45, 0.f));
-	sprite_enemigo->addKeyframe(6, glm::vec2(0.0175438596 * 46, 0.f));
-	sprite_enemigo->addKeyframe(6, glm::vec2(0.0175438596 * 47, 0.f));
-	sprite_enemigo->addKeyframe(6, glm::vec2(0.0175438596 * 48, 0.f));
-	sprite_enemigo->addKeyframe(6, glm::vec2(0.0175438596 * 49, 0.f));
-	sprite_enemigo->addKeyframe(6, glm::vec2(0.0175438596 * 50, 0.f));
-	sprite_enemigo->addKeyframe(6, glm::vec2(0.0175438596 * 51, 0.f));
-	sprite_enemigo->addKeyframe(6, glm::vec2(0.0175438596 * 52, 0.f));
-	sprite_enemigo->addKeyframe(6, glm::vec2(0.0175438596 * 53, 0.f));
-	sprite_enemigo->addKeyframe(6, glm::vec2(0.0175438596 * 54, 0.f));
-	sprite_enemigo->addKeyframe(6, glm::vec2(0.0175438596 * 55, 0.f));
-	sprite_enemigo->addKeyframe(6, glm::vec2(0.0175438596 * 56, 0.f));
-
-	sprite_enemigo->setAnimationSpeed(7, 7);
-
-	sprite_enemigo->addKeyframe(7, glm::vec2(0.0175438596 * 40, 0.f));
-
-	sprite_enemigo->setAnimationSpeed(8, 7);
-	sprite_enemigo->addKeyframe(8, glm::vec2(0.0175438596 * 50, 0.f));
-
-	sprite_enemigo->setAnimationSpeed(9, 6);
-	sprite_enemigo->addKeyframe(9, glm::vec2(0.0175438596 * 30, 0.f));
-
-	sprite_enemigo->setAnimationSpeed(10, 6);
-	sprite_enemigo->addKeyframe(10, glm::vec2(0.0175438596 * 34, 0.f));
-
-	sprite_enemigo->setAnimationSpeed(11, 10);
-	sprite_enemigo->addKeyframe(11, glm::vec2(0.0175438596 * 36, 0.f));
-
+		//puñetazo
+		sprite_enemigo->setAnimationSpeed(4, 8);
+		sprite_enemigo->addKeyframe(4, glm::vec2(0.0188679245 * 12, 0.f));
+		sprite_enemigo->addKeyframe(4, glm::vec2(0.0188679245 * 13, 0.f));
+		sprite_enemigo->addKeyframe(4, glm::vec2(0.0188679245 * 14, 0.f));
+		sprite_enemigo->addKeyframe(4, glm::vec2(0.0188679245 * 15, 0.f));
+		sprite_enemigo->addKeyframe(4, glm::vec2(0.0188679245 * 16, 0.f));
+		sprite_enemigo->addKeyframe(4, glm::vec2(0.0188679245 * 17, 0.f));
+		sprite_enemigo->addKeyframe(4, glm::vec2(0.0188679245 * 18, 0.f));
+		sprite_enemigo->addKeyframe(4, glm::vec2(0.0188679245 * 19, 0.f));
+		sprite_enemigo->addKeyframe(4, glm::vec2(0.0188679245 * 20, 0.f));
+		sprite_enemigo->addKeyframe(4, glm::vec2(0.0188679245 * 21, 0.f));
+		sprite_enemigo->addKeyframe(4, glm::vec2(0.0188679245 * 22, 0.f));
+		//recibir
+		sprite_enemigo->setAnimationSpeed(5, 6);
+		sprite_enemigo->addKeyframe(5, glm::vec2(0.0188679245 * 23, 0.f));
+		sprite_enemigo->addKeyframe(5, glm::vec2(0.0188679245 * 24, 0.f));
+		//recibir
+		sprite_enemigo->setAnimationSpeed(6, 6);
+		sprite_enemigo->addKeyframe(6, glm::vec2(0.0188679245 * 23, 0.f));
+		sprite_enemigo->addKeyframe(6, glm::vec2(0.0188679245 * 24, 0.f));
+		//morir
+		sprite_enemigo->setAnimationSpeed(7, 7);
+		sprite_enemigo->addKeyframe(7, glm::vec2(0.0188679245 * 27, 0.f));
+		sprite_enemigo->addKeyframe(7, glm::vec2(0.0188679245 * 28, 0.f));
+		sprite_enemigo->addKeyframe(7, glm::vec2(0.0188679245 * 29, 0.f));
+		sprite_enemigo->addKeyframe(7, glm::vec2(0.0188679245 * 30, 0.f));
+		sprite_enemigo->addKeyframe(7, glm::vec2(0.0188679245 * 31, 0.f));
+		sprite_enemigo->addKeyframe(7, glm::vec2(0.0188679245 * 32, 0.f));
+		sprite_enemigo->addKeyframe(7, glm::vec2(0.0188679245 * 33, 0.f));
+		sprite_enemigo->addKeyframe(7, glm::vec2(0.0188679245 * 34, 0.f));
+		sprite_enemigo->addKeyframe(7, glm::vec2(0.0188679245 * 35, 0.f));
+		sprite_enemigo->addKeyframe(7, glm::vec2(0.0188679245 * 36, 0.f));
+		sprite_enemigo->addKeyframe(7, glm::vec2(0.0188679245 * 37, 0.f));
+		sprite_enemigo->addKeyframe(7, glm::vec2(0.0188679245 * 38, 0.f));
+		sprite_enemigo->addKeyframe(7, glm::vec2(0.0188679245 * 39, 0.f));
+		sprite_enemigo->addKeyframe(7, glm::vec2(0.0188679245 * 40, 0.f));
+		sprite_enemigo->addKeyframe(7, glm::vec2(0.0188679245 * 41, 0.f));
+		//quedarse en el suelo
+		sprite_enemigo->setAnimationSpeed(8, 7);
+		sprite_enemigo->addKeyframe(8, glm::vec2(0.0188679245 * 41, 0.f));
+		//recibir
+		sprite_enemigo->setAnimationSpeed(9, 6);
+		sprite_enemigo->addKeyframe(9, glm::vec2(0.0188679245 * 23, 0.f));
+		sprite_enemigo->addKeyframe(9, glm::vec2(0.0188679245 * 24, 0.f));
+		//recibir
+		sprite_enemigo->setAnimationSpeed(10, 6);
+		sprite_enemigo->addKeyframe(10, glm::vec2(0.0188679245 * 23, 0.f));
+		sprite_enemigo->addKeyframe(10, glm::vec2(0.0188679245 * 24, 0.f));
+		//recuperar
+		sprite_enemigo->setAnimationSpeed(11, 10);
+		sprite_enemigo->addKeyframe(11, glm::vec2(0.0188679245 * 27, 0.f));
+		sprite_enemigo->addKeyframe(11, glm::vec2(0.0188679245 * 28, 0.f));
+		sprite_enemigo->addKeyframe(11, glm::vec2(0.0188679245 * 29, 0.f));
+		sprite_enemigo->addKeyframe(11, glm::vec2(0.0188679245 * 30, 0.f));
+		sprite_enemigo->addKeyframe(11, glm::vec2(0.0188679245 * 31, 0.f));
+		sprite_enemigo->addKeyframe(11, glm::vec2(0.0188679245 * 32, 0.f));
+		sprite_enemigo->addKeyframe(11, glm::vec2(0.0188679245 * 33, 0.f));
+		sprite_enemigo->addKeyframe(11, glm::vec2(0.0188679245 * 34, 0.f));
+		sprite_enemigo->addKeyframe(11, glm::vec2(0.0188679245 * 35, 0.f));
+		sprite_enemigo->addKeyframe(11, glm::vec2(0.0188679245 * 36, 0.f));
+		sprite_enemigo->addKeyframe(11, glm::vec2(0.0188679245 * 37, 0.f));
+		sprite_enemigo->addKeyframe(11, glm::vec2(0.0188679245 * 38, 0.f));
+		sprite_enemigo->addKeyframe(11, glm::vec2(0.0188679245 * 39, 0.f));
+		sprite_enemigo->addKeyframe(11, glm::vec2(0.0188679245 * 40, 0.f));
+		sprite_enemigo->addKeyframe(11, glm::vec2(0.0188679245 * 41, 0.f));
+		sprite_enemigo->addKeyframe(11, glm::vec2(0.0188679245 * 42, 0.f));
+		sprite_enemigo->addKeyframe(11, glm::vec2(0.0188679245 * 43, 0.f));
+		sprite_enemigo->addKeyframe(11, glm::vec2(0.0188679245 * 44, 0.f));
+		sprite_enemigo->addKeyframe(11, glm::vec2(0.0188679245 * 45, 0.f));
+		sprite_enemigo->addKeyframe(11, glm::vec2(0.0188679245 * 46, 0.f));
+		sprite_enemigo->addKeyframe(11, glm::vec2(0.0188679245 * 47, 0.f));
+		sprite_enemigo->addKeyframe(11, glm::vec2(0.0188679245 * 48, 0.f));
+		sprite_enemigo->addKeyframe(11, glm::vec2(0.0188679245 * 49, 0.f));
+		sprite_enemigo->addKeyframe(11, glm::vec2(0.0188679245 * 50, 0.f));
+		sprite_enemigo->addKeyframe(11, glm::vec2(0.0188679245 * 51, 0.f));
+		sprite_enemigo->addKeyframe(11, glm::vec2(0.0188679245 * 52, 0.f));
 
 
 	spritesheet_enemigo_left.loadFromFile("images/Enemigo2/Enemigo2_izquierda.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite_enemigo_left = Sprite::createSprite(glm::ivec2(100, 160), glm::vec2(0.0175438596, 1), &spritesheet_enemigo_left, &shaderProgram);
+	sprite_enemigo_left = Sprite::createSprite(glm::ivec2(90, 160), glm::vec2(0.0188679245, 1), &spritesheet_enemigo_left, &shaderProgram);
 	sprite_enemigo_left->setNumberAnimations(12);
 
-	sprite_enemigo_left->setAnimationSpeed(0, 8);
-	sprite_enemigo_left->addKeyframe(0, glm::vec2(0.0175438596 * 56, 0.f));
-	sprite_enemigo_left->addKeyframe(0, glm::vec2(0.0175438596 * 55, 0.f));
-	sprite_enemigo_left->addKeyframe(0, glm::vec2(0.0175438596 * 54, 0.f));
-	sprite_enemigo_left->addKeyframe(0, glm::vec2(0.0175438596 * 53, 0.f));
+		sprite_enemigo_left->setAnimationSpeed(0, 6);
+		sprite_enemigo_left->addKeyframe(0, glm::vec2(0.0188679245 * 52, 0.f));
+		sprite_enemigo_left->addKeyframe(0, glm::vec2(0.0188679245 * 51, 0.f));
+		sprite_enemigo_left->addKeyframe(0, glm::vec2(0.0188679245 * 50, 0.f));
+		sprite_enemigo_left->addKeyframe(0, glm::vec2(0.0188679245 * 49, 0.f));
+		//caminar
+		sprite_enemigo_left->setAnimationSpeed(1, 8);
+		sprite_enemigo_left->addKeyframe(1, glm::vec2(0.0188679245 * 48, 0.f));
+		sprite_enemigo_left->addKeyframe(1, glm::vec2(0.0188679245 * 47, 0.f));
+		sprite_enemigo_left->addKeyframe(1, glm::vec2(0.0188679245 * 46, 0.f));
+		sprite_enemigo_left->addKeyframe(1, glm::vec2(0.0188679245 * 45, 0.f));
+		sprite_enemigo_left->addKeyframe(1, glm::vec2(0.0188679245 * 44, 0.f));
+		sprite_enemigo_left->addKeyframe(1, glm::vec2(0.0188679245 * 43, 0.f));
+		sprite_enemigo_left->addKeyframe(1, glm::vec2(0.0188679245 * 42, 0.f));
+		sprite_enemigo_left->addKeyframe(1, glm::vec2(0.0188679245 * 41, 0.f));
+		//correr
+		sprite_enemigo_left->setAnimationSpeed(2, 8);
+		sprite_enemigo_left->addKeyframe(2, glm::vec2(0.0188679245 * 40, 0.f));
+		sprite_enemigo_left->addKeyframe(2, glm::vec2(0.0188679245 * 41, 0.f));
+		sprite_enemigo_left->addKeyframe(2, glm::vec2(0.0188679245 * 39, 0.f));
+		sprite_enemigo_left->addKeyframe(2, glm::vec2(0.0188679245 * 15, 0.f));
+		sprite_enemigo_left->addKeyframe(2, glm::vec2(0.0188679245 * 16, 0.f));
+		sprite_enemigo_left->addKeyframe(2, glm::vec2(0.0188679245 * 17, 0.f));
+		sprite_enemigo_left->addKeyframe(2, glm::vec2(0.0188679245 * 18, 0.f));
+		sprite_enemigo_left->addKeyframe(2, glm::vec2(0.0188679245 * 19, 0.f));
+		//patada
+		sprite_enemigo_left->setAnimationSpeed(3, 8);
+		sprite_enemigo_left->addKeyframe(3, glm::vec2(0.0188679245 * 40, 0.f));
+		sprite_enemigo_left->addKeyframe(3, glm::vec2(0.0188679245 * 39, 0.f));
+		sprite_enemigo_left->addKeyframe(3, glm::vec2(0.0188679245 * 38, 0.f));
+		sprite_enemigo_left->addKeyframe(3, glm::vec2(0.0188679245 * 37, 0.f));
+		sprite_enemigo_left->addKeyframe(3, glm::vec2(0.0188679245 * 36, 0.f));
+		sprite_enemigo_left->addKeyframe(3, glm::vec2(0.0188679245 * 35, 0.f));
+		sprite_enemigo_left->addKeyframe(3, glm::vec2(0.0188679245 * 34, 0.f));
+		sprite_enemigo_left->addKeyframe(3, glm::vec2(0.0188679245 * 33, 0.f));
+		sprite_enemigo_left->addKeyframe(3, glm::vec2(0.0188679245 * 32, 0.f));
+		sprite_enemigo_left->addKeyframe(3, glm::vec2(0.0188679245 * 31, 0.f));
+		sprite_enemigo_left->addKeyframe(3, glm::vec2(0.0188679245 * 30, 0.f));
 
-	sprite_enemigo_left->setAnimationSpeed(1, 8);
-	sprite_enemigo_left->addKeyframe(1, glm::vec2(0.0175438596 * 52, 0.f));
-	sprite_enemigo_left->addKeyframe(1, glm::vec2(0.0175438596 * 51, 0.f));
-	sprite_enemigo_left->addKeyframe(1, glm::vec2(0.0175438596 * 50, 0.f));
-	sprite_enemigo_left->addKeyframe(1, glm::vec2(0.0175438596 * 49, 0.f));
-	sprite_enemigo_left->addKeyframe(1, glm::vec2(0.0175438596 * 48, 0.f));
-	sprite_enemigo_left->addKeyframe(1, glm::vec2(0.0175438596 * 47, 0.f));
-	sprite_enemigo_left->addKeyframe(1, glm::vec2(0.0175438596 * 46, 0.f));
-	sprite_enemigo_left->addKeyframe(1, glm::vec2(0.0175438596 * 45, 0.f));
-
-	sprite_enemigo_left->setAnimationSpeed(2, 8);
-	sprite_enemigo_left->addKeyframe(2, glm::vec2(0.0175438596 * 44, 0.f));
-	sprite_enemigo_left->addKeyframe(2, glm::vec2(0.0175438596 * 43, 0.f));
-	sprite_enemigo_left->addKeyframe(2, glm::vec2(0.0175438596 * 42, 0.f));
-	sprite_enemigo_left->addKeyframe(2, glm::vec2(0.0175438596 * 41, 0.f));
-	sprite_enemigo_left->addKeyframe(2, glm::vec2(0.0175438596 * 40, 0.f));
-	sprite_enemigo_left->addKeyframe(2, glm::vec2(0.0175438596 * 39, 0.f));
-	sprite_enemigo_left->addKeyframe(2, glm::vec2(0.0175438596 * 38, 0.f));
-	sprite_enemigo_left->addKeyframe(2, glm::vec2(0.0175438596 * 37, 0.f));
-	sprite_enemigo_left->addKeyframe(2, glm::vec2(0.0175438596 * 36, 0.f));
-	sprite_enemigo_left->addKeyframe(2, glm::vec2(0.0175438596 * 35, 0.f));
-	sprite_enemigo_left->addKeyframe(2, glm::vec2(0.0175438596 * 34, 0.f));
-
-	sprite_enemigo_left->setAnimationSpeed(3, 8);
-	sprite_enemigo_left->addKeyframe(3, glm::vec2(0.0175438596 * 44, 0.f));
-	sprite_enemigo_left->addKeyframe(3, glm::vec2(0.0175438596 * 43, 0.f));
-	sprite_enemigo_left->addKeyframe(3, glm::vec2(0.0175438596 * 42, 0.f));
-	sprite_enemigo_left->addKeyframe(3, glm::vec2(0.0175438596 * 41, 0.f));
-	sprite_enemigo_left->addKeyframe(3, glm::vec2(0.0175438596 * 40, 0.f));
-	sprite_enemigo_left->addKeyframe(3, glm::vec2(0.0175438596 * 39, 0.f));
-	sprite_enemigo_left->addKeyframe(3, glm::vec2(0.0175438596 * 38, 0.f));
-	sprite_enemigo_left->addKeyframe(3, glm::vec2(0.0175438596 * 37, 0.f));
-	sprite_enemigo_left->addKeyframe(3, glm::vec2(0.0175438596 * 36, 0.f));
-	sprite_enemigo_left->addKeyframe(3, glm::vec2(0.0175438596 * 35, 0.f));
-	sprite_enemigo_left->addKeyframe(3, glm::vec2(0.0175438596 * 34, 0.f));
-
-	sprite_enemigo_left->setAnimationSpeed(4, 8);
-	sprite_enemigo_left->addKeyframe(4, glm::vec2(0.0175438596 * 33, 0.f));
-	sprite_enemigo_left->addKeyframe(4, glm::vec2(0.0175438596 * 32, 0.f));
-	sprite_enemigo_left->addKeyframe(4, glm::vec2(0.0175438596 * 31, 0.f));
-	sprite_enemigo_left->addKeyframe(4, glm::vec2(0.0175438596 * 30, 0.f));
-	sprite_enemigo_left->addKeyframe(4, glm::vec2(0.0175438596 * 29, 0.f));
-
-	sprite_enemigo_left->setAnimationSpeed(5, 6);
-	sprite_enemigo_left->addKeyframe(5, glm::vec2(0.0175438596 * 23, 0.f));
-	sprite_enemigo_left->addKeyframe(5, glm::vec2(0.0175438596 * 22, 0.f));
-	sprite_enemigo_left->addKeyframe(5, glm::vec2(0.0175438596 * 21, 0.f));
-
-	sprite_enemigo_left->setAnimationSpeed(6, 6);
-	sprite_enemigo_left->addKeyframe(6, glm::vec2(0.0175438596 * 28, 0.f));
-	sprite_enemigo_left->addKeyframe(6, glm::vec2(0.0175438596 * 27, 0.f));
-	sprite_enemigo_left->addKeyframe(6, glm::vec2(0.0175438596 * 26, 0.f));
-	sprite_enemigo_left->addKeyframe(6, glm::vec2(0.0175438596 * 25, 0.f));
-	sprite_enemigo_left->addKeyframe(6, glm::vec2(0.0175438596 * 24, 0.f));
-	sprite_enemigo_left->addKeyframe(6, glm::vec2(0.0175438596 * 20, 0.f));
-	sprite_enemigo_left->addKeyframe(6, glm::vec2(0.0175438596 * 19, 0.f));
-	sprite_enemigo_left->addKeyframe(6, glm::vec2(0.0175438596 * 18, 0.f));
-	sprite_enemigo_left->addKeyframe(6, glm::vec2(0.0175438596 * 17, 0.f));
-	sprite_enemigo_left->addKeyframe(6, glm::vec2(0.0175438596 * 16, 0.f));
-	sprite_enemigo_left->addKeyframe(6, glm::vec2(0.0175438596 * 15, 0.f));
-	sprite_enemigo_left->addKeyframe(6, glm::vec2(0.0175438596 * 14, 0.f));
-	sprite_enemigo_left->addKeyframe(6, glm::vec2(0.0175438596 * 13, 0.f));
-	sprite_enemigo_left->addKeyframe(6, glm::vec2(0.0175438596 * 12, 0.f));
-	sprite_enemigo_left->addKeyframe(6, glm::vec2(0.0175438596 * 11, 0.f));
-	sprite_enemigo_left->addKeyframe(6, glm::vec2(0.0175438596 * 10, 0.f));
-	sprite_enemigo_left->addKeyframe(6, glm::vec2(0.0175438596 * 9, 0.f));
-	sprite_enemigo_left->addKeyframe(6, glm::vec2(0.0175438596 * 8, 0.f));
-	sprite_enemigo_left->addKeyframe(6, glm::vec2(0.0175438596 * 7, 0.f));
-	sprite_enemigo_left->addKeyframe(6, glm::vec2(0.0175438596 * 6, 0.f));
-	sprite_enemigo_left->addKeyframe(6, glm::vec2(0.0175438596 * 5, 0.f));
-	sprite_enemigo_left->addKeyframe(6, glm::vec2(0.0175438596 * 4, 0.f));
-	sprite_enemigo_left->addKeyframe(6, glm::vec2(0.0175438596 * 3, 0.f));
-	sprite_enemigo_left->addKeyframe(6, glm::vec2(0.0175438596 * 2, 0.f));
-	sprite_enemigo_left->addKeyframe(6, glm::vec2(0.0175438596 * 1, 0.f));
-	sprite_enemigo_left->addKeyframe(6, glm::vec2(0.0175438596 * 0, 0.f));
-
-	sprite_enemigo_left->setAnimationSpeed(7, 7);
-	sprite_enemigo_left->addKeyframe(7, glm::vec2(0.0175438596 * 10, 0.f));
-
-
-	sprite_enemigo_left->setAnimationSpeed(8, 7);
-	sprite_enemigo_left->addKeyframe(8, glm::vec2(0.0175438596 * 10, 0.f));
-
-	sprite_enemigo_left->setAnimationSpeed(9, 6);
-	sprite_enemigo_left->addKeyframe(9, glm::vec2(0.0175438596 * 30, 0.f));
-	sprite_enemigo_left->addKeyframe(9, glm::vec2(0.0175438596 * 29, 0.f));
-
-	sprite_enemigo_left->setAnimationSpeed(10, 6);
-	sprite_enemigo_left->addKeyframe(10, glm::vec2(0.0175438596 * 26, 0.f));
-	sprite_enemigo_left->addKeyframe(10, glm::vec2(0.0175438596 * 25, 0.f));
-
-	sprite_enemigo_left->setAnimationSpeed(11, 10);
-	sprite_enemigo_left->addKeyframe(11, glm::vec2(0.0175438596 * 0, 0.f));
+		//puñetazo
+		sprite_enemigo_left->setAnimationSpeed(4, 8);
+		sprite_enemigo_left->addKeyframe(4, glm::vec2(0.0188679245 * 40, 0.f));
+		sprite_enemigo_left->addKeyframe(4, glm::vec2(0.0188679245 * 39, 0.f));
+		sprite_enemigo_left->addKeyframe(4, glm::vec2(0.0188679245 * 38, 0.f));
+		sprite_enemigo_left->addKeyframe(4, glm::vec2(0.0188679245 * 37, 0.f));
+		sprite_enemigo_left->addKeyframe(4, glm::vec2(0.0188679245 * 36, 0.f));
+		sprite_enemigo_left->addKeyframe(4, glm::vec2(0.0188679245 * 35, 0.f));
+		sprite_enemigo_left->addKeyframe(4, glm::vec2(0.0188679245 * 34, 0.f));
+		sprite_enemigo_left->addKeyframe(4, glm::vec2(0.0188679245 * 33, 0.f));
+		sprite_enemigo_left->addKeyframe(4, glm::vec2(0.0188679245 * 32, 0.f));
+		sprite_enemigo_left->addKeyframe(4, glm::vec2(0.0188679245 * 31, 0.f));
+		sprite_enemigo_left->addKeyframe(4, glm::vec2(0.0188679245 * 30, 0.f));
+		//recibir
+		sprite_enemigo_left->setAnimationSpeed(5, 6);
+		sprite_enemigo_left->addKeyframe(5, glm::vec2(0.0188679245 * 29, 0.f));
+		sprite_enemigo_left->addKeyframe(5, glm::vec2(0.0188679245 * 28, 0.f));
+		//recibir
+		sprite_enemigo_left->setAnimationSpeed(6, 6);
+		sprite_enemigo_left->addKeyframe(6, glm::vec2(0.0188679245 * 29, 0.f));
+		sprite_enemigo_left->addKeyframe(6, glm::vec2(0.0188679245 * 28, 0.f));
+		//morir
+		sprite_enemigo_left->setAnimationSpeed(7, 7);
+		sprite_enemigo_left->addKeyframe(7, glm::vec2(0.0188679245 * 25, 0.f));
+		sprite_enemigo_left->addKeyframe(7, glm::vec2(0.0188679245 * 24, 0.f));
+		sprite_enemigo_left->addKeyframe(7, glm::vec2(0.0188679245 * 23, 0.f));
+		sprite_enemigo_left->addKeyframe(7, glm::vec2(0.0188679245 * 22, 0.f));
+		sprite_enemigo_left->addKeyframe(7, glm::vec2(0.0188679245 * 21, 0.f));
+		sprite_enemigo_left->addKeyframe(7, glm::vec2(0.0188679245 * 20, 0.f));
+		sprite_enemigo_left->addKeyframe(7, glm::vec2(0.0188679245 * 19, 0.f));
+		sprite_enemigo_left->addKeyframe(7, glm::vec2(0.0188679245 * 18, 0.f));
+		sprite_enemigo_left->addKeyframe(7, glm::vec2(0.0188679245 * 17, 0.f));
+		sprite_enemigo_left->addKeyframe(7, glm::vec2(0.0188679245 * 16, 0.f));
+		sprite_enemigo_left->addKeyframe(7, glm::vec2(0.0188679245 * 15, 0.f));
+		sprite_enemigo_left->addKeyframe(7, glm::vec2(0.0188679245 * 14, 0.f));
+		sprite_enemigo_left->addKeyframe(7, glm::vec2(0.0188679245 * 13, 0.f));
+		sprite_enemigo_left->addKeyframe(7, glm::vec2(0.0188679245 * 12, 0.f));
+		sprite_enemigo_left->addKeyframe(7, glm::vec2(0.0188679245 * 11, 0.f));
+		//quedarse en el suelo
+		sprite_enemigo_left->setAnimationSpeed(8, 7);
+		sprite_enemigo_left->addKeyframe(8, glm::vec2(0.0188679245 * 11, 0.f));
+		//recibir
+		sprite_enemigo_left->setAnimationSpeed(9, 6);
+		sprite_enemigo_left->addKeyframe(9, glm::vec2(0.0188679245 * 29, 0.f));
+		sprite_enemigo_left->addKeyframe(9, glm::vec2(0.0188679245 * 28, 0.f));
+		//recibir
+		sprite_enemigo_left->setAnimationSpeed(10, 6);
+		sprite_enemigo_left->addKeyframe(10, glm::vec2(0.0188679245 * 29, 0.f));
+		sprite_enemigo_left->addKeyframe(10, glm::vec2(0.0188679245 * 28, 0.f));
+		//recuperar
+		sprite_enemigo_left->setAnimationSpeed(11, 10);
+		sprite_enemigo_left->addKeyframe(11, glm::vec2(0.0188679245 * 25, 0.f));
+		sprite_enemigo_left->addKeyframe(11, glm::vec2(0.0188679245 * 24, 0.f));
+		sprite_enemigo_left->addKeyframe(11, glm::vec2(0.0188679245 * 23, 0.f));
+		sprite_enemigo_left->addKeyframe(11, glm::vec2(0.0188679245 * 22, 0.f));
+		sprite_enemigo_left->addKeyframe(11, glm::vec2(0.0188679245 * 21, 0.f));
+		sprite_enemigo_left->addKeyframe(11, glm::vec2(0.0188679245 * 20, 0.f));
+		sprite_enemigo_left->addKeyframe(11, glm::vec2(0.0188679245 * 19, 0.f));
+		sprite_enemigo_left->addKeyframe(11, glm::vec2(0.0188679245 * 18, 0.f));
+		sprite_enemigo_left->addKeyframe(11, glm::vec2(0.0188679245 * 17, 0.f));
+		sprite_enemigo_left->addKeyframe(11, glm::vec2(0.0188679245 * 16, 0.f));
+		sprite_enemigo_left->addKeyframe(11, glm::vec2(0.0188679245 * 15, 0.f));
+		sprite_enemigo_left->addKeyframe(11, glm::vec2(0.0188679245 * 14, 0.f));
+		sprite_enemigo_left->addKeyframe(11, glm::vec2(0.0188679245 * 13, 0.f));
+		sprite_enemigo_left->addKeyframe(11, glm::vec2(0.0188679245 * 12, 0.f));
+		sprite_enemigo_left->addKeyframe(11, glm::vec2(0.0188679245 * 11, 0.f));
+		sprite_enemigo_left->addKeyframe(11, glm::vec2(0.0188679245 * 10, 0.f));
+		sprite_enemigo_left->addKeyframe(11, glm::vec2(0.0188679245 * 9, 0.f));
+		sprite_enemigo_left->addKeyframe(11, glm::vec2(0.0188679245 * 8, 0.f));
+		sprite_enemigo_left->addKeyframe(11, glm::vec2(0.0188679245 * 7, 0.f));
+		sprite_enemigo_left->addKeyframe(11, glm::vec2(0.0188679245 * 6, 0.f));
+		sprite_enemigo_left->addKeyframe(11, glm::vec2(0.0188679245 * 5, 0.f));
+		sprite_enemigo_left->addKeyframe(11, glm::vec2(0.0188679245 * 4, 0.f));
+		sprite_enemigo_left->addKeyframe(11, glm::vec2(0.0188679245 * 3, 0.f));
+		sprite_enemigo_left->addKeyframe(11, glm::vec2(0.0188679245 * 2, 0.f));
+		sprite_enemigo_left->addKeyframe(11, glm::vec2(0.0188679245 * 1, 0.f));
+		sprite_enemigo_left->addKeyframe(11, glm::vec2(0.0188679245 * 0, 0.f));
 
 
 
@@ -329,7 +364,7 @@ void Enemigo2::setTileMap(TileMap *tileMap)
 void Enemigo2::recibirPuñetazoIzquierda() {
 	if (vida > 0 && sprite_enemigo_left->animation() != 7 && sprite_enemigo_left->animation() != 8) {
 		movimiento = 1;
-		if (sprite_enemigo_left->animation() != 5) sprite_enemigo_left->changeAnimation(6);
+		if (sprite_enemigo_left->animation() != 5) sprite_enemigo_left->changeAnimation(5);
 		hitTime = 0;
 		if (golpe == 2) {
 			mciSendString(TEXT("play sounds/SOUND/Punch.mp3 "), NULL, 0, NULL);
@@ -341,7 +376,7 @@ void Enemigo2::recibirPuñetazoIzquierda() {
 	}
 	if (vida <= 0 && (sprite_enemigo_left->animation() != 8) && (sprite_enemigo->animation() != 8) && (sprite_enemigo->animation() != 7) && (sprite_enemigo_left->animation() != 7)) {
 		mciSendString(TEXT("stop sounds/SOUND/Punch.mp3"), NULL, 0, NULL);
-		mciSendString(TEXT("play sounds/SOUND/muerte_Enemigo2.mp3"), NULL, 0, NULL);
+		mciSendString(TEXT("play sounds/SOUND/muerte_enemigo1.mp3"), NULL, 0, NULL);
 		sprite_enemigo_left->changeAnimation(7);
 		deltaTimeDeath = 0;
 	}
@@ -362,7 +397,7 @@ void Enemigo2::recibirPatadaIzquierda() {
 	}
 	if (vida <= 0 && (sprite_enemigo_left->animation() != 8) && (sprite_enemigo->animation() != 8) && (sprite_enemigo->animation() != 7) && (sprite_enemigo_left->animation() != 7)) {
 		mciSendString(TEXT("stop sounds/SOUND/Punch.mp3"), NULL, 0, NULL);
-		mciSendString(TEXT("play sounds/SOUND/muerte_Enemigo2.mp3"), NULL, 0, NULL);
+		mciSendString(TEXT("play sounds/SOUND/muerte_enemigo1.mp3"), NULL, 0, NULL);
 		sprite_enemigo_left->changeAnimation(7);
 		deltaTimeDeath = 0;
 	}
@@ -383,7 +418,7 @@ void Enemigo2::recibirPuñetazoDerecha() {
 	}
 	if (vida <= 0 && (sprite_enemigo->animation() != 8) && (sprite_enemigo_left->animation() != 8) && (sprite_enemigo->animation() != 7) && (sprite_enemigo_left->animation() != 7)) {
 		mciSendString(TEXT("stop sounds/SOUND/Punch.mp3"), NULL, 0, NULL);
-		mciSendString(TEXT("play sounds/SOUND/muerte_Enemigo2.mp3"), NULL, 0, NULL);
+		mciSendString(TEXT("play sounds/SOUND/muerte_enemigo1.mp3"), NULL, 0, NULL);
 		sprite_enemigo->changeAnimation(7);
 		deltaTimeDeath = 0;
 	}
@@ -403,7 +438,7 @@ void Enemigo2::recibirPatadaDerecha() {
 	}
 	if (vida <= 0 && (sprite_enemigo->animation() != 8) && (sprite_enemigo_left->animation() != 8) && (sprite_enemigo->animation() != 7) && (sprite_enemigo_left->animation() != 7)) {
 		mciSendString(TEXT("stop sounds/SOUND/Punch.mp3"), NULL, 0, NULL);
-		mciSendString(TEXT("play sounds/SOUND/muerte_Enemigo2.mp3"), NULL, 0, NULL);
+		mciSendString(TEXT("play sounds/SOUND/muerte_enemigo1.mp3"), NULL, 0, NULL);
 		sprite_enemigo->changeAnimation(7);
 		deltaTimeDeath = 0;
 	}
@@ -424,7 +459,7 @@ void Enemigo2::recibirPuñetazoArribaDerecha() {
 	}
 	if (vida <= 0 && (sprite_enemigo->animation() != 8) && (sprite_enemigo_left->animation() != 8) && (sprite_enemigo->animation() != 7) && (sprite_enemigo_left->animation() != 7)) {
 		mciSendString(TEXT("stop sounds/SOUND/Punch.mp3"), NULL, 0, NULL);
-		mciSendString(TEXT("play sounds/SOUND/muerte_Enemigo2.mp3"), NULL, 0, NULL);
+		mciSendString(TEXT("play sounds/SOUND/muerte_enemigo1.mp3"), NULL, 0, NULL);
 		sprite_enemigo->changeAnimation(7);
 		deltaTimeDeath = 0;
 	}
@@ -445,7 +480,7 @@ void Enemigo2::recibirPuñetazoArribaIzquierda() {
 	}
 	if (vida <= 0 && (sprite_enemigo->animation() != 8) && (sprite_enemigo_left->animation() != 8) && (sprite_enemigo->animation() != 7) && (sprite_enemigo_left->animation() != 7)) {
 		mciSendString(TEXT("stop sounds/SOUND/Punch.mp3"), NULL, 0, NULL);
-		mciSendString(TEXT("play sounds/SOUND/muerte_Enemigo2.mp3"), NULL, 0, NULL);
+		mciSendString(TEXT("play sounds/SOUND/muerte_enemigo1.mp3"), NULL, 0, NULL);
 		sprite_enemigo_left->changeAnimation(7);
 		deltaTimeDeath = 0;
 	}
