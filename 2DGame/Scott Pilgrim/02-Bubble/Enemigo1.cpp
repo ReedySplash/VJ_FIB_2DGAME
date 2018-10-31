@@ -628,5 +628,3 @@ int Enemigo1::posPly(float yP)
 	}
 	else return 1;
 }
-
-
