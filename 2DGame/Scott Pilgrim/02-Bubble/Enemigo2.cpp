@@ -530,12 +530,24 @@ void Enemigo2::atacarPuñetazosDerecha() {
 	if (sprite_enemigo->animation() != 3 && sprite_enemigo->animation() != 6 && sprite_enemigo->animation() != 5 && sprite_enemigo->animation() != 7 && sprite_enemigo->animation() != 8 && sprite_enemigo->animation() != 9 && sprite_enemigo->animation() != 10 && sprite_enemigo->animation() != 11 && vida > 0) {
 		sprite_enemigo->changeAnimation(3);
 		movimiento = 0;
+		mciSendString(TEXT("play sounds/SOUND/Punch.mp3"), NULL, 0, NULL);
+		mciSendString(TEXT("setaudio sounds/SOUND/Punch.mp3 volume to 94"), NULL, 0, NULL);
+	}
+	else {
+		mciSendString(TEXT("play sounds/SOUND/Punch.mp3"), NULL, 0, NULL);
+		mciSendString(TEXT("setaudio sounds/SOUND/Punch.mp3 volume to 94"), NULL, 0, NULL);
 	}
 }
 void Enemigo2::atacarPuñetadosIzquierda() {
 	if (sprite_enemigo_left->animation() != 3 && sprite_enemigo_left->animation() != 5 && sprite_enemigo_left->animation() != 6 && sprite_enemigo_left->animation() != 8 && sprite_enemigo_left->animation() != 9 && sprite_enemigo_left->animation() != 10 && sprite_enemigo_left->animation() != 11 && vida > 0) {
 		sprite_enemigo_left->changeAnimation(3);
 		movimiento = 1;
+		mciSendString(TEXT("play sounds/SOUND/Punch.mp3"), NULL, 0, NULL);
+		mciSendString(TEXT("setaudio sounds/SOUND/Punch.mp3 volume to 94"), NULL, 0, NULL);
+	}
+	else { 
+		mciSendString(TEXT("play sounds/SOUND/Punch.mp3"), NULL, 0, NULL);
+		mciSendString(TEXT("setaudio sounds/SOUND/Punch.mp3 volume to 94"), NULL, 0, NULL);
 	}
 }
 
@@ -550,16 +562,106 @@ bool Enemigo2::isPunchingLeft() {
 }
 
 void Enemigo2::turnToWalk() {
-	if (sprite_enemigo->animation() == 3 && movimiento == 0) sprite_enemigo->changeAnimation(0);
-	if (sprite_enemigo_left->animation() == 3 && movimiento == 1) sprite_enemigo_left->changeAnimation(0);
+	if (sprite_enemigo->animation() == 3 && movimiento == 0 && sprite_enemigo->isFinalized()) sprite_enemigo->changeAnimation(0);
+	if (sprite_enemigo_left->animation() == 3 && movimiento == 1 && sprite_enemigo_left->isFinalized()) sprite_enemigo_left->changeAnimation(0);
 }
 
 bool Enemigo2::isRecuperando() {
 	if (sprite_enemigo_left->animation() == 11 && movimiento == 1) return true;
 	else if (sprite_enemigo->animation() == 11 && movimiento == 0) return true;
+	if (sprite_enemigo_left->animation() == 6 && movimiento == 1 && hitTime < 500) return true;
+	else if (sprite_enemigo->animation() == 6 && movimiento == 0 && hitTime < 500) return true;
+	if (sprite_enemigo_left->animation() == 5 && movimiento == 1 && hitTime < 500) return true;
+	else if (sprite_enemigo->animation() == 5 && movimiento == 0 && hitTime < 500) return true;
 	return false;
 }
 
 void Enemigo2::setGolpesto0() {
 	golpe = 0;
+}
+
+void Enemigo2::moverse(float xP, float yP) {
+	if (vida > 0 && (sprite_enemigo->animation() == 0 || sprite_enemigo_left->animation() == 0 || sprite_enemigo->animation() == 1 || sprite_enemigo_left->animation() == 1)) {
+		if (estaCerca(xP, yP) && (sprite_enemigo->animation() == 0 || sprite_enemigo_left->animation() == 0 || sprite_enemigo->animation() == 1 || sprite_enemigo_left->animation() == 1)) {
+			if (sprite_enemigo->animation() == 0 || sprite_enemigo_left->animation() == 0) {
+				if (movimiento == 1) {
+					if (posPlx(xP) == 0) {
+						posPlayer.x -= 1;
+					}
+					else {
+						movimiento = 0;
+						posPlayer.x += 1;
+					}
+					if (posPly(yP) == 0) posPlayer.y -= 1;
+					else posPlayer.y += 1;
+					sprite_enemigo_left->changeAnimation(1);
+					sprite_enemigo->changeAnimation(1);
+				}
+
+				else {
+					if (posPlx(xP) == 0) {
+						movimiento = 1;
+						posPlayer.x -= 1;
+					}
+					else {
+						posPlayer.x += 1;
+					}
+					if (posPly(yP) == 0) posPlayer.y -= 1;
+					else posPlayer.y += 1;
+					sprite_enemigo_left->changeAnimation(1);
+					sprite_enemigo->changeAnimation(1);
+				}
+			}
+			else if (sprite_enemigo->animation() == 1 || sprite_enemigo_left->animation() == 1) {
+				if (movimiento == 1) {
+					if (posPlx(xP) == 0) {
+						posPlayer.x -= 1;
+					}
+					else {
+						movimiento = 0;
+						posPlayer.x += 1;
+					}
+					if (posPly(yP) == 0) posPlayer.y -= 1;
+					else posPlayer.y += 1;
+				}
+
+				else {
+					if (posPlx(xP) == 0) {
+						movimiento = 1;
+						posPlayer.x -= 1;
+					}
+					else {
+						posPlayer.x += 1;
+					}
+					if (posPly(yP) == 0) posPlayer.y -= 1;
+					else posPlayer.y += 1;
+				}
+			}
+		}
+		else if (!estaCerca(xP, yP) && (sprite_enemigo->animation() == 1 || sprite_enemigo_left->animation() == 1)) {
+			sprite_enemigo_left->changeAnimation(0);
+			sprite_enemigo->changeAnimation(0);
+		}
+	}
+}
+
+bool Enemigo2::estaCerca(float xP, float yP)
+{
+	return ((abs(xP - posPlayer.x) < 200) && (abs(yP - posPlayer.y) < 200));
+}
+
+int Enemigo2::posPlx(float xP)
+{
+	if (xP <= posPlayer.x) {
+		return 0;
+	}
+	else return 1;
+}
+
+int Enemigo2::posPly(float yP)
+{
+	if ((yP - 45) <= posPlayer.y) {
+		return 0;
+	}
+	else return 1;
 }

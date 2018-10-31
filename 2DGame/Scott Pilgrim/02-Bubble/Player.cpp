@@ -1,5 +1,6 @@
 #include <cmath>
 #include <iostream>
+#include <Windows.h>
 #include <GL/glew.h>
 #include <GL/glut.h>
 #include "Player.h"
@@ -424,12 +425,12 @@ void Player::update(int deltaTime)
 
 		if (movimiento == 13 || movimiento == 14 && (sprite_recibir->animation() == 2 || sprite_recibir_izq->animation() == 2)) {
 			if (sprite_recibir->animation() == 2 || sprite_recibir_izq->animation() == 2) recuperando += deltaTime;
-			if (sprite_recibir->animation() == 2 && movimiento == 14 && recuperando < 1500 && level != 3) posPlayer.x -= 1.5f;
-			else if (sprite_recibir_izq->animation() == 2 && movimiento == 13 && recuperando < 1430 && level != 3) posPlayer.x += 1.5f;
+			if (sprite_recibir->animation() == 2 && movimiento == 14 && recuperando < 1400 && level != 3 && posPlayer.x > 0) posPlayer.x -= 1.5f;
+			else if (sprite_recibir_izq->animation() == 2 && movimiento == 13 && recuperando < 1400 && level != 3 && posPlayer.x < 580) posPlayer.x += 1.5f;
 			if (sprite_recibir->animation() == 2 && movimiento == 14 && recuperando < 1500 && level == 3 && posPlayer.x > 160) posPlayer.x -= 1.5f;
 			else if (sprite_recibir_izq->animation() == 2 && movimiento == 13 && recuperando < 1430 && level == 3 && posPlayer.x < 420) posPlayer.x += 1.5f;
 			if ((sprite_recibir->animation() == 2 || sprite_recibir_izq->animation() == 2) && recuperando < 1300) posPlayer.y += 0.25;
-			else if (recuperando > 2300) {
+			else if (recuperando > 2250) {
 				if (movimiento == 13) movimiento = 0;
 				else movimiento = 1;
 				recuperando = 0;
@@ -557,7 +558,7 @@ void Player::update(int deltaTime)
 				if (posPlayer.x >= 580) posLevel -= 2.f;
 			}
 
-			if ((Game::instance().getSpecialKey(GLUT_KEY_UP) && level != 3) || (Game::instance().getKey('u') && level == 3)) 
+			if ((Game::instance().getSpecialKey(GLUT_KEY_UP) && level != 3) || (Game::instance().getKey('u') && level == 3))
 			{
 				if ((level == 1 && posPlayer.y > 165) || (level == 2 && posPlayer.y > 210) || (level == 3 && posPlayer.y > 130)) {
 					if (!bJumping && movimiento == 3 || movimiento == 1) movimiento = 3;
@@ -620,6 +621,7 @@ void Player::update(int deltaTime)
 					sprite_saltar_izquierda->changeAnimation(0);
 					jumpAngle = 0;
 					startY = posPlayer.y;
+					mciSendString(TEXT("play sounds/SOUND/jump.mp3"), NULL, 0, NULL);
 				}
 			}
 		}

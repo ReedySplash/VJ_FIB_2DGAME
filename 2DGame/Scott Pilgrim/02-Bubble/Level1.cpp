@@ -34,7 +34,7 @@ void Level1::init(bool music, int pers)
 	if(music) {
 		mciSendString(TEXT("stop sounds/SOUND/MenuTheme.mp3"), NULL, 0, NULL);
 		mciSendString(TEXT("play sounds/SOUND/Level1.mp3 repeat"), NULL, 0, NULL);
-		mciSendString(TEXT("setaudio sounds/SOUND/Level1.mp3 volume to 98"), NULL, 0, NULL);
+		mciSendString(TEXT("setaudio sounds/SOUND/Level1.mp3 volume to 95"), NULL, 0, NULL);
 	}
 	else {
 		mciSendString(TEXT("stop sounds/SOUND/level1.mp3"), NULL, 0, NULL);
@@ -170,7 +170,7 @@ void Level1::update(int deltaTime)
 					if (x > 0) pose2.x += 2.57f;
 					enemigo2[i]->setPosition(pose2);
 				}
-				if (!enemigo1[i]->isCompletlyDeath()) {
+				if (!enemigo3[i]->isCompletlyDeath()) {
 					glm::vec2 pose3 = enemigo3[i]->getPosition();
 					if (x > 0) pose3.x += 2.57f;
 					enemigo3[i]->setPosition(pose3);
@@ -232,7 +232,6 @@ void Level1::update(int deltaTime)
 		else if (x > 218) x = 218.f;
 
 		for (int i = 0; i < 3; ++i) {
-			enemigo1[i]->moverse(pos.x, pos.y);
 			comprobarLucha(i, pos, 1);
 			comprobarLucha(i, pos, 2);
 			comprobarLucha(i, pos, 3);
@@ -242,6 +241,8 @@ void Level1::update(int deltaTime)
 			enemigo1[i]->update(deltaTime);
 			enemigo2[i]->update(deltaTime);
 			enemigo3[i]->update(deltaTime);
+			if (!enemigo1[i]->isPunchingLeft() && !enemigo1[i]->isPunchingRight() && !enemigo1[i]->isRecuperando()) enemigo1[i]->moverse(pos.x, pos.y);
+			if (!enemigo2[i]->isPunchingLeft() && !enemigo2[i]->isPunchingRight() && !enemigo2[i]->isRecuperando()) enemigo2[i]->moverse(pos.x, pos.y);
 		}
 	}
 
@@ -256,6 +257,7 @@ void Level1::update(int deltaTime)
 	}
 	yplayer = pos.y;
 	
+	if (x == 213 && !atacando_boss && !boss->isRecuperando()) boss->moverse(pos.x, pos.y);
 	comprobarLuchaBoss(pos);
 	comprobarAtaqueBoss(pos);
 	boss->update(deltaTime);
@@ -585,7 +587,11 @@ void Level1::comprobarLucha(int i, glm::vec2 posPlayer, int enemigo) {
 
 void Level1::comprobarAtaqueEnemigo(int i, glm::vec2 posPlayer, int enemigo) {
 	bool isPunching_left, isKicking_left, isPunching_right, isKicking_right;
-	if (!enemigo1[i]->isDeath() && !enemigo1[i]->isDying() && !enemigo1[i]->isRecuperando()) {
+	bool isDead, isRecuperando;
+	if (enemigo == 1) { isDead = enemigo1[i]->isDeath(); isRecuperando = enemigo1[i]->isRecuperando(); }
+	if (enemigo == 2) { isDead = enemigo2[i]->isDeath(); isRecuperando = enemigo2[i]->isRecuperando(); }
+	if (enemigo == 3) { isDead = enemigo3[i]->isDeath(); isRecuperando = enemigo3[i]->isRecuperando(); }
+	if (!isDead && !isRecuperando) {
 		if (personaje == 0) {
 			isPunching_left = player->isPunching_left();
 			isPunching_right = player->isPunching_right();
@@ -607,12 +613,8 @@ void Level1::comprobarAtaqueEnemigo(int i, glm::vec2 posPlayer, int enemigo) {
 		if (enemigo == 1) posEnemy = enemigo1[i]->getPosition();
 		if (enemigo == 2) posEnemy = enemigo2[i]->getPosition();
 		if (enemigo == 3) posEnemy = enemigo3[i]->getPosition();
-		bool isDead, isRecuperando;
-		if (enemigo == 1) { isDead = enemigo1[i]->isDeath(); isRecuperando = enemigo1[i]->isRecuperando(); }
-		if (enemigo == 2) { isDead = enemigo2[i]->isDeath(); isRecuperando = enemigo2[i]->isRecuperando(); }
-		if (enemigo == 3) { isDead = enemigo3[i]->isDeath(); isRecuperando = enemigo3[i]->isRecuperando(); }
 		
-		if ((posPlayer.x > posEnemy.x - 35) && (posPlayer.x < posEnemy.x + 20) && (posPlayer.y >= posEnemy.y + 40 && posPlayer.y <= posEnemy.y + 50)) {
+		if ((posPlayer.x > posEnemy.x - 35) && (posPlayer.x < posEnemy.x + 20) && (posPlayer.y >= posEnemy.y + 40 && posPlayer.y <= posEnemy.y + 70)) {
 			if (rand() % 120 == 3) {
 				if (!isPunching_right && !isKicking_right && !isDead && !isRecuperando) {
 					if (enemigo == 1) enemigo1[i]->atacarPuñetadosIzquierda();
@@ -628,7 +630,7 @@ void Level1::comprobarAtaqueEnemigo(int i, glm::vec2 posPlayer, int enemigo) {
 			}
 		}
 
-		else if ((posEnemy.x + 80 >= posPlayer.x - 5 && posEnemy.x + 10 < posPlayer.x) && (posPlayer.y >= posEnemy.y + 40 && posPlayer.y <= posEnemy.y + 50)) {
+		else if ((posEnemy.x + 80 >= posPlayer.x - 5 && posEnemy.x + 10 < posPlayer.x) && (posPlayer.y >= posEnemy.y + 40 && posPlayer.y <= posEnemy.y + 70)) {
 			if (rand() % 100 == 3) {
 				if (!isPunching_left && !isKicking_left && !isDead && !isRecuperando) {
 					if (enemigo == 1) enemigo1[i]->atacarPuñetazosDerecha();
