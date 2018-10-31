@@ -558,7 +558,7 @@ void Player::update(int deltaTime)
 				if (posPlayer.x >= 580) posLevel -= 2.f;
 			}
 
-			if ((Game::instance().getSpecialKey(103) && level != 3) || (Game::instance().getKey('u') && level == 3))
+			if ((Game::instance().getSpecialKey(GLUT_KEY_UP) && level != 3) || (Game::instance().getKey('u') && level == 3))
 			{
 				if ((level == 1 && posPlayer.y > 165) || (level == 2 && posPlayer.y > 210) || (level == 3 && posPlayer.y > 130)) {
 					if (!bJumping && movimiento == 3 || movimiento == 1) movimiento = 3;

@@ -29,3 +29,6 @@
 *.ipch
 *.pdb
 *.idb
+*.obj
+*.exe
+*.ttf
