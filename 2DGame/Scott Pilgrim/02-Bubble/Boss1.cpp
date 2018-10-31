@@ -586,7 +586,7 @@ void Boss1::moverse(float xP, float yP) {
 
 bool Boss1::estaCerca(float xP, float yP)
 {
-	return ((abs(xP - posPlayer.x) < 200) && (abs(yP - posPlayer.y) < 200));
+	return ((abs(xP - posPlayer.x) < 200) && (abs(yP - posPlayer.y) < 200) && (abs(yP - posPlayer.y) >= 3) && (abs(xP - posPlayer.x) >= 3));
 }
 
 int Boss1::posPlx(float xP)
