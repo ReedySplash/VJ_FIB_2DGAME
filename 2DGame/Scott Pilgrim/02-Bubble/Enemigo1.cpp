@@ -623,7 +623,7 @@ int Enemigo1::posPlx(float xP)
 
 int Enemigo1::posPly(float yP)
 {
-	if (yP <= posPlayer.y) {
+	if ((yP - 45) <= posPlayer.y) {
 		return 0;
 	}
 	else return 1;
