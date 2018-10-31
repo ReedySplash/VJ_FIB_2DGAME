@@ -18,6 +18,7 @@
 #include "Ramona.h"
 #include "Hud.h"
 #include "Boss1.h"
+#include "TileMap.h"
 
 
 class Level1
@@ -51,6 +52,7 @@ private:
 	Kim *kim;
 	Ramona *ramona;
 	Hud hud;
+	TileMap *map;
 
 	//Def enemies
 	Enemigo1 *enemigo1[3];

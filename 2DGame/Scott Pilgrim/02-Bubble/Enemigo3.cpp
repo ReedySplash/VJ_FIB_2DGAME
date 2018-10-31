@@ -531,12 +531,20 @@ void Enemigo3::atacarPuñetazosDerecha() {
 	if (sprite_enemigo->animation() != 3 && sprite_enemigo->animation() != 6 && sprite_enemigo->animation() != 5 && sprite_enemigo->animation() != 7 && sprite_enemigo->animation() != 8 && sprite_enemigo->animation() != 9 && sprite_enemigo->animation() != 10 && sprite_enemigo->animation() != 11 && vida > 0) {
 		sprite_enemigo->changeAnimation(3);
 		movimiento = 0;
+		mciSendString(TEXT("play sounds/SOUND/fireBall.mp3"), NULL, 0, NULL);
+	}
+	else {
+		mciSendString(TEXT("play sounds/SOUND/fireBall.mp3"), NULL, 0, NULL);
 	}
 }
 void Enemigo3::atacarPuñetadosIzquierda() {
 	if (sprite_enemigo_left->animation() != 3 && sprite_enemigo_left->animation() != 5 && sprite_enemigo_left->animation() != 6 && sprite_enemigo_left->animation() != 8 && sprite_enemigo_left->animation() != 9 && sprite_enemigo_left->animation() != 10 && sprite_enemigo_left->animation() != 11 && vida > 0) {
 		sprite_enemigo_left->changeAnimation(3);
 		movimiento = 1;
+		mciSendString(TEXT("play sounds/SOUND/fireBall.mp3"), NULL, 0, NULL);
+	}
+	else {
+		mciSendString(TEXT("play sounds/SOUND/fireBall.mp3"), NULL, 0, NULL);
 	}
 }
 
@@ -551,8 +559,9 @@ bool Enemigo3::isPunchingLeft() {
 }
 
 void Enemigo3::turnToWalk() {
-	if (sprite_enemigo->animation() == 3 && movimiento == 0) sprite_enemigo->changeAnimation(0);
-	if (sprite_enemigo_left->animation() == 3 && movimiento == 1) sprite_enemigo_left->changeAnimation(0);
+	if (sprite_enemigo->animation() == 3 && movimiento == 0 && sprite_enemigo_left->isFinalized()) sprite_enemigo->changeAnimation(0);
+	if (sprite_enemigo_left->animation() == 3 && movimiento == 1 && sprite_enemigo->isFinalized()) sprite_enemigo_left->changeAnimation(0);
+	mciSendString(TEXT("stop sounds/SOUND/fireBall.mp3"), NULL, 0, NULL);
 }
 
 bool Enemigo3::isRecuperando() {

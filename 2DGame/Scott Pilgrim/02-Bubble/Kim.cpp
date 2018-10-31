@@ -1,5 +1,6 @@
 #include <cmath>
 #include <iostream>
+#include <Windows.h>
 #include <GL/glew.h>
 #include <GL/glut.h>
 #include "Kim.h"
@@ -398,9 +399,9 @@ void Kim::update(int deltaTime)
 	if (vida <= 0) {
 		if (movimiento == 13 && sprite_recibir_izq->animation() != 3 && sprite_recibir_izq->animation() != 4) sprite_recibir_izq->changeAnimation(3);
 		else if (movimiento == 14 && sprite_recibir->animation() != 3 && sprite_recibir->animation() != 4) sprite_recibir->changeAnimation(3);
-		else if (!sprite_recibir_izq->isFinalized() && sprite_recibir_izq->animation() != 4) posPlayer.x += 1.5f;
-		else if (!sprite_recibir->isFinalized() && sprite_recibir->animation() != 4) posPlayer.x -= 1.5f;
-		if (sprite_recibir->animation() != 4 && sprite_recibir_izq->animation() != 4) posPlayer.y += 0.6;
+		else if (!sprite_recibir_izq->isFinalized() && sprite_recibir_izq->animation() != 4 && posPlayer.x < 580) posPlayer.x += 1.5f;
+		else if (!sprite_recibir->isFinalized() && sprite_recibir->animation() != 4 && posPlayer.x > 0) posPlayer.x -= 1.5f;
+		if (sprite_recibir->animation() != 4 && sprite_recibir_izq->animation() != 4) posPlayer.y += 0.6f;
 		if (movimiento == 13 && sprite_recibir_izq->isFinalized()) {
 			//if (sprite_recibir_izq->animation() != 4) posPlayer.y -= 15.4f;
 			sprite_recibir_izq->changeAnimation(4);
@@ -566,14 +567,14 @@ void Kim::update(int deltaTime)
 				if (jumpAngle == 180)
 				{
 					bJumping = false;
-					posPlayer.y = startY;
+					posPlayer.y = (float)startY;
 					if (movimiento == 6) movimiento = 0;
 					else movimiento = 1;
 
 				}
 				else
 				{
-					posPlayer.y = int(startY - 96 * sin(3.14159f * jumpAngle / 180.f));
+					posPlayer.y = int(startY - 96.f * sin(3.14159f * jumpAngle / 180.f));
 					if (jumpAngle > 90) {
 						if (!bJumping) {
 							if (movimiento == 6) movimiento = 0;
@@ -590,7 +591,8 @@ void Kim::update(int deltaTime)
 					sprite_saltar_derecha->changeAnimation(0);
 					sprite_saltar_izquierda->changeAnimation(0);
 					jumpAngle = 0;
-					startY = posPlayer.y;
+					startY = (float)posPlayer.y;
+					mciSendString(TEXT("play sounds/SOUND/jump.mp3"), NULL, 0, NULL);
 				}
 			}
 		}
