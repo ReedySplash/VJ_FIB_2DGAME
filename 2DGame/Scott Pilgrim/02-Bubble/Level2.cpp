@@ -37,7 +37,7 @@ void Level2::init(bool music, int pers)
 	currentTime = 0.0f;
 	initShaders();
 	personaje = pers;
-
+	puntuacion = 0;
 
 	glm::vec2 geom[2] = { glm::vec2(0.f, 0.f), glm::vec2(float(SCREEN_WIDTH), float(SCREEN_HEIGHT)) };
 	glm::vec2 texCoords[2] = { glm::vec2(0.0f, 0.0f), glm::vec2(620, 340.f) };
@@ -55,6 +55,8 @@ void Level2::init(bool music, int pers)
 	texs[3].loadFromFile("images/LevelFinalized.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	texs[3].setMagFilter(GL_NEAREST);
 	hud.init(1, texProgram, simpleTexProgram);
+	if (!text.init("fonts/pixeldu.ttf"))
+		cout << "Could not load font!!!" << endl;
 
 	//Init jugador, depende del elegido
 	if (personaje == 0) {
@@ -239,6 +241,9 @@ void Level2::update(int deltaTime)
 			if (!enemigo1[i]->isPunchingLeft() && !enemigo1[i]->isPunchingRight() && !enemigo1[i]->isRecuperando()) enemigo1[i]->moverse(pos.x, pos.y);
 			if (!enemigo2[i]->isPunchingLeft() && !enemigo2[i]->isPunchingRight() && !enemigo2[i]->isRecuperando()) enemigo2[i]->moverse(pos.x, pos.y);
 			if (!enemigo3[i]->isPunchingLeft() && !enemigo3[i]->isPunchingRight() && !enemigo3[i]->isRecuperando()) enemigo3[i]->moverse(pos.x, pos.y);
+			if (enemigo1[i]->isCompletlyDeath()) muertos[i] = true;
+			if (enemigo2[i]->isCompletlyDeath()) muertos[i + 3] = true;
+			if (enemigo3[i]->isCompletlyDeath()) muertos[i + 6] = true;
 		}
 	}
 
@@ -248,7 +253,7 @@ void Level2::update(int deltaTime)
 		mciSendString(TEXT("stop sounds/SOUND/level2.mp3"), NULL, 0, NULL);
 		if (musica) {
 			mciSendString(TEXT("play sounds/SOUND/Boss2.mp3 repeat"), NULL, 0, NULL);
-			mciSendString(TEXT("setaudio sounds/SOUND/boss.mp3 volume to 95"), NULL, 0, NULL);
+			mciSendString(TEXT("setaudio sounds/SOUND/Boss2.mp3 volume to 90"), NULL, 0, NULL);
 		}
 	}
 	yplayer = pos.y;
@@ -263,12 +268,19 @@ void Level2::update(int deltaTime)
 	hud.update(deltaTime);
 
 	if (boss->isCompletlyDeath()) {
+		muertos[9] = true;
 		if (musica) {
 			mciSendString(TEXT("stop sounds/SOUND/Boss2.mp3"), NULL, 0, NULL);
 			mciSendString(TEXT("play sounds/SOUND/VictoryTheme.mp3 repeat"), NULL, 0, NULL);
-			mciSendString(TEXT("setaudio sounds/SOUND/VictoryTheme.mp3 volume to 98"), NULL, 0, NULL);
+			mciSendString(TEXT("setaudio sounds/SOUND/VictoryTheme.mp3 volume to 110"), NULL, 0, NULL);
 		}
 	}
+
+	puntuacion = 0;
+	for (int i = 0; i < 9; ++i) {
+		if (muertos[i]) puntuacion += 10;
+	}
+	if (muertos[9]) puntuacion += 110;
 }
 
 void Level2::render()
@@ -504,11 +516,16 @@ void Level2::render()
 
 	if (boss->isCompletlyDeath()) {
 		modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
-		modelview2 = glm::translate(modelview2, glm::vec3(160.f, 50.f, 0.f));
+		modelview2 = glm::translate(modelview2, glm::vec3(160.f, 100.f, 0.f));
 		modelview2 = glm::scale(modelview2, glm::vec3(0.5f, 0.3f, 0.f));
 		texProgram.setUniformMatrix4f("modelview", modelview2);
 		texQuad[3]->render(texs[3]);
 	}
+
+	if (glutGet(GLUT_WINDOW_WIDTH) == 1280)
+		text.render("Points: " + std::to_string(puntuacion), glm::vec2(800, 110), 51, glm::vec4(1, 1, 1, 1));
+	else if (glutGet(GLUT_WINDOW_WIDTH) == 1920)
+		text.render("Points: " + std::to_string(puntuacion), glm::vec2(1300, 150), 65, glm::vec4(1, 1, 1, 1));
 }
 
 void Level2::initShaders()

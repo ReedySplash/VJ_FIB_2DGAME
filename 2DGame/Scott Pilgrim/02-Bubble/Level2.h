@@ -18,6 +18,8 @@
 #include "Ramona.h"
 #include "Hud.h"
 #include "Boss2.h"
+#include "Scene.h"
+#include "Text.h"
 
 
 class Level2
@@ -46,11 +48,12 @@ private:
 	glm::vec2 pos;
 
 	//Personajes dentro del juego
-	int personaje; //0-2  depende del persoanje (Hay 3)
+	int personaje, puntuacion; //0-2  depende del persoanje (Hay 3)
 	Player *player;
 	Kim *kim;
 	Ramona *ramona;
 	Hud hud;
+	Text text;
 
 	//Def enemies
 	Enemigo1 *enemigo1[3];
@@ -61,6 +64,7 @@ private:
 	bool atacando2[3];
 	bool atacando3[3];
 	bool atacando_boss;
+	bool muertos[10];
 	void initShaders();
 };
 

@@ -3,6 +3,8 @@
 #include <cmath>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/glm.hpp>
+#include "Text.h"
+#include "Scene.h"
 
 
 
@@ -35,7 +37,6 @@ void Hud::init(int person, ShaderProgram &shader, ShaderProgram& simple) {
 	texs[1].setMagFilter(GL_NEAREST);
 	texs[2].loadFromFile("images/Hud/d_left.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	texs[2].setMagFilter(GL_NEAREST);
-
 }
 
 void Hud::update(int deltaTime) {

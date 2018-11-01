@@ -19,6 +19,7 @@
 #include "Hud.h"
 #include "Boss1.h"
 #include "TileMap.h"
+#include "Text.h"
 
 
 class Level1
@@ -47,12 +48,13 @@ private:
 	glm::vec2 pos;
 	
 	//Personajes dentro del juego
-	int personaje; //0-2  depende del persoanje (Hay 3)
+	int personaje, puntuacion; //0-2  depende del persoanje (Hay 3)
 	Player *player;
 	Kim *kim;
 	Ramona *ramona;
 	Hud hud;
 	TileMap *map;
+	Text text;
 
 	//Def enemies
 	Enemigo1 *enemigo1[3];
@@ -62,6 +64,7 @@ private:
 	bool atacando1[3];
 	bool atacando2[3];
 	bool atacando3[3];
+	bool muertos[10];
 	bool atacando_boss;
 	void initShaders();
 };

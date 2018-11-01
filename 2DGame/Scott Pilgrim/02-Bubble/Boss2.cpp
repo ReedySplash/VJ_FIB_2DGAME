@@ -271,11 +271,11 @@ void Boss2::update(int deltaTime)
 		}
 	}
 
-	if (movimiento == 0 && sprite_enemigo->animation() == 7 && deltaTimeDeath >= 2000) {
+	if (movimiento == 0 && sprite_enemigo->animation() == 7 && deltaTimeDeath >= 2400) {
 		muerto = true;
 	}
 
-	else if (movimiento == 1 && sprite_enemigo_left->animation() == 7 && deltaTimeDeath >= 2000) {
+	else if (movimiento == 1 && sprite_enemigo_left->animation() == 7 && deltaTimeDeath >= 2400) {
 		muerto = true;
 	}
 
@@ -342,7 +342,7 @@ void Boss2::recibirPatadaIzquierda() {
 			//mciSendString(TEXT("stop sounds/SOUND/Punch.mp3"), NULL, 0, NULL);
 			mciSendString(TEXT("play sounds/SOUND/Punch.mp3 "), NULL, 0, NULL);
 			mciSendString(TEXT("setaudio sounds/SOUND/Punch.mp3 volume to 94"), NULL, 0, NULL);
-			vida -= 20;
+			vida -= 15;
 			++golpe;
 		}
 	}
@@ -382,7 +382,7 @@ void Boss2::recibirPatadaDerecha() {
 		if (golpe == 0) {
 			mciSendString(TEXT("play sounds/SOUND/Punch.mp3 "), NULL, 0, NULL);
 			mciSendString(TEXT("setaudio sounds/SOUND/Punch.mp3 volume to 94"), NULL, 0, NULL);
-			vida -= 20;
+			vida -= 15;
 			++golpe;
 		}
 	}
@@ -402,7 +402,7 @@ void Boss2::recibirPuñetazoArribaDerecha() {
 		if (golpe == 0) {
 			mciSendString(TEXT("play sounds/SOUND/Punch.mp3 "), NULL, 0, NULL);
 			mciSendString(TEXT("setaudio sounds/SOUND/Punch.mp3 volume to 94"), NULL, 0, NULL);
-			vida -= 25;
+			vida -= 20;
 			++golpe;
 		}
 	}
@@ -443,14 +443,14 @@ bool Boss2::isDying() {
 	return false;
 }
 bool Boss2::isDeath() {
-	if ((sprite_enemigo->animation() == 7 || sprite_enemigo_left->animation() == 7) && deltaTimeDeath > 2000 & vida <= 0) {
+	if ((sprite_enemigo->animation() == 7 || sprite_enemigo_left->animation() == 7) && deltaTimeDeath > 2400 & vida <= 0) {
 		return true;
 	}
 	return false;
 }
 
 bool Boss2::isCompletlyDeath() {
-	if ((sprite_enemigo->animation() == 7 || sprite_enemigo_left->animation() == 7) && deltaTimeDeath > 2000) return true;
+	if ((sprite_enemigo->animation() == 7 || sprite_enemigo_left->animation() == 7) && deltaTimeDeath > 2400) return true;
 	return false;
 }
 

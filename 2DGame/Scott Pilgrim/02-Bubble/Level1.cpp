@@ -46,7 +46,7 @@ void Level1::init(bool music, int pers)
 	glm::vec2 geom[2] = { glm::vec2(0.f, 0.f), glm::vec2(float(SCREEN_WIDTH), float(SCREEN_HEIGHT)) };
 	glm::vec2 texCoords[2];
 	texCoords[0] = glm::vec2(0, 0); texCoords[1] = glm::vec2(1, 1);
-
+	puntuacion = 0;
 	texQuad[0] = TexturedQuad::createTexturedQuad(geom, texCoords, simpleTexProgram);
 	texQuad[1] = TexturedQuad::createTexturedQuad(geom, texCoords, texProgram);
 	texQuad[2] = TexturedQuad::createTexturedQuad(geom, texCoords, texProgram);
@@ -59,9 +59,14 @@ void Level1::init(bool music, int pers)
 	texs[2].setMagFilter(GL_NEAREST);
 	texs[3].loadFromFile("images/LevelFinalized.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	texs[3].setMagFilter(GL_NEAREST);
-
 	personaje = pers;
 	hud.init(1, texProgram, simpleTexProgram);
+	if (!text.init("fonts/pixeldu.ttf"))
+		cout << "Could not load font!!!" << endl;
+
+	for (int i = 0; i < 10; ++i) {
+		muertos[i] = false;
+	}
 
 	//Init jugador, depende del elegido
 	if (personaje == 0) {
@@ -246,6 +251,9 @@ void Level1::update(int deltaTime)
 			enemigo3[i]->update(deltaTime);
 			if (!enemigo1[i]->isPunchingLeft() && !enemigo1[i]->isPunchingRight() && !enemigo1[i]->isRecuperando()) enemigo1[i]->moverse(pos.x, pos.y);
 			if (!enemigo2[i]->isPunchingLeft() && !enemigo2[i]->isPunchingRight() && !enemigo2[i]->isRecuperando()) enemigo2[i]->moverse(pos.x, pos.y);
+			if (enemigo1[i]->isCompletlyDeath()) muertos[i] = true;
+			if (enemigo2[i]->isCompletlyDeath()) muertos[i+3] = true;
+			if (enemigo3[i]->isCompletlyDeath()) muertos[i+6] = true;
 		}
 	}
 
@@ -271,12 +279,18 @@ void Level1::update(int deltaTime)
 	hud.update(deltaTime);
 
 	if (boss->isCompletlyDeath()) {
+		muertos[9] = true;
 		if (musica) {
 			mciSendString(TEXT("stop sounds/SOUND/boss.mp3"), NULL, 0, NULL);
 			mciSendString(TEXT("play sounds/SOUND/VictoryTheme.mp3 repeat"), NULL, 0, NULL);
 			mciSendString(TEXT("setaudio sounds/SOUND/VictoryTheme.mp3 volume to 98"), NULL, 0, NULL);
 		}
 	}
+	puntuacion = 0;
+	for (int i = 0; i < 9; ++i) {
+		if (muertos[i]) puntuacion += 10;
+	}
+	if (muertos[9]) puntuacion += 110;
 }
 
 void Level1::render()
@@ -502,6 +516,7 @@ void Level1::render()
 	
 	if (boss->getPosition().y >= y-20) boss->render();
 	hud.render();
+
 	modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
 	modelview2 = glm::translate(modelview2, glm::vec3(60.f, 50.f, 0.f));
 	modelview2 = glm::scale(modelview2, glm::vec3(0.8f, 0.8f, 0.f));
@@ -512,11 +527,16 @@ void Level1::render()
 
 	if (boss->isCompletlyDeath()) {
 		modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
-		modelview2 = glm::translate(modelview2, glm::vec3(160.f, 50.f, 0.f));
+		modelview2 = glm::translate(modelview2, glm::vec3(160.f, 100.f, 0.f));
 		modelview2 = glm::scale(modelview2, glm::vec3(0.5f, 0.3f, 0.f));
 		texProgram.setUniformMatrix4f("modelview", modelview2);
 		texQuad[3]->render(texs[3]);
 	}
+
+	if(glutGet(GLUT_WINDOW_WIDTH) == 1280)
+		text.render("Points: " + std::to_string(puntuacion), glm::vec2(800, 110), 51, glm::vec4(1, 1, 1, 1));
+	else if (glutGet(GLUT_WINDOW_WIDTH) == 1920)
+		text.render("Points: " + std::to_string(puntuacion), glm::vec2(1300, 150), 65, glm::vec4(1, 1, 1, 1));
 
 }
 
@@ -779,9 +799,9 @@ void Level1::comprobarAtaqueBoss(glm::vec2 posPlayer) {
 			if (rand() % 120 == 3) {
 				if (!isPunching_right && !isKicking_right && !boss->isDeath() && !boss->isRecuperando()) {
 					boss->atacarPuñetadosIzquierda();
-					if (personaje == 0) player->recibirPuñetazoDerecha(15);
-					else if (personaje == 1) kim->recibirPuñetazoDerecha(15);
-					else if (personaje == 2) ramona->recibirPuñetazoDerecha(15);
+					if (personaje == 0) player->recibirPuñetazoDerecha(20);
+					else if (personaje == 1) kim->recibirPuñetazoDerecha(20);
+					else if (personaje == 2) ramona->recibirPuñetazoDerecha(20);
 					atacando_boss = true;
 				}
 			}
@@ -791,9 +811,9 @@ void Level1::comprobarAtaqueBoss(glm::vec2 posPlayer) {
 			if (rand() % 100 == 3) {
 				if (!isPunching_left && !isKicking_left && !boss->isDeath() && !boss->isRecuperando()) {
 					boss->atacarPuñetazosDerecha();
-					if (personaje == 0) player->recibirPuñetazoIzquierda(15);
-					else if (personaje == 1) kim->recibirPuñetazoIzquierda(15);
-					else if (personaje == 2) ramona->recibirPuñetazoIzquierda(15);
+					if (personaje == 0) player->recibirPuñetazoIzquierda(20);
+					else if (personaje == 1) kim->recibirPuñetazoIzquierda(20);
+					else if (personaje == 2) ramona->recibirPuñetazoIzquierda(20);
 					atacando_boss = true;
 				}
 			}

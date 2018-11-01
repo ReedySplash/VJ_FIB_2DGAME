@@ -7,6 +7,8 @@
 #include "Quad.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include "Text.h"
+
 
 
 
@@ -22,11 +24,12 @@ public:
 
 private:
 	int personaje, currentTime;
-	float lifeInBarra,vidaInicial, currentVida;;
+	float lifeInBarra,vidaInicial, currentVida;
 	ShaderProgram texProgram, simpleProgram;
 	TexturedQuad *texQuad[3];
 	Texture texs[3];
 	Quad *quad;
+	Text text;
 };
 
 #endif
