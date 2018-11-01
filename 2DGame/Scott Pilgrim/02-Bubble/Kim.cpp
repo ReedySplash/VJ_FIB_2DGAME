@@ -415,8 +415,14 @@ void Kim::update(int deltaTime)
 	else {
 		if (movimiento == 13 || movimiento == 14 && (sprite_recibir->animation() == 2 || sprite_recibir_izq->animation() == 2)) {
 			if (sprite_recibir->animation() == 2 || sprite_recibir_izq->animation() == 2) recuperando += deltaTime;
-			if (sprite_recibir->animation() == 2 && movimiento == 14 && recuperando < 1300) posPlayer.x -= 1.5f;
-			else if (sprite_recibir_izq->animation() == 2 && movimiento == 13 && recuperando < 1300) posPlayer.x += 1.5f;
+			if (sprite_recibir->animation() == 2 && movimiento == 14 && recuperando < 1300 && posPlayer.x > 0) {
+				posPlayer.x -= 1.5f;
+				posLevel -= 1.5f;
+			}
+			else if (sprite_recibir_izq->animation() == 2 && movimiento == 13 && recuperando < 1300 && posPlayer.x < 580) {
+				posPlayer.x += 1.5f;
+				posLevel += 1.5f;
+			}
 			if (recuperando < 1300) posPlayer.y += 0.25;
 			else if (recuperando > 2160) {
 				if (movimiento == 13) movimiento = 0;

@@ -16,7 +16,7 @@ void ExtraMode::init(bool music) {
 	if (music) {
 		mciSendString(TEXT("stop sounds/SOUND/MenuTheme.mp3"), NULL, 0, NULL);
 		mciSendString(TEXT("play sounds/SOUND/ExtraTheme.mp3 repeat"), NULL, 0, NULL);
-		mciSendString(TEXT("setaudio sounds/SOUND/ExtraTheme.mp3 volume to 98"), NULL, 0, NULL);
+		mciSendString(TEXT("setaudio sounds/SOUND/ExtraTheme.mp3 volume to 99"), NULL, 0, NULL);
 	}
 	else {
 		mciSendString(TEXT("stop sounds/SOUND/MenuTheme.mp3"), NULL, 0, NULL);
