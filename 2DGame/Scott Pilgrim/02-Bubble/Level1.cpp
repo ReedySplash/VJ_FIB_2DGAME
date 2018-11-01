@@ -473,7 +473,7 @@ void Level1::render()
 			enemigo3[i]->render();
 		}
 	}
-	
+	if (boss->getPosition().y < y-20) boss->render();
 	if (personaje == 0) player->render();
 	else if (personaje == 1) kim->render();
 	else if (personaje == 2) ramona->render();
@@ -487,7 +487,7 @@ void Level1::render()
 		else if (enemigo3[i]->getPosition().y > y - 10 && !enemigo3[i]->isCompletlyDeath() && (enemigo3[i]->isDeath() || enemigo3[i]->isDying())) enemigo3[i]->render();
 	}
 	
-	boss->render();
+	if (boss->getPosition().y >= y-20) boss->render();
 	hud.render();
 	modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
 	modelview2 = glm::translate(modelview2, glm::vec3(60.f, 50.f, 0.f));

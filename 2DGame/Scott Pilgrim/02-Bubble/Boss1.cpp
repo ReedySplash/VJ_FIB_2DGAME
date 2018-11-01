@@ -12,7 +12,7 @@
 void Boss1::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 {
 	mapShader = shaderProgram;
-	vida = 500;
+	vida = 1500;
 	movimiento = 1;
 	spritesheet_enemigo.loadFromFile("images/Boss_level1/EnvyAdams.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite_enemigo = Sprite::createSprite(glm::ivec2(100, 180), glm::vec2(0.0107526882, 1), &spritesheet_enemigo, &shaderProgram);
