@@ -442,9 +442,18 @@ void Level1::render()
 	}
 
 	//sombra boss
-	if (!boss->isDying() && !boss->isCompletlyDeath()) {
+	
+	if ((!boss->isDying() && !boss->isCompletlyDeath() && !boss->isRecuperando()) || (!boss->isDying() && !boss->isCompletlyDeath() && boss->isRecibiendo())) {
 		modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
 		modelview2 = glm::translate(modelview2, glm::vec3(boss->getPosition().x + 20, boss->getPosition().y + 125, 0.f));
+		modelview2 = glm::scale(modelview2, glm::vec3(0.08f, 0.06f, 0.f));
+		texProgram.setUniformMatrix4f("modelview", modelview2);
+		texQuad[1]->render(texs[1]);
+	}
+
+	else if (boss->isRecuperando() && !boss->isRecibiendo()) {
+		modelview2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.f));
+		modelview2 = glm::translate(modelview2, glm::vec3(boss->getPosition().x + 20, boss->getPosition().y + 110, 0.f));
 		modelview2 = glm::scale(modelview2, glm::vec3(0.08f, 0.06f, 0.f));
 		texProgram.setUniformMatrix4f("modelview", modelview2);
 		texQuad[1]->render(texs[1]);

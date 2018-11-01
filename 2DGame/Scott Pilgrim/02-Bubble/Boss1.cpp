@@ -19,13 +19,13 @@ void Boss1::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	sprite_enemigo->setNumberAnimations(8);
 
 	//quieto
-	sprite_enemigo->setAnimationSpeed(0, 8);
+	sprite_enemigo->setAnimationSpeed(0, 9);
 	sprite_enemigo->addKeyframe(0, glm::vec2(0.0107526882 * 0, 0.f));
 	sprite_enemigo->addKeyframe(0, glm::vec2(0.0107526882 * 1, 0.f));
 	sprite_enemigo->addKeyframe(0, glm::vec2(0.0107526882 * 2, 0.f));
 	sprite_enemigo->addKeyframe(0, glm::vec2(0.0107526882 * 3, 0.f));
 	//caminar
-	sprite_enemigo->setAnimationSpeed(1, 8);
+	sprite_enemigo->setAnimationSpeed(1, 9);
 	sprite_enemigo->addKeyframe(1, glm::vec2(0.0107526882 * 4, 0.f));
 	sprite_enemigo->addKeyframe(1, glm::vec2(0.0107526882 * 5, 0.f));
 	sprite_enemigo->addKeyframe(1, glm::vec2(0.0107526882 * 6, 0.f));
@@ -33,7 +33,7 @@ void Boss1::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	sprite_enemigo->addKeyframe(1, glm::vec2(0.0107526882 * 8, 0.f));
 	sprite_enemigo->addKeyframe(1, glm::vec2(0.0107526882 * 9, 0.f));
 	//patada1
-	sprite_enemigo->setAnimationSpeed(2, 8);
+	sprite_enemigo->setAnimationSpeed(2, 10);
 	sprite_enemigo->addKeyframe(2, glm::vec2(0.0107526882 * 10, 0.f));
 	sprite_enemigo->addKeyframe(2, glm::vec2(0.0107526882 * 11, 0.f));
 	sprite_enemigo->addKeyframe(2, glm::vec2(0.0107526882 * 12, 0.f));
@@ -42,7 +42,7 @@ void Boss1::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	sprite_enemigo->addKeyframe(2, glm::vec2(0.0107526882 * 15, 0.f));
 	sprite_enemigo->addKeyframe(2, glm::vec2(0.0107526882 * 16, 0.f));
 	//patada2
-	sprite_enemigo->setAnimationSpeed(3, 8);
+	sprite_enemigo->setAnimationSpeed(3, 10);
 	sprite_enemigo->addKeyframe(3, glm::vec2(0.0107526882 * 17, 0.f));
 	sprite_enemigo->addKeyframe(3, glm::vec2(0.0107526882 * 18, 0.f));
 	sprite_enemigo->addKeyframe(3, glm::vec2(0.0107526882 * 19, 0.f));
@@ -50,7 +50,7 @@ void Boss1::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	sprite_enemigo->addKeyframe(3, glm::vec2(0.0107526882 * 21, 0.f));
 	sprite_enemigo->addKeyframe(3, glm::vec2(0.0107526882 * 22, 0.f));
 	//patada_arriba
-	sprite_enemigo->setAnimationSpeed(4, 8);
+	sprite_enemigo->setAnimationSpeed(4, 10);
 	sprite_enemigo->addKeyframe(4, glm::vec2(0.0107526882 * 23, 0.f));
 	sprite_enemigo->addKeyframe(4, glm::vec2(0.0107526882 * 24, 0.f));
 	sprite_enemigo->addKeyframe(4, glm::vec2(0.0107526882 * 25, 0.f));
@@ -61,13 +61,13 @@ void Boss1::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	sprite_enemigo->addKeyframe(4, glm::vec2(0.0107526882 * 30, 0.f));
 	sprite_enemigo->addKeyframe(4, glm::vec2(0.0107526882 * 31, 0.f));
 	//recbir_daño
-	sprite_enemigo->setAnimationSpeed(5, 6);
+	sprite_enemigo->setAnimationSpeed(5, 10);
 	sprite_enemigo->addKeyframe(5, glm::vec2(0.0107526882 * 32, 0.f));
 	sprite_enemigo->addKeyframe(5, glm::vec2(0.0107526882 * 33, 0.f));
 	sprite_enemigo->addKeyframe(5, glm::vec2(0.0107526882 * 34, 0.f));
 
 	//recibir y recuperar
-	sprite_enemigo->setAnimationSpeed(6, 6);
+	sprite_enemigo->setAnimationSpeed(6, 11);
 	sprite_enemigo->addKeyframe(6, glm::vec2(0.0107526882 * 35, 0.f));
 	sprite_enemigo->addKeyframe(6, glm::vec2(0.0107526882 * 36, 0.f));
 	sprite_enemigo->addKeyframe(6, glm::vec2(0.0107526882 * 37, 0.f));
@@ -184,7 +184,7 @@ void Boss1::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	sprite_enemigo_left->addKeyframe(5, glm::vec2(0.0107526882 * 58, 0.f));
 
 	//recibir y recuperar
-	sprite_enemigo_left->setAnimationSpeed(6, 10);
+	sprite_enemigo_left->setAnimationSpeed(6, 11);
 	sprite_enemigo_left->addKeyframe(6, glm::vec2(0.0107526882 * 57, 0.f));
 	sprite_enemigo_left->addKeyframe(6, glm::vec2(0.0107526882 * 56, 0.f));
 	sprite_enemigo_left->addKeyframe(6, glm::vec2(0.0107526882 * 55, 0.f));
@@ -510,6 +510,12 @@ void Boss1::turnToWalk() {
 bool Boss1::isRecuperando() {
 	if (sprite_enemigo_left->animation() == 6 && movimiento == 1) return true;
 	else if (sprite_enemigo->animation() == 6 && movimiento == 0) return true;
+	if (sprite_enemigo_left->animation() == 5 && movimiento == 1 && hitTime < 500) return true;
+	else if (sprite_enemigo->animation() == 5 && movimiento == 0 && hitTime < 500) return true;
+	return false;
+}
+
+bool Boss1::isRecibiendo() {
 	if (sprite_enemigo_left->animation() == 5 && movimiento == 1 && hitTime < 500) return true;
 	else if (sprite_enemigo->animation() == 5 && movimiento == 0 && hitTime < 500) return true;
 	return false;

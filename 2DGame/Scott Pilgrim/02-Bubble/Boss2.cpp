@@ -507,6 +507,12 @@ bool Boss2::isRecuperando() {
 	return false;
 }
 
+bool Boss2::isRecibiendo() {
+	if (sprite_enemigo_left->animation() == 5 && movimiento == 1 && hitTime < 500) return true;
+	else if (sprite_enemigo->animation() == 5 && movimiento == 0 && hitTime < 500) return true;
+	return false;
+}
+
 void Boss2::setGolpesto0() {
 	golpe = 0;
 }

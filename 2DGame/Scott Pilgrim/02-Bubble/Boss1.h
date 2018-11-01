@@ -31,6 +31,7 @@ public:
 	bool isPunchingRight();
 	bool isPunchingLeft();
 	bool isRecuperando();
+	bool isRecibiendo();
 	void turnToWalk();
 	void setGolpesto0();
 	void moverse(float xP, float yP);
