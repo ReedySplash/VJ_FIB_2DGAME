@@ -573,3 +573,89 @@ bool Enemigo3::isRecuperando() {
 void Enemigo3::setGolpesto0() {
 	golpe = 0;
 }
+
+void Enemigo3::moverse(float xP, float yP) {
+	if (vida > 0 && (sprite_enemigo->animation() == 0 || sprite_enemigo_left->animation() == 0 || sprite_enemigo->animation() == 1 || sprite_enemigo_left->animation() == 1)) {
+		if (estaCerca(xP, yP) && (sprite_enemigo->animation() == 0 || sprite_enemigo_left->animation() == 0 || sprite_enemigo->animation() == 1 || sprite_enemigo_left->animation() == 1)) {
+			if (sprite_enemigo->animation() == 0 || sprite_enemigo_left->animation() == 0) {
+				if (movimiento == 1) {
+					if (posPlx(xP) == 0) {
+						posPlayer.x -= 1;
+					}
+					else {
+						movimiento = 0;
+						posPlayer.x += 1;
+					}
+					if (posPly(yP) == 0) posPlayer.y -= 1;
+					else posPlayer.y += 1;
+					sprite_enemigo_left->changeAnimation(1);
+					sprite_enemigo->changeAnimation(1);
+				}
+
+				else {
+					if (posPlx(xP) == 0) {
+						movimiento = 1;
+						posPlayer.x -= 1;
+					}
+					else {
+						posPlayer.x += 1;
+					}
+					if (posPly(yP) == 0) posPlayer.y -= 1;
+					else posPlayer.y += 1;
+					sprite_enemigo_left->changeAnimation(1);
+					sprite_enemigo->changeAnimation(1);
+				}
+			}
+			else if (sprite_enemigo->animation() == 1 || sprite_enemigo_left->animation() == 1) {
+				if (movimiento == 1) {
+					if (posPlx(xP) == 0) {
+						posPlayer.x -= 1;
+					}
+					else {
+						movimiento = 0;
+						posPlayer.x += 1;
+					}
+					if (posPly(yP) == 0) posPlayer.y -= 1;
+					else posPlayer.y += 1;
+				}
+
+				else {
+					if (posPlx(xP) == 0) {
+						movimiento = 1;
+						posPlayer.x -= 1;
+					}
+					else {
+						posPlayer.x += 1;
+					}
+					if (posPly(yP) == 0) posPlayer.y -= 1;
+					else posPlayer.y += 1;
+				}
+			}
+		}
+		else if (!estaCerca(xP, yP) && (sprite_enemigo->animation() == 1 || sprite_enemigo_left->animation() == 1)) {
+			sprite_enemigo_left->changeAnimation(0);
+			sprite_enemigo->changeAnimation(0);
+		}
+	}
+}
+
+bool Enemigo3::estaCerca(float xP, float yP)
+{
+	return ((abs(xP - posPlayer.x) < 200) && (abs(yP - posPlayer.y) < 200) && (abs(yP - posPlayer.y) >= 3) && (abs(xP - posPlayer.x) >= 3));
+}
+
+int Enemigo3::posPlx(float xP)
+{
+	if (xP <= posPlayer.x) {
+		return 0;
+	}
+	else return 1;
+}
+
+int Enemigo3::posPly(float yP)
+{
+	if ((yP - 45) <= posPlayer.y) {
+		return 0;
+	}
+	else return 1;
+}

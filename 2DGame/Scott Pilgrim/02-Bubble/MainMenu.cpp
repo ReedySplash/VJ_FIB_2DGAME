@@ -20,7 +20,7 @@ void MainMenu::init(bool music) {
 	}
 	else {
 		mciSendString(TEXT("stop sounds/SOUND/MenuTheme.mp3"), NULL, 0, NULL);
-		mciSendString(TEXT("setaudio sounds/SOUND/MenuTheme.mp3 volume to 80"), NULL, 0, NULL);
+		mciSendString(TEXT("setaudio sounds/SOUND/MenuTheme.mp3 volume to 90"), NULL, 0, NULL);
 	}
 	musica = music;
 	currentTime = 0.0f;

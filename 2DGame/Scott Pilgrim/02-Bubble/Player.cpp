@@ -763,17 +763,17 @@ bool Player::isDead() {
 	return false;
 }
 
-void Player::recibirPuñetazoIzquierda() {
+void Player::recibirPuñetazoIzquierda(int vida_quitada) {
 	if (vida > 0 && movimiento != 13) {
 		if (sprite_recibir_izq->animation() != 0 && movimiento != 13) sprite_recibir_izq->changeAnimation(0);
 		movimiento = 13;
-		vida -= 10;
+		vida -= vida_quitada;
 		++hits;
 	}
 
 	else if (vida > 0 && movimiento == 13 && sprite_recibir_izq->animation() != 2) {
 		++hits;
-		vida -= 10;
+		vida -= vida_quitada;
 	}
 
 	if (vida > 0 && (movimiento == 13) && ((hits == 5 && level != 3) || (hits == 2 && level == 3))) {
@@ -784,7 +784,7 @@ void Player::recibirPuñetazoIzquierda() {
 
 }
 
-void Player::recibirPuñetazoDerecha() {
+void Player::recibirPuñetazoDerecha(int vida_quitada) {
 	if (vida > 0 && movimiento != 14) {
 		if (sprite_recibir->animation() != 0 && movimiento != 14) sprite_recibir->changeAnimation(0);
 		movimiento = 14;

@@ -32,8 +32,8 @@ public:
 	bool isRecuperando();
 	bool isJumping();
 	bool isDead();
-	void recibirPuñetazoDerecha();
-	void recibirPuñetazoIzquierda();
+	void recibirPuñetazoDerecha(int vida_quitada);
+	void recibirPuñetazoIzquierda(int vida_quitada);
 	void turnToWalk();
 	int getVida();
 	

@@ -483,12 +483,24 @@ void Boss1::atacarPuñetazosDerecha() {
 	if (sprite_enemigo->animation() != 2 && sprite_enemigo->animation() != 7 && sprite_enemigo->animation() != 6 && vida > 0) {
 		sprite_enemigo->changeAnimation(2);
 		movimiento = 0;
+		mciSendString(TEXT("play sounds/SOUND/Punch.mp3"), NULL, 0, NULL);
+		mciSendString(TEXT("setaudio sounds/SOUND/Punch.mp3 volume to 94"), NULL, 0, NULL);
+	}
+	else {
+		mciSendString(TEXT("play sounds/SOUND/Punch.mp3"), NULL, 0, NULL);
+		mciSendString(TEXT("setaudio sounds/SOUND/Punch.mp3 volume to 94"), NULL, 0, NULL);
 	}
 }
 void Boss1::atacarPuñetadosIzquierda() {
 	if (sprite_enemigo_left->animation() != 2 && sprite_enemigo_left->animation() != 7 && sprite_enemigo_left->animation() != 6 && vida > 0) {
 		sprite_enemigo_left->changeAnimation(2);
 		movimiento = 1;
+		mciSendString(TEXT("play sounds/SOUND/Punch.mp3"), NULL, 0, NULL);
+		mciSendString(TEXT("setaudio sounds/SOUND/Punch.mp3 volume to 94"), NULL, 0, NULL);
+	}
+	else {
+		mciSendString(TEXT("play sounds/SOUND/Punch.mp3"), NULL, 0, NULL);
+		mciSendString(TEXT("setaudio sounds/SOUND/Punch.mp3 volume to 94"), NULL, 0, NULL);
 	}
 }
 

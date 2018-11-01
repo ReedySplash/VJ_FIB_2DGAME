@@ -27,7 +27,7 @@ void Level2::init(bool music, int pers)
 	if (music) {
 		mciSendString(TEXT("stop sounds/SOUND/MenuTheme.mp3"), NULL, 0, NULL);
 		mciSendString(TEXT("play sounds/SOUND/Level2.mp3 repeat"), NULL, 0, NULL);
-		mciSendString(TEXT("setaudio sounds/SOUND/Level2.mp3 volume to 98"), NULL, 0, NULL);
+		mciSendString(TEXT("setaudio sounds/SOUND/Level2.mp3 volume to 94"), NULL, 0, NULL);
 	}
 	else {
 		//	mciSendString(TEXT("stop sounds/SOUND/FileSelect-SuperMario64MusicExtended.mp3"), NULL, 0, NULL);
@@ -87,7 +87,7 @@ void Level2::init(bool music, int pers)
 		enemigo2[i]->setPosition(glm::vec2((i + 1) * 150 + 800, 260));
 		enemigo3[i] = new Enemigo3();
 		enemigo3[i]->init(glm::ivec2(SCREEN_X, SCREEN_Y), simpleTexProgram);
-		enemigo3[i]->setPosition(glm::vec2((i + 1) * 150 + 1700, 260));
+		enemigo3[i]->setPosition(glm::vec2((i + 1) * 150 + 1850, 260));
 	}
 	
 	boss = new Boss2();
@@ -227,14 +227,18 @@ void Level2::update(int deltaTime)
 			comprobarLucha(i, pos, 1);
 			comprobarLucha(i, pos, 2);
 			comprobarLucha(i, pos, 3);
-			comprobarAtaqueEnemigo(i, pos, 1);
-			comprobarAtaqueEnemigo(i, pos, 2);
-			comprobarAtaqueEnemigo(i, pos, 3);
+			if (!enemigo1[i]->isDying()) comprobarAtaqueEnemigo(i, pos, 1);
+			if (!enemigo2[i]->isDying()) comprobarAtaqueEnemigo(i, pos, 2);
+			if (!enemigo3[i]->isDying()) comprobarAtaqueEnemigo(i, pos, 3);
+			if (enemigo1[i]->isDying()) atacando1[i] = false;
+			if (enemigo2[i]->isDying()) atacando2[i] = false;
+			if (enemigo3[i]->isDying()) atacando3[i] = false;
 			enemigo1[i]->update(deltaTime);
 			enemigo2[i]->update(deltaTime);
 			enemigo3[i]->update(deltaTime);
 			if (!enemigo1[i]->isPunchingLeft() && !enemigo1[i]->isPunchingRight() && !enemigo1[i]->isRecuperando()) enemigo1[i]->moverse(pos.x, pos.y);
-			if (i < 4 && !enemigo2[i]->isPunchingLeft() && !enemigo2[i]->isPunchingRight() && !enemigo2[i]->isRecuperando()) enemigo2[i]->moverse(pos.x, pos.y);
+			if (!enemigo2[i]->isPunchingLeft() && !enemigo2[i]->isPunchingRight() && !enemigo2[i]->isRecuperando()) enemigo2[i]->moverse(pos.x, pos.y);
+			if (!enemigo3[i]->isPunchingLeft() && !enemigo3[i]->isPunchingRight() && !enemigo3[i]->isRecuperando()) enemigo3[i]->moverse(pos.x, pos.y);
 		}
 	}
 
@@ -639,9 +643,10 @@ void Level2::comprobarLucha(int i, glm::vec2 posPlayer, int enemigo) {
 void Level2::comprobarAtaqueEnemigo(int i, glm::vec2 posPlayer, int enemigo) {
 	bool isPunching_left, isKicking_left, isPunching_right, isKicking_right;
 	bool isDead, isRecuperando;
-	if (enemigo == 1) { isDead = enemigo1[i]->isDeath(); isRecuperando = enemigo1[i]->isRecuperando(); }
-	if (enemigo == 2) { isDead = enemigo2[i]->isDeath(); isRecuperando = enemigo2[i]->isRecuperando(); }
-	if (enemigo == 3) { isDead = enemigo3[i]->isDeath(); isRecuperando = enemigo3[i]->isRecuperando(); }
+	int vida_quitada;
+	if (enemigo == 1) { isDead = enemigo1[i]->isDeath(); isRecuperando = enemigo1[i]->isRecuperando(); vida_quitada = 3; }
+	if (enemigo == 2) { isDead = enemigo2[i]->isDeath(); isRecuperando = enemigo2[i]->isRecuperando(); vida_quitada = 5; }
+	if (enemigo == 3) { isDead = enemigo3[i]->isDeath(); isRecuperando = enemigo3[i]->isRecuperando(); vida_quitada = 10; }
 	if (!isDead && !isRecuperando) {
 		if (personaje == 0) {
 			isPunching_left = player->isPunching_left();
@@ -671,9 +676,9 @@ void Level2::comprobarAtaqueEnemigo(int i, glm::vec2 posPlayer, int enemigo) {
 					if (enemigo == 1) enemigo1[i]->atacarPuñetadosIzquierda();
 					if (enemigo == 2) enemigo2[i]->atacarPuñetadosIzquierda();
 					if (enemigo == 3) enemigo3[i]->atacarPuñetadosIzquierda();
-					if (personaje == 0) player->recibirPuñetazoDerecha();
-					else if (personaje == 1) kim->recibirPuñetazoDerecha();
-					else if (personaje == 2) ramona->recibirPuñetazoDerecha();
+					if (personaje == 0) player->recibirPuñetazoDerecha(vida_quitada);
+					else if (personaje == 1) kim->recibirPuñetazoDerecha(vida_quitada);
+					else if (personaje == 2) ramona->recibirPuñetazoDerecha(vida_quitada);
 					if (enemigo == 1) atacando1[i] = true;
 					if (enemigo == 2) atacando2[i] = true;
 					if (enemigo == 3) atacando3[i] = true;
@@ -687,9 +692,9 @@ void Level2::comprobarAtaqueEnemigo(int i, glm::vec2 posPlayer, int enemigo) {
 					if (enemigo == 1) enemigo1[i]->atacarPuñetazosDerecha();
 					if (enemigo == 2) enemigo2[i]->atacarPuñetazosDerecha();
 					if (enemigo == 3) enemigo3[i]->atacarPuñetazosDerecha();
-					if (personaje == 0) player->recibirPuñetazoIzquierda();
-					else if (personaje == 1) kim->recibirPuñetazoIzquierda();
-					else if (personaje == 2) ramona->recibirPuñetazoIzquierda();
+					if (personaje == 0) player->recibirPuñetazoIzquierda(vida_quitada);
+					else if (personaje == 1) kim->recibirPuñetazoIzquierda(vida_quitada);
+					else if (personaje == 2) ramona->recibirPuñetazoIzquierda(vida_quitada);
 					if (enemigo == 1) atacando1[i] = true;
 					if (enemigo == 2) atacando2[i] = true;
 					if (enemigo == 3) atacando3[i] = true;
@@ -816,9 +821,9 @@ void Level2::comprobarAtaqueBoss(glm::vec2 posPlayer) {
 			if (rand() % 120 == 3) {
 				if (!isPunching_right && !isKicking_right && !boss->isDeath() && !boss->isRecuperando()) {
 					boss->atacarPuñetadosIzquierda();
-					if (personaje == 0) player->recibirPuñetazoDerecha();
-					else if (personaje == 1) kim->recibirPuñetazoDerecha();
-					else if (personaje == 2) ramona->recibirPuñetazoDerecha();
+					if (personaje == 0) player->recibirPuñetazoDerecha(15);
+					else if (personaje == 1) kim->recibirPuñetazoDerecha(15);
+					else if (personaje == 2) ramona->recibirPuñetazoDerecha(15);
 					atacando_boss = true;
 				}
 			}
@@ -828,9 +833,9 @@ void Level2::comprobarAtaqueBoss(glm::vec2 posPlayer) {
 			if (rand() % 100 == 3) {
 				if (!isPunching_left && !isKicking_left && !boss->isDeath() && !boss->isRecuperando()) {
 					boss->atacarPuñetazosDerecha();
-					if (personaje == 0) player->recibirPuñetazoIzquierda();
-					else if (personaje == 1) kim->recibirPuñetazoIzquierda();
-					else if (personaje == 2) ramona->recibirPuñetazoIzquierda();
+					if (personaje == 0) player->recibirPuñetazoIzquierda(15);
+					else if (personaje == 1) kim->recibirPuñetazoIzquierda(15);
+					else if (personaje == 2) ramona->recibirPuñetazoIzquierda(15);
 					atacando_boss = true;
 				}
 			}

@@ -734,17 +734,17 @@ bool Kim::isDead() {
 	return false;
 }
 
-void Kim::recibirPuñetazoIzquierda() {
+void Kim::recibirPuñetazoIzquierda(int vida_quitada) {
 	if (vida > 0 && movimiento != 13) {
 		if (movimiento != 13) sprite_recibir_izq->changeAnimation(0);
 		movimiento = 13;
-		vida -= 10;
+		vida -= vida_quitada;
 		++hits;
 	}
 
 	else if (vida > 0 && movimiento == 13) {
 		++hits;
-		vida -= 10;
+		vida -= vida_quitada;
 	}
 
 	if (vida > 0 && (movimiento == 13) && hits == 5) {
@@ -755,7 +755,7 @@ void Kim::recibirPuñetazoIzquierda() {
 
 }
 
-void Kim::recibirPuñetazoDerecha() {
+void Kim::recibirPuñetazoDerecha(int vida_quitada) {
 	if (vida > 0 && movimiento != 14) {
 		if (sprite_recibir->animation() != 0 && movimiento != 14) sprite_recibir->changeAnimation(0);
 		movimiento = 14;

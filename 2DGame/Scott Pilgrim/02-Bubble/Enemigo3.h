@@ -35,7 +35,10 @@ public:
 	bool isRecuperando();
 	void turnToWalk();
 	void setGolpesto0();
-
+	void moverse(float xP, float yP);
+	bool estaCerca(float xP, float yP);
+	int posPlx(float xP);
+	int posPly(float yP);
 
 private:
 	bool bJumping;

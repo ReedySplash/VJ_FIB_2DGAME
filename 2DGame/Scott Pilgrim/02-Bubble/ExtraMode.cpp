@@ -178,22 +178,22 @@ void ExtraMode::comprobarLucha() {
 
 	if ((posPlayer.x <= (posEnemy.x + 10) && (posPlayer.x >= posEnemy.x - 40)) && (posPlayer.y <= posEnemy.y + 10 && posPlayer.y >= posEnemy.y - 10)) {
 		if (isPunching_right|| isKicking_right || isPunching_up_right || isPunching_up_right) {
-			ramona->recibirPuñetazoIzquierda();
+			ramona->recibirPuñetazoIzquierda(3);
 			atacando = true;
 		}
 		else if (isPunching_left_ra || isKicking_left_ra || isPunching_up_left_ra || isPunching_up_left_ra) {
-			player->recibirPuñetazoDerecha();
+			player->recibirPuñetazoDerecha(3);
 			atacando_ra = true;
 		}
 	}
 
 	else if ((posPlayer.x >= posEnemy.x - 10 && posPlayer.x < posEnemy.x + 40) && (posPlayer.y <= posEnemy.y + 10 && posPlayer.y >= posEnemy.y - 10)) {
 		if (isPunching_left || isKicking_left || isPunching_up_left || isPunching_up_left) {
-			ramona->recibirPuñetazoDerecha();
+			ramona->recibirPuñetazoDerecha(3);
 			atacando = true;
 		}
 		else if (isPunching_right_ra || isKicking_right_ra || isPunching_up_right_ra || isPunching_up_right_ra) {
-			player->recibirPuñetazoIzquierda();
+			player->recibirPuñetazoIzquierda(3);
 			atacando_ra = true;
 		}
 	}
